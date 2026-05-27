@@ -1,0 +1,1210 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Національна академія аграрних наук України — НААН</title>
+  <meta name="description" content="Національна академія аграрних наук України — науково-методичний і координаційний центр з наукових проблем розвитку АПК. Шість відділень, понад 40 науково-дослідних установ." />
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="Національна академія аграрних наук України" />
+  <meta property="og:description" content="Науково-методичний і координаційний центр з наукових проблем розвитку АПК." />
+  <meta property="og:image" content="https://images.unsplash.com/photo-1500382017468-9049fed747ef?w=1200&q=80" />
+  <meta property="og:locale" content="uk_UA" />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://naas.gov.ua/" />
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Національна академія аграрних наук України" />
+  <meta name="twitter:description" content="Науково-методичний і координаційний центр з наукових проблем розвитку АПК." />
+  <meta name="twitter:image" content="https://images.unsplash.com/photo-1500382017468-9049fed747ef?w=1200&q=80" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            naas: {
+              green: '#1B5E20',
+              'green-dark': '#0F3D13',
+              'green-light': '#2E7D32',
+              gold: '#FFB300',
+              'gold-dark': '#E69E00',
+              bg: '#F8F9FA',
+              ink: '#1A1A1A',
+              muted: '#5F6368',
+              line: '#E5E7EB',
+            }
+          },
+          fontFamily: { sans: ['Inter', 'system-ui', 'sans-serif'] },
+        }
+      }
+    }
+  </script>
+
+  <style>
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Inter', system-ui, sans-serif; color: #1A1A1A; }
+    .container-x { max-width: 1280px; margin: 0 auto; padding-left: 1.5rem; padding-right: 1.5rem; }
+    @media (max-width: 640px) { .container-x { padding-left: 1rem; padding-right: 1rem; } }
+
+    /* Hero slider */
+    .slide { display: none; }
+    .slide.active { display: block; animation: fade .6s ease; }
+    @keyframes fade { from { opacity: 0; } to { opacity: 1; } }
+
+    /* Mega-menu */
+    .nav-item { position: relative; }
+    .mega { display: none; position: absolute; left: 0; top: 100%; min-width: 280px; }
+    .nav-item:hover > .mega, .nav-item:focus-within > .mega { display: block; }
+    .mega-wide { left: -120px; min-width: 520px; }
+
+    /* High contrast mode */
+    body.hc { background: #000 !important; color: #fff !important; }
+    body.hc * { background-color: transparent !important; color: #fff !important; border-color: #FFD500 !important; }
+    body.hc a, body.hc .accent { color: #FFD500 !important; }
+    body.hc img { filter: grayscale(1) contrast(1.4); }
+
+    /* Logos grayscale hover */
+    .logo-mark { filter: grayscale(1) opacity(.55); transition: filter .25s ease, transform .25s ease; }
+    .logo-mark:hover { filter: grayscale(0) opacity(1); transform: translateY(-2px); }
+
+    /* Subtle focus ring for keyboard a11y */
+    a:focus-visible, button:focus-visible, input:focus-visible {
+      outline: 2px solid #FFB300; outline-offset: 2px; border-radius: 4px;
+    }
+
+    /* Horizontal scroll snap for publications */
+    .pub-scroller { scroll-snap-type: x mandatory; }
+    .pub-scroller > * { scroll-snap-align: start; }
+    .pub-scroller::-webkit-scrollbar { height: 6px; }
+    .pub-scroller::-webkit-scrollbar-thumb { background: #c7cdd1; border-radius: 3px; }
+
+    /* News card hover */
+    .card-hover { transition: transform .2s ease, border-color .2s ease; }
+    .card-hover:hover { transform: translateY(-2px); border-color: #1B5E20; }
+
+    /* Trident watermark in footer */
+    .trident { opacity: .08; }
+  </style>
+</head>
+<body class="bg-white text-naas-ink antialiased">
+
+  <!-- ==================== 1. UPPER UTILITY BAR ==================== -->
+  <div class="bg-naas-green text-white text-[12.5px]">
+    <div class="container-x flex items-center justify-between h-9">
+      <div class="flex items-center gap-5 min-w-0">
+        <span class="hidden sm:inline-flex items-center gap-1.5">
+          <i data-lucide="map-pin" class="w-3.5 h-3.5"></i>
+          вул. Михайла Омеляновича-Павленка, 9, Київ, 01010
+        </span>
+        <span class="inline-flex items-center gap-1.5">
+          <i data-lucide="phone" class="w-3.5 h-3.5"></i>
+          <a href="tel:+380442398540" class="hover:text-naas-gold">+38 (044) 239-85-40</a>
+        </span>
+      </div>
+      <div class="flex items-center gap-1 sm:gap-3">
+        <div class="hidden md:flex items-center gap-2">
+          <a href="#" aria-label="Facebook" class="hover:text-naas-gold p-1"><svg viewBox="0 0 24 24" class="w-3.5 h-3.5" fill="currentColor" aria-hidden="true"><path d="M13.5 22v-8h2.7l.4-3.1h-3.1V8.9c0-.9.25-1.5 1.55-1.5H16.7V4.6c-.29-.04-1.3-.12-2.48-.12-2.46 0-4.14 1.5-4.14 4.25v2.17H7.4V14h2.68v8h3.42Z"/></svg></a>
+          <a href="#" aria-label="YouTube" class="hover:text-naas-gold p-1"><svg viewBox="0 0 24 24" class="w-3.5 h-3.5" fill="currentColor" aria-hidden="true"><path d="M23.5 6.5a3 3 0 0 0-2.1-2.12C19.5 4 12 4 12 4s-7.5 0-9.4.38A3 3 0 0 0 .5 6.5C.12 8.4.12 12 .12 12s0 3.6.38 5.5a3 3 0 0 0 2.1 2.12C4.5 20 12 20 12 20s7.5 0 9.4-.38a3 3 0 0 0 2.1-2.12c.38-1.9.38-5.5.38-5.5s0-3.6-.38-5.5ZM9.75 15.5v-7L15.8 12l-6.05 3.5Z"/></svg></a>
+          <a href="#" aria-label="LinkedIn" class="hover:text-naas-gold p-1"><svg viewBox="0 0 24 24" class="w-3.5 h-3.5" fill="currentColor" aria-hidden="true"><path d="M20.5 3h-17A1.5 1.5 0 0 0 2 4.5v15A1.5 1.5 0 0 0 3.5 21h17A1.5 1.5 0 0 0 22 19.5v-15A1.5 1.5 0 0 0 20.5 3ZM8 18H5.5v-8H8v8ZM6.75 8.9a1.45 1.45 0 1 1 0-2.9 1.45 1.45 0 0 1 0 2.9ZM18.5 18H16v-4.3c0-1.03-.02-2.35-1.43-2.35-1.43 0-1.65 1.12-1.65 2.27V18h-2.5v-8h2.4v1.1h.04c.34-.63 1.16-1.3 2.39-1.3 2.56 0 3.03 1.68 3.03 3.87V18Z"/></svg></a>
+          <span class="w-px h-3.5 bg-white/30 mx-1"></span>
+        </div>
+        <div class="flex items-center gap-1" role="group" aria-label="Перемикач мови">
+          <button data-lang="uk" class="lang-btn px-1.5 py-0.5 rounded font-semibold bg-white/15">UA</button>
+          <button data-lang="en" class="lang-btn px-1.5 py-0.5 rounded text-white/70 hover:text-white">EN</button>
+        </div>
+        <button id="a11yToggle" class="hidden sm:inline-flex items-center gap-1.5 px-2 py-1 rounded hover:bg-white/10" aria-pressed="false" title="Версія для людей з вадами зору">
+          <i data-lucide="eye" class="w-3.5 h-3.5"></i>
+          <span class="hidden lg:inline">Для людей з вадами зору</span>
+          <span class="lg:hidden">Доступність</span>
+        </button>
+        <button aria-label="Пошук" class="p-1 hover:text-naas-gold"><i data-lucide="search" class="w-3.5 h-3.5"></i></button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== 2. MAIN HEADER ==================== -->
+  <header class="sticky top-0 z-40 bg-white border-b border-naas-line shadow-[0_1px_0_rgba(0,0,0,0.02)]">
+    <div class="container-x flex items-center justify-between h-[88px] gap-6">
+      <!-- Logo + title -->
+      <a href="#" class="flex items-center gap-3 min-w-0 group">
+        <!-- Crest: stylized wheat shield in deep green + gold -->
+        <span class="shrink-0 w-12 h-12 rounded-md bg-naas-green flex items-center justify-center" aria-hidden="true">
+          <svg viewBox="0 0 32 32" class="w-7 h-7" fill="none" stroke="#FFB300" stroke-width="1.6" stroke-linecap="round">
+            <path d="M16 4v24" />
+            <path d="M16 9c-3 0-5 2-5 4M16 9c3 0 5 2 5 4" />
+            <path d="M16 15c-3 0-5 2-5 4M16 15c3 0 5 2 5 4" />
+            <path d="M16 21c-3 0-5 2-5 4M16 21c3 0 5 2 5 4" />
+          </svg>
+        </span>
+        <span class="min-w-0">
+          <span class="block text-[15px] sm:text-[16px] font-bold leading-tight text-naas-ink truncate-2 max-w-[420px]">Національна академія аграрних наук України</span>
+          <span class="block text-[11.5px] sm:text-[12.5px] text-naas-muted leading-tight mt-0.5 hidden sm:block">Науково-методичний і координаційний центр з наукових проблем розвитку АПК</span>
+        </span>
+      </a>
+
+      <!-- Mega-menu -->
+      <nav class="hidden lg:flex items-center gap-1" aria-label="Головне меню">
+        <!-- Академія -->
+        <div class="nav-item">
+          <button class="flex items-center gap-1 px-3 py-2 text-[14px] font-medium text-naas-ink hover:text-naas-green rounded">
+            Академія <i data-lucide="chevron-down" class="w-3.5 h-3.5"></i>
+          </button>
+          <div class="mega bg-white border border-naas-line rounded-lg p-3 mt-1 shadow-md">
+            <ul class="grid grid-cols-1 gap-0.5 text-[14px]">
+              <li><a class="block px-3 py-2 rounded hover:bg-naas-bg hover:text-naas-green" href="#">Про НААН</a></li>
+              <li><a class="block px-3 py-2 rounded hover:bg-naas-bg hover:text-naas-green" href="#">Структура</a></li>
+              <li><a class="block px-3 py-2 rounded hover:bg-naas-bg hover:text-naas-green" href="#">Президія</a></li>
+              <li><a class="block px-3 py-2 rounded hover:bg-naas-bg hover:text-naas-green" href="#">Загальні збори</a></li>
+              <li><a class="block px-3 py-2 rounded hover:bg-naas-bg hover:text-naas-green" href="#">Історія</a></li>
+              <li><a class="block px-3 py-2 rounded hover:bg-naas-bg hover:text-naas-green" href="#">Статут</a></li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Відділення -->
+        <div class="nav-item">
+          <button class="flex items-center gap-1 px-3 py-2 text-[14px] font-medium text-naas-ink hover:text-naas-green rounded">
+            Відділення <i data-lucide="chevron-down" class="w-3.5 h-3.5"></i>
+          </button>
+          <div class="mega mega-wide bg-white border border-naas-line rounded-lg p-4 mt-1 shadow-md">
+            <div class="text-[11px] uppercase tracking-wider text-naas-muted font-semibold mb-2 px-2">Шість відділень академії</div>
+            <ul class="grid grid-cols-2 gap-0.5 text-[14px]">
+              <li><a class="block px-3 py-2 rounded hover:bg-naas-bg hover:text-naas-green" href="#">Землеробства, меліорації та механізації</a></li>
+              <li><a class="block px-3 py-2 rounded hover:bg-naas-bg hover:text-naas-green" href="#">Рослинництва</a></li>
+              <li><a class="block px-3 py-2 rounded hover:bg-naas-bg hover:text-naas-green" href="#">Зоотехнії</a></li>
+              <li><a class="block px-3 py-2 rounded hover:bg-naas-bg hover:text-naas-green" href="#">Ветеринарної медицини</a></li>
+              <li><a class="block px-3 py-2 rounded hover:bg-naas-bg hover:text-naas-green" href="#">Аграрної економіки і продовольства</a></li>
+              <li><a class="block px-3 py-2 rounded hover:bg-naas-bg hover:text-naas-green" href="#">Наукового забезпечення трансферу інновацій</a></li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Наукова діяльність -->
+        <div class="nav-item">
+          <button class="flex items-center gap-1 px-3 py-2 text-[14px] font-medium text-naas-ink hover:text-naas-green rounded">
+            Наукова діяльність <i data-lucide="chevron-down" class="w-3.5 h-3.5"></i>
+          </button>
+          <div class="mega bg-white border border-naas-line rounded-lg p-3 mt-1 shadow-md">
+            <ul class="text-[14px] grid gap-0.5">
+              <li><a class="block px-3 py-2 rounded hover:bg-naas-bg hover:text-naas-green" href="#">Дослідження</a></li>
+              <li><a class="block px-3 py-2 rounded hover:bg-naas-bg hover:text-naas-green" href="#">Видання</a></li>
+              <li><a class="block px-3 py-2 rounded hover:bg-naas-bg hover:text-naas-green" href="#">Конференції</a></li>
+              <li><a class="block px-3 py-2 rounded hover:bg-naas-bg hover:text-naas-green" href="#">Захисти дисертацій</a></li>
+              <li><a class="block px-3 py-2 rounded hover:bg-naas-bg hover:text-naas-green" href="#">Конкурси академіків</a></li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Партнерство -->
+        <div class="nav-item">
+          <button class="flex items-center gap-1 px-3 py-2 text-[14px] font-medium text-naas-ink hover:text-naas-green rounded">
+            Партнерство <i data-lucide="chevron-down" class="w-3.5 h-3.5"></i>
+          </button>
+          <div class="mega bg-white border border-naas-line rounded-lg p-3 mt-1 shadow-md">
+            <ul class="text-[14px] grid gap-0.5">
+              <li><a class="block px-3 py-2 rounded hover:bg-naas-bg hover:text-naas-green" href="#">Міжнародна співпраця</a></li>
+              <li><a class="block px-3 py-2 rounded hover:bg-naas-bg hover:text-naas-green" href="#">Гранти</a></li>
+              <li><a class="block px-3 py-2 rounded hover:bg-naas-bg hover:text-naas-green" href="#">Для бізнесу</a></li>
+              <li><a class="block px-3 py-2 rounded hover:bg-naas-bg hover:text-naas-green" href="#">Трансфер технологій</a></li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Інформація -->
+        <div class="nav-item">
+          <button class="flex items-center gap-1 px-3 py-2 text-[14px] font-medium text-naas-ink hover:text-naas-green rounded">
+            Інформація <i data-lucide="chevron-down" class="w-3.5 h-3.5"></i>
+          </button>
+          <div class="mega bg-white border border-naas-line rounded-lg p-3 mt-1 shadow-md" style="left:auto; right:0;">
+            <ul class="text-[14px] grid gap-0.5">
+              <li><a class="block px-3 py-2 rounded hover:bg-naas-bg hover:text-naas-green" href="#">Новини</a></li>
+              <li><a class="block px-3 py-2 rounded hover:bg-naas-bg hover:text-naas-green" href="#">Оголошення</a></li>
+              <li><a class="block px-3 py-2 rounded hover:bg-naas-bg hover:text-naas-green" href="#">Публічна інформація</a></li>
+              <li><a class="block px-3 py-2 rounded hover:bg-naas-bg hover:text-naas-green" href="#">Контакти</a></li>
+              <li><a class="block px-3 py-2 rounded hover:bg-naas-bg hover:text-naas-green" href="#">Закупівлі</a></li>
+            </ul>
+          </div>
+        </div>
+      </nav>
+
+      <!-- Mobile menu trigger -->
+      <button id="mobileMenuBtn" class="lg:hidden p-2 rounded hover:bg-naas-bg" aria-label="Відкрити меню">
+        <i data-lucide="menu" class="w-6 h-6"></i>
+      </button>
+    </div>
+
+    <!-- Mobile menu (collapsed by default) -->
+    <div id="mobileMenu" class="lg:hidden hidden border-t border-naas-line bg-white">
+      <nav class="container-x py-3 grid gap-1 text-[15px]">
+        <details class="group"><summary class="flex justify-between items-center py-2.5 cursor-pointer font-medium">Академія <i data-lucide="chevron-down" class="w-4 h-4 group-open:rotate-180 transition"></i></summary><div class="pl-3 pb-2 grid gap-1 text-[14px] text-naas-muted"><a href="#">Про НААН</a><a href="#">Структура</a><a href="#">Президія</a><a href="#">Загальні збори</a><a href="#">Історія</a><a href="#">Статут</a></div></details>
+        <details class="group"><summary class="flex justify-between items-center py-2.5 cursor-pointer font-medium">Відділення <i data-lucide="chevron-down" class="w-4 h-4 group-open:rotate-180 transition"></i></summary><div class="pl-3 pb-2 grid gap-1 text-[14px] text-naas-muted"><a href="#">Землеробства, меліорації та механізації</a><a href="#">Рослинництва</a><a href="#">Зоотехнії</a><a href="#">Ветеринарної медицини</a><a href="#">Аграрної економіки і продовольства</a><a href="#">Наукового забезпечення трансферу інновацій</a></div></details>
+        <details class="group"><summary class="flex justify-between items-center py-2.5 cursor-pointer font-medium">Наукова діяльність <i data-lucide="chevron-down" class="w-4 h-4 group-open:rotate-180 transition"></i></summary><div class="pl-3 pb-2 grid gap-1 text-[14px] text-naas-muted"><a href="#">Дослідження</a><a href="#">Видання</a><a href="#">Конференції</a><a href="#">Захисти дисертацій</a><a href="#">Конкурси академіків</a></div></details>
+        <details class="group"><summary class="flex justify-between items-center py-2.5 cursor-pointer font-medium">Партнерство <i data-lucide="chevron-down" class="w-4 h-4 group-open:rotate-180 transition"></i></summary><div class="pl-3 pb-2 grid gap-1 text-[14px] text-naas-muted"><a href="#">Міжнародна співпраця</a><a href="#">Гранти</a><a href="#">Для бізнесу</a><a href="#">Трансфер технологій</a></div></details>
+        <details class="group"><summary class="flex justify-between items-center py-2.5 cursor-pointer font-medium">Інформація <i data-lucide="chevron-down" class="w-4 h-4 group-open:rotate-180 transition"></i></summary><div class="pl-3 pb-2 grid gap-1 text-[14px] text-naas-muted"><a href="#">Новини</a><a href="#">Оголошення</a><a href="#">Публічна інформація</a><a href="#">Контакти</a><a href="#">Закупівлі</a></div></details>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+
+    <!-- ==================== 3. HERO SLIDER ==================== -->
+    <section class="relative bg-naas-bg" aria-label="Головні новини">
+      <div class="relative h-[420px] sm:h-[460px] lg:h-[480px] overflow-hidden">
+        <!-- Slide 1 -->
+        <article class="slide active absolute inset-0">
+          <img src="https://images.unsplash.com/photo-1605000797499-95a51c5269ae?w=1920&q=80" alt="Виставка сільськогосподарської техніки на AGRO CHALLENGE 2026" class="w-full h-full object-cover" />
+          <div class="absolute inset-0 bg-gradient-to-r from-black/70 via-black/40 to-transparent"></div>
+          <div class="absolute inset-0 flex items-center">
+            <div class="container-x">
+              <div class="max-w-2xl text-white">
+                <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded bg-naas-gold text-naas-ink text-[11px] font-semibold uppercase tracking-wide">
+                  <i data-lucide="megaphone" class="w-3 h-3"></i> Подія
+                </span>
+                <h2 class="mt-4 text-3xl sm:text-4xl lg:text-5xl font-bold leading-tight">НААН на AGRO CHALLENGE 2026</h2>
+                <p class="mt-3 text-base sm:text-lg text-white/90 max-w-xl">Делегація академії та провідних інститутів представить новітні розробки в галузі насінництва, селекції та цифрового землеробства на головній агровиставці року.</p>
+                <a href="#" class="mt-6 inline-flex items-center gap-2 bg-white text-naas-green font-semibold px-5 py-3 rounded-lg hover:bg-naas-gold hover:text-naas-ink transition">
+                  Програма участі <i data-lucide="arrow-right" class="w-4 h-4"></i>
+                </a>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <!-- Slide 2 -->
+        <article class="slide absolute inset-0">
+          <img src="https://images.unsplash.com/photo-1574323347407-f5e1ad6d020b?w=1920&q=80" alt="Поле озимої пшениці нових сортів української селекції" class="w-full h-full object-cover" />
+          <div class="absolute inset-0 bg-gradient-to-r from-black/70 via-black/40 to-transparent"></div>
+          <div class="absolute inset-0 flex items-center">
+            <div class="container-x">
+              <div class="max-w-2xl text-white">
+                <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded bg-naas-gold text-naas-ink text-[11px] font-semibold uppercase tracking-wide">
+                  <i data-lucide="sprout" class="w-3 h-3"></i> Наукове досягнення
+                </span>
+                <h2 class="mt-4 text-3xl sm:text-4xl lg:text-5xl font-bold leading-tight">Нові сорти озимої пшениці від ННЦ «Інститут землеробства»</h2>
+                <p class="mt-3 text-base sm:text-lg text-white/90 max-w-xl">Зареєстровано чотири нових високоврожайних і посухостійких сорти, адаптованих до зон Лісостепу та Степу України.</p>
+                <a href="#" class="mt-6 inline-flex items-center gap-2 bg-white text-naas-green font-semibold px-5 py-3 rounded-lg hover:bg-naas-gold hover:text-naas-ink transition">
+                  Деталі дослідження <i data-lucide="arrow-right" class="w-4 h-4"></i>
+                </a>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <!-- Slide 3 -->
+        <article class="slide absolute inset-0">
+          <img src="https://images.unsplash.com/photo-1532094349884-543bc11b234d?w=1920&q=80" alt="Науковці в лабораторії науково-дослідної установи" class="w-full h-full object-cover" />
+          <div class="absolute inset-0 bg-gradient-to-r from-black/70 via-black/40 to-transparent"></div>
+          <div class="absolute inset-0 flex items-center">
+            <div class="container-x">
+              <div class="max-w-2xl text-white">
+                <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded bg-naas-gold text-naas-ink text-[11px] font-semibold uppercase tracking-wide">
+                  <i data-lucide="award" class="w-3 h-3"></i> Оголошення
+                </span>
+                <h2 class="mt-4 text-3xl sm:text-4xl lg:text-5xl font-bold leading-tight">Конкурс на заміщення вакансій академіків НААН 2026</h2>
+                <p class="mt-3 text-base sm:text-lg text-white/90 max-w-xl">Прийом документів триває до 15 серпня 2026 року. Опубліковано перелік відкритих вакансій по всіх шести відділеннях академії.</p>
+                <a href="#" class="mt-6 inline-flex items-center gap-2 bg-white text-naas-green font-semibold px-5 py-3 rounded-lg hover:bg-naas-gold hover:text-naas-ink transition">
+                  Умови та документи <i data-lucide="arrow-right" class="w-4 h-4"></i>
+                </a>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <!-- Arrows -->
+        <button id="prevSlide" aria-label="Попередній слайд" class="hidden md:flex absolute left-4 top-1/2 -translate-y-1/2 w-11 h-11 items-center justify-center rounded-full bg-white/80 hover:bg-white text-naas-ink">
+          <i data-lucide="chevron-left" class="w-5 h-5"></i>
+        </button>
+        <button id="nextSlide" aria-label="Наступний слайд" class="hidden md:flex absolute right-4 top-1/2 -translate-y-1/2 w-11 h-11 items-center justify-center rounded-full bg-white/80 hover:bg-white text-naas-ink">
+          <i data-lucide="chevron-right" class="w-5 h-5"></i>
+        </button>
+      </div>
+
+      <!-- Dots -->
+      <div class="container-x relative">
+        <div class="flex justify-center md:justify-end gap-2 py-4" role="tablist" aria-label="Слайди">
+          <button class="dot w-8 h-1.5 rounded-full bg-naas-green" data-i="0" aria-label="Слайд 1"></button>
+          <button class="dot w-8 h-1.5 rounded-full bg-naas-line" data-i="1" aria-label="Слайд 2"></button>
+          <button class="dot w-8 h-1.5 rounded-full bg-naas-line" data-i="2" aria-label="Слайд 3"></button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== 4. QUICK ACCESS GRID ==================== -->
+    <section class="py-12 sm:py-16 bg-white">
+      <div class="container-x">
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+          <a href="#" class="group card-hover block bg-white border border-naas-line rounded-xl p-6">
+            <span class="inline-flex w-11 h-11 rounded-lg bg-naas-green/8 text-naas-green items-center justify-center" style="background-color:rgba(27,94,32,.08)"><i data-lucide="layout-grid" class="w-5 h-5"></i></span>
+            <h3 class="mt-4 text-lg font-bold">Шість відділень</h3>
+            <p class="mt-1.5 text-[14px] text-naas-muted leading-snug">Структура академії та її наукові напрямки</p>
+            <span class="mt-5 inline-flex items-center gap-1.5 text-[13px] font-semibold text-naas-green">
+              Перейти <i data-lucide="arrow-right" class="w-3.5 h-3.5 group-hover:translate-x-0.5 transition"></i>
+            </span>
+          </a>
+
+          <a href="#" class="group card-hover block bg-white border border-naas-line rounded-xl p-6">
+            <span class="inline-flex w-11 h-11 rounded-lg items-center justify-center" style="background-color:rgba(27,94,32,.08); color:#1B5E20"><i data-lucide="building-2" class="w-5 h-5"></i></span>
+            <h3 class="mt-4 text-lg font-bold">Наукові інститути</h3>
+            <p class="mt-1.5 text-[14px] text-naas-muted leading-snug">Понад 40 науково-дослідних установ по всій Україні</p>
+            <span class="mt-5 inline-flex items-center gap-1.5 text-[13px] font-semibold text-naas-green">
+              Перейти <i data-lucide="arrow-right" class="w-3.5 h-3.5 group-hover:translate-x-0.5 transition"></i>
+            </span>
+          </a>
+
+          <a href="#" class="group card-hover block bg-white border border-naas-line rounded-xl p-6">
+            <span class="inline-flex w-11 h-11 rounded-lg items-center justify-center" style="background-color:rgba(27,94,32,.08); color:#1B5E20"><i data-lucide="book-open" class="w-5 h-5"></i></span>
+            <h3 class="mt-4 text-lg font-bold">Наукові видання</h3>
+            <p class="mt-1.5 text-[14px] text-naas-muted leading-snug">Журнали, монографії, патенти НААН</p>
+            <span class="mt-5 inline-flex items-center gap-1.5 text-[13px] font-semibold text-naas-green">
+              Перейти <i data-lucide="arrow-right" class="w-3.5 h-3.5 group-hover:translate-x-0.5 transition"></i>
+            </span>
+          </a>
+
+          <a href="#" class="group card-hover block bg-white border border-naas-line rounded-xl p-6">
+            <span class="inline-flex w-11 h-11 rounded-lg items-center justify-center" style="background-color:rgba(27,94,32,.08); color:#1B5E20"><i data-lucide="globe-2" class="w-5 h-5"></i></span>
+            <h3 class="mt-4 text-lg font-bold">Міжнародна співпраця</h3>
+            <p class="mt-1.5 text-[14px] text-naas-muted leading-snug">Гранти, спільні проєкти, закордонні партнери</p>
+            <span class="mt-5 inline-flex items-center gap-1.5 text-[13px] font-semibold text-naas-green">
+              Перейти <i data-lucide="arrow-right" class="w-3.5 h-3.5 group-hover:translate-x-0.5 transition"></i>
+            </span>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== 5. SIX DIVISIONS ==================== -->
+    <section class="py-12 sm:py-16 bg-naas-bg">
+      <div class="container-x">
+        <div class="flex items-end justify-between gap-4 mb-8">
+          <div>
+            <span class="text-[12px] font-semibold uppercase tracking-wider text-naas-green">Структура</span>
+            <h2 class="mt-1 text-2xl sm:text-3xl lg:text-[34px] font-bold leading-tight">Шість відділень академії</h2>
+            <p class="mt-2 text-naas-muted max-w-2xl text-[15px]">Кожне відділення координує мережу науково-дослідних установ за галузевим принципом і очолюється академіком-секретарем.</p>
+          </div>
+          <a href="#" class="hidden sm:inline-flex items-center gap-1.5 text-naas-green font-semibold text-[14px] hover:underline">Усі відділення <i data-lucide="arrow-right" class="w-4 h-4"></i></a>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+          <!-- Division card template repeated 6 times with specific content -->
+          <!-- 1 -->
+          <article class="card-hover bg-white rounded-xl border border-naas-line overflow-hidden">
+            <div class="relative h-44">
+              <img src="https://images.unsplash.com/photo-1625246333195-78d9c38ad449?w=900&q=80" alt="Поле та сільськогосподарська техніка" class="w-full h-full object-cover" />
+              <span class="absolute top-3 left-3 bg-white/95 text-naas-ink text-[11px] font-semibold px-2 py-1 rounded">8 інститутів</span>
+            </div>
+            <div class="p-5">
+              <h3 class="text-[16px] font-bold leading-snug">Відділення землеробства, меліорації та механізації</h3>
+              <p class="mt-1.5 text-[13px] text-naas-muted">Академік-секретар: акад. В. Ф. Камінський</p>
+              <p class="mt-3 text-[14px] leading-relaxed">Системи землеробства, ґрунтознавство, меліорація, агроінженерія та цифрове рільництво.</p>
+              <a href="#" class="mt-4 inline-flex items-center gap-1.5 text-naas-green font-semibold text-[13px] hover:underline">Детальніше <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i></a>
+            </div>
+          </article>
+          <!-- 2 -->
+          <article class="card-hover bg-white rounded-xl border border-naas-line overflow-hidden">
+            <div class="relative h-44">
+              <img src="https://images.unsplash.com/photo-1464226184884-fa280b87c399?w=900&q=80" alt="Поле зернових, селекція рослин" class="w-full h-full object-cover" />
+              <span class="absolute top-3 left-3 bg-white/95 text-naas-ink text-[11px] font-semibold px-2 py-1 rounded">9 інститутів</span>
+            </div>
+            <div class="p-5">
+              <h3 class="text-[16px] font-bold leading-snug">Відділення рослинництва</h3>
+              <p class="mt-1.5 text-[13px] text-naas-muted">Академік-секретар: акад. М. Д. Безуглий</p>
+              <p class="mt-3 text-[14px] leading-relaxed">Селекція та насінництво, захист рослин, овочівництво, садівництво й виноградарство.</p>
+              <a href="#" class="mt-4 inline-flex items-center gap-1.5 text-naas-green font-semibold text-[13px] hover:underline">Детальніше <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i></a>
+            </div>
+          </article>
+          <!-- 3 -->
+          <article class="card-hover bg-white rounded-xl border border-naas-line overflow-hidden">
+            <div class="relative h-44">
+              <img src="https://images.unsplash.com/photo-1500595046743-cd271d694d30?w=900&q=80" alt="Велика рогата худоба на пасовищі" class="w-full h-full object-cover" />
+              <span class="absolute top-3 left-3 bg-white/95 text-naas-ink text-[11px] font-semibold px-2 py-1 rounded">6 інститутів</span>
+            </div>
+            <div class="p-5">
+              <h3 class="text-[16px] font-bold leading-snug">Відділення зоотехнії</h3>
+              <p class="mt-1.5 text-[13px] text-naas-muted">Академік-секретар: акад. М. В. Гладій</p>
+              <p class="mt-3 text-[14px] leading-relaxed">Генетика і розведення сільгосптварин, годівля, технології молочного й м'ясного виробництва.</p>
+              <a href="#" class="mt-4 inline-flex items-center gap-1.5 text-naas-green font-semibold text-[13px] hover:underline">Детальніше <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i></a>
+            </div>
+          </article>
+          <!-- 4 -->
+          <article class="card-hover bg-white rounded-xl border border-naas-line overflow-hidden">
+            <div class="relative h-44">
+              <img src="https://images.unsplash.com/photo-1582719471384-894fbb16e074?w=900&q=80" alt="Лабораторія ветеринарної медицини" class="w-full h-full object-cover" />
+              <span class="absolute top-3 left-3 bg-white/95 text-naas-ink text-[11px] font-semibold px-2 py-1 rounded">5 інститутів</span>
+            </div>
+            <div class="p-5">
+              <h3 class="text-[16px] font-bold leading-snug">Відділення ветеринарної медицини</h3>
+              <p class="mt-1.5 text-[13px] text-naas-muted">Академік-секретар: акад. М. І. Цвіліховський</p>
+              <p class="mt-3 text-[14px] leading-relaxed">Епізоотологія, ветеринарна вірусологія, фармакологія, діагностика хвороб тварин.</p>
+              <a href="#" class="mt-4 inline-flex items-center gap-1.5 text-naas-green font-semibold text-[13px] hover:underline">Детальніше <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i></a>
+            </div>
+          </article>
+          <!-- 5 -->
+          <article class="card-hover bg-white rounded-xl border border-naas-line overflow-hidden">
+            <div class="relative h-44">
+              <img src="https://images.unsplash.com/photo-1542838132-92c53300491e?w=900&q=80" alt="Ринок свіжих овочів та фруктів" class="w-full h-full object-cover" />
+              <span class="absolute top-3 left-3 bg-white/95 text-naas-ink text-[11px] font-semibold px-2 py-1 rounded">7 інститутів</span>
+            </div>
+            <div class="p-5">
+              <h3 class="text-[16px] font-bold leading-snug">Відділення аграрної економіки і продовольства</h3>
+              <p class="mt-1.5 text-[13px] text-naas-muted">Академік-секретар: акад. Ю. О. Лупенко</p>
+              <p class="mt-3 text-[14px] leading-relaxed">Економіка АПК, продовольча безпека, аграрна політика, переробні технології.</p>
+              <a href="#" class="mt-4 inline-flex items-center gap-1.5 text-naas-green font-semibold text-[13px] hover:underline">Детальніше <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i></a>
+            </div>
+          </article>
+          <!-- 6 -->
+          <article class="card-hover bg-white rounded-xl border border-naas-line overflow-hidden">
+            <div class="relative h-44">
+              <img src="https://images.unsplash.com/photo-1581092918056-0c4c3acd3789?w=900&q=80" alt="Передача наукових технологій фермерам" class="w-full h-full object-cover" />
+              <span class="absolute top-3 left-3 bg-white/95 text-naas-ink text-[11px] font-semibold px-2 py-1 rounded">7 установ</span>
+            </div>
+            <div class="p-5">
+              <h3 class="text-[16px] font-bold leading-snug">Відділення наукового забезпечення трансферу інновацій</h3>
+              <p class="mt-1.5 text-[13px] text-naas-muted">Академік-секретар: акад. О. М. Жуков</p>
+              <p class="mt-3 text-[14px] leading-relaxed">Дорадництво, впровадження розробок у виробництво, регіональні центри інновацій.</p>
+              <a href="#" class="mt-4 inline-flex items-center gap-1.5 text-naas-green font-semibold text-[13px] hover:underline">Детальніше <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i></a>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== 6. NEWS + EVENTS ==================== -->
+    <section class="py-12 sm:py-16 bg-white">
+      <div class="container-x grid grid-cols-1 lg:grid-cols-3 gap-10">
+        <!-- News -->
+        <div class="lg:col-span-2">
+          <div class="flex items-end justify-between gap-4 mb-5">
+            <div>
+              <span class="text-[12px] font-semibold uppercase tracking-wider text-naas-green">Новини</span>
+              <h2 class="mt-1 text-2xl sm:text-3xl font-bold leading-tight">Останні новини</h2>
+            </div>
+            <a href="#" class="text-naas-green font-semibold text-[14px] hover:underline whitespace-nowrap">Усі новини →</a>
+          </div>
+
+          <!-- Filter chips -->
+          <div class="flex flex-wrap gap-2 mb-6" role="tablist" aria-label="Фільтр новин">
+            <button class="chip px-3 py-1.5 rounded-full text-[13px] font-medium bg-naas-green text-white">Усі</button>
+            <button class="chip px-3 py-1.5 rounded-full text-[13px] font-medium bg-naas-bg text-naas-ink hover:bg-naas-line">Землеробство</button>
+            <button class="chip px-3 py-1.5 rounded-full text-[13px] font-medium bg-naas-bg text-naas-ink hover:bg-naas-line">Тваринництво</button>
+            <button class="chip px-3 py-1.5 rounded-full text-[13px] font-medium bg-naas-bg text-naas-ink hover:bg-naas-line">Ветмедицина</button>
+            <button class="chip px-3 py-1.5 rounded-full text-[13px] font-medium bg-naas-bg text-naas-ink hover:bg-naas-line">Економіка</button>
+            <button class="chip px-3 py-1.5 rounded-full text-[13px] font-medium bg-naas-bg text-naas-ink hover:bg-naas-line">Видання</button>
+          </div>
+
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
+            <!-- News card 1 -->
+            <article class="card-hover group rounded-xl border border-naas-line overflow-hidden bg-white">
+              <a href="#" class="block">
+                <div class="aspect-[16/10] overflow-hidden bg-naas-bg">
+                  <img src="https://images.unsplash.com/photo-1625246333195-78d9c38ad449?w=800&q=80" alt="Польові випробування нових сортів пшениці" class="w-full h-full object-cover group-hover:scale-[1.02] transition" />
+                </div>
+                <div class="p-4">
+                  <div class="flex items-center gap-2 text-[12px] text-naas-muted">
+                    <span class="inline-flex px-2 py-0.5 rounded bg-naas-green/10 text-naas-green font-semibold" style="background-color:rgba(27,94,32,.1)">Землеробство</span>
+                    <time datetime="2026-05-22">22 травня 2026</time>
+                  </div>
+                  <h3 class="mt-2 font-bold text-[16px] leading-snug">Завершено польові випробування нової лінії пшениці «Київська-32»</h3>
+                  <p class="mt-1.5 text-[13.5px] text-naas-muted leading-snug line-clamp-2">Урожайність у середньому на 14% вища за стандарт; передано до Державного реєстру сортів рослин України.</p>
+                </div>
+              </a>
+            </article>
+            <!-- News card 2 -->
+            <article class="card-hover group rounded-xl border border-naas-line overflow-hidden bg-white">
+              <a href="#" class="block">
+                <div class="aspect-[16/10] overflow-hidden bg-naas-bg">
+                  <img src="https://images.unsplash.com/photo-1500595046743-cd271d694d30?w=800&q=80" alt="Молочна ферма" class="w-full h-full object-cover group-hover:scale-[1.02] transition" />
+                </div>
+                <div class="p-4">
+                  <div class="flex items-center gap-2 text-[12px] text-naas-muted">
+                    <span class="inline-flex px-2 py-0.5 rounded bg-naas-green/10 text-naas-green font-semibold" style="background-color:rgba(27,94,32,.1)">Тваринництво</span>
+                    <time datetime="2026-05-19">19 травня 2026</time>
+                  </div>
+                  <h3 class="mt-2 font-bold text-[16px] leading-snug">Українська чорно-ряба молочна порода: підсумки селекційної роботи 2025 року</h3>
+                  <p class="mt-1.5 text-[13.5px] text-naas-muted leading-snug line-clamp-2">Середній надій на корову зріс до 7 240 кг; до племінного реєстру внесено 12 нових ліній биків.</p>
+                </div>
+              </a>
+            </article>
+            <!-- News card 3 -->
+            <article class="card-hover group rounded-xl border border-naas-line overflow-hidden bg-white">
+              <a href="#" class="block">
+                <div class="aspect-[16/10] overflow-hidden bg-naas-bg">
+                  <img src="https://images.unsplash.com/photo-1532187863486-abf9dbad1b69?w=800&q=80" alt="Ветеринарна лабораторія" class="w-full h-full object-cover group-hover:scale-[1.02] transition" />
+                </div>
+                <div class="p-4">
+                  <div class="flex items-center gap-2 text-[12px] text-naas-muted">
+                    <span class="inline-flex px-2 py-0.5 rounded bg-naas-green/10 text-naas-green font-semibold" style="background-color:rgba(27,94,32,.1)">Ветмедицина</span>
+                    <time datetime="2026-05-17">17 травня 2026</time>
+                  </div>
+                  <h3 class="mt-2 font-bold text-[16px] leading-snug">ІВМ НААН зареєстрував нову вакцину проти африканської чуми свиней</h3>
+                  <p class="mt-1.5 text-[13.5px] text-naas-muted leading-snug line-clamp-2">Препарат пройшов трирічні клінічні випробування на базі дослідних господарств у трьох областях.</p>
+                </div>
+              </a>
+            </article>
+            <!-- News card 4 -->
+            <article class="card-hover group rounded-xl border border-naas-line overflow-hidden bg-white">
+              <a href="#" class="block">
+                <div class="aspect-[16/10] overflow-hidden bg-naas-bg">
+                  <img src="https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?w=800&q=80" alt="Аналіз економічних показників АПК" class="w-full h-full object-cover group-hover:scale-[1.02] transition" />
+                </div>
+                <div class="p-4">
+                  <div class="flex items-center gap-2 text-[12px] text-naas-muted">
+                    <span class="inline-flex px-2 py-0.5 rounded bg-naas-green/10 text-naas-green font-semibold" style="background-color:rgba(27,94,32,.1)">Економіка</span>
+                    <time datetime="2026-05-14">14 травня 2026</time>
+                  </div>
+                  <h3 class="mt-2 font-bold text-[16px] leading-snug">Аналіз стратегії продовольчої безпеки України до 2030 року</h3>
+                  <p class="mt-1.5 text-[13.5px] text-naas-muted leading-snug line-clamp-2">ННЦ «ІАЕ» представив монографію з оцінкою впливу війни на агросектор та сценарієм відновлення.</p>
+                </div>
+              </a>
+            </article>
+            <!-- News card 5 -->
+            <article class="card-hover group rounded-xl border border-naas-line overflow-hidden bg-white">
+              <a href="#" class="block">
+                <div class="aspect-[16/10] overflow-hidden bg-naas-bg">
+                  <img src="https://images.unsplash.com/photo-1457369804613-52c61a468e7d?w=800&q=80" alt="Стос наукових журналів" class="w-full h-full object-cover group-hover:scale-[1.02] transition" />
+                </div>
+                <div class="p-4">
+                  <div class="flex items-center gap-2 text-[12px] text-naas-muted">
+                    <span class="inline-flex px-2 py-0.5 rounded bg-naas-green/10 text-naas-green font-semibold" style="background-color:rgba(27,94,32,.1)">Видання</span>
+                    <time datetime="2026-05-10">10 травня 2026</time>
+                  </div>
+                  <h3 class="mt-2 font-bold text-[16px] leading-snug">Журнал «Вісник аграрної науки» індексовано у Scopus (Q2)</h3>
+                  <p class="mt-1.5 text-[13.5px] text-naas-muted leading-snug line-clamp-2">Підвищення квартилю відбулося завдяки зростанню цитованості статей за останні три роки.</p>
+                </div>
+              </a>
+            </article>
+            <!-- News card 6 -->
+            <article class="card-hover group rounded-xl border border-naas-line overflow-hidden bg-white">
+              <a href="#" class="block">
+                <div class="aspect-[16/10] overflow-hidden bg-naas-bg">
+                  <img src="https://images.unsplash.com/photo-1464226184884-fa280b87c399?w=800&q=80" alt="Поле зернових" class="w-full h-full object-cover group-hover:scale-[1.02] transition" />
+                </div>
+                <div class="p-4">
+                  <div class="flex items-center gap-2 text-[12px] text-naas-muted">
+                    <span class="inline-flex px-2 py-0.5 rounded bg-naas-green/10 text-naas-green font-semibold" style="background-color:rgba(27,94,32,.1)">Землеробство</span>
+                    <time datetime="2026-05-06">6 травня 2026</time>
+                  </div>
+                  <h3 class="mt-2 font-bold text-[16px] leading-snug">Міжнародний проєкт із селекції олійних культур стартував у Полтаві</h3>
+                  <p class="mt-1.5 text-[13.5px] text-naas-muted leading-snug line-clamp-2">Партнери — ICARDA та Інститут олійних культур НААН. Бюджет програми — 2,4 млн євро на три роки.</p>
+                </div>
+              </a>
+            </article>
+          </div>
+        </div>
+
+        <!-- Events sidebar -->
+        <aside>
+          <div class="flex items-end justify-between gap-4 mb-5">
+            <div>
+              <span class="text-[12px] font-semibold uppercase tracking-wider text-naas-green">Календар</span>
+              <h2 class="mt-1 text-2xl sm:text-3xl font-bold leading-tight">Найближчі події</h2>
+            </div>
+          </div>
+
+          <ol class="space-y-3">
+            <!-- event -->
+            <li class="border border-naas-line rounded-xl p-4 card-hover bg-white">
+              <a href="#" class="flex gap-4">
+                <div class="shrink-0 w-14 text-center rounded-lg bg-naas-green text-white py-2">
+                  <div class="text-[11px] uppercase tracking-wide font-semibold">Чер</div>
+                  <div class="text-2xl font-bold leading-none">04</div>
+                </div>
+                <div class="min-w-0">
+                  <h3 class="font-bold text-[14.5px] leading-snug">Загальні збори НААН: підсумки 2025 року</h3>
+                  <p class="mt-1 text-[12.5px] text-naas-muted flex items-center gap-1"><i data-lucide="map-pin" class="w-3 h-3"></i> Київ · Президія НААН</p>
+                </div>
+              </a>
+            </li>
+            <li class="border border-naas-line rounded-xl p-4 card-hover bg-white">
+              <a href="#" class="flex gap-4">
+                <div class="shrink-0 w-14 text-center rounded-lg bg-naas-green text-white py-2">
+                  <div class="text-[11px] uppercase tracking-wide font-semibold">Чер</div>
+                  <div class="text-2xl font-bold leading-none">11</div>
+                </div>
+                <div class="min-w-0">
+                  <h3 class="font-bold text-[14.5px] leading-snug">Конференція «Цифрова трансформація АПК-2026»</h3>
+                  <p class="mt-1 text-[12.5px] text-naas-muted flex items-center gap-1"><i data-lucide="map-pin" class="w-3 h-3"></i> Київ · НУБіП · онлайн</p>
+                </div>
+              </a>
+            </li>
+            <li class="border border-naas-line rounded-xl p-4 card-hover bg-white">
+              <a href="#" class="flex gap-4">
+                <div class="shrink-0 w-14 text-center rounded-lg bg-naas-green text-white py-2">
+                  <div class="text-[11px] uppercase tracking-wide font-semibold">Чер</div>
+                  <div class="text-2xl font-bold leading-none">18</div>
+                </div>
+                <div class="min-w-0">
+                  <h3 class="font-bold text-[14.5px] leading-snug">День поля: огляд нових сортів сої та кукурудзи</h3>
+                  <p class="mt-1 text-[12.5px] text-naas-muted flex items-center gap-1"><i data-lucide="map-pin" class="w-3 h-3"></i> Полтавська область · с. Степове</p>
+                </div>
+              </a>
+            </li>
+            <li class="border border-naas-line rounded-xl p-4 card-hover bg-white">
+              <a href="#" class="flex gap-4">
+                <div class="shrink-0 w-14 text-center rounded-lg bg-naas-green text-white py-2">
+                  <div class="text-[11px] uppercase tracking-wide font-semibold">Лип</div>
+                  <div class="text-2xl font-bold leading-none">02</div>
+                </div>
+                <div class="min-w-0">
+                  <h3 class="font-bold text-[14.5px] leading-snug">Захист дисертацій у спецраді Д 27.821.01</h3>
+                  <p class="mt-1 text-[12.5px] text-naas-muted flex items-center gap-1"><i data-lucide="map-pin" class="w-3 h-3"></i> ННЦ «Інститут землеробства»</p>
+                </div>
+              </a>
+            </li>
+            <li class="border border-naas-line rounded-xl p-4 card-hover bg-white">
+              <a href="#" class="flex gap-4">
+                <div class="shrink-0 w-14 text-center rounded-lg bg-naas-green text-white py-2">
+                  <div class="text-[11px] uppercase tracking-wide font-semibold">Лип</div>
+                  <div class="text-2xl font-bold leading-none">15</div>
+                </div>
+                <div class="min-w-0">
+                  <h3 class="font-bold text-[14.5px] leading-snug">Симпозіум «Ґрунти України: відновлення та охорона»</h3>
+                  <p class="mt-1 text-[12.5px] text-naas-muted flex items-center gap-1"><i data-lucide="map-pin" class="w-3 h-3"></i> Харків · ННЦ «ІҐА ім. О. Н. Соколовського»</p>
+                </div>
+              </a>
+            </li>
+          </ol>
+
+          <a href="#" class="mt-5 inline-flex items-center gap-1.5 text-naas-green font-semibold text-[14px] hover:underline">Календар подій <i data-lucide="arrow-right" class="w-4 h-4"></i></a>
+        </aside>
+      </div>
+    </section>
+
+    <!-- ==================== 7. PUBLICATIONS STRIP ==================== -->
+    <section class="py-12 sm:py-16 bg-naas-bg">
+      <div class="container-x">
+        <div class="flex items-end justify-between gap-4 mb-6">
+          <div>
+            <span class="text-[12px] font-semibold uppercase tracking-wider text-naas-green">Видання</span>
+            <h2 class="mt-1 text-2xl sm:text-3xl font-bold leading-tight">Наукові видання НААН</h2>
+            <p class="mt-2 text-naas-muted text-[15px] max-w-2xl">Фахові журнали академії та її установ. Більшість видань — з відкритим доступом та індексацією у міжнародних базах.</p>
+          </div>
+          <div class="hidden sm:flex gap-2">
+            <button id="pubPrev" aria-label="Прокрутити ліворуч" class="w-10 h-10 rounded-full border border-naas-line hover:border-naas-green hover:text-naas-green flex items-center justify-center"><i data-lucide="chevron-left" class="w-4 h-4"></i></button>
+            <button id="pubNext" aria-label="Прокрутити праворуч" class="w-10 h-10 rounded-full border border-naas-line hover:border-naas-green hover:text-naas-green flex items-center justify-center"><i data-lucide="chevron-right" class="w-4 h-4"></i></button>
+          </div>
+        </div>
+
+        <div id="pubScroller" class="pub-scroller flex gap-4 overflow-x-auto pb-3 -mx-6 px-6">
+          <!-- 7 journal cards -->
+          <!-- 1 -->
+          <article class="shrink-0 w-[220px] bg-white rounded-xl border border-naas-line overflow-hidden card-hover">
+            <div class="h-[260px] relative" style="background: linear-gradient(180deg,#1B5E20 0%, #2E7D32 100%);">
+              <div class="absolute inset-0 p-4 flex flex-col justify-between text-white">
+                <div>
+                  <div class="text-[10px] uppercase tracking-widest font-semibold opacity-80">Вісник</div>
+                  <div class="text-[22px] font-bold leading-tight mt-1">Аграрна наука</div>
+                </div>
+                <div class="text-[11px] opacity-90">Том 102 · №&nbsp;3</div>
+              </div>
+            </div>
+            <div class="p-4">
+              <h3 class="font-bold text-[13.5px] leading-snug">Вісник аграрної науки</h3>
+              <div class="mt-1 text-[11.5px] text-naas-muted">Травень 2026 · DOI:&nbsp;10.31073/agrovisnyk</div>
+              <span class="mt-3 inline-flex items-center gap-1 px-2 py-0.5 rounded bg-naas-gold/20 text-[11px] font-semibold text-naas-ink" style="background-color:rgba(255,179,0,.2)"><i data-lucide="unlock" class="w-3 h-3"></i> Відкритий доступ</span>
+            </div>
+          </article>
+          <!-- 2 -->
+          <article class="shrink-0 w-[220px] bg-white rounded-xl border border-naas-line overflow-hidden card-hover">
+            <div class="h-[260px] relative" style="background: linear-gradient(180deg,#0F3D13 0%, #1B5E20 100%);">
+              <div class="absolute inset-0 p-4 flex flex-col justify-between text-white">
+                <div>
+                  <div class="text-[10px] uppercase tracking-widest font-semibold opacity-80">Журнал</div>
+                  <div class="text-[22px] font-bold leading-tight mt-1">Землеробство</div>
+                </div>
+                <div class="text-[11px] opacity-90">Випуск 1 · 2026</div>
+              </div>
+            </div>
+            <div class="p-4">
+              <h3 class="font-bold text-[13.5px] leading-snug">Землеробство (міжвідомчий)</h3>
+              <div class="mt-1 text-[11.5px] text-naas-muted">Квітень 2026 · DOI:&nbsp;10.31073/zem</div>
+              <span class="mt-3 inline-flex items-center gap-1 px-2 py-0.5 rounded bg-naas-gold/20 text-[11px] font-semibold text-naas-ink" style="background-color:rgba(255,179,0,.2)"><i data-lucide="unlock" class="w-3 h-3"></i> Відкритий доступ</span>
+            </div>
+          </article>
+          <!-- 3 -->
+          <article class="shrink-0 w-[220px] bg-white rounded-xl border border-naas-line overflow-hidden card-hover">
+            <div class="h-[260px] relative" style="background: linear-gradient(180deg,#2E7D32 0%, #43A047 100%);">
+              <div class="absolute inset-0 p-4 flex flex-col justify-between text-white">
+                <div>
+                  <div class="text-[10px] uppercase tracking-widest font-semibold opacity-80">Журнал</div>
+                  <div class="text-[22px] font-bold leading-tight mt-1">Захист рослин</div>
+                </div>
+                <div class="text-[11px] opacity-90">Том 22 · №&nbsp;2</div>
+              </div>
+            </div>
+            <div class="p-4">
+              <h3 class="font-bold text-[13.5px] leading-snug">Захист і карантин рослин</h3>
+              <div class="mt-1 text-[11.5px] text-naas-muted">Квітень 2026 · DOI:&nbsp;10.31073/zkr</div>
+              <span class="mt-3 inline-flex items-center gap-1 px-2 py-0.5 rounded bg-naas-gold/20 text-[11px] font-semibold text-naas-ink" style="background-color:rgba(255,179,0,.2)"><i data-lucide="unlock" class="w-3 h-3"></i> Відкритий доступ</span>
+            </div>
+          </article>
+          <!-- 4 -->
+          <article class="shrink-0 w-[220px] bg-white rounded-xl border border-naas-line overflow-hidden card-hover">
+            <div class="h-[260px] relative" style="background: linear-gradient(180deg,#1B5E20 0%, #386641 100%);">
+              <div class="absolute inset-0 p-4 flex flex-col justify-between text-white">
+                <div>
+                  <div class="text-[10px] uppercase tracking-widest font-semibold opacity-80">Журнал</div>
+                  <div class="text-[22px] font-bold leading-tight mt-1">Тваринництво</div>
+                </div>
+                <div class="text-[11px] opacity-90">Випуск 4 · 2025</div>
+              </div>
+            </div>
+            <div class="p-4">
+              <h3 class="font-bold text-[13.5px] leading-snug">Розведення і генетика тварин</h3>
+              <div class="mt-1 text-[11.5px] text-naas-muted">Березень 2026 · DOI:&nbsp;10.31073/rgt</div>
+              <span class="mt-3 inline-flex items-center gap-1 px-2 py-0.5 rounded bg-naas-line text-[11px] font-semibold text-naas-muted"><i data-lucide="lock" class="w-3 h-3"></i> За підпискою</span>
+            </div>
+          </article>
+          <!-- 5 -->
+          <article class="shrink-0 w-[220px] bg-white rounded-xl border border-naas-line overflow-hidden card-hover">
+            <div class="h-[260px] relative" style="background: linear-gradient(180deg,#0F3D13 0%, #2E7D32 100%);">
+              <div class="absolute inset-0 p-4 flex flex-col justify-between text-white">
+                <div>
+                  <div class="text-[10px] uppercase tracking-widest font-semibold opacity-80">Журнал</div>
+                  <div class="text-[22px] font-bold leading-tight mt-1">Ветмедицина</div>
+                </div>
+                <div class="text-[11px] opacity-90">Том 18 · №&nbsp;1</div>
+              </div>
+            </div>
+            <div class="p-4">
+              <h3 class="font-bold text-[13.5px] leading-snug">Ветеринарна медицина України</h3>
+              <div class="mt-1 text-[11.5px] text-naas-muted">Лютий 2026 · DOI:&nbsp;10.31073/vmu</div>
+              <span class="mt-3 inline-flex items-center gap-1 px-2 py-0.5 rounded bg-naas-gold/20 text-[11px] font-semibold text-naas-ink" style="background-color:rgba(255,179,0,.2)"><i data-lucide="unlock" class="w-3 h-3"></i> Відкритий доступ</span>
+            </div>
+          </article>
+          <!-- 6 -->
+          <article class="shrink-0 w-[220px] bg-white rounded-xl border border-naas-line overflow-hidden card-hover">
+            <div class="h-[260px] relative" style="background: linear-gradient(180deg,#1B5E20 0%, #2E7D32 100%);">
+              <div class="absolute inset-0 p-4 flex flex-col justify-between text-white">
+                <div>
+                  <div class="text-[10px] uppercase tracking-widest font-semibold opacity-80">Журнал</div>
+                  <div class="text-[22px] font-bold leading-tight mt-1">Аграрна економіка</div>
+                </div>
+                <div class="text-[11px] opacity-90">Том 14 · №&nbsp;1</div>
+              </div>
+            </div>
+            <div class="p-4">
+              <h3 class="font-bold text-[13.5px] leading-snug">Економіка АПК</h3>
+              <div class="mt-1 text-[11.5px] text-naas-muted">Січень 2026 · DOI:&nbsp;10.31073/eapk</div>
+              <span class="mt-3 inline-flex items-center gap-1 px-2 py-0.5 rounded bg-naas-gold/20 text-[11px] font-semibold text-naas-ink" style="background-color:rgba(255,179,0,.2)"><i data-lucide="unlock" class="w-3 h-3"></i> Відкритий доступ</span>
+            </div>
+          </article>
+          <!-- 7 -->
+          <article class="shrink-0 w-[220px] bg-white rounded-xl border border-naas-line overflow-hidden card-hover">
+            <div class="h-[260px] relative" style="background: linear-gradient(180deg,#386641 0%, #1B5E20 100%);">
+              <div class="absolute inset-0 p-4 flex flex-col justify-between text-white">
+                <div>
+                  <div class="text-[10px] uppercase tracking-widest font-semibold opacity-80">Збірник</div>
+                  <div class="text-[22px] font-bold leading-tight mt-1">Інновації АПК</div>
+                </div>
+                <div class="text-[11px] opacity-90">Випуск 9 · 2025</div>
+              </div>
+            </div>
+            <div class="p-4">
+              <h3 class="font-bold text-[13.5px] leading-snug">Інновації в АПК: трансфер технологій</h3>
+              <div class="mt-1 text-[11.5px] text-naas-muted">Грудень 2025 · DOI:&nbsp;10.31073/inn</div>
+              <span class="mt-3 inline-flex items-center gap-1 px-2 py-0.5 rounded bg-naas-gold/20 text-[11px] font-semibold text-naas-ink" style="background-color:rgba(255,179,0,.2)"><i data-lucide="unlock" class="w-3 h-3"></i> Відкритий доступ</span>
+            </div>
+          </article>
+          <!-- 8 -->
+          <article class="shrink-0 w-[220px] bg-white rounded-xl border border-naas-line overflow-hidden card-hover">
+            <div class="h-[260px] relative" style="background: linear-gradient(180deg,#2E7D32 0%, #0F3D13 100%);">
+              <div class="absolute inset-0 p-4 flex flex-col justify-between text-white">
+                <div>
+                  <div class="text-[10px] uppercase tracking-widest font-semibold opacity-80">Журнал</div>
+                  <div class="text-[22px] font-bold leading-tight mt-1">Ґрунтознавство</div>
+                </div>
+                <div class="text-[11px] opacity-90">Том 87 · 2025</div>
+              </div>
+            </div>
+            <div class="p-4">
+              <h3 class="font-bold text-[13.5px] leading-snug">Агрохімія і ґрунтознавство</h3>
+              <div class="mt-1 text-[11.5px] text-naas-muted">Листопад 2025 · DOI:&nbsp;10.31073/agrogrunt</div>
+              <span class="mt-3 inline-flex items-center gap-1 px-2 py-0.5 rounded bg-naas-gold/20 text-[11px] font-semibold text-naas-ink" style="background-color:rgba(255,179,0,.2)"><i data-lucide="unlock" class="w-3 h-3"></i> Відкритий доступ</span>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== 8. INTERNATIONAL PARTNERSHIPS ==================== -->
+    <section class="py-12 sm:py-16 bg-white">
+      <div class="container-x">
+        <div class="text-center max-w-2xl mx-auto">
+          <span class="text-[12px] font-semibold uppercase tracking-wider text-naas-green">Партнери</span>
+          <h2 class="mt-1 text-2xl sm:text-3xl font-bold leading-tight">Міжнародне партнерство</h2>
+          <p class="mt-2 text-naas-muted text-[15px]">НААН підтримує наукові зв'язки з провідними академіями, дослідницькими консорціумами та глобальними агрокомпаніями.</p>
+        </div>
+
+        <div class="mt-10 grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-2 sm:gap-4 items-stretch">
+          <!-- Each logo is a clean text mark in a card; grayscale by default -->
+          <div class="logo-mark border border-naas-line rounded-xl h-24 flex items-center justify-center px-4">
+            <div class="text-center">
+              <div class="text-[22px] font-bold tracking-tight" style="color:#1B5E20">FAO</div>
+              <div class="text-[10px] text-naas-muted tracking-wider uppercase">United Nations</div>
+            </div>
+          </div>
+          <div class="logo-mark border border-naas-line rounded-xl h-24 flex items-center justify-center px-4">
+            <div class="text-center">
+              <div class="text-[22px] font-bold tracking-tight" style="color:#1B5E20">ICARDA</div>
+              <div class="text-[10px] text-naas-muted tracking-wider uppercase">Dry Areas Research</div>
+            </div>
+          </div>
+          <div class="logo-mark border border-naas-line rounded-xl h-24 flex items-center justify-center px-4">
+            <div class="text-center">
+              <div class="text-[15px] font-bold tracking-tight" style="color:#1B5E20">Wageningen UR</div>
+              <div class="text-[10px] text-naas-muted tracking-wider uppercase">Netherlands</div>
+            </div>
+          </div>
+          <div class="logo-mark border border-naas-line rounded-xl h-24 flex items-center justify-center px-4">
+            <div class="text-center">
+              <div class="text-[15px] font-bold tracking-tight" style="color:#1B5E20">CGIAR</div>
+              <div class="text-[10px] text-naas-muted tracking-wider uppercase">Global Consortium</div>
+            </div>
+          </div>
+          <div class="logo-mark border border-naas-line rounded-xl h-24 flex items-center justify-center px-4">
+            <div class="text-center">
+              <div class="text-[15px] font-bold tracking-tight" style="color:#1B5E20">INRAE</div>
+              <div class="text-[10px] text-naas-muted tracking-wider uppercase">France</div>
+            </div>
+          </div>
+          <div class="logo-mark border border-naas-line rounded-xl h-24 flex items-center justify-center px-4">
+            <div class="text-center">
+              <div class="text-[15px] font-bold tracking-tight" style="color:#1B5E20">Bayer</div>
+              <div class="text-[10px] text-naas-muted tracking-wider uppercase">Crop Science</div>
+            </div>
+          </div>
+          <div class="logo-mark border border-naas-line rounded-xl h-24 flex items-center justify-center px-4">
+            <div class="text-center">
+              <div class="text-[15px] font-bold tracking-tight" style="color:#1B5E20">Polish Acad.</div>
+              <div class="text-[10px] text-naas-muted tracking-wider uppercase">PAN</div>
+            </div>
+          </div>
+          <div class="logo-mark border border-naas-line rounded-xl h-24 flex items-center justify-center px-4">
+            <div class="text-center">
+              <div class="text-[15px] font-bold tracking-tight" style="color:#1B5E20">USDA ARS</div>
+              <div class="text-[10px] text-naas-muted tracking-wider uppercase">United States</div>
+            </div>
+          </div>
+          <div class="logo-mark border border-naas-line rounded-xl h-24 flex items-center justify-center px-4">
+            <div class="text-center">
+              <div class="text-[15px] font-bold tracking-tight" style="color:#1B5E20">EFSA</div>
+              <div class="text-[10px] text-naas-muted tracking-wider uppercase">EU Food Safety</div>
+            </div>
+          </div>
+          <div class="logo-mark border border-naas-line rounded-xl h-24 flex items-center justify-center px-4">
+            <div class="text-center">
+              <div class="text-[15px] font-bold tracking-tight" style="color:#1B5E20">Syngenta</div>
+              <div class="text-[10px] text-naas-muted tracking-wider uppercase">Foundation</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="mt-10 flex flex-col sm:flex-row items-center justify-center gap-6 sm:gap-10 bg-naas-bg rounded-xl px-6 py-6">
+          <div class="flex items-center gap-4">
+            <div class="w-12 h-12 rounded-lg flex items-center justify-center" style="background-color:rgba(27,94,32,.1); color:#1B5E20"><i data-lucide="handshake" class="w-6 h-6"></i></div>
+            <div>
+              <div class="text-3xl font-bold text-naas-green leading-none">47</div>
+              <div class="text-[13px] text-naas-muted mt-1">діючих міжнародних угод про співпрацю</div>
+            </div>
+          </div>
+          <div class="hidden sm:block w-px h-12 bg-naas-line"></div>
+          <div class="flex items-center gap-4">
+            <div class="w-12 h-12 rounded-lg flex items-center justify-center" style="background-color:rgba(255,179,0,.18); color:#1B5E20"><i data-lucide="trophy" class="w-6 h-6"></i></div>
+            <div>
+              <div class="text-3xl font-bold text-naas-green leading-none">126</div>
+              <div class="text-[13px] text-naas-muted mt-1">спільних міжнародних проєктів у 2025</div>
+            </div>
+          </div>
+          <div class="hidden sm:block w-px h-12 bg-naas-line"></div>
+          <div class="flex items-center gap-4">
+            <div class="w-12 h-12 rounded-lg flex items-center justify-center" style="background-color:rgba(27,94,32,.1); color:#1B5E20"><i data-lucide="users" class="w-6 h-6"></i></div>
+            <div>
+              <div class="text-3xl font-bold text-naas-green leading-none">31</div>
+              <div class="text-[13px] text-naas-muted mt-1">країна-партнер у програмах обміну</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== 8.5 LEADERSHIP ==================== -->
+    <section id="leadership" class="bg-white py-14 sm:py-18 border-t border-naas-line">
+      <div class="container-x">
+        <div class="flex items-end justify-between flex-wrap gap-4 mb-8">
+          <div>
+            <span class="inline-flex items-center gap-1.5 text-[11px] font-semibold uppercase tracking-wider text-naas-green"><i data-lucide="users" class="w-3.5 h-3.5"></i> Президія</span>
+            <h2 class="mt-2 text-2xl sm:text-3xl font-bold text-naas-ink">Керівництво академії</h2>
+          </div>
+          <a href="#" class="text-[14px] font-semibold text-naas-green hover:text-naas-gold inline-flex items-center gap-1">Повний склад президії <i data-lucide="arrow-right" class="w-4 h-4"></i></a>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+          <article class="border border-naas-line rounded-xl p-6 hover:shadow-sm transition">
+            <div class="w-14 h-14 rounded-full bg-naas-green/10 text-naas-green flex items-center justify-center font-bold text-[18px] mb-4">ГІ</div>
+            <div class="text-[11px] uppercase tracking-wider text-naas-muted font-semibold">Президент НААН</div>
+            <div class="mt-1 text-[17px] font-bold text-naas-ink">Гриник Ігор Володимирович</div>
+            <div class="mt-2 text-[14px] text-naas-muted leading-relaxed">Академік НААН, доктор сільгоспнаук, професор. Спеціалізація — рослинництво, садівництво.</div>
+          </article>
+          <article class="border border-naas-line rounded-xl p-6 hover:shadow-sm transition">
+            <div class="w-14 h-14 rounded-full bg-naas-green/10 text-naas-green flex items-center justify-center font-bold text-[18px] mb-4">ПМ</div>
+            <div class="text-[11px] uppercase tracking-wider text-naas-muted font-semibold">Віцепрезидент НААН</div>
+            <div class="mt-1 text-[17px] font-bold text-naas-ink">Патика Микола Володимирович</div>
+            <div class="mt-2 text-[14px] text-naas-muted leading-relaxed">Академік НААН, доктор сільгоспнаук, професор. Координація міжнародних проєктів, біологізація АПК. Експерт Joint Research Centre European Commission.</div>
+          </article>
+          <article class="border border-naas-line rounded-xl p-6 hover:shadow-sm transition">
+            <div class="w-14 h-14 rounded-full bg-naas-green/10 text-naas-green flex items-center justify-center font-bold text-[18px] mb-4">—</div>
+            <div class="text-[11px] uppercase tracking-wider text-naas-muted font-semibold">Перший віцепрезидент</div>
+            <div class="mt-1 text-[17px] font-bold text-naas-ink">Академік НААН</div>
+            <div class="mt-2 text-[14px] text-naas-muted leading-relaxed">Координація науково-дослідної роботи відділень академії.</div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== 9. NEWSLETTER ==================== -->
+    <section class="bg-naas-green text-white">
+      <div class="container-x py-12 sm:py-14 grid lg:grid-cols-2 gap-6 items-center">
+        <div>
+          <span class="inline-flex items-center gap-1.5 text-[11px] font-semibold uppercase tracking-wider text-naas-gold"><i data-lucide="mail" class="w-3.5 h-3.5"></i> Розсилка</span>
+          <h2 class="mt-2 text-2xl sm:text-3xl lg:text-[34px] font-bold leading-tight">Підпишіться на новини академії</h2>
+          <p class="mt-2 text-white/80 max-w-lg text-[15px]">Раз на тиждень — добірка ключових подій, нових публікацій, відкритих конкурсів і анонсів конференцій НААН.</p>
+        </div>
+        <form id="newsletterForm" class="flex flex-col sm:flex-row gap-3 w-full" novalidate>
+          <label for="newsletterEmail" class="sr-only">Електронна пошта</label>
+          <input id="newsletterEmail" type="email" required placeholder="ваша.пошта@приклад.ua" class="flex-1 h-12 px-4 rounded-lg text-naas-ink placeholder-naas-muted bg-white border border-transparent focus:border-naas-gold outline-none" />
+          <button type="submit" class="h-12 px-6 rounded-lg bg-naas-gold text-naas-ink font-semibold hover:bg-white transition">Підписатися</button>
+        </form>
+        <p id="newsletterMsg" class="lg:col-span-2 text-[13px] text-white/80 -mt-2 hidden"></p>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ==================== 10. FOOTER ==================== -->
+  <footer class="bg-naas-green-dark text-white relative overflow-hidden">
+    <!-- Subtle decorative trident -->
+    <svg class="trident absolute -right-16 -bottom-16 w-[360px] h-[360px] pointer-events-none" viewBox="0 0 100 100" fill="none" stroke="#FFB300" stroke-width="2" aria-hidden="true">
+      <path d="M50 10v80M30 30v40M70 30v40M30 30c0 20 8 35 20 40c12-5 20-20 20-40" />
+    </svg>
+
+    <div class="container-x py-14 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10 relative">
+      <!-- Col 1: Contacts -->
+      <div>
+        <div class="flex items-center gap-3">
+          <span class="w-11 h-11 rounded-md bg-white/10 flex items-center justify-center" aria-hidden="true">
+            <svg viewBox="0 0 32 32" class="w-6 h-6" fill="none" stroke="#FFB300" stroke-width="1.6" stroke-linecap="round">
+              <path d="M16 4v24" />
+              <path d="M16 9c-3 0-5 2-5 4M16 9c3 0 5 2 5 4" />
+              <path d="M16 15c-3 0-5 2-5 4M16 15c3 0 5 2 5 4" />
+              <path d="M16 21c-3 0-5 2-5 4M16 21c3 0 5 2 5 4" />
+            </svg>
+          </span>
+          <span class="font-bold leading-tight">НААН України</span>
+        </div>
+        <div class="mt-5 text-[14px] uppercase tracking-wider text-naas-gold font-semibold">Контакти</div>
+        <address class="not-italic mt-3 text-[14px] text-white/85 space-y-2 leading-relaxed">
+          <div class="flex gap-2"><i data-lucide="map-pin" class="w-4 h-4 mt-0.5 shrink-0 text-naas-gold"></i> вул. Михайла Омеляновича-Павленка, 9, м. Київ, 01010</div>
+          <div class="flex gap-2"><i data-lucide="phone" class="w-4 h-4 mt-0.5 shrink-0 text-naas-gold"></i> <a href="tel:+380442398540" class="hover:text-naas-gold">+38 (044) 239-85-40</a></div>
+          <div class="flex gap-2"><i data-lucide="mail" class="w-4 h-4 mt-0.5 shrink-0 text-naas-gold"></i> <a href="mailto:info@naas.gov.ua" class="hover:text-naas-gold">info@naas.gov.ua</a></div>
+          <div class="flex gap-2"><i data-lucide="clock" class="w-4 h-4 mt-0.5 shrink-0 text-naas-gold"></i> Пн–Пт · 09:00–18:00</div>
+        </address>
+        <div class="mt-5 flex items-center gap-2">
+          <a href="#" aria-label="Facebook" class="w-9 h-9 rounded-full bg-white/10 hover:bg-naas-gold hover:text-naas-ink flex items-center justify-center"><svg viewBox="0 0 24 24" class="w-4 h-4" fill="currentColor" aria-hidden="true"><path d="M13.5 22v-8h2.7l.4-3.1h-3.1V8.9c0-.9.25-1.5 1.55-1.5H16.7V4.6c-.29-.04-1.3-.12-2.48-.12-2.46 0-4.14 1.5-4.14 4.25v2.17H7.4V14h2.68v8h3.42Z"/></svg></a>
+          <a href="#" aria-label="YouTube" class="w-9 h-9 rounded-full bg-white/10 hover:bg-naas-gold hover:text-naas-ink flex items-center justify-center"><svg viewBox="0 0 24 24" class="w-4 h-4" fill="currentColor" aria-hidden="true"><path d="M23.5 6.5a3 3 0 0 0-2.1-2.12C19.5 4 12 4 12 4s-7.5 0-9.4.38A3 3 0 0 0 .5 6.5C.12 8.4.12 12 .12 12s0 3.6.38 5.5a3 3 0 0 0 2.1 2.12C4.5 20 12 20 12 20s7.5 0 9.4-.38a3 3 0 0 0 2.1-2.12c.38-1.9.38-5.5.38-5.5s0-3.6-.38-5.5ZM9.75 15.5v-7L15.8 12l-6.05 3.5Z"/></svg></a>
+          <a href="#" aria-label="LinkedIn" class="w-9 h-9 rounded-full bg-white/10 hover:bg-naas-gold hover:text-naas-ink flex items-center justify-center"><svg viewBox="0 0 24 24" class="w-4 h-4" fill="currentColor" aria-hidden="true"><path d="M20.5 3h-17A1.5 1.5 0 0 0 2 4.5v15A1.5 1.5 0 0 0 3.5 21h17A1.5 1.5 0 0 0 22 19.5v-15A1.5 1.5 0 0 0 20.5 3ZM8 18H5.5v-8H8v8ZM6.75 8.9a1.45 1.45 0 1 1 0-2.9 1.45 1.45 0 0 1 0 2.9ZM18.5 18H16v-4.3c0-1.03-.02-2.35-1.43-2.35-1.43 0-1.65 1.12-1.65 2.27V18h-2.5v-8h2.4v1.1h.04c.34-.63 1.16-1.3 2.39-1.3 2.56 0 3.03 1.68 3.03 3.87V18Z"/></svg></a>
+        </div>
+      </div>
+
+      <!-- Col 2: Divisions -->
+      <div>
+        <div class="text-[14px] uppercase tracking-wider text-naas-gold font-semibold">Відділення</div>
+        <ul class="mt-3 space-y-2 text-[14px] text-white/85">
+          <li><a href="#" class="hover:text-naas-gold">Землеробства, меліорації та механізації</a></li>
+          <li><a href="#" class="hover:text-naas-gold">Рослинництва</a></li>
+          <li><a href="#" class="hover:text-naas-gold">Зоотехнії</a></li>
+          <li><a href="#" class="hover:text-naas-gold">Ветеринарної медицини</a></li>
+          <li><a href="#" class="hover:text-naas-gold">Аграрної економіки і продовольства</a></li>
+          <li><a href="#" class="hover:text-naas-gold">Наукового забезпечення трансферу інновацій</a></li>
+        </ul>
+      </div>
+
+      <!-- Col 3: Quick links -->
+      <div>
+        <div class="text-[14px] uppercase tracking-wider text-naas-gold font-semibold">Швидкі посилання</div>
+        <ul class="mt-3 space-y-2 text-[14px] text-white/85">
+          <li><a href="#" class="hover:text-naas-gold">Структура</a></li>
+          <li><a href="#" class="hover:text-naas-gold">Президія</a></li>
+          <li><a href="#" class="hover:text-naas-gold">Конкурси</a></li>
+          <li><a href="#" class="hover:text-naas-gold">Закупівлі</a></li>
+          <li><a href="#" class="hover:text-naas-gold">Доступ до публічної інформації</a></li>
+          <li><a href="#" class="hover:text-naas-gold">Запобігання корупції</a></li>
+        </ul>
+      </div>
+
+      <!-- Col 4: Audiences -->
+      <div>
+        <div class="text-[14px] uppercase tracking-wider text-naas-gold font-semibold">Для аудиторій</div>
+        <ul class="mt-3 space-y-2 text-[14px] text-white/85">
+          <li><a href="#" class="hover:text-naas-gold inline-flex items-center gap-2"><i data-lucide="flask-conical" class="w-4 h-4 text-naas-gold"></i> Науковцю</a></li>
+          <li><a href="#" class="hover:text-naas-gold inline-flex items-center gap-2"><i data-lucide="briefcase" class="w-4 h-4 text-naas-gold"></i> Бізнесу</a></li>
+          <li><a href="#" class="hover:text-naas-gold inline-flex items-center gap-2"><i data-lucide="newspaper" class="w-4 h-4 text-naas-gold"></i> Пресі</a></li>
+          <li><a href="#" class="hover:text-naas-gold inline-flex items-center gap-2"><i data-lucide="globe-2" class="w-4 h-4 text-naas-gold"></i> Міжнародному партнеру</a></li>
+          <li><a href="#" class="hover:text-naas-gold inline-flex items-center gap-2"><i data-lucide="graduation-cap" class="w-4 h-4 text-naas-gold"></i> Аспіранту</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Bottom bar -->
+    <div class="border-t border-white/10 relative">
+      <div class="container-x py-5 flex flex-col sm:flex-row gap-3 justify-between items-center text-[12.5px] text-white/70">
+        <div>© 2010–2026 Національна академія аграрних наук України. Усі права захищено.</div>
+        <div class="flex flex-wrap gap-x-5 gap-y-2 items-center">
+          <a href="#" class="hover:text-naas-gold">Мапа сайту</a>
+          <a href="#" class="hover:text-naas-gold">Заява про доступність</a>
+          <a href="#" class="hover:text-naas-gold">Політика конфіденційності</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ==================== JS ==================== -->
+  <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+  <script>
+    // Lucide icons init
+    lucide.createIcons();
+
+    // -------- Hero slider --------
+    (function () {
+      const slides = document.querySelectorAll('.slide');
+      const dots = document.querySelectorAll('.dot');
+      let i = 0;
+      let timer;
+
+      function show(n) {
+        i = (n + slides.length) % slides.length;
+        slides.forEach((s, idx) => s.classList.toggle('active', idx === i));
+        dots.forEach((d, idx) => {
+          d.classList.toggle('bg-naas-green', idx === i);
+          d.classList.toggle('bg-naas-line', idx !== i);
+        });
+      }
+      function next() { show(i + 1); }
+      function prev() { show(i - 1); }
+      function restart() { clearInterval(timer); timer = setInterval(next, 6000); }
+
+      document.getElementById('nextSlide').addEventListener('click', () => { next(); restart(); });
+      document.getElementById('prevSlide').addEventListener('click', () => { prev(); restart(); });
+      dots.forEach(d => d.addEventListener('click', () => { show(+d.dataset.i); restart(); }));
+      restart();
+    })();
+
+    // -------- Mobile menu toggle --------
+    document.getElementById('mobileMenuBtn').addEventListener('click', () => {
+      const m = document.getElementById('mobileMenu');
+      m.classList.toggle('hidden');
+    });
+
+    // -------- Language switcher (placeholder EN content) --------
+    const enDictionary = {
+      'Національна академія аграрних наук України': 'National Academy of Agrarian Sciences of Ukraine',
+      'Науково-методичний і координаційний центр з наукових проблем розвитку АПК': 'Scientific, methodological and coordination centre for agricultural research and development',
+      'Шість відділень академії': 'Six divisions of the academy',
+      'Останні новини': 'Latest news',
+      'Найближчі події': 'Upcoming events',
+      'Наукові видання НААН': 'NAAS scientific publications',
+      'Міжнародне партнерство': 'International partnerships',
+      'Підпишіться на новини академії': 'Subscribe to academy updates',
+      'Підписатися': 'Subscribe',
+      'Усі новини →': 'All news →',
+      'Перейти': 'Open',
+      'Усі': 'All',
+    };
+    const langButtons = document.querySelectorAll('.lang-btn');
+    let originalTexts = null;
+    function setLang(lang) {
+      langButtons.forEach(b => {
+        const active = b.dataset.lang === lang;
+        b.classList.toggle('bg-white/15', active);
+        b.classList.toggle('text-white/70', !active);
+      });
+      document.documentElement.lang = lang;
+      if (lang === 'en') {
+        if (!originalTexts) {
+          originalTexts = [];
+          document.querySelectorAll('h1, h2, h3, p, a, button, span, li, summary, .text-naas-ink').forEach(el => {
+            const txt = el.textContent.trim();
+            if (enDictionary[txt]) {
+              originalTexts.push([el, el.innerHTML]);
+              el.textContent = enDictionary[txt];
+            }
+          });
+        }
+      } else {
+        if (originalTexts) {
+          originalTexts.forEach(([el, html]) => el.innerHTML = html);
+          originalTexts = null;
+        }
+      }
+    }
+    langButtons.forEach(b => b.addEventListener('click', () => setLang(b.dataset.lang)));
+
+    // -------- Accessibility (high-contrast) toggle --------
+    const a11yBtn = document.getElementById('a11yToggle');
+    a11yBtn.addEventListener('click', () => {
+      const on = document.body.classList.toggle('hc');
+      a11yBtn.setAttribute('aria-pressed', on);
+      try { localStorage.setItem('naas-hc', on ? '1' : '0'); } catch (e) {}
+    });
+    try {
+      if (localStorage.getItem('naas-hc') === '1') {
+        document.body.classList.add('hc');
+        a11yBtn.setAttribute('aria-pressed', 'true');
+      }
+    } catch (e) {}
+
+    // -------- Publications horizontal scroll --------
+    (function () {
+      const sc = document.getElementById('pubScroller');
+      const step = 240;
+      document.getElementById('pubPrev').addEventListener('click', () => sc.scrollBy({ left: -step, behavior: 'smooth' }));
+      document.getElementById('pubNext').addEventListener('click', () => sc.scrollBy({ left:  step, behavior: 'smooth' }));
+    })();
+
+    // -------- News filter chips (visual only) --------
+    document.querySelectorAll('.chip').forEach(c => {
+      c.addEventListener('click', () => {
+        document.querySelectorAll('.chip').forEach(x => {
+          x.classList.remove('bg-naas-green', 'text-white');
+          x.classList.add('bg-naas-bg', 'text-naas-ink');
+        });
+        c.classList.add('bg-naas-green', 'text-white');
+        c.classList.remove('bg-naas-bg', 'text-naas-ink');
+      });
+    });
+
+    // -------- Newsletter (placeholder) --------
+    document.getElementById('newsletterForm').addEventListener('submit', (e) => {
+      e.preventDefault();
+      const input = document.getElementById('newsletterEmail');
+      const msg = document.getElementById('newsletterMsg');
+      const v = input.value.trim();
+      if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v)) {
+        msg.textContent = 'Будь ласка, введіть коректну електронну адресу.';
+        msg.classList.remove('hidden');
+        return;
+      }
+      msg.textContent = 'Дякуємо! Підтвердження надіслано на ' + v + '.';
+      msg.classList.remove('hidden');
+      input.value = '';
+    });
+  </script>
+</body>
+</html>
