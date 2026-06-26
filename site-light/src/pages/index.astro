@@ -1,12 +1,4 @@
 ---
-import '../styles/tokens.css';
-import { divisionCount, instituteCount } from '../lib/data';
-import { getCollection } from 'astro:content';
-const news = await getCollection('news');
+import Base from '../layouts/Base.astro';
 ---
-<html lang="uk"><head><meta charset="utf-8" /><title>NAAS Light</title></head>
-<body>
-  <p id="divs">divisions:{divisionCount}</p>
-  <p id="insts">institutes:{instituteCount}</p>
-  <p id="news">news:{news.length}</p>
-</body></html>
+<Base title="НААН"><p class="wrap">Контент головної.</p></Base>

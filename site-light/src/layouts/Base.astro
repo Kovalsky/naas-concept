@@ -1,0 +1,28 @@
+---
+import '../styles/tokens.css';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+interface Props { title: string; description?: string; }
+const { title, description = 'Національна академія аграрних наук України — офіційний портал.' } = Astro.props;
+const fullTitle = title === 'НААН' ? title : `${title} — НААН`;
+---
+<!doctype html>
+<html lang="uk">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="icon" type="image/png" href="/naas-emblem.png" />
+    <title>{fullTitle}</title>
+    <meta name="description" content={description} />
+  </head>
+  <body>
+    <a href="#main" class="skip-link">Перейти до основного вмісту</a>
+    <Header />
+    <main id="main"><slot /></main>
+    <Footer />
+    <style is:global>
+      .skip-link { position:absolute; left:-9999px; top:0; z-index:120; background:var(--navy); color:#fff; padding:12px 16px; border-radius:4px; }
+      .skip-link:focus { left:8px; top:8px; }
+    </style>
+  </body>
+</html>

@@ -1,0 +1,27 @@
+---
+import { contacts } from '../lib/data';
+import { FOOTER } from '../lib/site';
+---
+<footer class="foot"><div class="wrap foot-in">
+  <div>
+    <b>Контакти</b>
+    <p>{contacts.address}</p>
+    <p>{contacts.phone} · <a href={`mailto:${contacts.email}`}>{contacts.email}</a></p>
+    <p>{contacts.edrpou_label} {contacts.edrpou}</p>
+  </div>
+  <div>
+    <b>Розділи</b>
+    {FOOTER.sections.map((s) => <a href={s.href}>{s.label}</a>)}
+  </div>
+  <div>
+    <b>Документи</b>
+    {FOOTER.documents.map((d) => <a href={d.href}>{d.label}</a>)}
+  </div>
+</div></footer>
+<style>
+  .foot { background:var(--navy-deep); color:#aab6c6; padding:32px 0; margin-top:0; }
+  .foot-in { display:grid; grid-template-columns:1.4fr 1fr 1fr; gap:24px; font-size:12px; line-height:1.7; }
+  .foot b { color:#fff; font-family:var(--serif); display:block; margin-bottom:8px; }
+  .foot a { display:block; color:#aab6c6; } .foot a:hover { color:#fff; }
+  @media (max-width:767px){ .foot-in{ grid-template-columns:1fr; } }
+</style>
