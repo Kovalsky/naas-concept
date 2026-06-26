@@ -20,7 +20,6 @@ for (const line of raw.split('\n')) {
   if (bold) {
     label = bold[1];
     href = link?.[2];
-    note = 'перенесено за ТЗ';
   } else if (link && body.trimStart().startsWith('[')) {
     label = link[1];
     href = link[2];

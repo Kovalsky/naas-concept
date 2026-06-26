@@ -3,10 +3,15 @@ import Base from '../layouts/Base.astro';
 import Hero from '../components/Hero.astro';
 import raw from '../data/pages/intelektualna-vlasnist.md?raw';
 
-const subsections = raw
-  .split('\n')
-  .map((l) => l.trim())
-  .filter((l) => l && !l.startsWith('#'));
+// Render only the intro bullet list (the named subsections), which sits
+// between the H1 and the first `##` block. Everything after that first
+// subheading is the detailed legal-acts body and must not appear as rows.
+const lines = raw.split('\n').map((l) => l.trim());
+const firstSubheadingIdx = lines.findIndex((l) => l.startsWith('##'));
+const intro = firstSubheadingIdx === -1 ? lines : lines.slice(0, firstSubheadingIdx);
+const subsections = intro
+  .filter((l) => l.startsWith('- '))
+  .map((l) => l.replace(/^-\s+/, '').trim());
 
 // Map subsection labels to now-populated registry routes; the rest stay pending.
 const hrefFor = (s: string): string | undefined => {
@@ -16,7 +21,7 @@ const hrefFor = (s: string): string | undefined => {
 };
 ---
 <Base title="Інтелектуальна власність">
-  <Hero kicker="Інтелектуальна власність" title="Інтелектуальна власність" lead="Об'єкти права інтелектуальної власності академії, нормативна база, віртуальна виставка інноваційних розробок та новини." />
+  <Hero kicker="Інтелектуальна власність" title="Інтелектуальна власність" lead="Об'єкти права інтелектуальної власності Академії, нормативна база, віртуальна виставка інноваційних розробок та новини." />
   <section class="section section--white">
     <div class="wrap">
       <div class="kicker kicker--muted" style="margin-bottom:16px;">Розділи</div>

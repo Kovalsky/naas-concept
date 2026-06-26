@@ -23,7 +23,7 @@
         "external": false
       },
       {
-        "title": "Нормативно правова база",
+        "title": "Нормативно-правова база",
         "ext": "DOCX",
         "href": "/docs/pubinfo__normativno_pravova_baza/normatyvno-pravova-baza.docx",
         "year": 0,
@@ -56,7 +56,7 @@
     "count": 28,
     "items": [
       {
-        "title": "Оголошення конкурсу про виконання наукових досліджень на 2026 2030 рр.",
+        "title": "Оголошення конкурсу на виконання наукових досліджень на 2026–2030 рр.",
         "ext": "DOC",
         "href": "/docs/pubinfo__naukovi_rozrobky/oholoshennia-konkursu-pro-vykonannia-naukovykh-doslidzhen-na-2026-2030.doc",
         "year": 2030,
@@ -305,7 +305,7 @@
         "external": false
       },
       {
-        "title": "сайт КАЛ.ПЛАН КВІТЕНЬ 2026 копія",
+        "title": "Календарний план на квітень 2026",
         "ext": "DOCX",
         "href": "/docs/pubinfo__planuvannya/sait-kal-plan-kviten-2026-kopiia.docx",
         "year": 2026,
@@ -482,7 +482,7 @@
         "external": false
       },
       {
-        "title": "РІЧНИЙ ПЛАН ЗАКУПІВЕЛЬ 2015 рік",
+        "title": "Річний план закупівель на 2015 рік",
         "ext": "PDF",
         "href": "/docs/pubinfo__tendery/richnyi-plan-zakupivel-2015-rik.pdf",
         "year": 2015,
@@ -780,7 +780,7 @@
         "external": false
       },
       {
-        "title": "БЮДЖЕТНИЙ ЗАПИТ Форма БЗ 2 індивідуальна . Уточнення 2026 6591020 01.01.2026",
+        "title": "Бюджетний запит, форма БЗ-2 (індивідуальна), уточнення 2026, 6591020, 01.01.2026",
         "ext": "PDF",
         "href": "/docs/pubinfo__budjetni_zapity/biudzhetnyi-zapyt-forma-bz-2-indyvidualna-utochnennia-2026-6591020-01-.pdf",
         "year": 2026,
@@ -1368,7 +1368,7 @@
     "count": 2,
     "items": [
       {
-        "title": "httpsips.gov.uauainfo resurses.html",
+        "title": "Інформаційно-патентний пошук — ips.gov.ua",
         "ext": "DOC",
         "href": "/docs/ip__normativno_pravova_dok/httpsips-gov-uauainfo-resurses-html.doc",
         "year": 0,
@@ -1393,7 +1393,7 @@
     "count": 1,
     "items": [
       {
-        "title": "Zvit cilyovi programy2014",
+        "title": "Звіт за цільовими програмами, 2014",
         "ext": "XLS",
         "href": "/docs/ip__virtualna_vistavka/zvit-cilyovi-programy2014.xls",
         "year": 2014,

@@ -80,7 +80,7 @@ export const FOOTER = {
 } as const;
 
 export const PLACEHOLDER_TEXT =
-  'Розділ передбачено технічним завданням. Контент у процесі наповнення.';
+  'Розділ у підготовці. Матеріали з’являться найближчим часом.';
 
 // Official state portals (ТЗ partner links) — sober, no marketing styling.
 export const PARTNERS: { label: string; href: string }[] = [

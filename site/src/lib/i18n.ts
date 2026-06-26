@@ -9,7 +9,7 @@ export const STRINGS: Record<string, { uk: string; en: string }> = {
   // top navigation
   'nav.today': { uk: 'НААН сьогодні', en: 'NAAS Today' },
   'nav.structure': { uk: 'Структура', en: 'Structure' },
-  'nav.training': { uk: 'Атестація та кадри', en: 'Training & Certification' },
+  'nav.training': { uk: 'Атестація та підготовка кадрів', en: 'Training & Certification' },
   'nav.transparency': { uk: 'Прозорість', en: 'Transparency' },
   'nav.news': { uk: 'Новини', en: 'News' },
   'nav.contacts': { uk: 'Контакти', en: 'Contacts' },
@@ -17,10 +17,15 @@ export const STRINGS: Record<string, { uk: string; en: string }> = {
   // chrome / utility
   'ui.a11y': { uk: 'Для людей з вадами зору', en: 'For people with visual impairments' },
   'ui.menu': { uk: 'Меню', en: 'Menu' },
-  'ui.search.title': { uk: 'Пошук по порталу', en: 'Portal search' },
+  'ui.search.title': { uk: 'Пошук на порталі', en: 'Portal search' },
   'ui.search.ph': { uk: 'Пошук розділів, новин…', en: 'Search sections, news…' },
   'ui.search.empty': { uk: 'Нічого не знайдено.', en: 'Nothing found.' },
   'ui.crumb.home': { uk: 'Головна', en: 'Home' },
+
+  // homepage hero variant switcher
+  'hero.classic': { uk: 'Класична', en: 'Classic' },
+  'hero.emblem': { uk: 'Емблема', en: 'Emblem' },
+  'hero.banner': { uk: 'Банер', en: 'Banner' },
 
   // buttons
   'btn.more': { uk: 'Детальніше', en: 'More' },
@@ -42,8 +47,8 @@ export const STRINGS: Record<string, { uk: string; en: string }> = {
   'home.newsTitle': { uk: 'Новини', en: 'News' },
   'home.deptsTitle': { uk: 'Новини відділень', en: 'Division News' },
   'home.deptsFeed': {
-    uk: 'Стрічка формується автоматично з новин наукових відділень. Реалізація — у версії з CMS (V2).',
-    en: 'This feed is generated automatically from research-division news. Implementation — in the CMS version (V2).',
+    uk: 'Стрічка новин наукових відділень — у підготовці.',
+    en: 'The research-division news feed is in preparation.',
   },
   'home.announceTitle': { uk: 'Анонси', en: 'Announcements' },
   'home.resourcesKicker': { uk: 'Ресурси', en: 'Resources' },
@@ -55,7 +60,7 @@ export const STRINGS: Record<string, { uk: string; en: string }> = {
 
   // showcase card titles
   'show.structure': { uk: 'Структура Академії', en: 'Academy Structure' },
-  'show.training': { uk: 'Атестація та кадри', en: 'Training & Certification' },
+  'show.training': { uk: 'Атестація та підготовка кадрів', en: 'Training & Certification' },
   'show.transparency': { uk: 'Прозорість', en: 'Transparency' },
   'show.publicInfo': { uk: 'Публічна інформація', en: 'Public Information' },
   'show.youngSci': { uk: 'Рада молодих вчених', en: 'Young Scientists Council' },
@@ -65,13 +70,15 @@ export const STRINGS: Record<string, { uk: string; en: string }> = {
   'partners.label': { uk: 'Партнерські та державні портали', en: 'Partner & Government Portals' },
 
   // footer
+  'footer.est': { uk: 'ЗАСН. 1931', en: 'EST. 1931' },
+  'footer.copyright': { uk: '© 2026 Національна академія аграрних наук України', en: '© 2026 National Academy of Agrarian Sciences of Ukraine' },
   'footer.contacts': { uk: 'Контакти', en: 'Contacts' },
   'footer.sections': { uk: 'Розділи', en: 'Sections' },
   'footer.documents': { uk: 'Документи', en: 'Documents' },
   'footer.resources': { uk: 'Ресурси', en: 'Resources' },
   'footer.s.today': { uk: 'НААН сьогодні', en: 'NAAS Today' },
   'footer.s.structure': { uk: 'Структура Академії', en: 'Academy Structure' },
-  'footer.s.training': { uk: 'Атестація та кадри', en: 'Training & Certification' },
+  'footer.s.training': { uk: 'Атестація та підготовка кадрів', en: 'Training & Certification' },
   'footer.s.transparency': { uk: 'Прозорість', en: 'Transparency' },
   'footer.s.news': { uk: 'Новини', en: 'News' },
   'footer.d.statute': { uk: 'Статут НААН', en: 'NAAS Statute' },
@@ -91,6 +98,14 @@ export const STRINGS: Record<string, { uk: string; en: string }> = {
   'contacts.press': { uk: 'Прес-служба', en: 'Press Office' },
   'contacts.details': { uk: 'Реквізити', en: 'Details' },
   'contacts.prozorroProfile': { uk: 'Профіль Prozorro', en: 'Prozorro Profile' },
+
+  // atestatsiia (certification & training) page
+  'atest.kicker': { uk: 'Атестація та кадри', en: 'Training & Certification' },
+  'atest.title': { uk: 'Атестація та підготовка кадрів', en: 'Certification and Training of Personnel' },
+  'atest.lead': {
+    uk: 'Аспірантура, докторантура, спеціалізовані вчені ради та державна атестація наукових установ НААН.',
+    en: 'PhD and doctoral programmes, specialized academic councils, and state certification of NAAS research institutions.',
+  },
 };
 
 export const t = (k: string): string => STRINGS[k]?.uk ?? k;
