@@ -1,0 +1,21 @@
+---
+import { HERO_H1, HERO_SLOGAN } from '../config';
+---
+<section class="hero"><div class="wrap hero-in">
+  <div class="kicker">Заснована 1931 · National Academy of Agrarian Sciences of Ukraine</div>
+  <h1 class="serif">{HERO_H1}</h1>
+  <p class="slogan">{HERO_SLOGAN}</p>
+  <span class="gold-rule" aria-hidden="true"></span>
+  <svg class="contour" viewBox="0 0 1280 220" preserveAspectRatio="none" aria-hidden="true">
+    <g fill="none" stroke="#1E3A5F" stroke-width="2"><path d="M0 200 Q640 150 1280 190"/><path d="M0 175 Q640 120 1280 160"/><path d="M0 150 Q640 95 1280 135"/></g>
+    <path d="M0 188 Q640 140 1280 180" fill="none" stroke="#B8860B" stroke-width="2"/>
+  </svg>
+</div></section>
+<style>
+  .hero { position:relative; overflow:hidden; background:linear-gradient(180deg,#fff,var(--muted)); border-bottom:1px solid var(--line); }
+  .hero-in { position:relative; padding:60px 0 52px; }
+  .hero h1 { font-family:var(--serif); font-weight:500; font-size:clamp(30px,4vw,44px); line-height:1.08; letter-spacing:-0.02em; max-width:18ch; }
+  .hero .slogan { font-size:16px; line-height:1.6; color:var(--ink2); margin-top:16px; max-width:60ch; }
+  .gold-rule { display:block; width:48px; height:2px; background:var(--gold); margin-top:22px; }
+  .contour { position:absolute; left:0; bottom:0; width:100%; height:160px; opacity:.07; pointer-events:none; }
+</style>

@@ -1,0 +1,6 @@
+---
+import { HERO } from '../config';
+import HeroTypographic from './HeroTypographic.astro';
+import HeroSlider from './HeroSlider.astro';
+---
+{HERO === 'v3' ? <HeroSlider /> : <HeroTypographic />}

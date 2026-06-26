@@ -1,0 +1,22 @@
+---
+import { HERO_H1, HERO_SLOGAN } from '../config';
+---
+<section class="hero" aria-label="Головний банер">
+  <div class="hero-bg" role="img" aria-label="Пшеничне поле України"></div>
+  <div class="wrap hero-in">
+    <div class="kicker gold">Заснована 1931 · National Academy of Agrarian Sciences of Ukraine</div>
+    <h1 class="serif">{HERO_H1}</h1>
+    <p class="slogan">{HERO_SLOGAN}</p>
+  </div>
+  <div class="dots wrap" aria-hidden="true"><span class="on"></span><span></span><span></span></div>
+</section>
+<style>
+  .hero { position:relative; background:var(--navy-deep); }
+  .hero-bg { position:absolute; inset:0; background-image:linear-gradient(115deg,rgba(14,31,53,.82),rgba(14,31,53,.42)),url('/img/hero/wheat-field.jpg'); background-size:cover; background-position:center 40%; }
+  .hero-in { position:relative; padding:88px 0 64px; max-width:760px; }
+  .hero .kicker.gold { color:#E7C879; }
+  .hero h1 { font-family:var(--serif); font-weight:500; color:#fff; font-size:clamp(32px,4.4vw,46px); line-height:1.05; letter-spacing:-0.02em; margin-top:14px; }
+  .hero .slogan { color:#cdd7e3; font-size:16px; line-height:1.55; margin-top:16px; max-width:54ch; }
+  .dots { position:relative; display:flex; gap:6px; padding-bottom:18px; margin-top:-8px; }
+  .dots span { width:8px; height:3px; border-radius:2px; background:rgba(255,255,255,.4); } .dots span.on { width:22px; background:#E7C879; }
+</style>
