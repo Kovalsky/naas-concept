@@ -1,0 +1,28 @@
+---
+import { getCollection, render } from 'astro:content';
+import Base from '../layouts/Base.astro';
+import Hero from './Hero.astro';
+
+interface Crumb { label: string; href?: string }
+interface Props {
+  pageId: string;
+  title: string;
+  kicker?: string;
+  lead?: string;
+  crumbs?: Crumb[];
+}
+const { pageId, title, kicker, lead, crumbs = [] } = Astro.props;
+const pages = await getCollection('pages');
+const entry = pages.find((p) => p.id === pageId);
+const { Content } = entry ? await render(entry) : { Content: null };
+---
+<Base title={title}>
+  <Hero kicker={kicker ?? title} title={title} lead={lead} crumbs={crumbs} />
+  <section class="section section--white">
+    <div class="wrap">
+      <div class="prose">
+        {Content ? <Content /> : <p>Контент у процесі наповнення.</p>}
+      </div>
+    </div>
+  </section>
+</Base>

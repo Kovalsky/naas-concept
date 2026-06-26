@@ -1,0 +1,39 @@
+---
+import { getCollection } from 'astro:content';
+import Base from '../../layouts/Base.astro';
+import { ROUTES } from '../../lib/site';
+
+export async function getStaticPaths() {
+  const news = await getCollection('news');
+  return news.map((n) => ({ params: { slug: n.data.slug }, props: { n } }));
+}
+const { n } = Astro.props;
+const d = n.data;
+const paragraphs = d.body.split(/\n{2,}/).filter(Boolean);
+---
+<Base title={d.title} description={d.teaser}>
+  <section class="hero">
+    <div class="wrap">
+      <nav class="crumbs" aria-label="Хлібні крихти">
+        <a href={ROUTES.home}>Головна</a><span class="sep">/</span>
+        <a href={ROUTES.news}>Новини</a><span class="sep">/</span>
+        <span class="cur">{d.tag}</span>
+      </nav>
+      <div class="kicker" style="margin-bottom:14px;">{d.date} · {d.tag}</div>
+      <h1 style="font-family:var(--serif); font-weight:600; font-size:clamp(26px,3.4vw,40px); line-height:1.14; letter-spacing:-0.018em; color:var(--ink); max-width:880px;">{d.title}</h1>
+    </div>
+  </section>
+
+  <section class="section section--white">
+    <div class="wrap" style="max-width:880px;">
+      <img src={d.image} alt={d.title} width="880" height="460" style="width:100%; height:auto; border-radius:12px; border:1px solid var(--line); margin-bottom:28px;" />
+      <p style="font-family:var(--serif); font-size:19px; line-height:1.5; color:var(--navy); font-weight:500; margin-bottom:22px;">{d.teaser}</p>
+      <div class="prose">
+        {paragraphs.map((p) => <p>{p}</p>)}
+      </div>
+      <div style="margin-top:36px; padding-top:24px; border-top:1px solid var(--line);">
+        <a class="link-underline" href={ROUTES.news}>← Усі новини</a>
+      </div>
+    </div>
+  </section>
+</Base>

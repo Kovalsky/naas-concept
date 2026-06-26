@@ -1,0 +1,254 @@
+[
+  {
+    "name": "Гриник Ігор Володимирович",
+    "post": "президент",
+    "photo": "/img/persons/hrynyk-ihor-volodymyrovych.jpg",
+    "phone": "+38 (044) 521 92 77",
+    "bio": "",
+    "group": "leadership",
+    "featured": true
+  },
+  {
+    "name": "Іванишин Володимир Васильович",
+    "post": "перший віцепрезидент",
+    "photo": "/img/persons/ivanyshyn-volodymyr-vasylovych.jpg",
+    "phone": "+38 (044) 521 92 76",
+    "bio": "",
+    "group": "leadership",
+    "featured": false
+  },
+  {
+    "name": "Адамчук Валерій Васильович",
+    "post": "віцепрезидент",
+    "photo": "/img/persons/adamchuk-valerii-vasylovych.jpg",
+    "phone": "+38 (044) 521 92 75",
+    "bio": "",
+    "group": "leadership",
+    "featured": false
+  },
+  {
+    "name": "Жукорський Остап Мирославович",
+    "post": "віцепрезидент",
+    "photo": "/img/persons/zhukorskyi-ostap-myroslavovych.jpg",
+    "phone": "+38 (044) 521 92 78",
+    "bio": "",
+    "group": "leadership",
+    "featured": false
+  },
+  {
+    "name": "Камінський Віктор Францевич",
+    "post": "віцепрезидент",
+    "photo": "/img/persons/kaminskyi-viktor-frantsevych.jpg",
+    "phone": "+38 (044) 521 92 79",
+    "bio": "",
+    "group": "leadership",
+    "featured": false
+  },
+  {
+    "name": "Москаленко Анатолій Михайлович",
+    "post": "віцепрезидент",
+    "photo": "/img/persons/moskalenko-anatolii-mykhailovych.jpg",
+    "phone": "+38 (044) 521 92 96",
+    "bio": "",
+    "group": "leadership",
+    "featured": false
+  },
+  {
+    "name": "Патика Микола Володимирович",
+    "post": "віцепрезидент",
+    "photo": "/img/persons/patyka-mykola-volodymyrovych.jpg",
+    "phone": "+38 (044) 521 92 99",
+    "bio": "",
+    "group": "leadership",
+    "featured": false
+  },
+  {
+    "name": "Хареба Володимир Васильович",
+    "post": "академік-секретар Відділення рослинництва",
+    "photo": "/img/persons/khareba-volodymyr-vasylovych.jpg",
+    "phone": "+38 (044) 521 92 84",
+    "bio": "",
+    "group": "members",
+    "featured": false
+  },
+  {
+    "name": "Ромащенко Михайло Іванович",
+    "post": "академік-секретар Відділення землеробства, меліорації та механізації",
+    "photo": "",
+    "phone": "",
+    "bio": "",
+    "group": "members",
+    "featured": false
+  },
+  {
+    "name": "Волощук Василь Михайлович",
+    "post": "академік-секретар Відділення зоотехнії",
+    "photo": "",
+    "phone": "",
+    "bio": "",
+    "group": "members",
+    "featured": false
+  },
+  {
+    "name": "Ушкалов Валерій Олександрович",
+    "post": "академік-секретар Відділення ветеринарної медицини",
+    "photo": "",
+    "phone": "",
+    "bio": "",
+    "group": "members",
+    "featured": false
+  },
+  {
+    "name": "Печко Володимир Сергійович",
+    "post": "академік-секретар Відділення наукового забезпечення інноваційного розвитку",
+    "photo": "",
+    "phone": "",
+    "bio": "",
+    "group": "members",
+    "featured": false
+  },
+  {
+    "name": "Лупенко Юрій Олексійович",
+    "post": "академік-секретар Відділення аграрної економіки і продовольства",
+    "photo": "",
+    "phone": "",
+    "bio": "",
+    "group": "members",
+    "featured": false
+  },
+  {
+    "name": "Борзих Олександр Іванович",
+    "post": "член Президії",
+    "photo": "",
+    "phone": "",
+    "bio": "",
+    "group": "members",
+    "featured": false
+  },
+  {
+    "name": "Величко Володимир Андрійович",
+    "post": "член Президії",
+    "photo": "",
+    "phone": "",
+    "bio": "",
+    "group": "members",
+    "featured": false
+  },
+  {
+    "name": "Никитюк Олександр Андрійович",
+    "post": "член Президії",
+    "photo": "",
+    "phone": "",
+    "bio": "",
+    "group": "members",
+    "featured": false
+  },
+  {
+    "name": "Вожегова Раїса Анатоліївна",
+    "post": "член Президії",
+    "photo": "",
+    "phone": "",
+    "bio": "",
+    "group": "members",
+    "featured": false
+  },
+  {
+    "name": "Черчель Владислав Юрійович",
+    "post": "член Президії",
+    "photo": "",
+    "phone": "",
+    "bio": "",
+    "group": "members",
+    "featured": false
+  },
+  {
+    "name": "Ніколаєнко Станіслав Миколайович",
+    "post": "член Президії",
+    "photo": "",
+    "phone": "",
+    "bio": "",
+    "group": "members",
+    "featured": false
+  },
+  {
+    "name": "Дорош Йосип Мирославович",
+    "post": "член Президії",
+    "photo": "",
+    "phone": "",
+    "bio": "",
+    "group": "members",
+    "featured": false
+  },
+  {
+    "name": "Корнійчук Олександр Васильович",
+    "post": "член Президії",
+    "photo": "",
+    "phone": "",
+    "bio": "",
+    "group": "members",
+    "featured": false
+  },
+  {
+    "name": "Володін Сергій Анатолійович",
+    "post": "член Президії",
+    "photo": "",
+    "phone": "",
+    "bio": "",
+    "group": "members",
+    "featured": false
+  },
+  {
+    "name": "Ткаченко Микола Адамович",
+    "post": "член Президії",
+    "photo": "",
+    "phone": "",
+    "bio": "",
+    "group": "members",
+    "featured": false
+  },
+  {
+    "name": "Палій Анатолій Павлович",
+    "post": "член Президії",
+    "photo": "",
+    "phone": "",
+    "bio": "",
+    "group": "members",
+    "featured": false
+  },
+  {
+    "name": "Стасів Олег Федорович",
+    "post": "член Президії",
+    "photo": "",
+    "phone": "",
+    "bio": "",
+    "group": "members",
+    "featured": false
+  },
+  {
+    "name": "Салига Юрій Тарасович",
+    "post": "член Президії",
+    "photo": "",
+    "phone": "",
+    "bio": "",
+    "group": "members",
+    "featured": false
+  },
+  {
+    "name": "Хомічак Любомир Михайлович",
+    "post": "член Президії",
+    "photo": "",
+    "phone": "",
+    "bio": "",
+    "group": "members",
+    "featured": false
+  },
+  {
+    "name": "Ткачук Вадим Анатолійович",
+    "post": "член Президії",
+    "photo": "",
+    "phone": "",
+    "bio": "",
+    "group": "members",
+    "featured": false
+  }
+]

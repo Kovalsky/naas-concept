@@ -1,0 +1,12 @@
+# Dependencies & build output
+node_modules/
+dist/
+.astro/
+.wrangler/
+
+# OS cruft
+.DS_Store
+
+# Bulky report PDFs served by the site but kept out of git.
+# They live on the deployed site and regenerate from the content bundle.
+site/public/docs/

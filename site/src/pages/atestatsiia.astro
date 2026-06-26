@@ -1,0 +1,20 @@
+---
+import Base from '../layouts/Base.astro';
+import Hero from '../components/Hero.astro';
+import RegistryList from '../components/RegistryList.astro';
+import Placeholder from '../components/Placeholder.astro';
+import { byRoute, LEADS } from '../lib/registries';
+const registry = byRoute('/atestatsiia');
+---
+<Base title="Атестація та підготовка кадрів">
+  <Hero
+    kicker="Атестація та кадри"
+    title="Атестація та підготовка кадрів"
+    lead="Аспірантура, докторантура, спеціалізовані вчені ради та державна атестація наукових установ НААН."
+  />
+  <section class="section section--white">
+    <div class="wrap">
+      {registry ? <RegistryList registry={registry} lead={LEADS[registry.route]} /> : <Placeholder />}
+    </div>
+  </section>
+</Base>

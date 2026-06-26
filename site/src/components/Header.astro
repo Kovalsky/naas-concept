@@ -1,0 +1,212 @@
+---
+import { getCollection } from 'astro:content';
+import { NAV, ROUTES, SEARCH_INDEX } from '../lib/site';
+import { STRINGS } from '../lib/i18n';
+import T from './T.astro';
+
+const path = Astro.url.pathname.replace(/\/$/, '') || '/';
+const isActive = (href: string) => {
+  const base = href.split('#')[0].replace(/\/$/, '') || '/';
+  if (base === '/') return path === '/';
+  return path === base || path.startsWith(base + '/');
+};
+
+const news = await getCollection('news');
+const searchIndex = [
+  ...SEARCH_INDEX,
+  ...news.map((n) => ({ title: n.data.title, href: `${ROUTES.news}/${n.data.slug}` })),
+];
+const searchPh = STRINGS['ui.search.ph'];
+---
+<!-- UTILITY BAR -->
+<div style="background:var(--navy-deep); color:rgba(255,255,255,0.92); height:34px; font-size:12.5px;">
+  <div class="wrap" style="height:100%; display:flex; align-items:center; justify-content:flex-end;">
+    <div style="display:flex; align-items:center; gap:16px;">
+      <button id="hc-toggle" style="display:flex; align-items:center; gap:6px; padding:6px 4px; color:rgba(255,255,255,0.85);">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="9"/><path d="M12 3a9 9 0 0 1 0 18z" fill="currentColor"/></svg>
+        <span style="font-size:12px;"><T k="ui.a11y" /></span>
+      </button>
+      <span style="color:rgba(255,255,255,0.3);">·</span>
+      <div style="display:flex; align-items:center; gap:8px;" role="group" aria-label="Мова інтерфейсу / Interface language">
+        <button id="lang-ua" aria-pressed="true" style="font-family:var(--mono); font-size:12px; font-weight:600; padding:6px 4px; color:#fff;">UA</button>
+        <span style="color:rgba(255,255,255,0.3);">/</span>
+        <button id="lang-en" aria-pressed="false" style="font-family:var(--mono); font-size:12px; font-weight:600; padding:6px 4px; color:rgba(255,255,255,0.5);">EN</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- MAIN HEADER -->
+<header style="position:sticky; top:0; z-index:60; background:rgba(255,255,255,0.96); backdrop-filter:saturate(180%) blur(8px); border-bottom:1px solid var(--line);">
+  <div class="wrap" style="height:84px; display:flex; align-items:center; justify-content:space-between; gap:24px;">
+    <a href={ROUTES.home} style="display:flex; align-items:center; gap:13px;" aria-label="НААН — головна">
+      <img src="/naas-emblem.png" alt="Емблема НААН" width="64" height="64" style="flex-shrink:0; width:64px; height:64px; object-fit:contain; display:block;" />
+      <span style="line-height:1.16;">
+        <span style="display:block; font-family:var(--serif); font-size:15px; font-weight:600; color:var(--ink); letter-spacing:-0.01em;">Національна академія<br/>аграрних наук України</span>
+        <span style="display:block; font-family:var(--mono); font-size:10px; color:var(--ink3); letter-spacing:0.12em; margin-top:4px;">ЗАСН. 1931</span>
+      </span>
+    </a>
+
+    <nav aria-label="Головне меню" class="only-desktop" style="align-items:center; gap:30px;">
+      {NAV.map((item) => (
+        <a href={item.href} style={`position:relative; font-size:14px; font-weight:${isActive(item.href) ? 600 : 500}; color:${isActive(item.href) ? 'var(--navy)' : 'var(--ink2)'}; padding:6px 0;`}>
+          <T k={item.k} />
+          {isActive(item.href) && <span style="position:absolute; left:0; right:0; bottom:-2px; height:2px; background:var(--gold); border-radius:2px;"></span>}
+        </a>
+      ))}
+    </nav>
+
+    <div style="display:flex; align-items:center; gap:10px;">
+      <button id="search-open" aria-label="Пошук / Search" style="display:flex; align-items:center; justify-content:center; width:44px; height:44px; border-radius:6px; color:var(--ink2);">
+        <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9"><circle cx="11" cy="11" r="7.5"/><path d="m21 21-4.3-4.3"/></svg>
+      </button>
+      <button id="mnav-open" class="only-mobile" aria-label="Меню / Menu" style="align-items:center; justify-content:center; width:44px; height:44px; border-radius:6px; color:var(--ink); border:1px solid var(--line);">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
+      </button>
+    </div>
+  </div>
+</header>
+
+<!-- SEARCH OVERLAY -->
+<div id="search" hidden>
+  <div id="search-scrim" style="position:fixed; inset:0; z-index:110; background:rgba(10,20,35,0.55); animation:naasFade 150ms ease;"></div>
+  <div role="dialog" aria-label="Пошук" style="position:fixed; top:0; left:0; right:0; z-index:111; background:#fff; box-shadow:0 14px 50px rgba(0,0,0,0.2); animation:naasDrop 200ms ease;">
+    <div style="max-width:860px; margin:0 auto; padding:28px 24px 34px;">
+      <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:14px;">
+        <span class="mono" style="font-size:11px; letter-spacing:0.14em; text-transform:uppercase; color:var(--navy);"><T k="ui.search.title" /></span>
+        <button id="search-close" aria-label="Закрити / Close" class="mono" style="display:flex; align-items:center; gap:6px; font-size:11px; color:var(--ink3);">ESC
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6 6 18M6 6l12 12"/></svg>
+        </button>
+      </div>
+      <div class="search-row" style="display:flex; align-items:center; gap:12px; padding-bottom:12px;">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--navy)" stroke-width="1.8"><circle cx="11" cy="11" r="7.5"/><path d="m21 21-4.3-4.3"/></svg>
+        <input id="search-input" type="search" autocomplete="off" placeholder={searchPh.uk} data-ph-uk={searchPh.uk} data-ph-en={searchPh.en} aria-label="Пошук / Search" style="flex:1; border:none; outline:none; font-size:22px; font-family:var(--serif); background:transparent; padding:2px 0;" />
+      </div>
+      <ul id="search-results" style="list-style:none; margin:18px 0 0; padding:0; max-height:50vh; overflow-y:auto;"></ul>
+      <div id="search-empty" style="margin-top:18px; font-size:12px; color:var(--ink3); display:none;"><span class="mono"><T k="ui.search.empty" /></span></div>
+    </div>
+  </div>
+</div>
+
+<!-- MOBILE DRAWER -->
+<div id="mnav" hidden>
+  <div id="mnav-scrim" style="position:fixed; inset:0; z-index:90; background:rgba(10,20,35,0.45); animation:naasFade 160ms ease;"></div>
+  <nav aria-label="Мобільне меню" style="position:fixed; top:0; right:0; bottom:0; z-index:100; width:min(340px,86vw); background:#fff; box-shadow:-12px 0 40px rgba(0,0,0,0.18); padding:22px; animation:naasDrop 200ms ease; overflow-y:auto;">
+    <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:22px;">
+      <span class="mono" style="font-size:11px; letter-spacing:0.14em; text-transform:uppercase; color:var(--ink3);"><T k="ui.menu" /></span>
+      <button id="mnav-close" aria-label="Закрити / Close" style="width:36px; height:36px; display:flex; align-items:center; justify-content:center; border-radius:6px; color:var(--ink2);">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6 6 18M6 6l12 12"/></svg>
+      </button>
+    </div>
+    {NAV.map((item) => (
+      <a href={item.href} style="display:flex; align-items:center; justify-content:space-between; width:100%; padding:15px 4px; border-bottom:1px solid var(--line); font-size:16px; font-weight:500; color:var(--ink);">
+        <T k={item.k} />
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" style="color:var(--ink3);"><path d="m9 18 6-6-6-6"/></svg>
+      </a>
+    ))}
+  </nav>
+</div>
+
+<style>
+  /* Focus indicator that matches the design language: the field's underline
+     shifts from navy to gold (same accent as active nav links) when focused. */
+  .search-row { border-bottom: 2px solid var(--navy); transition: border-color 160ms; }
+  .search-row:focus-within { border-bottom-color: var(--gold); }
+</style>
+
+<script type="application/json" id="search-index" set:html={JSON.stringify(searchIndex)}></script>
+<script is:inline>
+  (function () {
+    var root = document.documentElement;
+
+    // High-contrast toggle
+    var hc = document.getElementById('hc-toggle');
+    if (hc) hc.addEventListener('click', function () {
+      root.setAttribute('data-hc', root.getAttribute('data-hc') === 'true' ? 'false' : 'true');
+    });
+
+    // Language toggle (chrome only). Persisted in localStorage.
+    var LK = 'naas-lang';
+    var ua = document.getElementById('lang-ua');
+    var en = document.getElementById('lang-en');
+    var input = document.getElementById('search-input');
+    function applyLang(lang) {
+      if (lang === 'en') root.setAttribute('data-lang', 'en');
+      else root.removeAttribute('data-lang');
+      root.lang = lang === 'en' ? 'en' : 'uk';
+      if (ua) { ua.style.color = lang === 'en' ? 'rgba(255,255,255,0.5)' : '#fff'; ua.setAttribute('aria-pressed', String(lang !== 'en')); }
+      if (en) { en.style.color = lang === 'en' ? '#fff' : 'rgba(255,255,255,0.5)'; en.setAttribute('aria-pressed', String(lang === 'en')); }
+      if (input) input.setAttribute('placeholder', lang === 'en' ? input.getAttribute('data-ph-en') : input.getAttribute('data-ph-uk'));
+    }
+    var saved = 'uk';
+    try { saved = localStorage.getItem(LK) || 'uk'; } catch (e) {}
+    applyLang(saved);
+    function setLang(l) { try { localStorage.setItem(LK, l); } catch (e) {} applyLang(l); }
+    if (ua) ua.addEventListener('click', function () { setLang('uk'); });
+    if (en) en.addEventListener('click', function () { setLang('en'); });
+
+    // Panels (mobile nav + search): open/close, focus trap, and focus return.
+    var FOCUSABLE = 'a[href], button:not([disabled]), input, [tabindex]:not([tabindex="-1"])';
+    function panel(id, openBtn, closeBtn, scrim) {
+      var el = document.getElementById(id);
+      var o = document.getElementById(openBtn), c = document.getElementById(closeBtn), s = document.getElementById(scrim);
+      var lastFocused = null;
+      function set(v) {
+        if (!el) return;
+        el.hidden = !v;
+        if (v) {
+          lastFocused = document.activeElement;
+          var first = id === 'search' ? input : el.querySelector(FOCUSABLE);
+          if (first) first.focus();
+        } else if (lastFocused && lastFocused.focus) {
+          lastFocused.focus();
+        }
+      }
+      // Keep Tab focus inside the open panel.
+      if (el) el.addEventListener('keydown', function (e) {
+        if (e.key !== 'Tab' || el.hidden) return;
+        var f = Array.prototype.filter.call(el.querySelectorAll(FOCUSABLE), function (n) {
+          return n.offsetParent !== null;
+        });
+        if (!f.length) return;
+        var firstEl = f[0], lastEl = f[f.length - 1];
+        if (e.shiftKey && document.activeElement === firstEl) { e.preventDefault(); lastEl.focus(); }
+        else if (!e.shiftKey && document.activeElement === lastEl) { e.preventDefault(); firstEl.focus(); }
+      });
+      if (o) o.addEventListener('click', function () { set(true); });
+      if (c) c.addEventListener('click', function () { set(false); });
+      if (s) s.addEventListener('click', function () { set(false); });
+      return set;
+    }
+    var setMnav = panel('mnav', 'mnav-open', 'mnav-close', 'mnav-scrim');
+    var setSearch = panel('search', 'search-open', 'search-close', 'search-scrim');
+
+    // Search filter
+    var idxEl = document.getElementById('search-index');
+    var INDEX = idxEl ? JSON.parse(idxEl.textContent || '[]') : [];
+    var results = document.getElementById('search-results');
+    var empty = document.getElementById('search-empty');
+    function norm(s) { return (s || '').toLowerCase(); }
+    function render(q) {
+      if (!results) return;
+      results.innerHTML = '';
+      var query = norm(q).trim();
+      var matches = query
+        ? INDEX.filter(function (it) { return norm(it.title).indexOf(query) !== -1; }).slice(0, 12)
+        : INDEX.slice(0, 8);
+      if (empty) empty.style.display = matches.length ? 'none' : 'block';
+      matches.forEach(function (it) {
+        var li = document.createElement('li');
+        var a = document.createElement('a');
+        a.href = it.href; a.textContent = it.title;
+        a.style.cssText = 'display:block; padding:12px 6px; border-bottom:1px solid var(--line); font-size:15px; color:var(--ink);';
+        li.appendChild(a); results.appendChild(li);
+      });
+    }
+    if (input) {
+      input.addEventListener('input', function () { render(input.value); });
+      input.addEventListener('focus', function () { if (!input.value) render(''); });
+    }
+    document.addEventListener('keydown', function (e) { if (e.key === 'Escape') { setSearch(false); setMnav(false); } });
+  })();
+</script>

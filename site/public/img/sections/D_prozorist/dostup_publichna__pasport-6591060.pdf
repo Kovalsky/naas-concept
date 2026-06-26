@@ -1,0 +1,3675 @@
+<!DOCTYPE html>
+
+<!--[if IE 8]><html class="ie8"><![endif]-->
+<!--[if IE 9]><html class="ie9"><![endif]-->
+<!--[if IE 10]><html class="ie10"><![endif]-->
+
+<head>
+	<meta charset="cp-1251" />
+	<title>E-Бібліотека</title>
+	<!--[if lt IE 9]><script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+	<title>Uaan</title>
+	<meta name="keywords" content="" />
+	<meta name="description" content="" />
+    <link href='http://fonts.googleapis.com/css?family=PT+Sans:400,700&amp;subset=latin,cyrillic' rel='stylesheet' type='text/css' />
+    <link href='http://fonts.googleapis.com/css?family=PT+Sans+Narrow:400,700&amp;subset=latin,cyrillic' rel='stylesheet' type='text/css' />
+	<link href="/bitrix/templates/s1/css/style.css" rel="stylesheet">
+    <link href="/bitrix/templates/s1/css/jquery.bxslider.css" rel="stylesheet" />
+    <script src="/bitrix/templates/s1/js/jquery.min.js"></script>
+    <script src="/bitrix/templates/s1/js/jquery.bxslider.min.js"></script>
+	<!--
+<script type="text/javascript" src="http://scriptjava.net/source/scriptjava/scriptjava.js"></script>
+-->
+    <script src="/bitrix/templates/s1/js/scripts.js"></script>
+	<script src="/bitrix/templates/s1/js/slide-center-front.js"></script>
+
+	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<!-- <link rel="stylesheet" href="/bitrix/templates/s1/libs/bootstrap/bootstrap-grid-3.3.1.min.css" /> -->
+	<link rel="stylesheet" href="/bitrix/templates/s1/libs/font-awesome-4.2.0/css/font-awesome.min.css" />
+	<link rel="stylesheet" href="/bitrix/templates/s1/libs/fancybox/jquery.fancybox.css" />
+	<link rel="stylesheet" href="/bitrix/templates/s1/libs/owl-carousel/owl.carousel.css" />
+	<link rel="stylesheet" href="/bitrix/templates/s1/libs/countdown/jquery.countdown.css" />
+	<link rel="stylesheet" href="/bitrix/templates/s1/css/fonts.css" />
+	<link rel="stylesheet" href="/bitrix/templates/s1/css/main.css" />
+	<link rel="stylesheet" href="/bitrix/templates/s1/css/media.css" />
+
+	<meta http-equiv="Content-Type" content="text/html; charset=windows-1251" />
+<link href="/bitrix/cache/css/s1/s1/page_267b3544cfc368024724c442a90b9d8c/page_267b3544cfc368024724c442a90b9d8c_41b2b11064c21458a30477f2d989f2b3.css?174401633845435" type="text/css"  rel="stylesheet" />
+<link href="/bitrix/cache/css/s1/s1/kernel_main/kernel_main.css?174400128826919" type="text/css"  rel="stylesheet" />
+<link href="/bitrix/cache/css/s1/s1/template_af1c48659c17bb37cf6d7df166f4c4e8/template_af1c48659c17bb37cf6d7df166f4c4e8_5679e92052348418f059c1fd260b1c0d.css?17440004511507" type="text/css"  data-template-style="true"  rel="stylesheet" />
+
+<script type="text/javascript">if(!window.BX)window.BX={message:function(mess){if(typeof mess=='object') for(var i in mess) BX.message[i]=mess[i]; return true;}};</script><script type="text/javascript">(window.BX||top.BX).message({'LANGUAGE_ID':'ua','FORMAT_DATE':'DD.MM.YYYY','FORMAT_DATETIME':'DD.MM.YYYY HH:MI:SS','COOKIE_PREFIX':'BITRIX_SM','USER_ID':'','SERVER_TIME':'1782426181','SERVER_TZ_OFFSET':'10800','USER_TZ_OFFSET':'0','USER_TZ_AUTO':'Y','bitrix_sessid':'7c98c93aece6cd1117ed2b975c8ee31b','SITE_ID':'s1'});(window.BX||top.BX).message({'JS_CORE_LOADING':'Завантаження...','JS_CORE_NO_DATA':'— Немає даних —','JS_CORE_WINDOW_CLOSE':'Закрити','JS_CORE_WINDOW_EXPAND':'Розгорнути','JS_CORE_WINDOW_NARROW':'Згорнути у вікно','JS_CORE_WINDOW_SAVE':'Зберегти','JS_CORE_WINDOW_CANCEL':'Скасувати','JS_CORE_H':'г','JS_CORE_M':'хв','JS_CORE_S':'с','JSADM_AI_HIDE_EXTRA':'Приховати зайві','JSADM_AI_ALL_NOTIF':'Показати всі','JSADM_AUTH_REQ':'Потрібна авторизація!','JS_CORE_WINDOW_AUTH':'Увійти','JS_CORE_IMAGE_FULL':'Повний розмір'});</script>
+
+<script type="text/javascript" src="/bitrix/cache/js/s1/s1/kernel_main/kernel_main.js?1744203891293497"></script>
+<script type="text/javascript">BX.setCSSList(['/bitrix/js/main/core/css/core.css','/bitrix/js/main/core/css/core_popup.css']); </script>
+<script type="text/javascript">BX.setJSList(['/bitrix/js/main/core/core.js','/bitrix/js/main/core/core_ajax.js','/bitrix/js/main/session.js','/bitrix/js/main/core/core_window.js','/bitrix/js/main/core/core_popup.js','/bitrix/js/main/core/core_fx.js','/bitrix/js/main/utils.js']); </script>
+<script type="text/javascript">
+bxSession.Expand(1440, '7c98c93aece6cd1117ed2b975c8ee31b', false, '260f987c372f9b934d4d070bee9484f7');
+</script>
+
+<script type="text/javascript" src="/bitrix/templates/s1/editor/script.js"></script>
+<link href="/bitrix/templates/s1/editor/styles.css" rel="stylesheet" type="text/css" />
+
+<meta name='wmail-verification' content='f7e34f8e1f039d0c' />
+<meta name="msvalidate.01" content="1F0D3963DC161AA94CE81C4A4206F953" />
+<meta name='yandex-verification' content='493f5c785333cce8' />
+
+
+<script type="text/javascript" src="/bitrix/cache/js/s1/s1/template_d7f48384dbfecc1c17047c647d83f47b/template_d7f48384dbfecc1c17047c647d83f47b_e503b84566cac7bbf771093b91ceb477.js?174400044112865"></script>
+
+<script type="text/javascript" src="/bitrix/cache/js/s1/s1/page_29beaea3f814e94d430391dd7718de41/page_29beaea3f814e94d430391dd7718de41_94b3b01f0a157039be3013b3926c6793.js?174401633836087"></script>
+
+</head>
+<body>
+<!--[if lt IE 9]>
+	<script src="libs/html5shiv/es5-shim.min.js"></script>
+	<script src="libs/html5shiv/html5shiv.min.js"></script>
+	<script src="libs/html5shiv/html5shiv-printshiv.min.js"></script>
+	<script src="libs/respond/respond.min.js"></script>
+	<![endif]-->
+<script src="libs/jquery/jquery-1.11.1.min.js"></script>
+	<script src="libs/jquery-mousewheel/jquery.mousewheel.min.js"></script>
+	<script src="libs/fancybox/jquery.fancybox.pack.js"></script>
+	<script src="libs/waypoints/waypoints-1.6.2.min.js"></script>
+	<script src="libs/scrollto/jquery.scrollTo.min.js"></script>
+	<script src="libs/owl-carousel/owl.carousel.min.js"></script>
+	<!--
+<script src="libs/countdown/jquery.plugin.js"></script>
+	<script src="libs/countdown/jquery.countdown.min.js"></script>
+	<script src="libs/countdown/jquery.countdown-ru.js"></script>
+-->
+	<script src="libs/landing-nav/navigation.js"></script>
+	<script src="js/common.js"></script>
+<!-- <div class="old-tmp-line-site"><p>Стара версія сайту знаходиться за <a href="http://old.uaan.gov.ua" target="_blank" rel="nofollow">посиланням</a></p></div> -->
+<div class="wrapper">
+                              	<header class="header_second">
+                       <div class="inner">
+          			
+<div class="social"> 
+  <div class="soc"> 	 
+<script>
+				if (__function_exists('twitter_click_1') == false) 
+				{
+				function twitter_click_1(longUrl) 
+				{ 
+				window.open('http://twitter.com/home/?status='+encodeURIComponent(longUrl)+encodeURIComponent(' '),'sharer','toolbar=0,status=0,width=726,height=436'); 
+				return false; 
+				} 
+				}
+				</script>
+ 				 
+<!--<a id="bxid_889586" href="http://twitter.com/home/?status=http://uaan.gov.ua+" onclick="return twitter_click_1('http://uaan.gov.ua');" target="_blank" class="yam-share-icon-twitter" title="Twitter" ><span></span></a>-->
+ 				 
+<script>
+				if (__function_exists('vk_click') == false) 
+				{
+				function vk_click(url) 
+				{ 
+				window.open('http://vkontakte.ru/share.php?url='+encodeURIComponent(url),'sharer','toolbar=0,status=0,width=626,height=436'); 
+				return false; 
+				} 
+				}
+				</script>
+ 				 
+<!--<a id="bxid_226107" href="http://vkontakte.ru/share.php?url=http://uaan.gov.ua" onclick="return vk_click('http://uaan.gov.ua');" target="_blank" class="yam-share-icon-vkontakte" title="ВКонтакте" ><span></span></a>-->
+ 				<a style="background-image:url('//naas.gov.ua/upload/medialibrary/26c/yt.png?141658780919265')" href="https://www.youtube.com/channel/UCO6nG_QvgvDJfcAke-EVE3Q" target="_blank" class="yam-share-icon-vkontakte" title="YouTube" ><span></span></a> 
+<script>
+				if (__function_exists('fbs_click') == false) 
+				{
+				function fbs_click(url, title) 
+				{ 
+				window.open('http://www.facebook.com/share.php?u='+encodeURIComponent(url)+'&t='+encodeURIComponent(title),'sharer','toolbar=0,status=0,width=626,height=436'); 
+				return false; 
+				} 
+				}
+				</script>
+ 			 
+<!--<a id="bxid_827006" class="yam-share-icon-facebook" href="http://www.facebook.com/share.php?u=http://uaan.gov.ua&t=" onclick="return fbs_click('http://uaan.gov.ua', '');" target="_blank" title="Facebook" ><span></span></a>-->
+ <a class="yam-share-icon-facebook" href="https://www.facebook.com/naasukraine" target="_blank" title="Facebook" ><span></span></a> 			</div>
+</div>
+
+			
+<div class="yam-include-area logo"> <a href="/" class="logo-top-url" ><img class="logo-top-image" src="/bitrix/templates/s1/img/header/logo.png" rel="/bitrix/templates/s1/img/header/logo.png"  /></a> </div>
+			            <div class="yam-include-area title">
+                <span class="name">Національна академія аграрних наук України</span>
+                <span class="description">Науково-методичний і координаційний центр з наукових проблем <br /> розвитку АПК України</span>
+            </div>
+			
+
+<div class="yam-langselect-area">
+	<a href="http://naas.gov.ua"  class="yam-lang-ua active"><span>UA</span></a>
+	<a href="http://en.naas.gov.ua"  class="yam-lang-en "><span>EN</span></a>
+</div>
+
+
+			
+<div class="yam-include-area phone"> <span class="tel"><a href="tel:0445219277" >(044) 521 92 77</a></span></div>
+
+			<div class="yam-search-form">
+	<form action="/search/">
+		<script type="text/javascript">
+if (!window.oObject || typeof oObject != "object")
+	window.oObject = {};
+
+window.q1988193428_CheckThis = document.q1988193428_CheckThis = function(oObj)
+{
+	try
+	{
+		if(SuggestLoaded)
+		{
+			if (typeof window.oObject[oObj.id] != 'object')
+				window.oObject[oObj.id] = new JsSuggest(oObj, 'pe:10,md5:,site:s1');
+			return;
+		}
+		else
+		{
+			setTimeout(q1988193428_CheckThis(oObj), 10);
+		}
+	}
+	catch(e)
+	{
+		setTimeout(q1988193428_CheckThis(oObj), 10);
+	}
+}
+</script>
+<IFRAME style="width:0px; height:0px; border: 0px;" src="javascript:''" name="q1988193428_div_frame" id="q1988193428_div_frame"></IFRAME><input  size="15" name="q" id="q1988193428" value="" class="search-suggest" type="text" autocomplete="off" onfocus="q1988193428_CheckThis(this);" />		<input name="s" type="submit" value="" />
+	</form>
+</div>
+           
+			
+
+
+				<div class="yam-menu yam-menu-top-second">
+   	<ul id="yam-menu-top">
+
+	
+		
+			
+							<li><a href="/" class="active"><span>Головна</span></a>	
+								<ul>
+						<li class="first"></li>
+													
+							
+													
+															
+								
+																	<li><a class="first" href="/newsall/"><span>Новини</span></a>	
+																	</li>
+
+								
+							
+													
+															
+								
+																	<li><a href="/preview/"><span>Анонси</span></a>
+																	</li>
+
+								
+							
+													
+															
+								
+																	<li><a href="/video/"><span>Відео</span></a>
+																	</li>
+
+								
+							
+													
+															
+								
+																	<li><a href="/Agrolectures/"><span>AGROLECTURES</span></a>
+																	</li>
+
+								
+							
+													
+															
+								
+																	<li><a href="/content/literatura/"><span>Е-Бібліотека</span></a>
+																	</li>
+
+								
+							
+													
+							
+													
+							
+													
+							
+													
+							
+													
+							
+													
+							
+													
+							
+													
+							
+													
+							
+													
+							
+													
+							
+													
+							
+													
+							
+													
+							
+													
+							
+													
+							
+													
+							
+													
+							
+													
+							
+													
+							
+													
+							
+													
+							
+													
+							
+													
+							
+													
+							
+													
+							
+													
+							
+													
+							
+													
+							
+													
+							
+													
+							
+													
+							
+													
+							
+													
+							
+													
+							
+													
+							
+													
+							
+													
+							
+													
+							
+													
+							
+													
+							
+													
+							
+													
+							
+													
+							
+													
+							
+													
+							
+													
+							
+													
+							
+													
+							
+													
+							
+													
+							
+													
+							
+													
+							
+													
+							
+													
+							
+													
+							
+													
+							
+													
+							
+													
+							
+													
+							
+													
+							
+													
+							
+													
+							
+													
+							
+													
+							
+													
+							
+													
+							
+													
+							
+													
+							
+													
+							
+													
+							
+													
+							
+													
+							
+													
+							
+													
+							
+													
+							
+													
+							
+													
+							
+													
+							
+													
+							
+													
+							
+													
+							
+											
+					
+					</ul>
+				</li>
+
+					
+
+		
+	
+		
+	
+		
+	
+		
+	
+		
+	
+		
+	
+		
+			
+							<li><a href="/content/about_naan/"><span>Про НААН</span></a>	
+								<ul>
+						<li class="first"></li>
+													
+							
+													
+							
+													
+							
+													
+							
+													
+							
+													
+							
+													
+							
+													
+															
+								
+																	<li><a class="first" href="/content/statut-naan/"><span>СТАТУТ НААН</span></a>	
+																	</li>
+
+								
+							
+													
+															
+								
+																	<li><a href="/content/prezidiya/"><span>Президія</span></a>
+																	</li>
+
+								
+							
+													
+															
+								
+																	<li><a href="/content/academ/"><span>ЧЛЕНИ АКАДЕМІЇ</span></a>
+																	</li>
+
+								
+							
+													
+							
+													
+							
+													
+							
+													
+							
+													
+							
+													
+							
+													
+							
+													
+							
+													
+							
+													
+							
+													
+							
+													
+							
+													
+							
+													
+							
+													
+							
+													
+							
+													
+							
+													
+							
+													
+							
+													
+							
+													
+							
+													
+							
+													
+							
+													
+							
+													
+							
+													
+							
+													
+							
+													
+							
+													
+							
+													
+							
+													
+							
+													
+							
+													
+							
+													
+							
+													
+							
+													
+							
+													
+							
+													
+							
+													
+							
+													
+							
+													
+							
+													
+							
+													
+							
+													
+							
+													
+							
+													
+							
+													
+							
+													
+							
+													
+							
+													
+							
+													
+							
+													
+							
+													
+							
+													
+							
+													
+							
+													
+							
+													
+							
+													
+							
+													
+							
+													
+							
+													
+							
+													
+							
+													
+							
+													
+							
+													
+							
+													
+							
+													
+							
+													
+							
+													
+							
+													
+							
+													
+							
+													
+							
+													
+							
+													
+							
+													
+							
+													
+							
+													
+							
+													
+							
+											
+					
+					</ul>
+				</li>
+
+					
+
+		
+	
+		
+	
+		
+	
+		
+	
+		
+			
+							<li><a href="/ustanovy/"><span>Структура</span></a>	
+								<ul>
+						<li class="first"></li>
+													
+							
+													
+							
+													
+							
+													
+							
+													
+							
+													
+							
+													
+							
+													
+							
+													
+							
+													
+							
+													
+							
+													
+															
+								
+									<li>
+										<a href="/ustanovy/viddilennya-agrarnoyi-ekonomiki-i-prodovolstva/">Відділення аграрної економіки і продовольства</a>
+										<ul>	
+
+											
+												
+											
+												
+											
+												
+											
+												
+											
+												
+											
+												
+											
+												
+											
+												
+											
+												
+											
+												
+											
+												
+											
+												
+											
+												
+												<li>
+													<a href="/ustanovy/instytut-prodovolchykh-resursiv-naan/">Інститут продовольчих ресурсів НААН</a>
+												</li>
+
+												
+											
+												
+												<li>
+													<a href="/ustanovy/natsional%60nyy-naukovyy-tsentr-instytut-agrarnoyi-ekonomiky/">Національний науковий центр “Інститут аграрної економіки"</a>
+												</li>
+
+												
+											
+												
+												<li>
+													<a href="/ustanovy/ukrayins%60kyy-naukovo-doslidnyy-instytut-oliy-ta-zhyriv-naan/">Український науково-дослідний інститут олій та жирів НААН</a>
+												</li>
+
+												
+											
+												
+												<li>
+													<a href="/ustanovy/tdv-instytut-obliku-i-finansiv/">ТДВ "Інститут обліку і фінансів"</a>
+												</li>
+
+												
+											
+												
+											
+												
+											
+												
+											
+												
+											
+												
+											
+												
+											
+												
+											
+												
+											
+												
+											
+												
+											
+												
+											
+												
+											
+												
+											
+												
+											
+												
+											
+												
+											
+												
+											
+												
+											
+												
+											
+												
+											
+												
+											
+												
+											
+												
+											
+												
+											
+												
+											
+												
+											
+												
+											
+												
+											
+												
+											
+												
+											
+												
+											
+												
+											
+												
+											
+												
+											
+												
+											
+												
+											
+												
+											
+												
+											
+												
+											
+												
+											
+												
+											
+												
+											
+												
+											
+												
+											
+												
+											
+												
+											
+												
+											
+												
+											
+												
+											
+												
+											
+												
+											
+												
+											
+												
+											
+												
+											
+												
+											
+												
+											
+												
+											
+												
+											
+												
+											
+												
+											
+												
+											
+												
+											
+												
+											
+												
+											
+												
+											
+												
+											
+												
+											
+												
+											
+												
+											
+												
+											
+												
+											
+												
+											
+										
+										</ul>
+									</li>
+								
+								
+							
+													
+							
+													
+							
+													
+							
+													
+							
+													
+															
+								
+									<li>
+										<a href="/ustanovy/viddilennya-veterinarnoyi-medicini/">Відділення ветеринарної медицини </a>
+										<ul>	
+
+											
+												
+											
+												
+											
+												
+											
+												
+											
+												
+											
+												
+											
+												
+											
+												
+											
+												
+											
+												
+											
+												
+											
+												
+											
+												
+											
+												
+											
+												
+											
+												
+											
+												
+											
+												
+												<li>
+													<a href="/ustanovy/instytut-veterynarnoyi-medytsyny-naan/">Інститут ветеринарної медицини НААН</a>
+												</li>
+
+												
+											
+												
+												<li>
+													<a href="/ustanovy/natsional%60nyy-naukovyy-tsentr-instytut-eksperymental%60noyi-i-klinichnoyi-veterynarnoyi-medytsyny/">Національний науковий центр “Інститут експериментальної і клінічної ветеринарної медицини"</a>
+												</li>
+
+												
+											
+												
+											
+												
+											
+												
+											
+												
+											
+												
+											
+												
+											
+												
+											
+												
+											
+												
+											
+												
+											
+												
+											
+												
+											
+												
+											
+												
+											
+												
+											
+												
+											
+												
+											
+												
+											
+												
+											
+												
+											
+												
+											
+												
+											
+												
+											
+												
+											
+												
+											
+												
+											
+												
+											
+												
+											
+												
+											
+												
+											
+												
+											
+												
+											
+												
+											
+												
+											
+												
+											
+												
+											
+												
+											
+												
+											
+												
+											
+												
+											
+												
+											
+												
+											
+												
+											
+												
+											
+												
+											
+												
+											
+												
+											
+												
+											
+												
+											
+												
+											
+												
+											
+												
+											
+												
+											
+												
+											
+												
+											
+												
+											
+												
+											
+												
+											
+												
+											
+												
+											
+												
+											
+												
+											
+												
+											
+												
+											
+												
+											
+												
+											
+												
+											
+												
+											
+												
+											
+										
+										</ul>
+									</li>
+								
+								
+							
+													
+							
+													
+							
+													
+															
+								
+									<li>
+										<a href="/ustanovy/viddilennya-zemlerobstva-melioraciyi-ta-mehanizaciyi/">Відділення землеробства, меліорації та механізації</a>
+										<ul>	
+
+											
+												
+											
+												
+											
+												
+											
+												
+											
+												
+											
+												
+											
+												
+											
+												
+											
+												
+											
+												
+											
+												
+											
+												
+											
+												
+											
+												
+											
+												
+											
+												
+											
+												
+											
+												
+											
+												
+											
+												
+											
+												
+												<li>
+													<a href="http://naas.gov.ua/ustanovy/biosfernyy-zapovidnyk-askaniya-nova-imeni-f-e-fal%60ts-feyna-naan/">Біосферний заповідник “Асканія-Нова” імені Ф.Е. Фальц-Фейна НААН</a>
+												</li>
+
+												
+											
+												
+												<li>
+													<a href="http://naas.gov.ua/ustanovy/inzhenerno-tekhnologichnyy-instytut-biotekhnika-naan/">Інженерно-технологічний інститут “Біотехніка” НААН</a>
+												</li>
+
+												
+											
+												
+												<li>
+													<a href="http://naas.gov.ua/ustanovy/instytut-agroekologiyi-i-pryrodokorystuvannya-naan/">Інститут агроекології і природокористування НААН</a>
+												</li>
+
+												
+											
+												
+												<li>
+													<a href="http://naas.gov.ua/ustanovy/instytut-vodnykh-problem-i-melioratsiyi-naan/">Інститут водних проблем і меліорації НААН</a>
+												</li>
+
+												
+											
+												
+												<li>
+													<a href="http://naas.gov.ua/ustanovy/instytut-zroshuvanogo-zemlerobstva-naan/">Інститут зрошуваного землеробства НААН</a>
+												</li>
+
+												
+											
+												
+												<li>
+													<a href="http://naas.gov.ua/ustanovy/instytut-sil%60s%60kogo-gospodarstva-karpats%60kogo-regionu-naan/">Інститут сільського господарства Карпатського регіону НААН</a>
+												</li>
+
+												
+											
+												
+												<li>
+													<a href="http://naas.gov.ua/ustanovy/instytut-sil%60s%60kogo-gospodarstva-polissya-naan/">Інститут сільського господарства Полісся НААН</a>
+												</li>
+
+												
+											
+												
+												<li>
+													<a href="http://naas.gov.ua/ustanovy/instytut-sil%60s%60kogospodars%60koyi-mikrobiologiyi-ta-agropromyslovogo-vyrobnytstva-naan/">Інститут сільськогосподарської мікробіології та агропромислового виробництва НААН</a>
+												</li>
+
+												
+											
+												
+												<li>
+													<a href="http://naas.gov.ua/ustanovy/natsional%60nyy-naukovyy-tsentr-instytut-gruntoznavstva-ta-agrokhimiyi-imeni-o-n-sokolovs%60kogo/">Національний науковий центр “Інститут грунтознавства та агрохімії імені О.Н. Соколовського”</a>
+												</li>
+
+												
+											
+												
+												<li>
+													<a href="http://naas.gov.ua/ustanovy/natsional%60nyy-naukovyy-tsentr-instytut-zemlerobstva-natsional%60noyi-akademiyi-agrarnykh-nauk-ukrayiny/">Національний науковий центр “Інститут землеробства Національної академії аграрних наук України”</a>
+												</li>
+
+												
+											
+												
+												<li>
+													<a href="http://naas.gov.ua/ustanovy/natsional%60nyy-naukovyy-tsentr-instytut-mekhanizatsiyi-ta-elektryfikatsiyi-sil%60s%60kogo-gospodarstva/">Національний науковий центр “Інститут механізації та електрифікації сільського господарства”</a>
+												</li>
+
+												
+											
+												
+											
+												
+											
+												
+											
+												
+											
+												
+											
+												
+											
+												
+											
+												
+											
+												
+											
+												
+											
+												
+											
+												
+											
+												
+											
+												
+											
+												
+											
+												
+											
+												
+											
+												
+											
+												
+											
+												
+											
+												
+											
+												
+											
+												
+											
+												
+											
+												
+											
+												
+											
+												
+											
+												
+											
+												
+											
+												
+											
+												
+											
+												
+											
+												
+											
+												
+											
+												
+											
+												
+											
+												
+											
+												
+											
+												
+											
+												
+											
+												
+											
+												
+											
+												
+											
+												
+											
+												
+											
+												
+											
+												
+											
+												
+											
+												
+											
+												
+											
+												
+											
+												
+											
+												
+											
+												
+											
+												
+											
+												
+											
+												
+											
+										
+										</ul>
+									</li>
+								
+								
+							
+													
+							
+													
+							
+													
+							
+													
+							
+													
+							
+													
+							
+													
+							
+													
+							
+													
+							
+													
+							
+													
+							
+													
+															
+								
+									<li>
+										<a href="/ustanovy/viddilennya-zootehniyi/">Відділення зоотехнії</a>
+										<ul>	
+
+											
+												
+											
+												
+											
+												
+											
+												
+											
+												
+											
+												
+											
+												
+											
+												
+											
+												
+											
+												
+											
+												
+											
+												
+											
+												
+											
+												
+											
+												
+											
+												
+											
+												
+											
+												
+											
+												
+											
+												
+											
+												
+											
+												
+											
+												
+											
+												
+											
+												
+											
+												
+											
+												
+											
+												
+											
+												
+											
+												
+											
+												
+											
+												
+											
+												
+												<li>
+													<a href="http://naas.gov.ua/ustanovy/derzhavna-doslidna-stantsiya-ptakhivnytstva-naan/">Державна дослідна станція птахівництва НААН</a>
+												</li>
+
+												
+											
+												
+												<li>
+													<a href="http://naas.gov.ua/ustanovy/instytut-biologiyi-tvaryn-naan/">Інститут біології тварин НААН</a>
+												</li>
+
+												
+											
+												
+												<li>
+													<a href="http://naas.gov.ua/ustanovy/instytut-rybnogo-gospodarstva-naan/">Інститут рибного господарства НААН</a>
+												</li>
+
+												
+											
+												
+												<li>
+													<a href="http://naas.gov.ua/ustanovy/instytut-rozvedennya-i-genetyky-tvaryn-imeni-m-v-zubtsya/">Інститут розведення і генетики тварин імені М.В.Зубця Національної академії аграрних наук України</a>
+												</li>
+
+												
+											
+												
+												<li>
+													<a href="http://naas.gov.ua/ustanovy/instytut-svynarstva-i-agropromyslovogo-vyrobnytstva-naan/">Інститут свинарства і агропромислового виробництва НААН</a>
+												</li>
+
+												
+											
+												
+												<li>
+													<a href="http://naas.gov.ua/ustanovy/instytut-tvarynnytstva-naan/">Інститут тваринництва НААН</a>
+												</li>
+
+												
+											
+												
+												<li>
+													<a href="http://naas.gov.ua/ustanovy/instytut-tvarynnytstva-stepovykh-rayoniv-imeni-m-f-ivanova-askaniya-nova-natsional%60nyy-naukovyy-sele/">Інститут тваринництва степових районів імені М.Ф.Іванова «Асканія-Нова» - ННСГЦ з вівчарства</a>
+												</li>
+
+												
+											
+												
+												<li>
+													<a href="http://naas.gov.ua/ustanovy/natsional%60nyy-naukovyy-tsentr-instytut-bdzhil%60nytstva-imeni-p-i-prokopovycha/">ННЦ «Інститут бджільництва імені П.І.Прокоповича»</a>
+												</li>
+
+												
+											
+												
+												<li>
+													<a href="http://naas.gov.ua/ustanovy/cherkas%60ka-doslidna-stantsiya-bioresursiv-naan/">Черкаська дослідна станція біоресурсів НААН</a>
+												</li>
+
+												
+											
+												
+											
+												
+											
+												
+											
+												
+											
+												
+											
+												
+											
+												
+											
+												
+											
+												
+											
+												
+											
+												
+											
+												
+											
+												
+											
+												
+											
+												
+											
+												
+											
+												
+											
+												
+											
+												
+											
+												
+											
+												
+											
+												
+											
+												
+											
+												
+											
+												
+											
+												
+											
+												
+											
+												
+											
+												
+											
+												
+											
+												
+											
+												
+											
+												
+											
+												
+											
+												
+											
+												
+											
+												
+											
+												
+											
+												
+											
+												
+											
+												
+											
+												
+											
+												
+											
+												
+											
+												
+											
+												
+											
+												
+											
+										
+										</ul>
+									</li>
+								
+								
+							
+													
+							
+													
+							
+													
+							
+													
+							
+													
+							
+													
+							
+													
+							
+													
+							
+													
+							
+													
+															
+								
+									<li>
+										<a href="/ustanovy/viddilennya-naukovogo-zabezpechennya-innovaciynogo-rozvitku/">Відділення наукового забезпечення інноваційного розвитку</a>
+										<ul>	
+
+											
+												
+											
+												
+											
+												
+											
+												
+											
+												
+											
+												
+											
+												
+											
+												
+											
+												
+											
+												
+											
+												
+											
+												
+											
+												
+											
+												
+											
+												
+											
+												
+											
+												
+											
+												
+											
+												
+											
+												
+											
+												
+											
+												
+											
+												
+											
+												
+											
+												
+											
+												
+											
+												
+											
+												
+											
+												
+											
+												
+											
+												
+											
+												
+											
+												
+											
+												
+											
+												
+											
+												
+											
+												
+											
+												
+											
+												
+											
+												
+											
+												
+											
+												
+											
+												
+												<li>
+													<a href="/ustanovy/bukovyns%60ka-derzhavna-sil%60s%60kogospodars%60ka-doslidna-stantsiya-naan/">Буковинська державна сільськогосподарська дослідна станція НААН</a>
+												</li>
+
+												
+											
+												
+												<li>
+													<a href="/ustanovy/derzhavne-pidpryemstvo-naukovo-tekhnichnyy-tsentr-sertyfikatsiyi-agrosepro-naan/">Державне підприємство "Науково-технічний центр сертифікації "АгроСЕПРО" НААН</a>
+												</li>
+
+												
+											
+												
+												<li>
+													<a href="/ustanovy/donets%60ka-derzhavna-sil%60s%60kogospodars%60ka-doslidna-stantsiya-naan/">Донецька державна сільськогосподарська дослідна станція НААН</a>
+												</li>
+
+												
+											
+												
+												<li>
+													<a href="/ustanovy/zakarpats%60ka-derzhavna-sil%60s%60kogospodars%60ka-doslidna-stantsiya-naan/">Закарпатська державна сільськогосподарська дослідна станція НААН</a>
+												</li>
+
+												
+											
+												
+												<li>
+													<a href="/ustanovy/zat-instytut-innovatsiynogo-provaydyngu/">ЗАТ "Інститут інноваційного провайдингу"</a>
+												</li>
+
+												
+											
+												
+												<li>
+													<a href="/ustanovy/instytut-sil%60s%60kogo-gospodarstva-zakhidnogo-polissya-naan/">Інститут сільського господарства Західного Полісся НААН</a>
+												</li>
+
+												
+											
+												
+												<li>
+													<a href="/ustanovy/instytut-sil%60s%60kogo-gospodarstva-pivnichnogo-skhodu-naan/">Інститут сільського господарства Північного Сходу НААН</a>
+												</li>
+
+												
+											
+												
+												<li>
+													<a href="/ustanovy/instytut-sil%60s%60kogo-gospodarstva-prychornomor-ya-naan/">Інститут сільського господарства Причорномор’я НААН</a>
+												</li>
+
+												
+											
+												
+												<li>
+													<a href="/ustanovy/nstitut-s-lskogo-gospodarstva-stepu-naan/">Інститут сільського господарства Степу НААН</a>
+												</li>
+
+												
+											
+												
+												<li>
+													<a href="http://naas.gov.ua/ustanovy/volyns%60ka-derzhavna-sil%60s%60kogospodars%60ka-doslidna-stantsiya-instytutu-sil%60s%60kogo-gospodarstva-zakhid/">Волинська державна сільськогосподарська дослідна станція Інституту сільського господарства Західного Полісся</a>
+												</li>
+
+												
+											
+												
+												<li>
+													<a href="/ustanovy/natsional%60na-naukova-sil%60s%60kogospodars%60ka-biblioteka-naan/">Національна наукова сільськогосподарська бібліотека НААН</a>
+												</li>
+
+												
+											
+												
+											
+												
+											
+												
+											
+												
+											
+												
+											
+												
+											
+												
+											
+												
+											
+												
+											
+												
+											
+												
+											
+												
+											
+												
+											
+												
+											
+												
+											
+												
+											
+												
+											
+												
+											
+												
+											
+												
+											
+												
+											
+												
+											
+												
+											
+												
+											
+												
+											
+												
+											
+												
+											
+												
+											
+												
+											
+												
+											
+												
+											
+												
+											
+												
+											
+												
+											
+												
+											
+										
+										</ul>
+									</li>
+								
+								
+							
+													
+							
+													
+							
+													
+							
+													
+							
+													
+							
+													
+							
+													
+							
+													
+							
+													
+							
+													
+							
+													
+							
+													
+															
+								
+									<li>
+										<a href="/ustanovy/viddilennya-roslinnictva/">Відділення рослинництва</a>
+										<ul>	
+
+											
+												
+											
+												
+											
+												
+											
+												
+											
+												
+											
+												
+											
+												
+											
+												
+											
+												
+											
+												
+											
+												
+											
+												
+											
+												
+											
+												
+											
+												
+											
+												
+											
+												
+											
+												
+											
+												
+											
+												
+											
+												
+											
+												
+											
+												
+											
+												
+											
+												
+											
+												
+											
+												
+											
+												
+											
+												
+											
+												
+											
+												
+											
+												
+											
+												
+											
+												
+											
+												
+											
+												
+											
+												
+											
+												
+											
+												
+											
+												
+											
+												
+											
+												
+											
+												
+											
+												
+											
+												
+											
+												
+											
+												
+											
+												
+											
+												
+											
+												
+											
+												
+											
+												
+											
+												
+											
+												
+											
+												
+												<li>
+													<a href="http://naas.gov.ua/ustanovy/instytut-bioenergetychnykh-kul%60tur-i-tsukrovykh-buryakiv-naan/">Інститут біоенергетичних культур і цукрових буряків НААН</a>
+												</li>
+
+												
+											
+												
+												<li>
+													<a href="http://naas.gov.ua/ustanovy/instytut-zakhystu-roslyn-naan/">Інститут захисту рослин НААН</a>
+												</li>
+
+												
+											
+												
+												<li>
+													<a href="http://naas.gov.ua/ustanovy/instytut-zernovykh-kul%60tur-naan-/">Інститут зернових культур НААН </a>
+												</li>
+
+												
+											
+												
+												<li>
+													<a href="http://naas.gov.ua/ustanovy/instytut-oliynykh-kul%60tur-naan/">Інститут олійних культур НААН</a>
+												</li>
+
+												
+											
+												
+												<li>
+													<a href="http://naas.gov.ua/ustanovy/instytut-kartoplyarstva-naan/">Інститут картоплярства НААН</a>
+												</li>
+
+												
+											
+												
+												<li>
+													<a href="http://naas.gov.ua/ustanovy/instytut-kormiv-ta-sil%60s%60kogo-gospodarstva-podillya-naan/">Інститут кормів та сільського господарства Поділля НААН</a>
+												</li>
+
+												
+											
+												
+												<li>
+													<a href="http://naas.gov.ua/ustanovy/instytut-ovochivnytstva-i-bashtannytstva-naan/">Інститут овочівництва і баштанництва НААН</a>
+												</li>
+
+												
+											
+												
+												<li>
+													<a href="http://naas.gov.ua/ustanovy/instytut-pomologiyi-imeni-l-p-symyrenka-naan/">Інститут помології імені Л.П. Симиренка НААН</a>
+												</li>
+
+												
+											
+												
+												<li>
+													<a href="http://naas.gov.ua/ustanovy/instytut-roslynnytstva-im-v-ya-yur-eva-naan/">Інститут рослинництва ім. В.Я. Юр'єва НААН</a>
+												</li>
+
+												
+											
+												
+												<li>
+													<a href="http://naas.gov.ua/ustanovy/instytut-sadivnytstva-naan/">Інститут садівництва НААН</a>
+												</li>
+
+												
+											
+												
+												<li>
+													<a href="http://naas.gov.ua/ustanovy/myronivs%60kyy-instytut-pshenytsi-imeni-v-m-remesla-naan/">Миронівський інститут пшениці імені В.М. Ремесла НААН</a>
+												</li>
+
+												
+											
+												
+												<li>
+													<a href="http://naas.gov.ua/ustanovy/natsional%60nyy-naukovyy-tsentr-instytut-vynogradarstva-i-vynorobstva-imeni-v-e-tayirova/">Національний науковий центр “Інститут виноградарства і виноробства імені В.Є. Таїрова”</a>
+												</li>
+
+												
+											
+												
+												<li>
+													<a href="http://naas.gov.ua/ustanovy/selektsiyno-genetychnyy-instytut-natsional%60nyy-tsentr-nasinneznavstva-ta-sortovyvchennya/">Селекційно-генетичний інститут – Національний центр насіннєзнавства та сортовивчення</a>
+												</li>
+
+												
+											
+												
+											
+												
+											
+												
+											
+												
+											
+												
+											
+												
+											
+												
+											
+												
+											
+												
+											
+												
+											
+												
+											
+												
+											
+												
+											
+												
+											
+												
+											
+												
+											
+												
+											
+												
+											
+												
+											
+												
+											
+												
+											
+										
+										</ul>
+									</li>
+								
+								
+							
+													
+							
+													
+							
+													
+							
+													
+							
+													
+							
+													
+							
+													
+							
+													
+							
+													
+							
+													
+							
+													
+							
+													
+							
+													
+							
+													
+							
+													
+							
+													
+							
+													
+							
+													
+							
+													
+							
+													
+							
+													
+							
+													
+							
+													
+							
+													
+							
+													
+							
+													
+							
+													
+							
+													
+							
+													
+							
+													
+							
+													
+							
+													
+							
+													
+							
+													
+							
+											
+					
+					</ul>
+				</li>
+
+					
+
+		
+	
+		
+	
+		
+	
+		
+	
+		
+	
+		
+	
+		
+	
+		
+	
+		
+	
+		
+	
+		
+	
+		
+	
+		
+	
+		
+	
+		
+	
+		
+	
+		
+	
+		
+	
+		
+	
+		
+	
+		
+	
+		
+	
+		
+	
+		
+	
+		
+	
+		
+	
+		
+	
+		
+	
+		
+	
+		
+	
+		
+	
+		
+	
+		
+	
+		
+	
+		
+	
+		
+	
+		
+	
+		
+	
+		
+	
+		
+	
+		
+	
+		
+	
+		
+	
+		
+	
+		
+	
+		
+	
+		
+	
+		
+	
+		
+	
+		
+	
+		
+	
+		
+	
+		
+	
+		
+	
+		
+	
+		
+	
+		
+	
+		
+			
+							<li><a href="/content/publichna-informaciya/"><span>Публічна інформація</span></a>	
+								<ul>
+						<li class="first"></li>
+													
+							
+													
+							
+													
+							
+													
+							
+													
+							
+													
+							
+													
+							
+													
+							
+													
+							
+													
+							
+													
+							
+													
+							
+													
+							
+													
+							
+													
+							
+													
+							
+													
+							
+													
+							
+													
+							
+													
+							
+													
+							
+													
+							
+													
+							
+													
+							
+													
+							
+													
+							
+													
+							
+													
+							
+													
+							
+													
+							
+													
+							
+													
+							
+													
+							
+													
+							
+													
+							
+													
+							
+													
+							
+													
+							
+													
+							
+													
+							
+													
+							
+													
+							
+													
+							
+													
+							
+													
+							
+													
+							
+													
+							
+													
+							
+													
+							
+													
+							
+													
+							
+													
+							
+													
+							
+													
+							
+													
+							
+													
+							
+													
+							
+													
+							
+													
+							
+													
+							
+													
+							
+													
+							
+													
+							
+													
+							
+													
+							
+													
+							
+													
+							
+													
+							
+													
+															
+								
+																	<li><a href="/content/publichna-informaciya/nomat_pravova_baza/"><span>Нормативно-правова база</span></a>
+																	</li>
+
+								
+							
+													
+															
+								
+																	<li><a href="/content/publichna-informaciya/naukovy_rozrobky/"><span>Наукові розробки та пропозиції від НААН</span></a>
+																	</li>
+
+								
+							
+													
+															
+								
+																	<li><a href="/content/publichna-informaciya/pidgotovka_ta_atestatsya/"><span>Підготовка та атестація наукових кадрів НААН</span></a>
+																	</li>
+
+								
+							
+													
+															
+								
+																	<li><a href="/content/publichna-informaciya/planuvannya_diyalnosti/"><span>Планування діяльності академії</span></a>
+																	</li>
+
+								
+							
+													
+															
+								
+																	<li><a href="/content/publichna-informaciya/ogoloshennya/"><span>Оголошення</span></a>
+																	</li>
+
+								
+							
+													
+															
+								
+																	<li><a href="/content/publichna-informaciya/vitannya/"><span>Виставкова діяльність</span></a>
+																	</li>
+
+								
+							
+													
+															
+								
+																	<li><a href="/content/publichna-informaciya/tendery/"><span>Тендери</span></a>
+																	</li>
+
+								
+							
+													
+															
+								
+																	<li><a href="/content/publichna-informaciya/maynovy_pytannya/"><span>Майнові питання</span></a>
+																	</li>
+
+								
+							
+													
+															
+								
+																	<li><a href="/content/publichna-informaciya/pasport budget/"><span>Паспорт бюджетної програми</span></a>
+																	</li>
+
+								
+							
+													
+															
+								
+																	<li><a href="/content/publichna-informaciya/Budjetni_zapity/"><span>Бюджетні запити</span></a>
+																	</li>
+
+								
+							
+													
+															
+								
+																	<li><a href="/content/publichna-informaciya/Vikoristannya_koshtiv_derj_budjetu/"><span>Використання коштів державного бюджету </span></a>
+																	</li>
+
+								
+							
+													
+															
+								
+																	<li><a href="/content/publichna-informaciya/FAO"><span>ФАО</span></a>
+																	</li>
+
+								
+							
+													
+															
+								
+																	<li><a href="/content/publichna-informaciya/rizne/"><span>Різне</span></a>
+																	</li>
+
+								
+							
+													
+							
+													
+							
+													
+							
+													
+							
+													
+							
+													
+							
+													
+							
+											
+					
+					</ul>
+				</li>
+
+					
+
+		
+	
+		
+	
+		
+	
+		
+	
+		
+	
+		
+	
+		
+	
+		
+	
+		
+	
+		
+	
+		
+	
+		
+	
+		
+	
+		
+	
+		
+			
+											<li><a href="/content/youngscientists/"><span>Рада молодих вчених</span></a></li>
+					
+					
+
+		
+	
+		
+			
+							<li><a href="/content/Intelekt_vlasnist/"><span>Інтелектуальна власність</span></a>	
+								<ul>
+						<li class="first"></li>
+													
+							
+													
+							
+													
+							
+													
+							
+													
+							
+													
+							
+													
+							
+													
+							
+													
+							
+													
+							
+													
+							
+													
+							
+													
+							
+													
+							
+													
+							
+													
+							
+													
+							
+													
+							
+													
+							
+													
+							
+													
+							
+													
+							
+													
+							
+													
+							
+													
+							
+													
+							
+													
+							
+													
+							
+													
+							
+													
+							
+													
+							
+													
+							
+													
+							
+													
+							
+													
+							
+													
+							
+													
+							
+													
+							
+													
+							
+													
+							
+													
+							
+													
+							
+													
+							
+													
+							
+													
+							
+													
+							
+													
+							
+													
+							
+													
+							
+													
+							
+													
+							
+													
+							
+													
+							
+													
+							
+													
+							
+													
+							
+													
+							
+													
+							
+													
+							
+													
+							
+													
+							
+													
+							
+													
+							
+													
+							
+													
+							
+													
+							
+													
+							
+													
+							
+													
+							
+													
+							
+													
+							
+													
+							
+													
+							
+													
+							
+													
+							
+													
+							
+													
+							
+													
+							
+													
+							
+													
+							
+													
+							
+													
+							
+													
+							
+													
+															
+								
+																	<li><a class="first" href="/content/Intelekt_vlasnist/Normativno-pravova-documentacia/"><span>Нормативно-правова документація</span></a>	
+																	</li>
+
+								
+							
+													
+															
+								
+																	<li><a href="/content/Intelekt_vlasnist/Virtualna-vistavka"><span>Віртуальна виставка "Інноваційні розробки"</span></a>
+																	</li>
+
+								
+							
+													
+															
+								
+																	<li><a href="/content/Intelekt_vlasnist/Novini-v-intelektualniy-vlasnosti/"><span>Новини в інтелектуальній власності</span></a>
+																	</li>
+
+								
+							
+													
+															
+								
+																	<li><a href="/content/Intelekt_vlasnist/Cikavo-znaty/"><span>Цікаво знати</span></a>
+																	</li>
+
+								
+							
+													
+							
+											
+					
+					</ul>
+				</li>
+
+					
+
+		
+	
+		
+	
+		
+	
+		
+	
+		
+	
+		
+			
+											<li><a href="/content/kontakti/"><span>Контакти</span></a></li>
+					
+					
+
+		
+	
+	
+	</ul>
+          			   </div>
+
+
+ 
+			              </header><!-- .header-->
+
+	<div class="middle">
+        <div class="inner">
+            <div class="container">
+				<div class="content_info_block">
+					<div class="page_nav"><a href="/" title="Головна">Головна</a><a href="/content/literatura/" title="Е-Бібліотека">Е-Бібліотека</a></div>                        <div class="h1"><h1>E-Бібліотека</h1></div>
+      			 
+            <div class="clear"></div>
+				</div>
+                <main class="content">	<div class="bx_filter_horizontal">
+	<div class="bx_filter_section m4">
+		<div class="bx_filter_title">Выбор по параметрам:</div>
+		<form name="_form" action="/content/literatura/Паспорт 6591060.pdf" method="get" class="smartfilter">
+																																		
+											<div class="bx_filter_container">
+					<span class="bx_filter_container_title" onclick="hideFilterProps(this)">За алфавітом</span>
+					<div class="bx_filter_block" style="opacity: 0; height: 0px; overflow:hidden;">
+												<span class="">
+							<input
+								type="checkbox"
+								value="Y"
+								name="arrFilter_36_4151131437"
+								id="arrFilter_36_4151131437"
+																onclick="smartFilter.click(this)"
+															/>
+							<label for="arrFilter_36_4151131437">І</label>
+						</span>
+												<span class="">
+							<input
+								type="checkbox"
+								value="Y"
+								name="arrFilter_36_1231433021"
+								id="arrFilter_36_1231433021"
+																onclick="smartFilter.click(this)"
+															/>
+							<label for="arrFilter_36_1231433021">А</label>
+						</span>
+												<span class="">
+							<input
+								type="checkbox"
+								value="Y"
+								name="arrFilter_36_1046551979"
+								id="arrFilter_36_1046551979"
+																onclick="smartFilter.click(this)"
+															/>
+							<label for="arrFilter_36_1046551979">Б</label>
+						</span>
+												<span class="">
+							<input
+								type="checkbox"
+								value="Y"
+								name="arrFilter_36_2808630289"
+								id="arrFilter_36_2808630289"
+																onclick="smartFilter.click(this)"
+															/>
+							<label for="arrFilter_36_2808630289">В</label>
+						</span>
+												<span class="">
+							<input
+								type="checkbox"
+								value="Y"
+								name="arrFilter_36_3496967303"
+								id="arrFilter_36_3496967303"
+																onclick="smartFilter.click(this)"
+															/>
+							<label for="arrFilter_36_3496967303">Г</label>
+						</span>
+												<span class="">
+							<input
+								type="checkbox"
+								value="Y"
+								name="arrFilter_36_957143474"
+								id="arrFilter_36_957143474"
+																onclick="smartFilter.click(this)"
+															/>
+							<label for="arrFilter_36_957143474">Е</label>
+						</span>
+												<span class="">
+							<input
+								type="checkbox"
+								value="Y"
+								name="arrFilter_36_3607279774"
+								id="arrFilter_36_3607279774"
+																onclick="smartFilter.click(this)"
+															/>
+							<label for="arrFilter_36_3607279774">З</label>
+						</span>
+												<span class="">
+							<input
+								type="checkbox"
+								value="Y"
+								name="arrFilter_36_2847130659"
+								id="arrFilter_36_2847130659"
+																onclick="smartFilter.click(this)"
+															/>
+							<label for="arrFilter_36_2847130659">К</label>
+						</span>
+												<span class="">
+							<input
+								type="checkbox"
+								value="Y"
+								name="arrFilter_36_3736401077"
+								id="arrFilter_36_3736401077"
+																onclick="smartFilter.click(this)"
+															/>
+							<label for="arrFilter_36_3736401077">Л</label>
+						</span>
+												<span class="">
+							<input
+								type="checkbox"
+								value="Y"
+								name="arrFilter_36_1087398166"
+								id="arrFilter_36_1087398166"
+																onclick="smartFilter.click(this)"
+															/>
+							<label for="arrFilter_36_1087398166">М</label>
+						</span>
+												<span class="">
+							<input
+								type="checkbox"
+								value="Y"
+								name="arrFilter_36_936857984"
+								id="arrFilter_36_936857984"
+																onclick="smartFilter.click(this)"
+															/>
+							<label for="arrFilter_36_936857984">Н</label>
+						</span>
+												<span class="">
+							<input
+								type="checkbox"
+								value="Y"
+								name="arrFilter_36_2933784634"
+								id="arrFilter_36_2933784634"
+																onclick="smartFilter.click(this)"
+															/>
+							<label for="arrFilter_36_2933784634">О</label>
+						</span>
+												<span class="">
+							<input
+								type="checkbox"
+								value="Y"
+								name="arrFilter_36_3654889644"
+								id="arrFilter_36_3654889644"
+																onclick="smartFilter.click(this)"
+															/>
+							<label for="arrFilter_36_3654889644">П</label>
+						</span>
+												<span class="">
+							<input
+								type="checkbox"
+								value="Y"
+								name="arrFilter_36_1422998873"
+								id="arrFilter_36_1422998873"
+																onclick="smartFilter.click(this)"
+															/>
+							<label for="arrFilter_36_1422998873">Р</label>
+						</span>
+												<span class="">
+							<input
+								type="checkbox"
+								value="Y"
+								name="arrFilter_36_601230799"
+								id="arrFilter_36_601230799"
+																onclick="smartFilter.click(this)"
+															/>
+							<label for="arrFilter_36_601230799">С</label>
+						</span>
+												<span class="">
+							<input
+								type="checkbox"
+								value="Y"
+								name="arrFilter_36_3182598252"
+								id="arrFilter_36_3182598252"
+																onclick="smartFilter.click(this)"
+															/>
+							<label for="arrFilter_36_3182598252">Ц</label>
+						</span>
+											</div>
+				</div>
+															<div class="bx_filter_container">
+					<span class="bx_filter_container_title" onclick="hideFilterProps(this)">Дата видання</span>
+					<div class="bx_filter_block" style="opacity: 0; height: 0px; overflow:hidden;">
+												<span class="">
+							<input
+								type="checkbox"
+								value="Y"
+								name="arrFilter_37_2387055260"
+								id="arrFilter_37_2387055260"
+																onclick="smartFilter.click(this)"
+															/>
+							<label for="arrFilter_37_2387055260">2005-03-09 00:00:00</label>
+						</span>
+												<span class="">
+							<input
+								type="checkbox"
+								value="Y"
+								name="arrFilter_37_1574301614"
+								id="arrFilter_37_1574301614"
+																onclick="smartFilter.click(this)"
+															/>
+							<label for="arrFilter_37_1574301614">2015-11-26 00:00:00</label>
+						</span>
+												<span class="">
+							<input
+								type="checkbox"
+								value="Y"
+								name="arrFilter_37_886788086"
+								id="arrFilter_37_886788086"
+																onclick="smartFilter.click(this)"
+															/>
+							<label for="arrFilter_37_886788086">2018-03-14 00:00:00</label>
+						</span>
+											</div>
+				</div>
+															<div class="bx_filter_container">
+					<span class="bx_filter_container_title" onclick="hideFilterProps(this)">Тип видання</span>
+					<div class="bx_filter_block" style="opacity: 0; height: 0px; overflow:hidden;">
+												<span class="">
+							<input
+								type="checkbox"
+								value="Y"
+								name="arrFilter_38_2366072709"
+								id="arrFilter_38_2366072709"
+																onclick="smartFilter.click(this)"
+															/>
+							<label for="arrFilter_38_2366072709">Бюлетень</label>
+						</span>
+												<span class="">
+							<input
+								type="checkbox"
+								value="Y"
+								name="arrFilter_38_1790921346"
+								id="arrFilter_38_1790921346"
+																onclick="smartFilter.click(this)"
+															/>
+							<label for="arrFilter_38_1790921346">Журнал</label>
+						</span>
+												<span class="">
+							<input
+								type="checkbox"
+								value="Y"
+								name="arrFilter_38_4194326291"
+								id="arrFilter_38_4194326291"
+																onclick="smartFilter.click(this)"
+															/>
+							<label for="arrFilter_38_4194326291">Збірник</label>
+						</span>
+												<span class="">
+							<input
+								type="checkbox"
+								value="Y"
+								name="arrFilter_38_498629140"
+								id="arrFilter_38_498629140"
+																onclick="smartFilter.click(this)"
+															/>
+							<label for="arrFilter_38_498629140">Книга</label>
+						</span>
+											</div>
+				</div>
+															<div class="bx_filter_container">
+					<span class="bx_filter_container_title" onclick="hideFilterProps(this)">За фахом</span>
+					<div class="bx_filter_block" style="opacity: 0; height: 0px; overflow:hidden;">
+												<span class="">
+							<input
+								type="checkbox"
+								value="Y"
+								name="arrFilter_39_3510096238"
+								id="arrFilter_39_3510096238"
+																onclick="smartFilter.click(this)"
+															/>
+							<label for="arrFilter_39_3510096238">Історичні</label>
+						</span>
+												<span class="">
+							<input
+								type="checkbox"
+								value="Y"
+								name="arrFilter_39_2707236321"
+								id="arrFilter_39_2707236321"
+																onclick="smartFilter.click(this)"
+															/>
+							<label for="arrFilter_39_2707236321">Біологічні</label>
+						</span>
+												<span class="">
+							<input
+								type="checkbox"
+								value="Y"
+								name="arrFilter_39_2788221432"
+								id="arrFilter_39_2788221432"
+																onclick="smartFilter.click(this)"
+															/>
+							<label for="arrFilter_39_2788221432">Ветеринарні</label>
+						</span>
+												<span class="">
+							<input
+								type="checkbox"
+								value="Y"
+								name="arrFilter_39_3596227959"
+								id="arrFilter_39_3596227959"
+																onclick="smartFilter.click(this)"
+															/>
+							<label for="arrFilter_39_3596227959">Економічні</label>
+						</span>
+												<span class="">
+							<input
+								type="checkbox"
+								value="Y"
+								name="arrFilter_39_1330857165"
+								id="arrFilter_39_1330857165"
+																onclick="smartFilter.click(this)"
+															/>
+							<label for="arrFilter_39_1330857165">Сільськогосподарські </label>
+						</span>
+												<span class="">
+							<input
+								type="checkbox"
+								value="Y"
+								name="arrFilter_39_945058907"
+								id="arrFilter_39_945058907"
+																onclick="smartFilter.click(this)"
+															/>
+							<label for="arrFilter_39_945058907">Технічні</label>
+						</span>
+											</div>
+				</div>
+										<div style="clear: both;"></div>
+			<div class="bx_filter_control_section">
+				<span class="icon"></span><input class="bx_filter_search_button" type="submit" id="set_filter" name="set_filter" value="Показать" />
+				<input class="bx_filter_search_button" type="submit" id="del_filter" name="del_filter" value="Сбросить" />
+
+				<div class="bx_filter_popup_result" id="modef" style="display:none" style="display: inline-block;top: 75px;left: 25px;right: 25px;">
+					Выбрано: <span id="modef_num">0</span>					<a href="">Показать</a>
+					<!--<span class="ecke"></span>-->
+				</div>
+			</div>
+		</form>
+		<div style="clear: both;"></div>
+	</div>
+</div>
+<script>
+	var smartFilter = new JCSmartFilter('/content/literatura/Паспорт 6591060.pdf');
+</script><div class="bx_catalog_text"></div><div class="bx_catalog_list_home col5"><div class="bx_catalog_item"><div class="bx_catalog_item_container" id="bx_2726591699_1024">
+		<a id="bx_2726591699_1024_pict"
+			href="/content/literatura/1024/"
+			class="bx_catalog_item_images"
+			style="background-image: url(/upload/iblock/501/arheologochniy_journal.png)" title="">		</a><div class="bx_catalog_item_title"><a href="/content/literatura/1024/" title="Агроекологічний журнал">Агроекологічний журнал</a></div>
+	<div class="bx_catalog_item_price"><div id="bx_2726591699_1024_price" class="bx_price"></div></div>
+	
+
+</div></div><div class="bx_catalog_item"><div class="bx_catalog_item_container" id="bx_2726591699_1033">
+		<a id="bx_2726591699_1033_pict"
+			href="/content/literatura/1033/"
+			class="bx_catalog_item_images"
+			style="background-image: url(/upload/iblock/1fd/123.png)" title="">		</a><div class="bx_catalog_item_title"><a href="/content/literatura/1033/" title="Агропромислове  виробництво Полісся">Агропромислове  виробництво Полісся</a></div>
+	<div class="bx_catalog_item_price"><div id="bx_2726591699_1033_price" class="bx_price"></div></div>
+	
+
+</div></div><div class="bx_catalog_item"><div class="bx_catalog_item_container" id="bx_2726591699_1023">
+		<a id="bx_2726591699_1023_pict"
+			href="/content/literatura/1023/"
+			class="bx_catalog_item_images"
+			style="background-image: url(/upload/iblock/a58/82-150-.jpg)" title="">		</a><div class="bx_catalog_item_title"><a href="/content/literatura/1023/" title="Агрохімія і ґрунтознавство">Агрохімія і ґрунтознавство</a></div>
+	<div class="bx_catalog_item_price"><div id="bx_2726591699_1023_price" class="bx_price"></div></div>
+	
+
+</div></div><div class="bx_catalog_item"><div class="bx_catalog_item_container" id="bx_2726591699_1054">
+		<a id="bx_2726591699_1054_pict"
+			href="/content/literatura/1054/"
+			class="bx_catalog_item_images"
+			style="background-image: url(/upload/iblock/6ba/images-stories.jpg)" title="">		</a><div class="bx_catalog_item_title"><a href="/content/literatura/1054/" title="Асканія-Нова">Асканія-Нова</a></div>
+	<div class="bx_catalog_item_price"><div id="bx_2726591699_1054_price" class="bx_price"></div></div>
+	
+
+</div></div><div class="bx_catalog_item"><div class="bx_catalog_item_container" id="bx_2726591699_1040">
+		<a id="bx_2726591699_1040_pict"
+			href="/content/literatura/1040/"
+			class="bx_catalog_item_images"
+			style="background-image: url(/upload/iblock/618/Журнал «Біоенергетика».jpg)" title="">		</a><div class="bx_catalog_item_title"><a href="/content/literatura/1040/" title="Біоенергетика">Біоенергетика</a></div>
+	<div class="bx_catalog_item_price"><div id="bx_2726591699_1040_price" class="bx_price"></div></div>
+	
+
+</div></div><div class="bx_catalog_item"><div class="bx_catalog_item_container" id="bx_2726591699_1057">
+		<a id="bx_2726591699_1057_pict"
+			href="/content/literatura/1057/"
+			class="bx_catalog_item_images"
+			style="background-image: url(/upload/iblock/088/bt2013.jpg)" title="">		</a><div class="bx_catalog_item_title"><a href="/content/literatura/1057/" title="Біологія тварин">Біологія тварин</a></div>
+	<div class="bx_catalog_item_price"><div id="bx_2726591699_1057_price" class="bx_price"></div></div>
+	
+
+</div></div><div class="bx_catalog_item"><div class="bx_catalog_item_container" id="bx_2726591699_1037">
+		<a id="bx_2726591699_1037_pict"
+			href="/content/literatura/1037/"
+			class="bx_catalog_item_images"
+			style="background-image: url(/upload/iblock/6f6/logo.png)" title="">		</a><div class="bx_catalog_item_title"><a href="/content/literatura/1037/" title="Бюлетень Інституту сільського господарства степової зони">Бюлетень Інституту сільського господарства степової зони</a></div>
+	<div class="bx_catalog_item_price"><div id="bx_2726591699_1037_price" class="bx_price"></div></div>
+	
+
+</div></div><div class="bx_catalog_item"><div class="bx_catalog_item_container" id="bx_2726591699_1059">
+		<a id="bx_2726591699_1059_pict"
+			href="/content/literatura/1059/"
+			class="bx_catalog_item_images"
+			style="background-image: url(/upload/iblock/efd/Журнал «Journal for Veterinary Medicine, Biotechnology and Biosafety».jpg)" title="">		</a><div class="bx_catalog_item_title"><a href="/content/literatura/1059/" title="Ветеринарна біотехнологія">Ветеринарна біотехнологія</a></div>
+	<div class="bx_catalog_item_price"><div id="bx_2726591699_1059_price" class="bx_price"></div></div>
+	
+
+</div></div><div class="bx_catalog_item"><div class="bx_catalog_item_container" id="bx_2726591699_1053">
+		<a id="bx_2726591699_1053_pict"
+			href="/content/literatura/1053/"
+			class="bx_catalog_item_images"
+			style="background-image: url(/upload/iblock/4ba/i87412.jpg)" title="">		</a><div class="bx_catalog_item_title"><a href="/content/literatura/1053/" title="Вівчарство">Вівчарство</a></div>
+	<div class="bx_catalog_item_price"><div id="bx_2726591699_1053_price" class="bx_price"></div></div>
+	
+
+</div></div><div class="bx_catalog_item"><div class="bx_catalog_item_container" id="bx_2726591699_1022">
+		<a id="bx_2726591699_1022_pict"
+			href="/content/literatura/1022/"
+			class="bx_catalog_item_images"
+			style="background-image: url(/upload/iblock/b25/ВАН .jpg)" title="">		</a><div class="bx_catalog_item_title"><a href="/content/literatura/1022/" title="Вісник аграрної науки">Вісник аграрної науки</a></div>
+	<div class="bx_catalog_item_price"><div id="bx_2726591699_1022_price" class="bx_price"></div></div>
+	
+
+</div></div><div class="bx_catalog_item"><div class="bx_catalog_item_container" id="bx_2726591699_1049">
+		<a id="bx_2726591699_1049_pict"
+			href="/content/literatura/1049/"
+			class="bx_catalog_item_images"
+			style="background-image: url(/upload/iblock/550/rec.png)" title="">		</a><div class="bx_catalog_item_title"><a href="/content/literatura/1049/" title="Вісник Центру наукового забезпечення АПВ Харківської області">Вісник Центру наукового забезпечення АПВ Харківської області</a></div>
+	<div class="bx_catalog_item_price"><div id="bx_2726591699_1049_price" class="bx_price"></div></div>
+	
+
+</div></div><div class="bx_catalog_item"><div class="bx_catalog_item_container" id="bx_2726591699_1048">
+		<a id="bx_2726591699_1048_pict"
+			href="/content/literatura/1048/"
+			class="bx_catalog_item_images"
+			style="background-image: url(/upload/iblock/cc5/Науковий журнал «Генетичні ресурси рослин».jpg)" title="">		</a><div class="bx_catalog_item_title"><a href="/content/literatura/1048/" title="Генетичні ресурси рослин">Генетичні ресурси рослин</a></div>
+	<div class="bx_catalog_item_price"><div id="bx_2726591699_1048_price" class="bx_price"></div></div>
+	
+
+</div></div><div class="bx_catalog_item"><div class="bx_catalog_item_container" id="bx_2726591699_8178">
+		<a id="bx_2726591699_8178_pict"
+			href="/content/literatura/8178/"
+			class="bx_catalog_item_images"
+			style="background-image: url(/upload/iblock/ec9/cover_issue_344_uk_UA.jpg)" title="">		</a><div class="bx_catalog_item_title"><a href="/content/literatura/8178/" title="Глобально-локальні перетворення власності й суспільного розподілу на тлі запровадження безумовного базового доходу">Глобально-локальні перетворення власності й суспільного розподілу на тлі запровадження безумовного базового доходу</a></div>
+	<div class="bx_catalog_item_price"><div id="bx_2726591699_8178_price" class="bx_price"></div></div>
+	
+
+</div></div><div class="bx_catalog_item"><div class="bx_catalog_item_container" id="bx_2726591699_8175">
+		<a id="bx_2726591699_8175_pict"
+			href="/content/literatura/8175/"
+			class="bx_catalog_item_images"
+			style="background-image: url(/upload/iblock/b6f/cover_issue_344_uk_UA.jpg)" title="">		</a><div class="bx_catalog_item_title"><a href="/content/literatura/8175/" title="До питання методології дослідження права людини на продовольство в сталій агропродовольчій системі">До питання методології дослідження права людини на продовольство в сталій агропродовольчій системі</a></div>
+	<div class="bx_catalog_item_price"><div id="bx_2726591699_8175_price" class="bx_price"></div></div>
+	
+
+</div></div><div class="bx_catalog_item"><div class="bx_catalog_item_container" id="bx_2726591699_1060">
+		<a id="bx_2726591699_1060_pict"
+			href="/content/literatura/1060/"
+			class="bx_catalog_item_images"
+			style="background-image: url(/upload/iblock/565/eapk_pic.png)" title="">		</a><div class="bx_catalog_item_title"><a href="/content/literatura/1060/" title="Економіка АПК">Економіка АПК</a></div>
+	<div class="bx_catalog_item_price"><div id="bx_2726591699_1060_price" class="bx_price"></div></div>
+	
+
+</div></div><div class="bx_catalog_item"><div class="bx_catalog_item_container" id="bx_2726591699_8251">
+		<a id="bx_2726591699_8251_pict"
+			href="/content/literatura/8251/"
+			class="bx_catalog_item_images"
+			style="background-image: url(/upload/iblock/f7e/обкладинка_page-0001 (1).jpg)" title="">		</a><div class="bx_catalog_item_title"><a href="/content/literatura/8251/" title="Економіка: регіональний розвиток та інновації">Економіка: регіональний розвиток та інновації</a></div>
+	<div class="bx_catalog_item_price"><div id="bx_2726591699_8251_price" class="bx_price"></div></div>
+	
+
+</div></div><div class="bx_catalog_item"><div class="bx_catalog_item_container" id="bx_2726591699_1041">
+		<a id="bx_2726591699_1041_pict"
+			href="/content/literatura/1041/"
+			class="bx_catalog_item_images"
+			style="background-image: url(/upload/iblock/f02/Журнал «Біоенергетика».jpg)" title="">		</a><div class="bx_catalog_item_title"><a href="/content/literatura/1041/" title="Журнал Біоенергетика">Журнал Біоенергетика</a></div>
+	<div class="bx_catalog_item_price"><div id="bx_2726591699_1041_price" class="bx_price"></div></div>
+	
+
+</div></div><div class="bx_catalog_item"><div class="bx_catalog_item_container" id="bx_2726591699_1025">
+		<a id="bx_2726591699_1025_pict"
+			href="/content/literatura/1025/"
+			class="bx_catalog_item_images"
+			style="background-image: url(/upload/iblock/c2a/Title.jpg)" title="">		</a><div class="bx_catalog_item_title"><a href="/content/literatura/1025/" title="Збалансоване природокористування">Збалансоване природокористування</a></div>
+	<div class="bx_catalog_item_price"><div id="bx_2726591699_1025_price" class="bx_price"></div></div>
+	
+
+</div></div><div class="bx_catalog_item"><div class="bx_catalog_item_container" id="bx_2726591699_2185">
+		<a id="bx_2726591699_2185_pict"
+			href="/content/literatura/2185/"
+			class="bx_catalog_item_images"
+			style="background-image: url(/upload/iblock/54d/1-0002-224x300.jpg)" title="">		</a><div class="bx_catalog_item_title"><a href="/content/literatura/2185/" title="Збірник наукових праць ННЦ &quot;Інститут землеробства НААН&quot;">Збірник наукових праць ННЦ &quot;Інститут землеробства НААН&quot;</a></div>
+	<div class="bx_catalog_item_price"><div id="bx_2726591699_2185_price" class="bx_price"></div></div>
+	
+
+</div></div><div class="bx_catalog_item"><div class="bx_catalog_item_container" id="bx_2726591699_1036">
+		<a id="bx_2726591699_1036_pict"
+			href="/content/literatura/1036/"
+			class="bx_catalog_item_images"
+			style="background-image: url(/upload/iblock/fd4/zbir.png)" title="">		</a><div class="bx_catalog_item_title"><a href="/content/literatura/1036/" title="Збірник наукових праць Селекційно-генетичного  інституту – Національного центру насіннєзнавства та сортовивчення">Збірник наукових праць Селекційно-генетичного  інституту – Національного центру насіннєзнавства та сортовивчення</a></div>
+	<div class="bx_catalog_item_price"><div id="bx_2726591699_1036_price" class="bx_price"></div></div>
+	
+
+</div></div><div class="bx_catalog_item"><div class="bx_catalog_item_container" id="bx_2726591699_2184">
+		<a id="bx_2726591699_2184_pict"
+			href="/content/literatura/2184/"
+			class="bx_catalog_item_images"
+			style="background-image: url(/upload/iblock/73c/Титулка_1-210x300.jpg)" title="">		</a><div class="bx_catalog_item_title"><a href="/content/literatura/2184/" title="Землеробство">Землеробство</a></div>
+	<div class="bx_catalog_item_price"><div id="bx_2726591699_2184_price" class="bx_price"></div></div>
+	
+
+</div></div><div class="bx_catalog_item"><div class="bx_catalog_item_container" id="bx_2726591699_1035">
+		<a id="bx_2726591699_1035_pict"
+			href="/content/literatura/1035/"
+			class="bx_catalog_item_images"
+			style="background-image: url(/upload/iblock/b53/_2015_2_20150429_1992381073.jpg)" title="">		</a><div class="bx_catalog_item_title"><a href="/content/literatura/1035/" title="Зрошуване землеробство">Зрошуване землеробство</a></div>
+	<div class="bx_catalog_item_price"><div id="bx_2726591699_1035_price" class="bx_price"></div></div>
+	
+
+</div></div><div class="bx_catalog_item"><div class="bx_catalog_item_container" id="bx_2726591699_1063">
+		<a id="bx_2726591699_1063_pict"
+			href="/content/literatura/1063/"
+			class="bx_catalog_item_images"
+			style="background-image: url(/upload/iblock/995/nnsgb_m.gif)" title="">		</a><div class="bx_catalog_item_title"><a href="/content/literatura/1063/" title="Історія науки і біографістика">Історія науки і біографістика</a></div>
+	<div class="bx_catalog_item_price"><div id="bx_2726591699_1063_price" class="bx_price"></div></div>
+	
+
+</div></div><div class="bx_catalog_item"><div class="bx_catalog_item_container" id="bx_2726591699_1051">
+		<a id="bx_2726591699_1051_pict"
+			href="/content/literatura/1051/"
+			class="bx_catalog_item_images"
+			style="background-image: url(/upload/iblock/617/2012.png)" title="">		</a><div class="bx_catalog_item_title"><a href="/content/literatura/1051/" title="Карантин і захист рослин">Карантин і захист рослин</a></div>
+	<div class="bx_catalog_item_price"><div id="bx_2726591699_1051_price" class="bx_price"></div></div>
+	
+
+</div></div><div class="bx_catalog_item"><div class="bx_catalog_item_container" id="bx_2726591699_1043">
+		<a id="bx_2726591699_1043_pict"
+			href="/content/literatura/1043/"
+			class="bx_catalog_item_images"
+			style="background-image: url(/upload/iblock/ee4/Збірник «Корми і кормовиробництво».jpg)" title="">		</a><div class="bx_catalog_item_title"><a href="/content/literatura/1043/" title="Корми і кормовиробництво">Корми і кормовиробництво</a></div>
+	<div class="bx_catalog_item_price"><div id="bx_2726591699_1043_price" class="bx_price"></div></div>
+	
+
+</div></div><div class="bx_catalog_item"><div class="bx_catalog_item_container" id="bx_2726591699_1064">
+		<a id="bx_2726591699_1064_pict"
+			href="/content/literatura/1064/"
+			class="bx_catalog_item_images"
+			style="background-image: url(/upload/iblock/fbe/Titul_7.jpg)" title="">		</a><div class="bx_catalog_item_title"><a href="/content/literatura/1064/" title="Луб’яні та  технічні культури">Луб’яні та  технічні культури</a></div>
+	<div class="bx_catalog_item_price"><div id="bx_2726591699_1064_price" class="bx_price"></div></div>
+	
+
+</div></div><div class="bx_catalog_item"><div class="bx_catalog_item_container" id="bx_2726591699_1031">
+		<a id="bx_2726591699_1031_pict"
+			href="/content/literatura/1031/"
+			class="bx_catalog_item_images"
+			style="background-image: url(/upload/iblock/776/Журнал«Меліорація і водне господарство».jpg)" title="">		</a><div class="bx_catalog_item_title"><a href="/content/literatura/1031/" title="Меліорація і водне господарство">Меліорація і водне господарство</a></div>
+	<div class="bx_catalog_item_price"><div id="bx_2726591699_1031_price" class="bx_price"></div></div>
+	
+
+</div></div><div class="bx_catalog_item"><div class="bx_catalog_item_container" id="bx_2726591699_4041">
+		<a id="bx_2726591699_4041_pict"
+			href="/content/literatura/4041/"
+			class="bx_catalog_item_images"
+			style="background-image: url(/upload/iblock/e5f/29019569_604420603228547_661649365_n.jpg)" title="">		</a><div class="bx_catalog_item_title"><a href="/content/literatura/4041/" title="Міжвідомчий тематичний науковий збірник «Розведення і генетика тварин» ">Міжвідомчий тематичний науковий збірник «Розведення і генетика тварин» </a></div>
+	<div class="bx_catalog_item_price"><div id="bx_2726591699_4041_price" class="bx_price"></div></div>
+	
+
+</div></div><div class="bx_catalog_item"><div class="bx_catalog_item_container" id="bx_2726591699_8176">
+		<a id="bx_2726591699_8176_pict"
+			href="/content/literatura/8176/"
+			class="bx_catalog_item_images"
+			style="background-image: url(/upload/iblock/9dd/cover_issue_344_uk_UA.jpg)" title="">		</a><div class="bx_catalog_item_title"><a href="/content/literatura/8176/" title="Модель «належного урядування» як шлях реформування публічної політики в Україні">Модель «належного урядування» як шлях реформування публічної політики в Україні</a></div>
+	<div class="bx_catalog_item_price"><div id="bx_2726591699_8176_price" class="bx_price"></div></div>
+	
+
+</div></div><div class="bx_catalog_item"><div class="bx_catalog_item_container" id="bx_2726591699_8250">
+		<a id="bx_2726591699_8250_pict"
+			href="/content/literatura/8250/"
+			class="bx_catalog_item_images"
+			style="background-image: url(/upload/iblock/3d9/cover2.jpg)" title="">		</a><div class="bx_catalog_item_title"><a href="/content/literatura/8250/" title="Наука про рослини (агрономія, садівництво, виноградарство)">Наука про рослини (агрономія, садівництво, виноградарство)</a></div>
+	<div class="bx_catalog_item_price"><div id="bx_2726591699_8250_price" class="bx_price"></div></div>
+	
+
+</div></div><div class="bx_catalog_item"><div class="bx_catalog_item_container" id="bx_2726591699_1045">
+		<a id="bx_2726591699_1045_pict"
+			href="/content/literatura/1045/"
+			class="bx_catalog_item_images"
+			style="background-image: url(/upload/iblock/a56/logo.jpg)" title="">		</a><div class="bx_catalog_item_title"><a href="/content/literatura/1045/" title="Науково-технічний бюлетень Інституту олійних культур">Науково-технічний бюлетень Інституту олійних культур</a></div>
+	<div class="bx_catalog_item_price"><div id="bx_2726591699_1045_price" class="bx_price"></div></div>
+	
+
+</div></div><div class="bx_catalog_item"><div class="bx_catalog_item_container" id="bx_2726591699_1055">
+		<a id="bx_2726591699_1055_pict"
+			href="/content/literatura/1055/"
+			class="bx_catalog_item_images"
+			style="background-image: url(/upload/iblock/dd1/scotarstvo-m.jpg)" title="">		</a><div class="bx_catalog_item_title"><a href="/content/literatura/1055/" title="Науково-технічний бюлетень Інституту тваринництва НААН">Науково-технічний бюлетень Інституту тваринництва НААН</a></div>
+	<div class="bx_catalog_item_price"><div id="bx_2726591699_1055_price" class="bx_price"></div></div>
+	
+
+</div></div><div class="bx_catalog_item"><div class="bx_catalog_item_container" id="bx_2726591699_2312">
+		<a id="bx_2726591699_2312_pict"
+			href="/content/literatura/2312/"
+			class="bx_catalog_item_images"
+			style="background-image: url(/upload/iblock/7e0/National.png)" title="">		</a><div class="bx_catalog_item_title"><a href="/content/literatura/2312/" title="Національна доповідь щодо завершення земельної реформи">Національна доповідь щодо завершення земельної реформи</a></div>
+	<div class="bx_catalog_item_price"><div id="bx_2726591699_2312_price" class="bx_price"></div></div>
+	
+
+</div></div><div class="bx_catalog_item"><div class="bx_catalog_item_container" id="bx_2726591699_1042">
+		<a id="bx_2726591699_1042_pict"
+			href="/content/literatura/1042/"
+			class="bx_catalog_item_images"
+			style="background-image: url(/upload/iblock/72b/2014-09-24_143449.png)" title="">		</a><div class="bx_catalog_item_title"><a href="/content/literatura/1042/" title="Новітні технології">Новітні технології</a></div>
+	<div class="bx_catalog_item_price"><div id="bx_2726591699_1042_price" class="bx_price"></div></div>
+	
+
+</div></div><div class="bx_catalog_item"><div class="bx_catalog_item_container" id="bx_2726591699_1062">
+		<a id="bx_2726591699_1062_pict"
+			href="/content/literatura/1062/"
+			class="bx_catalog_item_images"
+			style="background-image: url(/upload/iblock/a02/11.jpg)" title="">		</a><div class="bx_catalog_item_title"><a href="/content/literatura/1062/" title="Облік і фінанси">Облік і фінанси</a></div>
+	<div class="bx_catalog_item_price"><div id="bx_2726591699_1062_price" class="bx_price"></div></div>
+	
+
+</div></div><div class="bx_catalog_item"><div class="bx_catalog_item_container" id="bx_2726591699_1044">
+		<a id="bx_2726591699_1044_pict"
+			href="/content/literatura/1044/"
+			class="bx_catalog_item_images"
+			style="background-image: url(/upload/iblock/1b7/науковий збірник «Овочівництво і баштанництво».jpg)" title="">		</a><div class="bx_catalog_item_title"><a href="/content/literatura/1044/" title="Овочівництво і баштанництво">Овочівництво і баштанництво</a></div>
+	<div class="bx_catalog_item_price"><div id="bx_2726591699_1044_price" class="bx_price"></div></div>
+	
+
+</div></div><div class="bx_catalog_item"><div class="bx_catalog_item_container" id="bx_2726591699_8174">
+		<a id="bx_2726591699_8174_pict"
+			href="/content/literatura/8174/"
+			class="bx_catalog_item_images"
+			style="background-image: url(/upload/iblock/105/cover_issue_344_uk_UA.jpg)" title="">		</a><div class="bx_catalog_item_title"><a href="/content/literatura/8174/" title="Ознаки соціальної якості життя воєнного часу в Україні й завдання її повоєнного піднесення">Ознаки соціальної якості життя воєнного часу в Україні й завдання її повоєнного піднесення</a></div>
+	<div class="bx_catalog_item_price"><div id="bx_2726591699_8174_price" class="bx_price"></div></div>
+	
+
+</div></div><div class="bx_catalog_item"><div class="bx_catalog_item_container" id="bx_2726591699_8177">
+		<a id="bx_2726591699_8177_pict"
+			href="/content/literatura/8177/"
+			class="bx_catalog_item_images"
+			style="background-image: url(/upload/iblock/6d6/cover_issue_344_uk_UA.jpg)" title="">		</a><div class="bx_catalog_item_title"><a href="/content/literatura/8177/" title="Оцінювання ефективності міжнародних інвестицій у діяльність територіальних громад України">Оцінювання ефективності міжнародних інвестицій у діяльність територіальних громад України</a></div>
+	<div class="bx_catalog_item_price"><div id="bx_2726591699_8177_price" class="bx_price"></div></div>
+	
+
+</div></div><div class="bx_catalog_item"><div class="bx_catalog_item_container" id="bx_2726591699_1061">
+		<a id="bx_2726591699_1061_pict"
+			href="/content/literatura/1061/"
+			class="bx_catalog_item_images"
+			style="background-image: url(/upload/iblock/6d2/prod.png)" title="">		</a><div class="bx_catalog_item_title"><a href="/content/literatura/1061/" title="Продовольчі ресурси">Продовольчі ресурси</a></div>
+	<div class="bx_catalog_item_price"><div id="bx_2726591699_1061_price" class="bx_price"></div></div>
+	
+
+</div></div><div class="bx_catalog_item"><div class="bx_catalog_item_container" id="bx_2726591699_1056">
+		<a id="bx_2726591699_1056_pict"
+			href="/content/literatura/1056/"
+			class="bx_catalog_item_images"
+			style="background-image: url(/upload/iblock/a8a/ptahivnictvo.JPG)" title="">		</a><div class="bx_catalog_item_title"><a href="/content/literatura/1056/" title="Птахівництво">Птахівництво</a></div>
+	<div class="bx_catalog_item_price"><div id="bx_2726591699_1056_price" class="bx_price"></div></div>
+	
+
+</div></div><div style="clear: both;"></div>
+</div>
+<script type="text/javascript">
+BX.message({
+	setButtonBuyName: 'Перейти в корзину',
+	setButtonBuyUrl: '/personal/basket.php',
+	ADD_TO_BASKET_OK: 'Товар добавлен в корзину'
+});
+</script>
+
+<font class="text">E-Бібліотека 
+
+
+	1 — 40 з 49<br /></font>
+
+	<font class="text">
+
+			Початок&nbsp;|&nbsp;Поперед.&nbsp;|
+	
+	
+					<b>1</b>
+					
+					<a href="/content/literatura/Паспорт 6591060.pdf?PAGEN_1=2">2</a>
+						|
+
+			<a href="/content/literatura/Паспорт 6591060.pdf?PAGEN_1=2">Наст.</a>&nbsp;|
+		<a href="/content/literatura/Паспорт 6591060.pdf?PAGEN_1=2">Кінець</a>
+	
+
+
+
+</font>
+
+                </main><!-- .content -->
+            </div><!-- .container-->
+
+            <aside class="left-sidebar">
+				            <div class="block-view-table">
+				<a target="_blank" href="/upload/podani.pdf"><img src="/upload/medialibrary/48e/HOR.jpg" /></a>
+            </div>
+				
+          
+ 
+ 
+<div class="books"> 
+  <div class="title_preview">E-бібліотека</div>
+ 
+  <div class="books_img"> <a href="/content/literatura/" target="_blank" ><img class="book_1" src="/bitrix/templates/s1/img/sidebar/book_1.png"  /></a>
+ <a target="_blank" href="/content/literatura/1033/" ><img class="book_2" src="/bitrix/templates/s1/img/sidebar/book_2.png"  /></a> <a target="_blank" href="/content/literatura/1055/" ><img class="book_3" src="/bitrix/templates/s1/img/sidebar/book_3.png"  /></a> </div>
+ </div>
+ 
+							</aside><!-- .left-sidebar -->
+        </div>
+
+	</div><!-- .middle-->
+    <div class="hFooter"></div>
+</div><!-- .wrapper -->
+
+<div class="region-banner">
+  <div class="clearfix">
+    <a target="_blank" class="b1" href="http://www.president.gov.ua/"></a> <a target="_blank" class="b2" href="http://www.kmu.gov.ua/"></a> <a target="_blank" class="b3" href="http://www.rada.gov.ua/"></a> <a target="_blank" class="b4" href="http://minagro.gov.ua/"></a>
+  </div>
+</div>
+
+<footer class="footer">
+<div class="wrapper-footer clearfix">
+  <div class="logo-footer">
+    
+<div class="yam-include-area logo"> <a href="/" class="logo-top-url" ><img class="logo-top-image" src="/bitrix/templates/s1/img/header/logo.png" rel="/bitrix/templates/s1/img/header/logo.png"  /></a> </div>
+      <div class="name-sloga">
+        
+<p>НАЦІОНАЛЬНА АКАДЕМІЯ АГРАРНИХ НАУК УКРАЇНИ</p>
+ 
+<p class="slogan">НАУКОВО-МЕТОДИЧНИЙ І КООРДИНАЦІЙНИЙ ЦЕНТР З НАУКОВИХ ПРОБЛЕМ РОЗВИТКУ АПК УКРАЇНИ</p>
+
+      </div>
+  </div>
+  
+  <div class="menu-footer">
+    
+<div>
+  <br />
+</div>
+<a href="/content/statut-naan/" >СТАТУТ НААН</a> <a href="/content/prezidiya/" >ПРЕЗИДІЯ</a> <a href="/academi/" >ЧЛЕНИ АКАДЕМІЇ</a><a href="/content/publichna-informaciya/FAQ/" >FAQ</a>
+  </div>
+  
+  <div class="contact-footer">
+     
+<p class="MsoNormal" style="margin-bottom: 0.0001pt; line-height: normal;"><font color="#ffffff">КОНТАКТИ:<o:p></o:p></font></p>
+ 
+<p class="MsoNormal" style="margin-bottom: 0.0001pt; line-height: normal;"><font color="#ffffff">01010, Київ, вул. Михайла Омеляновича-Павленка, 9<o:p></o:p></font></p>
+ 
+<p class="MsoNormal" style="margin-bottom: 0.0001pt; line-height: normal;"><font color="#ffffff">тел.: +38 (044) 521 92 95 (канцелярія)</font></p>
+ 
+<p class="MsoNormal" style="margin-bottom: 0.0001pt; line-height: normal;"><font color="#ffffff">e-mail: prezid@naas.gov.ua </font></p>
+ 
+  </div>
+  
+  <div class="other-footer">
+    
+<div class="yam-share-area social"> 
+  <p>Ми у соцмережах</p>
+ 				 
+<script>
+				if (__function_exists('twitter_click_1') == false) 
+				{
+				function twitter_click_1(longUrl) 
+				{ 
+				window.open('http://twitter.com/home/?status='+encodeURIComponent(longUrl)+encodeURIComponent(' '),'sharer','toolbar=0,status=0,width=726,height=436'); 
+				return false; 
+				} 
+				}
+				</script>
+ 				 
+<!--<a id="bxid_463051" href="http://twitter.com/home/?status=http://uaan.gov.ua+" onclick="return twitter_click_1('http://uaan.gov.ua');" target="_blank" class="yam-share-icon-twitter" title="Twitter" ><span></span></a>-->
+ 				 
+<script>
+				if (__function_exists('vk_click') == false) 
+				{
+				function vk_click(url) 
+				{ 
+				window.open('http://vkontakte.ru/share.php?url='+encodeURIComponent(url),'sharer','toolbar=0,status=0,width=626,height=436'); 
+				return false; 
+				} 
+				}
+				</script>
+ 				 
+<!--<a id="bxid_786327" href="http://vkontakte.ru/share.php?url=http://uaan.gov.ua" onclick="return vk_click('http://uaan.gov.ua');" target="_blank" class="yam-share-icon-vkontakte" title="ВКонтакте" ><span></span></a>-->
+ 				<a style="background-image:url('//naas.gov.ua/upload/medialibrary/26c/yt.png?141658780919265')" href="https://www.youtube.com/channel/UCO6nG_QvgvDJfcAke-EVE3Q" target="_blank" class="yam-share-icon-vkontakte" title="YouTube" ><span></span></a> 
+<script>
+				if (__function_exists('fbs_click') == false) 
+				{
+				function fbs_click(url, title) 
+				{ 
+				window.open('http://www.facebook.com/share.php?u='+encodeURIComponent(url)+'&t='+encodeURIComponent(title),'sharer','toolbar=0,status=0,width=626,height=436'); 
+				return false; 
+				} 
+				}
+				</script>
+ 			 
+<!--<a id="bxid_182037" class="yam-share-icon-facebook" href="http://www.facebook.com/share.php?u=http://uaan.gov.ua&t=" onclick="return fbs_click('http://uaan.gov.ua', '');" target="_blank" title="Facebook" ><span></span></a>-->
+ <a class="yam-share-icon-facebook" href="https://www.facebook.com/naasukraine" target="_blank" title="Facebook" ><span></span></a> 			</div>
+
+  </div>
+</div>
+			<script>
+				$$r(function() {
+					$$i({
+						create:'script',
+						attribute: {
+							'type':'text/javascript',
+							'src':'//uaan.gov.ua.js.1c-bitrix-cdn.ru/bitrix/templates/s1/js/NRMSLib.js?139953330174810'
+						},
+						insert:$$().body,
+						onready:function() {//выполняю только после загрузки скрипта
+							//запукаю из загруженного скрипта
+							//modules.sound.start({'music': '/lol.mp3'});
+							$$('sound_s_el_m').$$('width','1px').$$('height','1px').$$('overflow','hidden');//эти параметры трогать не нужно
+						}
+					});
+				});
+			</script>
+</footer><!-- .footer -->
+
+</body>
+</html>

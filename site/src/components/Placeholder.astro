@@ -1,0 +1,14 @@
+---
+import { PLACEHOLDER_TEXT } from '../lib/site';
+interface Props { note?: string }
+const { note } = Astro.props;
+---
+<section class="section section--white">
+  <div class="wrap">
+    <div class="placeholder">
+      <svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="var(--gold)" stroke-width="1.5" style="margin-bottom:14px;"><circle cx="12" cy="12" r="9"/><path d="M12 8v5M12 16h.01"/></svg>
+      <p><strong>{PLACEHOLDER_TEXT}</strong></p>
+      {note && <p style="margin-top:8px; font-size:13.5px;">{note}</p>}
+    </div>
+  </div>
+</section>

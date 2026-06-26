@@ -1,0 +1,10 @@
+---
+import Base from '../../layouts/Base.astro';
+import Hero from '../../components/Hero.astro';
+import Placeholder from '../../components/Placeholder.astro';
+import { ROUTES } from '../../lib/site';
+---
+<Base title="Запобігання корупції">
+  <Hero kicker="Прозорість" title="Запобігання корупції" crumbs={[{ label: 'Прозорість', href: ROUTES.transparency }]} />
+  <Placeholder />
+</Base>

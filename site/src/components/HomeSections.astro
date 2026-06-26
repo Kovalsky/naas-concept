@@ -1,0 +1,140 @@
+---
+// Everything on the homepage BELOW the hero — shared by the hero A/B/C variants
+// so they are identical to the live homepage except for the hero layout.
+import { getCollection } from 'astro:content';
+import FieldRule from './FieldRule.astro';
+import T from './T.astro';
+import { ROUTES, EXTERNAL, SHOWCASE } from '../lib/site';
+import { anonsy } from '../lib/data';
+
+const newsItems = (await getCollection('news')).sort((a, b) => (a.data.date < b.data.date ? 1 : -1));
+const arrow = `<svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9"><path d="M5 12h14M13 5l7 7-7 7"/></svg>`;
+
+const resourceCards = [
+  { name: 'Е-Бібліотека', href: EXTERNAL.eLib, desc: 'Електронний архів наукових публікацій, авторефератів та періодики установ академії у відкритому доступі.', meta: 'Відкритий доступ' },
+  { name: 'Відео', href: EXTERNAL.video, desc: 'Лекції, репортажі з полів, записи наукових заходів і захистів дисертацій НААН.', meta: 'Відеоканал' },
+  { name: 'AGROLECTURES', href: EXTERNAL.agrolectures, desc: 'Англомовний дайджест української аграрної науки для міжнародної спільноти.', meta: 'EN' },
+];
+const externalLinks = [
+  { name: 'Звіти про діяльність', desc: 'Щорічні звіти НААН у ДВ «Аграрна наука»', url: 'agroscience-publishing.org.ua', href: EXTERNAL.reports },
+  { name: 'Публічні закупівлі', desc: 'Профіль розпорядника у системі Prozorro (ЄДРПОУ 00024360)', url: 'prozorro.gov.ua', href: EXTERNAL.prozorro },
+];
+---
+<!-- PORTAL SECTIONS -->
+<section class="section section--muted">
+  <div class="wrap">
+    <FieldRule />
+    <div class="kicker" style="margin-bottom:8px;"><T k="home.sectionsKicker" /></div>
+    <h2 class="h2-serif" style="margin-bottom:28px;"><T k="home.sectionsTitle" /></h2>
+    <div class="grid grid--auto">
+      {SHOWCASE.map((c) => (
+        <a class="scard" href={c.href}>
+          <span class="title-row"><span class="t"><T k={c.k} /></span><Fragment set:html={arrow} /></span>
+          <span class="d">{c.desc}</span>
+        </a>
+      ))}
+    </div>
+  </div>
+</section>
+
+<!-- THREE NEWS FEEDS -->
+<section class="section section--muted" style="border-top:1px solid var(--line);">
+  <div class="wrap">
+    <FieldRule />
+    <div class="grid" style="grid-template-columns:repeat(auto-fit,minmax(300px,1fr)); gap:28px;">
+      <div>
+        <div style="display:flex; align-items:baseline; justify-content:space-between; border-top:3px solid var(--navy); padding-top:14px; margin-bottom:14px;">
+          <h2 style="font-family:var(--serif); font-size:22px; font-weight:600; color:var(--ink);"><T k="home.newsTitle" /></h2>
+          <a href={ROUTES.news} style="font-size:13px; font-weight:500; color:var(--navy); border-bottom:1px solid var(--navy); padding-bottom:1px;"><T k="btn.all" /></a>
+        </div>
+        <ul style="list-style:none; margin:0; padding:0;">
+          {newsItems.slice(0, 5).map((n) => (
+            <li style="border-top:1px solid var(--line); padding:12px 0;">
+              <a href={`${ROUTES.news}/${n.data.slug}`} style="display:flex; gap:13px; align-items:flex-start;">
+                <img src={n.data.image} alt="" width="60" height="60" loading="lazy" style="flex-shrink:0; width:60px; height:60px; object-fit:cover; border-radius:6px; border:1px solid var(--line); background:var(--muted);" />
+                <span style="min-width:0;">
+                  <span class="mono" style="display:block; font-size:10px; letter-spacing:0.04em; color:var(--ink3); margin-bottom:4px;">{n.data.date} · {n.data.tag}</span>
+                  <span style="display:block; font-size:14px; line-height:1.38; color:var(--ink); font-weight:500;">{n.data.title}</span>
+                </span>
+              </a>
+            </li>
+          ))}
+        </ul>
+      </div>
+
+      <div>
+        <div style="display:flex; align-items:baseline; justify-content:space-between; border-top:3px solid var(--ink3); padding-top:14px; margin-bottom:14px;">
+          <h2 style="font-family:var(--serif); font-size:22px; font-weight:600; color:var(--ink);"><T k="home.deptsTitle" /></h2>
+        </div>
+        <div style="border-top:1px solid var(--line); padding:18px 0;">
+          <div style="border:1px dashed var(--line); border-radius:8px; background:#fff; padding:26px 22px; color:var(--ink3); font-size:13.5px; line-height:1.6;"><T k="home.deptsFeed" /></div>
+        </div>
+      </div>
+
+      <div>
+        <div style="display:flex; align-items:baseline; justify-content:space-between; border-top:3px solid var(--gold); padding-top:14px; margin-bottom:14px;">
+          <h2 style="font-family:var(--serif); font-size:22px; font-weight:600; color:var(--ink);"><T k="home.announceTitle" /></h2>
+          <a href={ROUTES.anonsy} style="font-size:13px; font-weight:500; color:var(--navy); border-bottom:1px solid var(--navy); padding-bottom:1px;"><T k="btn.all" /></a>
+        </div>
+        <ul style="list-style:none; margin:0; padding:0;">
+          {anonsy.map((a) => (
+            <li style="border-top:1px solid var(--line); padding:12px 0;">
+              <a href={ROUTES.anonsy} style="display:flex; gap:13px; align-items:flex-start;">
+                <img src={a.image} alt="" width="60" height="60" loading="lazy" style="flex-shrink:0; width:60px; height:60px; object-fit:cover; border-radius:6px; border:1px solid var(--line); background:var(--muted);" />
+                <span style="min-width:0;">
+                  <span class="mono" style="display:block; font-size:10px; letter-spacing:0.04em; color:var(--gold-ink); margin-bottom:4px;">{a.date}</span>
+                  <span style="display:block; font-size:14px; line-height:1.38; color:var(--ink); font-weight:500;">{a.title}</span>
+                </span>
+              </a>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- RESOURCES -->
+<section class="section section--white" style="padding:64px 0;">
+  <div class="wrap">
+    <FieldRule />
+    <div class="kicker" style="margin-bottom:8px;"><T k="home.resourcesKicker" /></div>
+    <h2 class="h2-serif" style="margin-bottom:30px;"><T k="home.resourcesTitle" /></h2>
+    <div class="grid grid--auto-sm">
+      {resourceCards.map((r) => (
+        <a href={r.href} target="_blank" rel="noopener" style="display:flex; flex-direction:column; gap:12px; padding:24px; border:1px solid var(--line); border-radius:3px; background:#fff;" class="scard">
+          <span style="display:flex; align-items:center; gap:12px;">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--navy)" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
+            <span style="font-family:var(--serif); font-size:20px; font-weight:600; color:var(--ink);">{r.name}</span>
+          </span>
+          <span style="font-size:14px; line-height:1.55; color:var(--ink2);">{r.desc}</span>
+          <span style="display:flex; align-items:center; justify-content:space-between; margin-top:4px; padding-top:13px; border-top:1px solid var(--line);">
+            <span class="mono" style="font-size:10.5px; letter-spacing:0.04em; color:var(--ink3);">{r.meta}</span>
+            <span style="display:inline-flex; align-items:center; gap:6px; font-size:12.5px; font-weight:600; color:var(--navy);"><T k="btn.open" /> <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9"><path d="M7 17 17 7M7 7h10v10"/></svg></span>
+          </span>
+        </a>
+      ))}
+    </div>
+  </div>
+</section>
+
+<!-- EXTERNAL LINKS -->
+<section class="section section--muted" style="padding:56px 0;">
+  <div class="wrap">
+    <FieldRule />
+    <div class="kicker" style="margin-bottom:8px;"><T k="home.externalKicker" /></div>
+    <h2 class="h2-serif" style="font-size:clamp(24px,2.6vw,30px); margin-bottom:26px;"><T k="home.externalTitle" /></h2>
+    <div class="rows">
+      {externalLinks.map((x) => (
+        <a href={x.href} target="_blank" rel="noopener">
+          <span style="flex:1; min-width:0;">
+            <span class="row-title">{x.name}</span>
+            <span class="row-desc">{x.desc}</span>
+          </span>
+          <span class="row-url">{x.url}</span>
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="var(--ink3)" stroke-width="1.7" style="flex-shrink:0;"><path d="M7 17 17 7M7 7h10v10"/></svg>
+        </a>
+      ))}
+    </div>
+  </div>
+</section>

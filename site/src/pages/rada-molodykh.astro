@@ -1,0 +1,49 @@
+---
+import Base from '../layouts/Base.astro';
+import Hero from '../components/Hero.astro';
+import raw from '../data/pages/rada-molodykh.md?raw';
+
+// Parse the markdown into: intro paragraph (shown once), central council list,
+// and institution council list — strictly by section heading.
+const lines = raw.split('\n').map((l) => l.trim());
+const intro = lines.find((l) => l && !l.startsWith('#') && !l.startsWith('-')) ?? '';
+const central: string[] = [];
+const units: string[] = [];
+let section: 'central' | 'units' | null = null;
+for (const l of lines) {
+  if (l.startsWith('## ')) {
+    section = /центральна/i.test(l) ? 'central' : /установ/i.test(l) ? 'units' : null;
+  } else if (l.startsWith('- ')) {
+    const item = l.slice(2).trim();
+    if (section === 'central') central.push(item);
+    else if (section === 'units') units.push(item);
+  }
+}
+---
+<Base title="Рада молодих вчених">
+  <Hero kicker="Спільнота" title="Рада молодих вчених" lead={intro} />
+  <section class="section section--white">
+    <div class="wrap">
+      {central.length > 0 && (
+        <div style="margin-bottom:36px;">
+          <div class="kicker" style="margin-bottom:12px;">Центральна рада</div>
+          {central.map((c) => (
+            <div style="border:1px solid var(--navy); border-radius:12px; background:rgba(30,58,95,0.04); padding:22px 24px;">
+              <div style="font-family:var(--serif); font-size:19px; font-weight:600; color:var(--ink);">{c}</div>
+            </div>
+          ))}
+        </div>
+      )}
+
+      <div class="kicker kicker--muted" style="margin-bottom:14px;">Ради молодих вчених установ ({units.length})</div>
+      <div class="grid grid--auto" style="gap:12px;">
+        {units.map((c) => (
+          <div style="border:1px solid var(--line); border-radius:10px; background:#fff; padding:16px 18px; display:flex; gap:13px; align-items:flex-start;">
+            <span style="flex-shrink:0; width:8px; height:8px; border-radius:50%; background:var(--gold); margin-top:7px;"></span>
+            <span style="font-size:14px; line-height:1.45; color:var(--ink);">{c}</span>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+</Base>

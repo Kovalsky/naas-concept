@@ -1,0 +1,138 @@
+---
+import { getCollection, render } from 'astro:content';
+import Base from '../layouts/Base.astro';
+import { ROUTES, EXTERNAL, PLACEHOLDER_TEXT } from '../lib/site';
+import { persons } from '../lib/data';
+import T from '../components/T.astro';
+
+const pages = await getCollection('pages');
+const intro = pages.find((p) => p.id === 'naan-sohodni');
+const { Content } = intro ? await render(intro) : { Content: null };
+
+// Render strictly by group (not by photo presence).
+const leadership = persons.filter((p) => p.group === 'leadership');
+const featured = leadership.find((p) => p.featured);
+const deputies = leadership.filter((p) => !p.featured);
+const members = persons.filter((p) => p.group === 'members');
+const monogram = (name: string) => name.split(/\s+/)[0]?.[0] ?? 'Н';
+---
+<Base title="НААН сьогодні">
+  <section class="hero" style="padding-bottom:0;">
+    <div class="wrap">
+      <nav class="crumbs" aria-label="Хлібні крихти"><a href={ROUTES.home}><T k="ui.crumb.home" /></a><span class="sep">/</span><span class="cur">НААН сьогодні</span></nav>
+      <div class="kicker" style="margin-bottom:14px;">НААН сьогодні</div>
+      <h1 style="font-family:var(--serif); font-weight:500; font-size:clamp(30px,3.8vw,44px); line-height:1.08; letter-spacing:-0.02em; color:var(--ink);">НААН сьогодні</h1>
+      <p class="lead">Загальні відомості про Академію, історію та місію, склад Президії та офіційні документи.</p>
+      <div style="display:flex; gap:6px; margin-top:26px; overflow-x:auto;">
+        <a href="#prezidiya" style="white-space:nowrap; padding:11px 16px; font-size:13px; font-weight:600; color:var(--navy); border-bottom:2px solid var(--navy);">Президія</a>
+        <a href="#dokumenty" style="white-space:nowrap; padding:11px 16px; font-size:13px; font-weight:500; color:var(--ink2);">Офіційні документи</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- EXPANDED INTRO (history / mission / structure) -->
+  <section class="section section--white" style="padding:56px 0;">
+    <div class="wrap">
+      <div class="prose">{Content && <Content />}</div>
+    </div>
+  </section>
+
+  <!-- PRESIDIUM (rich main block) -->
+  <section id="prezidiya" class="section section--muted" style="scroll-margin-top:92px; padding:72px 0;">
+    <div class="wrap">
+      <div class="kicker" style="margin-bottom:8px;">Керівництво</div>
+      <h2 class="h2-serif" style="margin-bottom:8px;">Президія НААН</h2>
+      <p style="font-size:15px; color:var(--ink2); margin-bottom:28px; max-width:620px;">Склад Президії Національної академії аграрних наук України.</p>
+
+      <!-- Featured: President -->
+      {featured && (
+        <article style="border:1px solid var(--line); border-radius:14px; overflow:hidden; background:#fff; display:flex; flex-wrap:wrap; margin-bottom:18px; box-shadow:0 8px 24px rgba(30,58,95,0.06);">
+          <img src={featured.photo} alt={featured.name} width="200" height="240" loading="lazy" style="width:200px; flex-shrink:0; object-fit:cover; background:var(--muted);" />
+          <div style="padding:26px 28px; flex:1; min-width:240px; display:flex; flex-direction:column; justify-content:center;">
+            <span class="mono" style="font-size:10px; letter-spacing:0.12em; text-transform:uppercase; color:var(--gold-ink); margin-bottom:10px;">Президент НААН</span>
+            <h3 style="font-family:var(--serif); font-size:clamp(20px,2.4vw,26px); font-weight:600; color:var(--ink); line-height:1.2;">{featured.name}</h3>
+            <div style="font-size:14px; color:var(--navy); font-weight:500; margin-top:8px; text-transform:capitalize;">{featured.post}</div>
+            {featured.phone && <div class="mono" style="font-size:12.5px; color:var(--ink3); margin-top:16px;">{featured.phone}</div>}
+          </div>
+        </article>
+      )}
+
+      <!-- Deputies: even grid -->
+      <div class="deputies-grid" style="margin-bottom:36px;">
+        {deputies.map((p) => (
+          <article style="border:1px solid var(--line); border-radius:12px; overflow:hidden; background:#fff; display:flex;">
+            <img src={p.photo} alt={p.name} width="104" height="132" loading="lazy" style="width:104px; flex-shrink:0; object-fit:cover; background:var(--muted);" />
+            <div style="padding:16px 18px; flex:1;">
+              <h3 style="font-family:var(--serif); font-size:16px; font-weight:600; color:var(--ink); line-height:1.25;">{p.name}</h3>
+              <div style="font-size:12.5px; color:var(--navy); font-weight:500; margin-top:6px; text-transform:capitalize;">{p.post}</div>
+              {p.phone && <div class="mono" style="font-size:11.5px; color:var(--ink3); margin-top:10px;">{p.phone}</div>}
+            </div>
+          </article>
+        ))}
+      </div>
+
+      <div class="kicker kicker--muted" style="margin-bottom:14px;">Академіки-секретарі та члени Президії</div>
+      <div class="grid grid--auto-sm" style="gap:12px;">
+        {members.map((p) => (
+          <article style="border:1px solid var(--line); border-radius:10px; background:#fff; padding:16px 18px; display:flex; gap:14px; align-items:flex-start;">
+            <span style="flex-shrink:0; width:38px; height:38px; border-radius:9px; background:var(--gold-soft); color:var(--gold); display:flex; align-items:center; justify-content:center; font-family:var(--serif); font-size:16px; font-weight:600;">{monogram(p.name)}</span>
+            <span>
+              <span style="display:block; font-size:14.5px; font-weight:600; color:var(--ink); line-height:1.3;">{p.name}</span>
+              <span style="display:block; font-size:12.5px; color:var(--ink2); margin-top:4px;">{p.post}</span>
+            </span>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- OFFICIAL DOCUMENTS (Статут + Рішення[placeholder] + Звіти[external]) -->
+  <section id="dokumenty" class="section section--white" style="scroll-margin-top:92px; padding:72px 0;">
+    <div class="wrap">
+      <div class="kicker" style="margin-bottom:8px;">Документи</div>
+      <h2 class="h2-serif" style="margin-bottom:28px;">Офіційні документи</h2>
+      <div class="grid grid--auto">
+
+        <!-- Статут -->
+        <article style="border:1px solid var(--line); border-radius:12px; padding:26px; background:#fff; display:flex; flex-direction:column;">
+          <span class="mono" style="align-self:flex-start; font-size:10px; letter-spacing:0.08em; text-transform:uppercase; color:var(--gold); border:1px solid rgba(184,134,11,0.4); padding:3px 8px; border-radius:4px; margin-bottom:12px;">Чинна редакція</span>
+          <h3 style="font-family:var(--serif); font-size:19px; font-weight:600; color:var(--ink); line-height:1.25;">Статут НААН</h3>
+          <p style="font-size:13.5px; color:var(--ink2); line-height:1.6; margin-top:10px; flex:1;">Визначає правовий статус, мету, структуру та порядок діяльності Академії.</p>
+          <div style="display:flex; gap:14px; align-items:center; flex-wrap:wrap; margin-top:18px;">
+            <a class="btn-navy" href={EXTERNAL.statutePdf} target="_blank" rel="noopener">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3"/></svg>
+              <T k="btn.downloadPdf" />
+            </a>
+            <a class="link-underline" href={ROUTES.statute}><T k="btn.fullText" /></a>
+          </div>
+        </article>
+
+        <!-- Рішення та Постанови Президії (ТЗ placeholder) -->
+        <article style="border:1px solid var(--line); border-radius:12px; padding:26px; background:#fff; display:flex; flex-direction:column;">
+          <span class="mono" style="align-self:flex-start; font-size:10px; letter-spacing:0.08em; text-transform:uppercase; color:var(--ink3); border:1px solid var(--line); padding:3px 8px; border-radius:4px; margin-bottom:12px;">Архів</span>
+          <h3 style="font-family:var(--serif); font-size:19px; font-weight:600; color:var(--ink); line-height:1.25;">Рішення та Постанови Президії</h3>
+          <p style="font-size:13.5px; color:var(--ink3); line-height:1.6; margin-top:10px; flex:1;">{PLACEHOLDER_TEXT}</p>
+        </article>
+
+        <!-- Звіти про діяльність (external) -->
+        <article style="border:1px solid var(--line); border-radius:12px; padding:26px; background:#fff; display:flex; flex-direction:column;">
+          <span class="mono" style="align-self:flex-start; font-size:10px; letter-spacing:0.08em; text-transform:uppercase; color:var(--navy); border:1px solid rgba(30,58,95,0.3); padding:3px 8px; border-radius:4px; margin-bottom:12px;">Зовнішній ресурс</span>
+          <h3 style="font-family:var(--serif); font-size:19px; font-weight:600; color:var(--ink); line-height:1.25;">Звіти про діяльність</h3>
+          <p style="font-size:13.5px; color:var(--ink2); line-height:1.6; margin-top:10px; flex:1;">Щорічні звіти НААН публікуються у Державному видавництві «Аграрна наука».</p>
+          <a class="link-underline" href={EXTERNAL.reports} target="_blank" rel="noopener" style="margin-top:18px;">agroscience-publishing.org.ua
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17 17 7M7 7h10v10"/></svg>
+          </a>
+        </article>
+
+      </div>
+    </div>
+  </section>
+</Base>
+<style>
+  .deputies-grid {
+    display: grid; gap: 16px;
+    grid-template-columns: repeat(3, 1fr);
+  }
+  @media (max-width: 900px) { .deputies-grid { grid-template-columns: repeat(2, 1fr); } }
+  @media (max-width: 560px) { .deputies-grid { grid-template-columns: 1fr; } }
+</style>

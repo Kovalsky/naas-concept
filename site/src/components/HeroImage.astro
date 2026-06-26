@@ -1,0 +1,121 @@
+---
+// Hero (image variant): asymmetric editorial layout — copy on the left, a framed
+// photograph on the right, shared facts band below. Uses the SAME data, strings,
+// routes and images as the other hero variants (no duplicated content).
+import T from './T.astro';
+import { ROUTES } from '../lib/site';
+import { divisionCount, instituteCount } from '../lib/data';
+const arrow = `<svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9"><path d="M5 12h14M13 5l7 7-7 7"/></svg>`;
+const facts = [
+  { n: '1931', k: 'home.factFounded' },
+  { n: String(divisionCount), k: 'home.factDivisions' },
+  { n: String(instituteCount), k: 'home.factInstitutions' },
+];
+---
+<section class="hero-img-sec">
+  <svg aria-hidden="true" viewBox="0 0 1440 360" preserveAspectRatio="xMidYMax slice" class="hero-contour"><g fill="none" stroke="#1E3A5F" stroke-width="2"><path d="M0 340 Q720 280 1440 330"/><path d="M0 310 Q720 248 1440 300"/><path d="M0 280 Q720 216 1440 270"/><path d="M0 250 Q720 184 1440 240"/><path d="M0 220 Q720 152 1440 210"/></g><path d="M0 325 Q720 264 1440 315" fill="none" stroke="#B8860B" stroke-width="2"/></svg>
+  <div class="wrap" style="position:relative;">
+    <div class="hero-split">
+      <div class="hero-copy">
+        <div class="kicker kicker--muted" style="margin-bottom:18px;"><T k="home.todayKicker" /></div>
+        <h1 class="hero-h1">Національна академія аграрних наук України</h1>
+        <p class="hero-sub">Вища галузева наукова установа — науково-методичний і координаційний центр з наукових проблем розвитку АПК України.</p>
+        <div class="hero-founded"><span class="hero-founded-rule"></span><span>Заснована 1931 року</span></div>
+        <p class="hero-lead">Академія координує фундаментальні та прикладні дослідження в аграрній сфері та впроваджує наукові розробки у виробництво.</p>
+        <div class="hero-links">
+          <a class="link-underline" href={ROUTES.statute}><T k="home.statuteLink" /> <Fragment set:html={arrow} /></a>
+          <a class="link-underline" href={ROUTES.presidium}><T k="home.presidiumLink" /> <Fragment set:html={arrow} /></a>
+          <a class="link-underline" href={ROUTES.today}><T k="btn.more" /> <Fragment set:html={arrow} /></a>
+        </div>
+      </div>
+
+      <figure class="hero-figure">
+        <svg class="hero-emblem" viewBox="0 0 600 460" role="img" aria-label="Стилізована емблема НААН: три пшеничні колоси над полем, засновано 1931 року">
+          <defs>
+            <linearGradient id="heroBg" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0" stop-color="#13294a"/>
+              <stop offset="1" stop-color="#0E1F35"/>
+            </linearGradient>
+            <g id="heroEar">
+              <path d="M0 0 C -3 -50 -3 -100 0 -150" fill="none" stroke="#E9C77B" stroke-width="2.2" stroke-linecap="round"/>
+              <g fill="#C79A3A" stroke="#E9C77B" stroke-width="1.2">
+                <path d="M0 -34 C 12 -40 18 -52 17 -64 C 7 -60 1 -48 0 -38 Z"/>
+                <path d="M0 -58 C 12 -64 18 -76 17 -88 C 7 -84 1 -72 0 -62 Z"/>
+                <path d="M0 -82 C 11 -88 16 -99 15 -110 C 6 -106 1 -95 0 -86 Z"/>
+                <path d="M0 -104 C 10 -109 14 -119 13 -129 C 5 -125 1 -115 0 -108 Z"/>
+                <path d="M0 -34 C -12 -40 -18 -52 -17 -64 C -7 -60 -1 -48 0 -38 Z"/>
+                <path d="M0 -58 C -12 -64 -18 -76 -17 -88 C -7 -84 -1 -72 0 -62 Z"/>
+                <path d="M0 -82 C -11 -88 -16 -99 -15 -110 C -6 -106 -1 -95 0 -86 Z"/>
+                <path d="M0 -104 C -10 -109 -14 -119 -13 -129 C -5 -125 -1 -115 0 -108 Z"/>
+                <path d="M0 -126 C 7 -134 8 -146 6 -158 C 1 -150 -1 -150 -6 -158 C -8 -146 -7 -134 0 -126 Z"/>
+              </g>
+              <g fill="none" stroke="#E9C77B" stroke-width="1.4" stroke-linecap="round" opacity="0.9">
+                <path d="M0 -150 l -10 -40"/><path d="M0 -150 l 0 -46"/><path d="M0 -150 l 10 -40"/>
+              </g>
+            </g>
+          </defs>
+          <rect width="600" height="460" fill="url(#heroBg)"/>
+          <circle cx="300" cy="222" r="92" fill="none" stroke="#B8860B" stroke-width="2" opacity="0.5"/>
+          <circle cx="300" cy="222" r="92" fill="#B8860B" opacity="0.06"/>
+          <g fill="none" stroke="#9FB2C9" stroke-width="1" opacity="0.28">
+            <path d="M300 292 L -40 470"/><path d="M300 292 L 90 470"/><path d="M300 292 L 200 470"/>
+            <path d="M300 292 L 300 470"/><path d="M300 292 L 400 470"/><path d="M300 292 L 510 470"/>
+            <path d="M300 292 L 640 470"/>
+            <path d="M40 292 Q300 278 560 292" stroke-opacity="0.5"/>
+            <path d="M10 332 Q300 314 590 332"/>
+            <path d="M-10 382 Q300 360 610 382"/>
+            <path d="M-20 436 Q300 410 620 436"/>
+          </g>
+          <use href="#heroEar" transform="translate(300,292)"/>
+          <use href="#heroEar" transform="translate(252,292) rotate(-15) scale(0.92)"/>
+          <use href="#heroEar" transform="translate(348,292) rotate(15) scale(0.92)"/>
+          <line x1="232" y1="308" x2="368" y2="308" stroke="#B8860B" stroke-width="1.4" opacity="0.7"/>
+          <text x="300" y="342" text-anchor="middle" fill="#AEBED2" font-family="ui-monospace,monospace" font-size="13" letter-spacing="6" opacity="0.9">EST. 1931</text>
+          <rect x="0.5" y="0.5" width="599" height="459" fill="none" stroke="#B8860B" stroke-width="1" opacity="0.32"/>
+        </svg>
+      </figure>
+    </div>
+
+    <div class="fact-cluster">
+      {facts.map((f, i) => (
+        <>
+          {i > 0 && <span class="fact-div" aria-hidden="true"></span>}
+          <div class="fact-col"><div class="fact-num">{f.n}</div><div class="fact-lbl mono"><T k={f.k} /></div></div>
+        </>
+      ))}
+    </div>
+  </div>
+</section>
+<style>
+  .hero-img-sec { background: #fff; padding: 58px 0 52px; position: relative; overflow: hidden; }
+  .hero-contour { position: absolute; left: 0; right: 0; bottom: 0; width: 100%; height: 300px; opacity: 0.06; pointer-events: none; }
+
+  .hero-split { display: grid; grid-template-columns: 1.02fr 0.98fr; gap: 56px; align-items: center; }
+  .hero-copy { padding: 4px 0; }
+
+  .hero-h1 { font-family: var(--serif); font-weight: 600; font-size: clamp(30px, 3.6vw, 44px); line-height: 1.12; letter-spacing: -0.018em; color: var(--ink); text-wrap: balance; }
+  .hero-sub { font-family: var(--serif); font-weight: 500; font-size: clamp(17px, 1.9vw, 20px); line-height: 1.42; color: var(--navy); margin-top: 16px; max-width: 560px; }
+  .hero-founded { display: flex; align-items: center; gap: 13px; margin-top: 22px; }
+  .hero-founded-rule { width: 36px; height: 2px; background: var(--gold); }
+  .hero-founded span:last-child { font-family: var(--serif); font-style: italic; font-size: 15px; color: var(--ink2); }
+  .hero-lead { font-size: 16.5px; line-height: 1.65; color: var(--ink2); margin-top: 20px; max-width: 540px; }
+  .hero-links { display: flex; flex-wrap: wrap; gap: 26px; margin-top: 26px; }
+
+  .hero-figure { position: relative; margin: 0; }
+  .hero-emblem { display: block; width: 100%; height: auto; border-radius: 12px; box-shadow: 0 18px 46px rgba(14, 31, 53, 0.22); }
+
+  .fact-cluster { display: flex; align-items: center; margin-top: 48px; padding-top: 30px; border-top: 1px solid var(--line); }
+  .fact-col { flex: 1 1 0; min-width: 0; }
+  .fact-num { font-family: var(--serif); font-size: clamp(32px, 3.2vw, 40px); font-weight: 600; color: var(--navy); line-height: 1; }
+  .fact-lbl { font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink3); margin-top: 10px; }
+  .fact-div { flex: 0 0 1px; width: 1px; height: 42px; background: var(--line); margin: 0 24px; }
+
+  @media (max-width: 880px) {
+    .hero-split { grid-template-columns: 1fr; gap: 30px; }
+    .hero-figure::before { display: none; }
+  }
+  @media (max-width: 560px) {
+    .fact-cluster { flex-direction: column; align-items: flex-start; gap: 20px; }
+    .fact-div { display: none; }
+  }
+</style>

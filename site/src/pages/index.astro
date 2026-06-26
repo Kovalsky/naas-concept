@@ -1,0 +1,14 @@
+---
+import Base from '../layouts/Base.astro';
+import HeroC from '../components/HeroC.astro';
+import HeroImage from '../components/HeroImage.astro';
+import HomeSections from '../components/HomeSections.astro';
+// Build-time hero switch. Default = current centered hero (HeroC) so the live
+// site is unchanged. A separate deploy can build with `HERO=image` to ship the
+// image-anchored hero from the SAME source/content/images.
+const useImageHero = process.env.HERO === 'image';
+---
+<Base title="НААН" description="Національна академія аграрних наук України — вища галузева наукова установа.">
+  {useImageHero ? <HeroImage /> : <HeroC />}
+  <HomeSections />
+</Base>

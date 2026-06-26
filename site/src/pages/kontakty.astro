@@ -1,0 +1,35 @@
+---
+import Base from '../layouts/Base.astro';
+import Hero from '../components/Hero.astro';
+import T from '../components/T.astro';
+import { contacts } from '../lib/data';
+const tel = (p: string) => 'tel:' + p.replace(/[^+\d]/g, '');
+---
+<Base title="Контакти">
+  <Hero kicker="Контакти" title="Контакти" lead="Контактна інформація Президії та апарату Національної академії аграрних наук України." />
+  <section class="section section--white">
+    <div class="wrap">
+      <div class="grid grid--auto">
+        <div style="border:1px solid var(--line); border-radius:12px; padding:26px; background:#fff;">
+          <div class="kicker kicker--muted" style="margin-bottom:14px;"><T k="contacts.address" /></div>
+          <p style="font-size:15.5px; line-height:1.6; color:var(--ink);">{contacts.address}</p>
+          <p class="mono" style="font-size:12.5px; color:var(--ink3); margin-top:14px;">{contacts.edrpou_label} {contacts.edrpou}</p>
+        </div>
+        <div style="border:1px solid var(--line); border-radius:12px; padding:26px; background:#fff;">
+          <div class="kicker kicker--muted" style="margin-bottom:14px;"><T k="contacts.presidium" /></div>
+          <p style="font-size:15px; line-height:1.9; color:var(--ink2);">
+            <a class="mono" href={tel(contacts.phone)} style="color:var(--navy);">{contacts.phone}</a><br/>
+            <a class="mono" href={`mailto:${contacts.email}`} style="color:var(--navy);">{contacts.email}</a>
+          </p>
+        </div>
+        <div style="border:1px solid var(--line); border-radius:12px; padding:26px; background:#fff;">
+          <div class="kicker kicker--muted" style="margin-bottom:14px;"><T k="contacts.press" /></div>
+          <p style="font-size:15px; line-height:1.9; color:var(--ink2);">
+            <a class="mono" href={tel(contacts.press_phone)} style="color:var(--navy);">{contacts.press_phone}</a><br/>
+            <a class="mono" href={`mailto:${contacts.press_email}`} style="color:var(--navy);">{contacts.press_email}</a>
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+</Base>

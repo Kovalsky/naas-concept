@@ -1,0 +1,102 @@
+/* ============================================================
+   NAAS Portal — Design tokens (canonical reference layer)
+   ------------------------------------------------------------
+   This file mirrors the LIVE :root token VALUES in
+   ../src/styles/global.css exactly (char-for-char hex/values;
+   explanatory comments here may be more precise), then adds
+   formal scale tokens and semantic aliases documented in MASTER.md.
+
+   ⚠️ NOT YET IMPORTED. It is a reference / adoption target.
+   Wiring it in is a visual no-op: the added variables are unused
+   until a component references them. See MASTER.md §10.
+   ============================================================ */
+
+:root {
+  /* ---------- LIVE primitives (verbatim from global.css) ---------- */
+  --canvas:#FFFFFF; --muted:#F8F9FA; --muted2:#F2F1EE;
+  --ink:#0A0A0A; --ink2:#525252; --ink3:#737373;
+  --line:#E5E5E5; --line2:#E7E5E0;
+  --navy:#1E3A5F; --navy-d:#142844; --navy-deep:#0E1F35;
+  --gold:#B8860B; --gold-soft:rgba(184,134,11,0.10);
+  --gold-ink:#8A6508; /* AA-contrast gold for small text (~5.3:1 on white); --gold is for rules/borders only */
+  --wrap:1320px;
+  --serif:'Lora',Georgia,serif;
+  --sans:'Inter',system-ui,-apple-system,'Segoe UI',sans-serif;
+  --mono:'JetBrains Mono',ui-monospace,monospace;
+
+  /* ---------- ADDITIVE: extended colors (promoted off-token values) ---------- */
+  --filetype-sheet:#1F7A4D;      /* XLS/XLSX badge (RegistryList) */
+  --gold-2:#E8C766;              /* decorative light-gold (wheat motif) */
+  --gold-line:rgba(184,134,11,0.4); /* gold border at 40% (badges) */
+  --navy-grad-1:#274059;         /* struktura header gradient start */
+  --navy-grad-2:#16304D;         /* struktura header gradient end */
+
+  /* ---------- ADDITIVE: semantic aliases ---------- */
+  --color-bg:var(--canvas);
+  --color-surface:#FFFFFF;
+  --color-surface-muted:var(--muted);
+  --color-text:var(--ink);
+  --color-text-secondary:var(--ink2);
+  --color-text-tertiary:var(--ink3);   /* lightest text allowed; AA-borderline on --muted */
+  --color-primary:var(--navy);
+  --color-primary-hover:var(--navy-d);
+  --color-on-primary:#FFFFFF;
+  --color-accent:var(--gold);          /* non-text accent only */
+  --color-accent-text:var(--gold-ink); /* gold used as small text */
+  --color-border:var(--line);
+  --color-focus-ring:var(--navy);
+
+  /* ---------- ADDITIVE: spacing scale (4px base) ---------- */
+  --space-1:4px;  --space-2:8px;  --space-3:12px; --space-4:16px;
+  --space-5:20px; --space-6:24px; --space-7:28px; --space-8:32px;
+  --space-10:40px; --space-12:48px; --space-14:56px; --space-16:64px;
+  --space-18:72px; --space-22:90px;
+  --gutter:24px;
+  --section-y:60px;
+
+  /* ---------- ADDITIVE: radius scale ---------- */
+  --r-xs:3px;   /* inline badges */
+  --r-sm:4px;   /* file-type chips */
+  --r-md:6px;   /* buttons, inputs, icon buttons, media */
+  --r-lg:8px;   /* medium cards, placeholders */
+  --r-xl:12px;  /* content cards, list containers (target standard) */
+  --r-pill:50%;
+
+  /* ---------- ADDITIVE: elevation ---------- */
+  --shadow-sm:0 8px 22px rgba(30,58,95,0.08);   /* card hover */
+  --shadow-md:0 8px 24px rgba(30,58,95,0.06);   /* raised card */
+  --shadow-lg:0 14px 50px rgba(0,0,0,0.2);      /* search overlay */
+  --shadow-drawer:-12px 0 40px rgba(0,0,0,0.18);
+
+  /* ---------- ADDITIVE: z-index scale ---------- */
+  --z-header:60;
+  --z-overlay-scrim:90;
+  --z-overlay:100;
+  --z-modal-scrim:110;
+  --z-modal:111;
+  --z-skip:120;
+
+  /* ---------- ADDITIVE: motion ---------- */
+  --motion-fast:140ms;  /* row/link hover */
+  --motion-base:160ms;  /* card border, button bg */
+  --motion-slow:200ms;  /* panel enter, scrim */
+  --ease:ease;
+
+  /* ---------- ADDITIVE: type scale (px roles; fluid heads use clamp) ---------- */
+  --fs-display:clamp(30px,4vw,46px);
+  --fs-h1:clamp(30px,3.8vw,44px);
+  --fs-h2:clamp(26px,3vw,34px);
+  --fs-h2-feed:22px;
+  --fs-h3:19px;
+  --fs-lead:clamp(17px,2vw,21px);
+  --fs-body:15.5px;
+  --fs-body-sm:14px;
+  --fs-caption:13px;
+  --fs-meta:11px;
+  --fs-micro:10px;
+
+  --lh-tight:1.12;
+  --lh-heading:1.25;
+  --lh-body:1.6;
+  --lh-prose:1.72;
+}

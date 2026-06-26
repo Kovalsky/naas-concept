@@ -1,0 +1,10 @@
+---
+import Base from '../../layouts/Base.astro';
+import Hero from '../../components/Hero.astro';
+import Placeholder from '../../components/Placeholder.astro';
+import { ROUTES } from '../../lib/site';
+---
+<Base title="Доступ до публічної інформації">
+  <Hero kicker="Прозорість" title="Доступ до публічної інформації" crumbs={[{ label: 'Прозорість', href: ROUTES.transparency }]} lead="Порядок доступу до публічної інформації розпорядника. Категорії та набори даних — у розділі «Публічна інформація»." />
+  <Placeholder note="Категорії публічної інформації наведено у розділі «Публічна інформація»." />
+</Base>

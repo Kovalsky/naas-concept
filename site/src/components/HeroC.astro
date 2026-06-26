@@ -1,0 +1,51 @@
+---
+// Hero C: centered, symmetrical hero. Heading, subtitle, founding line, mission,
+// buttons and the full-width facts band all centered. V3 tokens/fonts/emblem.
+import T from './T.astro';
+import { ROUTES } from '../lib/site';
+import { divisionCount, instituteCount } from '../lib/data';
+const arrow = `<svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9"><path d="M5 12h14M13 5l7 7-7 7"/></svg>`;
+const facts = [
+  { n: '1931', k: 'home.factFounded' },
+  { n: String(divisionCount), k: 'home.factDivisions' },
+  { n: String(instituteCount), k: 'home.factInstitutions' },
+];
+---
+<section style="background:#fff; padding:64px 0 56px; position:relative; overflow:hidden;">
+  <svg aria-hidden="true" viewBox="0 0 1440 360" preserveAspectRatio="xMidYMax slice" style="position:absolute; left:0; right:0; bottom:0; width:100%; height:300px; opacity:0.06; pointer-events:none;"><g fill="none" stroke="#1E3A5F" stroke-width="2"><path d="M0 340 Q720 280 1440 330"/><path d="M0 310 Q720 248 1440 300"/><path d="M0 280 Q720 216 1440 270"/><path d="M0 250 Q720 184 1440 240"/><path d="M0 220 Q720 152 1440 210"/></g><path d="M0 325 Q720 264 1440 315" fill="none" stroke="#B8860B" stroke-width="2"/></svg>
+  <div class="wrap" style="position:relative;">
+    <div class="hero-c">
+      <div class="kicker kicker--muted" style="margin-bottom:18px;"><T k="home.todayKicker" /></div>
+      <h1 style="font-family:var(--serif); font-weight:600; font-size:clamp(30px,4vw,46px); line-height:1.12; letter-spacing:-0.018em; color:var(--ink); text-wrap:balance;">Національна академія аграрних наук України</h1>
+      <p style="font-family:var(--serif); font-weight:500; font-size:clamp(17px,2vw,21px); line-height:1.42; color:var(--navy); margin:16px auto 0; max-width:720px;">Вища галузева наукова установа — науково-методичний і координаційний центр з наукових проблем розвитку АПК України.</p>
+      <div style="display:flex; align-items:center; justify-content:center; gap:13px; margin-top:20px;"><span style="width:36px; height:2px; background:var(--gold);"></span><span style="font-family:var(--serif); font-style:italic; font-size:15px; color:var(--ink2);">Заснована 1931 року</span></div>
+      <p style="font-size:17px; line-height:1.65; color:var(--ink2); margin:20px auto 0; max-width:620px;">Академія координує фундаментальні та прикладні дослідження в аграрній сфері та впроваджує наукові розробки у виробництво.</p>
+      <div style="display:flex; flex-wrap:wrap; justify-content:center; gap:26px; margin-top:26px;">
+        <a class="link-underline" href={ROUTES.statute}><T k="home.statuteLink" /> <Fragment set:html={arrow} /></a>
+        <a class="link-underline" href={ROUTES.presidium}><T k="home.presidiumLink" /> <Fragment set:html={arrow} /></a>
+        <a class="link-underline" href={ROUTES.today}><T k="btn.more" /> <Fragment set:html={arrow} /></a>
+      </div>
+
+      <div class="fact-cluster">
+        {facts.map((f, i) => (
+          <>
+            {i > 0 && <span class="fact-div" aria-hidden="true"></span>}
+            <div class="fact-col"><div class="fact-num">{f.n}</div><div class="fact-lbl mono"><T k={f.k} /></div></div>
+          </>
+        ))}
+      </div>
+    </div>
+  </div>
+</section>
+<style>
+  .hero-c { max-width: 860px; margin: 0 auto; text-align: center; }
+  .fact-cluster { display: flex; align-items: center; justify-content: center; margin: 44px auto 0; max-width: 720px; }
+  .fact-col { flex: 1 1 0; min-width: 0; text-align: center; }
+  .fact-num { font-family: var(--serif); font-size: clamp(34px,3.4vw,42px); font-weight: 600; color: var(--navy); line-height: 1; }
+  .fact-lbl { font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink3); margin-top: 10px; }
+  .fact-div { flex: 0 0 1px; width: 1px; height: 42px; background: var(--line); margin: 0 24px; }
+  @media (max-width: 560px) {
+    .fact-cluster { flex-direction: column; gap: 22px; }
+    .fact-div { display: none; }
+  }
+</style>

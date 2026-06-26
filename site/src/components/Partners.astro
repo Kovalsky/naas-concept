@@ -1,0 +1,17 @@
+---
+import { PARTNERS } from '../lib/site';
+import T from './T.astro';
+---
+<section style="background:var(--muted2); border-top:1px solid var(--line2);">
+  <div class="wrap" style="padding:20px 24px; display:flex; flex-wrap:wrap; align-items:center; gap:14px 28px;">
+    <span class="mono" style="font-size:10px; letter-spacing:0.14em; text-transform:uppercase; color:var(--ink3);"><T k="partners.label" /></span>
+    <nav style="display:flex; flex-wrap:wrap; gap:10px 26px;" aria-label="Офіційні портали">
+      {PARTNERS.map((p) => (
+        <a href={p.href} target="_blank" rel="noopener" style="font-size:13.5px; color:var(--ink2); border-bottom:1px solid transparent;" class="partner-link">{p.label}</a>
+      ))}
+    </nav>
+  </div>
+</section>
+<style>
+  .partner-link:hover { color: var(--navy); border-bottom-color: var(--navy); }
+</style>
