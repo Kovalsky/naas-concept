@@ -1,8 +1,10 @@
 ---
 import { getCollection, render } from 'astro:content';
+import { Image } from 'astro:assets';
 import Base from '../layouts/Base.astro';
 import PageHero from '../components/PageHero.astro';
 import { leadership, members, president, initials } from '../lib/data';
+import { img } from '../lib/images';
 import { ROUTES, EXTERNAL } from '../lib/site';
 
 const pages = await getCollection('pages');
@@ -42,9 +44,11 @@ const arrow = `<svg width="15" height="15" viewBox="0 0 24 24" fill="none" strok
 
       {president && (
         <div class="pres-lead">
-          {president.photo
-            ? <img class="pres-lead-photo" src={president.photo} alt={president.name} width="200" height="240" loading="lazy" />
-            : <span class="pres-lead-photo pres-ph" aria-hidden="true">{initials(president.name)}</span>}
+          {img(president.photo)
+            ? <Image class="pres-lead-photo" src={img(president.photo)!} alt={president.name} widths={[200, 300, 400]} sizes="(max-width:767px) 40vw, 200px" format="webp" loading="eager" fetchpriority="high" decoding="async" />
+            : president.photo
+              ? <img class="pres-lead-photo" src={president.photo} alt={president.name} width="200" height="240" loading="eager" fetchpriority="high" />
+              : <span class="pres-lead-photo pres-ph" aria-hidden="true">{initials(president.name)}</span>}
           <div class="pres-lead-x">
             <span class="mono pres-lead-role">Президент НААН</span>
             <h3 class="serif pres-lead-name">{president.name}</h3>
@@ -58,9 +62,11 @@ const arrow = `<svg width="15" height="15" viewBox="0 0 24 24" fill="none" strok
       <ul class="people-grid">
         {deputies.map((p) => (
           <li class="person">
-            {p.photo
-              ? <img class="person-photo" src={p.photo} alt={p.name} width="150" height="180" loading="lazy" />
-              : <span class="person-photo pres-ph" aria-hidden="true">{initials(p.name)}</span>}
+            {img(p.photo)
+              ? <Image class="person-photo" src={img(p.photo)!} alt={p.name} widths={[150, 220, 300]} sizes="(max-width:767px) 45vw, 150px" format="webp" loading="lazy" decoding="async" />
+              : p.photo
+                ? <img class="person-photo" src={p.photo} alt={p.name} width="150" height="180" loading="lazy" />
+                : <span class="person-photo pres-ph" aria-hidden="true">{initials(p.name)}</span>}
             <span class="person-name serif">{p.name}</span>
             <span class="person-post">{p.post}</span>
             {p.phone && <span class="mono person-tel">{p.phone}</span>}

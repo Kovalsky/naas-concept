@@ -60,7 +60,7 @@ const schemas = [orgSchema, ...jsonLd];
       // Apply saved interface language before paint to avoid a flash of UA->EN.
       try {
         var l = localStorage.getItem('naas-lang');
-        if (l === 'en') { document.documentElement.setAttribute('data-lang', 'en'); document.documentElement.lang = 'en'; }
+        if (l === 'en') { document.documentElement.setAttribute('data-lang', 'en'); } // keep lang="uk"; chrome strings self-tag
         if (localStorage.getItem('naas-hc') === 'true') document.documentElement.setAttribute('data-hc', 'true');
       } catch (e) {}
     </script>

@@ -1,11 +1,14 @@
 ---
 import { getCollection } from 'astro:content';
+import { Image } from 'astro:assets';
 import { anonsy } from '../lib/data';
+import { img } from '../lib/images';
 import { ROUTES } from '../lib/site';
 
 const newsItems = (await getCollection('news')).sort((a, b) => (a.data.date < b.data.date ? 1 : -1));
 const featured = newsItems[0];
 const rest = newsItems.slice(1, 5);
+const featImg = featured ? img(featured.data.image) : undefined;
 
 const MON = ['СІЧ', 'ЛЮТ', 'БЕР', 'КВІ', 'ТРА', 'ЧЕР', 'ЛИП', 'СЕР', 'ВЕР', 'ЖОВ', 'ЛИС', 'ГРУ'];
 const fmtNews = (d: string) => { const [y, m, day] = d.split('-'); return `${day} ${MON[(+m) - 1]} ${y}`; };
@@ -33,7 +36,9 @@ const arrow = `<svg width="14" height="14" viewBox="0 0 24 24" fill="none" strok
 
         {featured && (
           <a class="feat" href={`${ROUTES.news}/${featured.data.slug}`}>
-            <img class="feat-img" src={featured.data.image} alt="" width="720" height="380" loading="lazy" />
+            {featImg
+              ? <Image class="feat-img" src={featImg} alt="" widths={[400, 760, 1140]} sizes="(max-width:900px) 100vw, 58vw" format="webp" loading="lazy" decoding="async" />
+              : <img class="feat-img" src={featured.data.image} alt="" width="720" height="380" loading="lazy" />}
             <span class="mono feat-meta">{fmtNews(featured.data.date)} · {featured.data.tag}</span>
             <span class="serif feat-title">{featured.data.title}</span>
             <span class="feat-dek">{featured.data.teaser}</span>
@@ -41,17 +46,22 @@ const arrow = `<svg width="14" height="14" viewBox="0 0 24 24" fill="none" strok
         )}
 
         <ul class="nlist">
-          {rest.map((n) => (
+          {rest.map((n) => {
+            const m = img(n.data.image);
+            return (
             <li>
               <a href={`${ROUTES.news}/${n.data.slug}`} class="nrow">
-                <img class="nrow-img" src={n.data.image} alt="" width="64" height="64" loading="lazy" />
+                {m
+                  ? <Image class="nrow-img" src={m} alt="" width={64} height={64} densities={[1.5, 2]} format="webp" loading="lazy" decoding="async" />
+                  : <img class="nrow-img" src={n.data.image} alt="" width="64" height="64" loading="lazy" />}
                 <span class="nrow-x">
                   <span class="mono nrow-meta">{fmtNews(n.data.date)} · {n.data.tag}</span>
                   <span class="nrow-title">{n.data.title}</span>
                 </span>
               </a>
             </li>
-          ))}
+            );
+          })}
         </ul>
       </div>
 

@@ -1,5 +1,7 @@
 ---
+import { Image } from 'astro:assets';
 import { leadership, initials } from '../lib/data';
+import { img } from '../lib/images';
 import { ROUTES } from '../lib/site';
 const arrow = `<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9"><path d="M5 12h14M13 5l7 7-7 7"/></svg>`;
 ---
@@ -13,17 +15,22 @@ const arrow = `<svg width="15" height="15" viewBox="0 0 24 24" fill="none" strok
       <a class="link-arrow only-desktop" href={ROUTES.presidium}>Уся Президія <Fragment set:html={arrow} /></a>
     </div>
     <ul class="pres-grid">
-      {leadership.map((p) => (
+      {leadership.map((p) => {
+        const m = img(p.photo);
+        return (
         <li>
           <a class="pres" href={ROUTES.presidium}>
-            {p.photo
-              ? <img class="pres-photo" src={p.photo} alt={`${p.name}`} width="220" height="264" loading="lazy" />
-              : <span class="pres-photo pres-ph" aria-hidden="true">{initials(p.name)}</span>}
+            {m
+              ? <Image class="pres-photo" src={m} alt={`${p.name}`} widths={[220, 300, 440]} sizes="(max-width:560px) 50vw, (max-width:900px) 33vw, 25vw" format="webp" loading="lazy" decoding="async" />
+              : p.photo
+                ? <img class="pres-photo" src={p.photo} alt={`${p.name}`} width="220" height="264" loading="lazy" />
+                : <span class="pres-photo pres-ph" aria-hidden="true">{initials(p.name)}</span>}
             <span class="pres-name serif">{p.name}</span>
             <span class="pres-post">{p.post}</span>
           </a>
         </li>
-      ))}
+        );
+      })}
     </ul>
     <a class="link-arrow only-mobile" style="margin-top:24px;" href={ROUTES.presidium}>Уся Президія <Fragment set:html={arrow} /></a>
   </div>

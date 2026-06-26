@@ -129,6 +129,10 @@
 /* On dark chrome (util bar, footer, V3 hero) the navy ring is invisible — use gold-light (10:1 on navy). */
 .util :focus-visible, .foot :focus-visible, .hero3 :focus-visible { outline-color: var(--gold-light); }
 
+/* Hash/skip-link targets clear the 80px sticky header instead of hiding under it. */
+:target { scroll-margin-top: 96px; }
+#main { scroll-margin-top: 96px; }
+
 /* ---------- responsive show/hide ---------- */
 .only-desktop { display: flex; }
 .only-mobile { display: none; }

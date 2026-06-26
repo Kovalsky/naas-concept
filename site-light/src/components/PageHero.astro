@@ -18,7 +18,7 @@ const trail: Crumb[] = [{ label: 'Головна', href: ROUTES.home }, ...crumb
         <>
           {c.href && i < trail.length - 1
             ? <a href={c.href}>{i === 0 ? <T k="ui.crumb.home" /> : c.label}</a>
-            : <span class="cur">{c.label}</span>}
+            : <span class="cur" aria-current="page">{c.label}</span>}
           {i < trail.length - 1 && <span class="sep" aria-hidden="true">/</span>}
         </>
       ))}

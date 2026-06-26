@@ -1,13 +1,15 @@
 /* Self-hosted fonts (woff2 bundled by Vite — no external CDN) */
-@import '@fontsource/lora/400.css';
-@import '@fontsource/lora/500.css';
-@import '@fontsource/lora/600.css';
+@import '@fontsource/spectral/400.css';
+@import '@fontsource/spectral/500.css';
+@import '@fontsource/spectral/600.css';
 @import '@fontsource/inter/300.css';
 @import '@fontsource/inter/400.css';
 @import '@fontsource/inter/500.css';
 @import '@fontsource/inter/600.css';
 @import '@fontsource/jetbrains-mono/400.css';
 @import '@fontsource/jetbrains-mono/500.css';
+@import '@fontsource/jetbrains-mono/600.css'; /* mono labels use 600 (footer headers, badges, file tiles) */
+@import '@fontsource/jetbrains-mono/700.css'; /* 404 display code */
 
 *, *::before, *::after { box-sizing: border-box; }
 :root {
@@ -19,12 +21,12 @@
   --ink:#0A0A0A; --ink2:#525252; --ink3:#6B6B6B;
   --line:#E5E5E5; --line2:#ECEBE7; --canvas:#FFFFFF; --muted:#F8F9FA; --muted2:#F2F1EC;
   /* type */
-  --serif:'Lora',Georgia,serif;
+  --serif:'Spectral',Georgia,serif;
   --sans:'Inter',system-ui,-apple-system,'Segoe UI',sans-serif;
   --mono:'JetBrains Mono',ui-monospace,monospace;
   /* layout */
   --wrap:1320px; --gutter:32px;
-  --r-card:8px; --r-btn:4px; --r-pill:999px;
+  --r-card:12px; --r-btn:8px; --r-pill:999px;
 }
 html { scroll-behavior: smooth; }
 body { margin:0; font-family:var(--sans); color:var(--ink); background:var(--canvas); -webkit-font-smoothing:antialiased; text-rendering:optimizeLegibility; }
