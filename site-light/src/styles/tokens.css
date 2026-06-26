@@ -1,0 +1,35 @@
+/* Self-hosted fonts (woff2 bundled by Vite — no external CDN) */
+@import '@fontsource/lora/400.css';
+@import '@fontsource/lora/500.css';
+@import '@fontsource/lora/600.css';
+@import '@fontsource/inter/300.css';
+@import '@fontsource/inter/400.css';
+@import '@fontsource/inter/500.css';
+@import '@fontsource/inter/600.css';
+@import '@fontsource/jetbrains-mono/400.css';
+@import '@fontsource/jetbrains-mono/500.css';
+
+*, *::before, *::after { box-sizing: border-box; }
+:root {
+  --navy:#1E3A5F; --navy-deep:#0E1F35; --gold:#B8860B;
+  --ink:#0A0A0A; --ink2:#525252; --ink3:#8a8a8a;
+  --line:#E6E5E1; --canvas:#FFFFFF; --muted:#F8F8F5;
+  --serif:'Lora',Georgia,serif;
+  --sans:'Inter',system-ui,-apple-system,'Segoe UI',sans-serif;
+  --mono:'JetBrains Mono',ui-monospace,monospace;
+  --wrap:1280px; --gutter:32px;
+}
+html { scroll-behavior: smooth; }
+body { margin:0; font-family:var(--sans); color:var(--ink); background:var(--canvas); -webkit-font-smoothing:antialiased; text-rendering:optimizeLegibility; }
+a { color:inherit; text-decoration:none; }
+h1,h2,h3,h4,p { margin:0; }
+img { max-width:100%; display:block; }
+::selection { background:var(--navy); color:#fff; }
+.wrap { max-width:var(--wrap); margin:0 auto; padding:0 var(--gutter); }
+.serif { font-family:var(--serif); }
+.mono { font-family:var(--mono); }
+.kicker, .eyebrow { font-family:var(--mono); font-size:10px; font-weight:500; letter-spacing:0.13em; text-transform:uppercase; }
+.kicker { color:var(--navy); }
+.eyebrow { color:var(--ink3); }
+@media (max-width:767px){ :root{ --gutter:18px; } }
+@media (prefers-reduced-motion: reduce){ html{ scroll-behavior:auto; } *{ animation-duration:.001ms!important; transition-duration:.001ms!important; } }
