@@ -2,13 +2,15 @@
 import Base from '../layouts/Base.astro';
 import HeroC from '../components/HeroC.astro';
 import HeroImage from '../components/HeroImage.astro';
+import HeroWide from '../components/HeroWide.astro';
 import HomeSections from '../components/HomeSections.astro';
-// Build-time hero switch. Default = current centered hero (HeroC) so the live
-// site is unchanged. A separate deploy can build with `HERO=image` to ship the
-// image-anchored hero from the SAME source/content/images.
-const useImageHero = process.env.HERO === 'image';
+// All three hero variants render; the client-side switcher (utility bar, top-left)
+// shows one at a time and remembers the choice in localStorage. Default = classic,
+// so the live look is unchanged until someone toggles it.
 ---
 <Base title="НААН" description="Національна академія аграрних наук України — вища галузева наукова установа.">
-  {useImageHero ? <HeroImage /> : <HeroC />}
+  <div class="hero-variant" data-hero="classic"><HeroC /></div>
+  <div class="hero-variant" data-hero="emblem"><HeroImage image="/img/hero/emblem-navy.jpg" /></div>
+  <div class="hero-variant" data-hero="wide"><HeroWide /></div>
   <HomeSections />
 </Base>

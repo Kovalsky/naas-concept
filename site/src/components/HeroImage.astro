@@ -1,10 +1,16 @@
 ---
-// Hero (image variant): asymmetric editorial layout — copy on the left, a framed
-// photograph on the right, shared facts band below. Uses the SAME data, strings,
-// routes and images as the other hero variants (no duplicated content).
+// Hero (image variant): asymmetric editorial layout — copy on the left, an
+// emblem panel on the right, shared facts band below. Uses the SAME data,
+// strings and routes as the other hero variants (no duplicated content).
+// Pass `image` to use a raster emblem (e.g. /img/hero/emblem-navy.jpg);
+// omit it to fall back to the built-in inline SVG emblem.
 import T from './T.astro';
 import { ROUTES } from '../lib/site';
 import { divisionCount, instituteCount } from '../lib/data';
+interface Props { image?: string }
+const { image } = Astro.props;
+// Derive optimized WebP siblings (built alongside each JPEG) for a <picture> source.
+const base = image ? image.replace(/\.(jpe?g|png)$/i, '') : '';
 const arrow = `<svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9"><path d="M5 12h14M13 5l7 7-7 7"/></svg>`;
 const facts = [
   { n: '1931', k: 'home.factFounded' },
@@ -30,6 +36,12 @@ const facts = [
       </div>
 
       <figure class="hero-figure">
+        {image ? (
+          <picture>
+            <source type="image/webp" srcset={`${base}-600.webp 600w, ${base}.webp 1200w`} sizes="(max-width: 880px) 92vw, 620px" />
+            <img class="hero-emblem" src={image} alt="Стилізована гравюра: пшеничні колоси над полем — у дусі академічного знаку НААН" width="1200" height="896" loading="lazy" decoding="async" />
+          </picture>
+        ) : (
         <svg class="hero-emblem" viewBox="0 0 600 460" role="img" aria-label="Стилізована емблема НААН: три пшеничні колоси над полем, засновано 1931 року">
           <defs>
             <linearGradient id="heroBg" x1="0" y1="0" x2="0" y2="1">
@@ -73,6 +85,7 @@ const facts = [
           <text x="300" y="342" text-anchor="middle" fill="#AEBED2" font-family="ui-monospace,monospace" font-size="13" letter-spacing="6" opacity="0.9">EST. 1931</text>
           <rect x="0.5" y="0.5" width="599" height="459" fill="none" stroke="#B8860B" stroke-width="1" opacity="0.32"/>
         </svg>
+        )}
       </figure>
     </div>
 
@@ -90,7 +103,7 @@ const facts = [
   .hero-img-sec { background: #fff; padding: 58px 0 52px; position: relative; overflow: hidden; }
   .hero-contour { position: absolute; left: 0; right: 0; bottom: 0; width: 100%; height: 300px; opacity: 0.06; pointer-events: none; }
 
-  .hero-split { display: grid; grid-template-columns: 1.02fr 0.98fr; gap: 56px; align-items: center; }
+  .hero-split { display: grid; grid-template-columns: 1.75fr 1fr; gap: 56px; align-items: center; }
   .hero-copy { padding: 4px 0; }
 
   .hero-h1 { font-family: var(--serif); font-weight: 600; font-size: clamp(30px, 3.6vw, 44px); line-height: 1.12; letter-spacing: -0.018em; color: var(--ink); text-wrap: balance; }
@@ -103,12 +116,16 @@ const facts = [
 
   .hero-figure { position: relative; margin: 0; }
   .hero-emblem { display: block; width: 100%; height: auto; border-radius: 12px; box-shadow: 0 18px 46px rgba(14, 31, 53, 0.22); }
+  /* Square the photographic emblem so the centred motif gets even margins (no side void);
+     does not affect the built-in inline SVG emblem. */
+  img.hero-emblem { aspect-ratio: 1 / 1; object-fit: cover; }
 
   .fact-cluster { display: flex; align-items: center; margin-top: 48px; padding-top: 30px; border-top: 1px solid var(--line); }
-  .fact-col { flex: 1 1 0; min-width: 0; }
+  .fact-col { flex: 1 1 0; min-width: 0; text-align: center; }
   .fact-num { font-family: var(--serif); font-size: clamp(32px, 3.2vw, 40px); font-weight: 600; color: var(--navy); line-height: 1; }
-  .fact-lbl { font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink3); margin-top: 10px; }
-  .fact-div { flex: 0 0 1px; width: 1px; height: 42px; background: var(--line); margin: 0 24px; }
+  .fact-lbl { font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--ink3); margin-top: 10px; }
+  /* anchor the divider to the number line (top), so it brackets the numerals, not the labels */
+  .fact-div { flex: 0 0 1px; width: 1px; height: 40px; align-self: flex-start; background: var(--line); margin: 0 24px; }
 
   @media (max-width: 880px) {
     .hero-split { grid-template-columns: 1fr; gap: 30px; }
@@ -116,6 +133,7 @@ const facts = [
   }
   @media (max-width: 560px) {
     .fact-cluster { flex-direction: column; align-items: flex-start; gap: 20px; }
+    .fact-col { text-align: left; }
     .fact-div { display: none; }
   }
 </style>

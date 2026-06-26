@@ -187,6 +187,29 @@ img { max-width: 100%; }
 
 html[data-hc="true"] { filter: saturate(0) contrast(1.22); }
 
+/* ---------- homepage hero variant switcher (client-side, persisted) ---------- */
+.hero-variant { display: none; }
+html[data-hero="classic"] .hero-variant[data-hero="classic"],
+html[data-hero="emblem"]  .hero-variant[data-hero="emblem"],
+html[data-hero="wide"]    .hero-variant[data-hero="wide"] { display: block; }
+/* no-JS / unset fallback: show the classic hero */
+html:not([data-hero]) .hero-variant[data-hero="classic"] { display: block; }
+
+/* utility-bar labels collapse to icons on small screens (names kept via aria-label) */
+@media (max-width: 640px) { .util-label { display: none; } }
+
+/* homepage hero variant selector (three visible options; active = gold underline) */
+.hero-opt { padding: 4px 1px; color: rgba(255,255,255,0.5); border-bottom: 2px solid transparent; transition: color 140ms, border-color 140ms; white-space: nowrap; }
+.hero-opt:hover { color: rgba(255,255,255,0.82); }
+.hero-opt[aria-pressed="true"] { color: #fff; border-bottom-color: var(--gold); }
+
+/* ---------- keyboard focus ---------- */
+/* Surface-adaptive fallback ring: currentColor = navy/ink on light, white/gold on dark. */
+a:focus-visible, button:focus-visible { outline: 2px solid currentColor; outline-offset: 2px; border-radius: 2px; }
+.link-underline:focus-visible { outline: 2px solid var(--navy); outline-offset: 4px; }
+/* Larger tap height for the emblem-hero CTAs on mobile (underline position unchanged). */
+@media (max-width: 640px) { .link-underline { padding-top: 8px; } }
+
 /* ---------- language toggle (chrome only) ---------- */
 /* Default = Ukrainian. The <T> component renders both; CSS shows the active one. */
 .t-en { display: none; }

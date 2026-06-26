@@ -5,6 +5,7 @@ import { STRINGS } from '../lib/i18n';
 import T from './T.astro';
 
 const path = Astro.url.pathname.replace(/\/$/, '') || '/';
+const isHome = path === '/';
 const isActive = (href: string) => {
   const base = href.split('#')[0].replace(/\/$/, '') || '/';
   if (base === '/') return path === '/';
@@ -20,11 +21,21 @@ const searchPh = STRINGS['ui.search.ph'];
 ---
 <!-- UTILITY BAR -->
 <div style="background:var(--navy-deep); color:rgba(255,255,255,0.92); height:34px; font-size:12.5px;">
-  <div class="wrap" style="height:100%; display:flex; align-items:center; justify-content:flex-end;">
+  <div class="wrap" style="height:100%; display:flex; align-items:center; justify-content:space-between;">
+    <div style="display:flex; align-items:center;">
+      {isHome && (
+        <div id="hero-switch" role="group" aria-label="Вигляд головної сторінки" style="display:flex; align-items:center; gap:9px; font-family:var(--mono); font-size:12px;">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" style="color:rgba(255,255,255,0.5); flex-shrink:0;"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg>
+          <button class="hero-opt" data-hero-set="classic" aria-pressed="true">Класична</button>
+          <button class="hero-opt" data-hero-set="emblem" aria-pressed="false">Емблема</button>
+          <button class="hero-opt" data-hero-set="wide" aria-pressed="false">Банер</button>
+        </div>
+      )}
+    </div>
     <div style="display:flex; align-items:center; gap:16px;">
-      <button id="hc-toggle" style="display:flex; align-items:center; gap:6px; padding:6px 4px; color:rgba(255,255,255,0.85);">
+      <button id="hc-toggle" aria-label="Контрастна версія для людей з вадами зору" style="display:flex; align-items:center; gap:6px; padding:6px 4px; color:rgba(255,255,255,0.85);">
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="9"/><path d="M12 3a9 9 0 0 1 0 18z" fill="currentColor"/></svg>
-        <span style="font-size:12px;"><T k="ui.a11y" /></span>
+        <span class="util-label" style="font-size:12px;"><T k="ui.a11y" /></span>
       </button>
       <span style="color:rgba(255,255,255,0.3);">·</span>
       <div style="display:flex; align-items:center; gap:8px;" role="group" aria-label="Мова інтерфейсу / Interface language">
@@ -118,81 +129,77 @@ const searchPh = STRINGS['ui.search.ph'];
 <script is:inline>
   (function () {
     var root = document.documentElement;
+    var FOCUSABLE = 'a[href], button:not([disabled]), input, [tabindex]:not([tabindex="-1"])';
+    var LK = 'naas-lang', HK = 'naas-hero', HERO_SET = ['classic', 'emblem', 'wide'];
 
-    // High-contrast toggle
-    var hc = document.getElementById('hc-toggle');
-    if (hc) hc.addEventListener('click', function () {
-      root.setAttribute('data-hc', root.getAttribute('data-hc') === 'true' ? 'false' : 'true');
-    });
+    // Bind a listener once per element instance — the header DOM is fresh after each
+    // view transition, so re-running setup() re-binds without duplicating handlers.
+    function bind(el, ev, fn) {
+      if (el && !el['__b_' + ev]) { el['__b_' + ev] = 1; el.addEventListener(ev, fn); }
+    }
 
     // Language toggle (chrome only). Persisted in localStorage.
-    var LK = 'naas-lang';
-    var ua = document.getElementById('lang-ua');
-    var en = document.getElementById('lang-en');
-    var input = document.getElementById('search-input');
     function applyLang(lang) {
-      if (lang === 'en') root.setAttribute('data-lang', 'en');
-      else root.removeAttribute('data-lang');
+      var ua = document.getElementById('lang-ua');
+      var en = document.getElementById('lang-en');
+      var input = document.getElementById('search-input');
+      if (lang === 'en') root.setAttribute('data-lang', 'en'); else root.removeAttribute('data-lang');
       root.lang = lang === 'en' ? 'en' : 'uk';
       if (ua) { ua.style.color = lang === 'en' ? 'rgba(255,255,255,0.5)' : '#fff'; ua.setAttribute('aria-pressed', String(lang !== 'en')); }
       if (en) { en.style.color = lang === 'en' ? '#fff' : 'rgba(255,255,255,0.5)'; en.setAttribute('aria-pressed', String(lang === 'en')); }
       if (input) input.setAttribute('placeholder', lang === 'en' ? input.getAttribute('data-ph-en') : input.getAttribute('data-ph-uk'));
     }
-    var saved = 'uk';
-    try { saved = localStorage.getItem(LK) || 'uk'; } catch (e) {}
-    applyLang(saved);
+    function savedLang() { try { return localStorage.getItem(LK) || 'uk'; } catch (e) { return 'uk'; } }
     function setLang(l) { try { localStorage.setItem(LK, l); } catch (e) {} applyLang(l); }
-    if (ua) ua.addEventListener('click', function () { setLang('uk'); });
-    if (en) en.addEventListener('click', function () { setLang('en'); });
+
+    // Homepage hero variant selector (three options, direct pick). Persisted.
+    function curHero() { try { var v = localStorage.getItem(HK); return HERO_SET.indexOf(v) >= 0 ? v : 'classic'; } catch (e) { return 'classic'; } }
+    function applyHero(h) {
+      if (HERO_SET.indexOf(h) < 0) h = 'classic';
+      root.setAttribute('data-hero', h);
+      var opts = document.querySelectorAll('#hero-switch .hero-opt');
+      for (var i = 0; i < opts.length; i++) opts[i].setAttribute('aria-pressed', String(opts[i].getAttribute('data-hero-set') === h));
+    }
 
     // Panels (mobile nav + search): open/close, focus trap, and focus return.
-    var FOCUSABLE = 'a[href], button:not([disabled]), input, [tabindex]:not([tabindex="-1"])';
-    function panel(id, openBtn, closeBtn, scrim) {
+    var lastFocus = {};
+    function setPanel(id, open) {
       var el = document.getElementById(id);
-      var o = document.getElementById(openBtn), c = document.getElementById(closeBtn), s = document.getElementById(scrim);
-      var lastFocused = null;
-      function set(v) {
-        if (!el) return;
-        el.hidden = !v;
-        if (v) {
-          lastFocused = document.activeElement;
-          var first = id === 'search' ? input : el.querySelector(FOCUSABLE);
-          if (first) first.focus();
-        } else if (lastFocused && lastFocused.focus) {
-          lastFocused.focus();
-        }
+      if (!el) return;
+      if (open) {
+        lastFocus[id] = document.activeElement;
+        el.hidden = false;
+        var first = id === 'search' ? document.getElementById('search-input') : el.querySelector(FOCUSABLE);
+        if (first) first.focus();
+      } else if (!el.hidden) {
+        el.hidden = true;
+        if (lastFocus[id] && lastFocus[id].focus) lastFocus[id].focus();
       }
-      // Keep Tab focus inside the open panel.
-      if (el) el.addEventListener('keydown', function (e) {
-        if (e.key !== 'Tab' || el.hidden) return;
-        var f = Array.prototype.filter.call(el.querySelectorAll(FOCUSABLE), function (n) {
-          return n.offsetParent !== null;
-        });
-        if (!f.length) return;
-        var firstEl = f[0], lastEl = f[f.length - 1];
-        if (e.shiftKey && document.activeElement === firstEl) { e.preventDefault(); lastEl.focus(); }
-        else if (!e.shiftKey && document.activeElement === lastEl) { e.preventDefault(); firstEl.focus(); }
-      });
-      if (o) o.addEventListener('click', function () { set(true); });
-      if (c) c.addEventListener('click', function () { set(false); });
-      if (s) s.addEventListener('click', function () { set(false); });
-      return set;
     }
-    var setMnav = panel('mnav', 'mnav-open', 'mnav-close', 'mnav-scrim');
-    var setSearch = panel('search', 'search-open', 'search-close', 'search-scrim');
+    function trap(id) {
+      var el = document.getElementById(id);
+      if (!el || el.__trap) return; el.__trap = 1;
+      el.addEventListener('keydown', function (e) {
+        if (e.key !== 'Tab' || el.hidden) return;
+        var f = Array.prototype.filter.call(el.querySelectorAll(FOCUSABLE), function (n) { return n.offsetParent !== null; });
+        if (!f.length) return;
+        var a = f[0], b = f[f.length - 1];
+        if (e.shiftKey && document.activeElement === a) { e.preventDefault(); b.focus(); }
+        else if (!e.shiftKey && document.activeElement === b) { e.preventDefault(); a.focus(); }
+      });
+    }
 
-    // Search filter
-    var idxEl = document.getElementById('search-index');
-    var INDEX = idxEl ? JSON.parse(idxEl.textContent || '[]') : [];
-    var results = document.getElementById('search-results');
-    var empty = document.getElementById('search-empty');
-    function norm(s) { return (s || '').toLowerCase(); }
+    // Search filter — re-reads the per-page #search-index each call.
     function render(q) {
+      var results = document.getElementById('search-results');
+      var empty = document.getElementById('search-empty');
+      var idxEl = document.getElementById('search-index');
       if (!results) return;
+      var INDEX = idxEl ? JSON.parse(idxEl.textContent || '[]') : [];
       results.innerHTML = '';
-      var query = norm(q).trim();
+      var query = (q || '').toLowerCase().trim();
       var matches = query
-        ? INDEX.filter(function (it) { return norm(it.title).indexOf(query) !== -1; }).slice(0, 12)
+        ? INDEX.filter(function (it) { return (it.title || '').toLowerCase().indexOf(query) !== -1; }).slice(0, 12)
         : INDEX.slice(0, 8);
       if (empty) empty.style.display = matches.length ? 'none' : 'block';
       matches.forEach(function (it) {
@@ -203,10 +210,45 @@ const searchPh = STRINGS['ui.search.ph'];
         li.appendChild(a); results.appendChild(li);
       });
     }
-    if (input) {
-      input.addEventListener('input', function () { render(input.value); });
-      input.addEventListener('focus', function () { if (!input.value) render(''); });
+
+    // (Re-)initialise on initial load and after every view transition.
+    function setup() {
+      bind(document.getElementById('hc-toggle'), 'click', function () {
+        root.setAttribute('data-hc', root.getAttribute('data-hc') === 'true' ? 'false' : 'true');
+      });
+
+      applyHero(curHero());
+      var opts = document.querySelectorAll('#hero-switch .hero-opt');
+      for (var i = 0; i < opts.length; i++) {
+        bind(opts[i], 'click', function () {
+          var h = this.getAttribute('data-hero-set');
+          try { localStorage.setItem(HK, h); } catch (e) {}
+          applyHero(h);
+        });
+      }
+
+      applyLang(savedLang());
+      bind(document.getElementById('lang-ua'), 'click', function () { setLang('uk'); });
+      bind(document.getElementById('lang-en'), 'click', function () { setLang('en'); });
+
+      bind(document.getElementById('search-open'), 'click', function () { setPanel('search', true); });
+      bind(document.getElementById('search-close'), 'click', function () { setPanel('search', false); });
+      bind(document.getElementById('search-scrim'), 'click', function () { setPanel('search', false); });
+      bind(document.getElementById('mnav-open'), 'click', function () { setPanel('mnav', true); });
+      bind(document.getElementById('mnav-close'), 'click', function () { setPanel('mnav', false); });
+      bind(document.getElementById('mnav-scrim'), 'click', function () { setPanel('mnav', false); });
+      trap('search'); trap('mnav');
+
+      var input = document.getElementById('search-input');
+      bind(input, 'input', function () { render(input.value); });
+      bind(input, 'focus', function () { if (input && !input.value) render(''); });
     }
-    document.addEventListener('keydown', function (e) { if (e.key === 'Escape') { setSearch(false); setMnav(false); } });
+
+    if (!window.__naasHdr) {
+      window.__naasHdr = true;
+      document.addEventListener('keydown', function (e) { if (e.key === 'Escape') { setPanel('search', false); setPanel('mnav', false); } });
+      document.addEventListener('astro:page-load', setup); // re-init after each view transition
+    }
+    setup(); // initial load
   })();
 </script>
