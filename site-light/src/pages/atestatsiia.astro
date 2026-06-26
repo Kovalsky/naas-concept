@@ -1,15 +1,10 @@
 ---
-import { getCollection, render } from 'astro:content';
 import Base from '../layouts/Base.astro';
 import PageHero from '../components/PageHero.astro';
 import RegistryList from '../components/RegistryList.astro';
 import { byRoute, LEADS } from '../lib/registries';
 
 const registry = byRoute('/atestatsiia');
-
-const pages = await getCollection('pages');
-const intro = pages.find((p) => p.id === 'atestatsiia-kadry');
-const { Content: IntroContent } = intro ? await render(intro) : { Content: null };
 
 // The four TZ sub-blocks of «Атестація та підготовка кадрів».
 const tiles = [
@@ -31,11 +26,6 @@ const tiles = [
 
   <section class="section section--white">
     <div class="wrap">
-      {IntroContent && (
-        <div class="prose" style="margin-bottom:34px; max-width:72ch;">
-          <IntroContent />
-        </div>
-      )}
       <div class="att-grid">
         {tiles.map((t) => (
           <div class="att">
