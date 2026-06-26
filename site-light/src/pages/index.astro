@@ -1,4 +1,11 @@
 ---
+import { divisionCount, instituteCount } from '../lib/data';
+import { getCollection } from 'astro:content';
+const news = await getCollection('news');
 ---
 <html lang="uk"><head><meta charset="utf-8" /><title>NAAS Light</title></head>
-<body><h1>NAAS Light — scaffold OK</h1></body></html>
+<body>
+  <p id="divs">divisions:{divisionCount}</p>
+  <p id="insts">institutes:{instituteCount}</p>
+  <p id="news">news:{news.length}</p>
+</body></html>
