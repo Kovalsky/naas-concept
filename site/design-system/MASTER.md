@@ -24,7 +24,7 @@
 | **Tone** | Sober, trustworthy, scholarly, heritage. *Not* marketing, *not* trendy |
 | **Pattern** | Institutional gateway: breadcrumb heroes, card/list directories, document registries |
 | **Languages** | Ukrainian (default) + English chrome toggle (`data-lang`); `lang="uk"` |
-| **Stack** | Astro 5 static output → Cloudflare Pages (`naas-portal-new`). No CSS framework; hand-rolled tokens + inline styles |
+| **Stack** | Astro 5 static output → Cloudflare Pages (`naas-portal-gravitas`). No CSS framework; hand-rolled tokens + inline styles |
 
 **Best-practice cross-check** (UI/UX Pro Max → *"Accessible & Ethical"* style for government/education):
 high contrast, 16px+ base, visible focus rings, keyboard nav, reduced-motion, 44px touch targets,
