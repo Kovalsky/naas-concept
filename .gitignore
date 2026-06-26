@@ -1,0 +1,12 @@
+# dependencies / build
+node_modules/
+dist/
+dist-v1/
+dist-v3/
+.astro/
+.wrangler/
+
+# tooling / os
+.superpowers/
+.DS_Store
+*.log
