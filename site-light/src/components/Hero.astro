@@ -7,7 +7,7 @@ import { ROUTES } from '../lib/site';
 import { divisionCount, instituteCount } from '../lib/data';
 import { photo } from '../lib/images';
 const arrow = `<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9"><path d="M5 12h14M13 5l7 7-7 7"/></svg>`;
-const heroImg = photo('hero');
+const heroImg = photo('d2'); // sunflower field — strongest available placeholder; swap for NAAS-owned hero later
 ---
 <section class="hero">
   <div class="wrap hero-in">
@@ -24,9 +24,10 @@ const heroImg = photo('hero');
       {heroImg
         ? <Image class="hero-img" src={heroImg} alt="" widths={[480, 760, 1140]} sizes="(max-width:880px) 100vw, 46vw" format="webp" loading="eager" fetchpriority="high" decoding="async" />
         : <span class="hero-img hero-ph" aria-hidden="true"></span>}
+      <span class="hero-tint" aria-hidden="true"></span>
       <span class="hero-grad" aria-hidden="true"></span>
       <span class="hero-badge mono" aria-hidden="true"><span class="hero-dot"></span>{instituteCount} установ · {divisionCount} відділень</span>
-      <span class="hero-cap mono" aria-hidden="true">Пшеничне поле · ілюстративне фото</span>
+      <span class="hero-cap mono" aria-hidden="true">Соняшникове поле · ілюстративне фото</span>
     </div>
   </div>
 </section>
@@ -39,9 +40,11 @@ const heroImg = photo('hero');
   .hero-cta { display: flex; align-items: center; gap: 24px; margin-top: 28px; flex-wrap: wrap; }
 
   .hero-shot { position: relative; border-radius: 18px; overflow: hidden; aspect-ratio: 4/3; border: 1px solid var(--line); }
-  .hero-img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
-  .hero-ph { background: linear-gradient(150deg, #2c3e54, var(--navy-deep)); }
-  .hero-grad { position: absolute; inset: 0; background: linear-gradient(180deg, transparent 55%, rgba(12,28,48,0.42)); }
+  /* Decorative photo: desaturate + navy grade so mixed/low-quality stock reads as one intentional brand treatment. */
+  .hero-img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; filter: grayscale(0.32) contrast(1.04) brightness(1.02) saturate(1.05); }
+  .hero-ph { background: linear-gradient(150deg, #2c3e54, var(--navy-deep)); filter: none; }
+  .hero-tint { position: absolute; inset: 0; background: linear-gradient(160deg, rgba(30,58,95,0.26) 0%, rgba(14,31,53,0.22) 100%); mix-blend-mode: multiply; }
+  .hero-grad { position: absolute; inset: 0; background: linear-gradient(180deg, transparent 55%, rgba(12,28,48,0.45)); }
   .hero-badge { position: absolute; right: 14px; top: 14px; display: inline-flex; align-items: center; gap: 7px; font-size: 11px; color: #fff; background: rgba(12,28,48,0.55); border: 1px solid rgba(255,255,255,0.2); border-radius: var(--r-pill); padding: 6px 12px; }
   .hero-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--gold-light); }
   .hero-cap { position: absolute; left: 16px; bottom: 13px; font-size: 10px; color: rgba(255,255,255,0.85); }

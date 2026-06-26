@@ -1,17 +1,17 @@
 ---
 import { divisionCount, instituteCount } from '../lib/data';
+// EDRPOU lives in the footer/contacts — a registration code is not a headline figure.
 const stats = [
   { n: '1931', l: 'Рік заснування' },
   { n: String(divisionCount), l: 'Наукових відділень' },
   { n: String(instituteCount), l: 'Наукових установ' },
-  { n: '00024360', l: 'ЄДРПОУ', small: true },
 ];
 ---
 <section class="stats" aria-label="Академія в цифрах">
   <div class="wrap stats-in">
     {stats.map((s) => (
       <div class="cell">
-        <div class:list={['n', 'mono', { sm: s.small }]}>{s.n}</div>
+        <div class="n mono">{s.n}</div>
         <div class="l">{s.l}</div>
       </div>
     ))}
@@ -19,18 +19,15 @@ const stats = [
 </section>
 <style>
   .stats { background: var(--canvas); border-bottom: 1px solid var(--line); }
-  .stats-in { display: grid; grid-template-columns: repeat(4, 1fr); }
-  .cell { padding: 30px 0 30px 32px; }
+  .stats-in { display: grid; grid-template-columns: repeat(3, 1fr); }
+  .cell { padding: 30px 0 30px 36px; }
   .cell:first-child { padding-left: 0; }
   .cell + .cell { border-left: 1px solid var(--line); }
   .n { font-size: 46px; font-weight: 500; color: var(--navy); line-height: 1; letter-spacing: -0.01em; }
-  .n.sm { font-size: 26px; padding-top: 12px; }
-  .l { font-size: 12px; color: var(--ink2); margin-top: 10px; letter-spacing: 0.01em; }
-  @media (max-width: 767px) {
-    .stats-in { grid-template-columns: 1fr 1fr; }
-    .cell { padding: 22px 0 22px 24px; }
-    .cell:nth-child(odd) { padding-left: 0; border-left: none; }
-    .cell:nth-child(3), .cell:nth-child(4) { border-top: 1px solid var(--line); }
-    .n { font-size: 38px; }
+  .l { font-size: 12.5px; color: var(--ink2); margin-top: 10px; }
+  @media (max-width: 480px) {
+    .cell { padding: 22px 0 22px 18px; }
+    .n { font-size: 36px; }
+    .l { font-size: 11.5px; }
   }
 </style>
