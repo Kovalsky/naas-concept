@@ -51,7 +51,7 @@ const searchPh = STRINGS['ui.search.ph'];
 
     <nav aria-label="Головне меню" class="nav only-desktop">
       {NAV.map((item) => (
-        <a href={item.href} class:list={['nav-a', { active: isActive(item.href) }]}>
+        <a href={item.href} class:list={['nav-a', { active: isActive(item.href) }]} {...(item.href === ROUTES.contacts ? { 'data-astro-reload': true } : {})}>
           <T k={item.k} />
           {isActive(item.href) && <span class="nav-mark" aria-hidden="true"></span>}
         </a>
@@ -101,7 +101,7 @@ const searchPh = STRINGS['ui.search.ph'];
       </button>
     </div>
     {NAV.map((item) => (
-      <a href={item.href} class="drawer-a">
+      <a href={item.href} class="drawer-a" {...(item.href === ROUTES.contacts ? { 'data-astro-reload': true } : {})}>
         <T k={item.k} />
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="m9 18 6-6-6-6"/></svg>
       </a>
@@ -161,96 +161,110 @@ const searchPh = STRINGS['ui.search.ph'];
 </style>
 
 <script type="application/json" id="search-index" set:html={JSON.stringify(searchIndex)}></script>
-<script is:inline>
+<script is:inline define:vars={{ CONTACTS: ROUTES.contacts }}>
   (function () {
     var root = document.documentElement;
-
-    var hc = document.getElementById('hc-toggle');
-    if (hc) {
-      var hcOn = root.getAttribute('data-hc') === 'true';
-      hc.setAttribute('aria-pressed', String(hcOn));
-      hc.addEventListener('click', function () {
-        hcOn = !hcOn;
-        root.setAttribute('data-hc', hcOn ? 'true' : 'false');
-        hc.setAttribute('aria-pressed', String(hcOn));
-        try { localStorage.setItem('naas-hc', hcOn ? 'true' : 'false'); } catch (e) {}
-      });
-    }
-
     var LK = 'naas-lang';
-    var ua = document.getElementById('lang-ua');
-    var en = document.getElementById('lang-en');
-    var input = document.getElementById('search-input');
+    var FOCUSABLE = 'a[href], button:not([disabled]), input, [tabindex]:not([tabindex="-1"])';
+
     function applyLang(lang) {
-      if (lang === 'en') root.setAttribute('data-lang', 'en');
-      else root.removeAttribute('data-lang');
+      var ua = document.getElementById('lang-ua');
+      var en = document.getElementById('lang-en');
+      var input = document.getElementById('search-input');
+      if (lang === 'en') root.setAttribute('data-lang', 'en'); else root.removeAttribute('data-lang');
       root.lang = lang === 'en' ? 'en' : 'uk';
       if (ua) { ua.style.color = lang === 'en' ? 'rgba(255,255,255,0.5)' : '#fff'; ua.setAttribute('aria-pressed', String(lang !== 'en')); }
       if (en) { en.style.color = lang === 'en' ? '#fff' : 'rgba(255,255,255,0.5)'; en.setAttribute('aria-pressed', String(lang === 'en')); }
       if (input) input.setAttribute('placeholder', lang === 'en' ? input.getAttribute('data-ph-en') : input.getAttribute('data-ph-uk'));
     }
-    var saved = 'uk';
-    try { saved = localStorage.getItem(LK) || 'uk'; } catch (e) {}
-    applyLang(saved);
+    function savedLang() { try { return localStorage.getItem(LK) || 'uk'; } catch (e) { return 'uk'; } }
     function setLang(l) { try { localStorage.setItem(LK, l); } catch (e) {} applyLang(l); }
-    if (ua) ua.addEventListener('click', function () { setLang('uk'); });
-    if (en) en.addEventListener('click', function () { setLang('en'); });
 
-    var FOCUSABLE = 'a[href], button:not([disabled]), input, [tabindex]:not([tabindex="-1"])';
-    function panel(id, openBtn, closeBtn, scrim) {
+    function showPanel(id, show) {
       var el = document.getElementById(id);
-      var o = document.getElementById(openBtn), c = document.getElementById(closeBtn), s = document.getElementById(scrim);
-      var lastFocused = null;
-      function set(v) {
-        if (!el) return;
-        el.hidden = !v;
-        if (v) {
-          lastFocused = document.activeElement;
-          var first = id === 'search' ? input : el.querySelector(FOCUSABLE);
-          if (first) first.focus();
-        } else if (lastFocused && lastFocused.focus) { lastFocused.focus(); }
+      if (!el) return;
+      if (show) {
+        el.__lastFocus = document.activeElement;
+        el.hidden = false;
+        var first = id === 'search' ? document.getElementById('search-input') : el.querySelector(FOCUSABLE);
+        if (first) first.focus();
+      } else if (!el.hidden) {
+        el.hidden = true;
+        if (el.__lastFocus && el.__lastFocus.focus) el.__lastFocus.focus();
       }
-      if (el) el.addEventListener('keydown', function (e) {
+    }
+    // Attach a listener once per element instance (elements are fresh after each transition).
+    function bind(id, ev, fn) {
+      var e = document.getElementById(id);
+      if (e && !e['__b_' + ev]) { e['__b_' + ev] = 1; e.addEventListener(ev, fn); }
+    }
+    function trap(id) {
+      var el = document.getElementById(id);
+      if (!el || el.__trap) return; el.__trap = 1;
+      el.addEventListener('keydown', function (e) {
         if (e.key !== 'Tab' || el.hidden) return;
         var f = Array.prototype.filter.call(el.querySelectorAll(FOCUSABLE), function (n) { return n.offsetParent !== null; });
         if (!f.length) return;
-        var firstEl = f[0], lastEl = f[f.length - 1];
-        if (e.shiftKey && document.activeElement === firstEl) { e.preventDefault(); lastEl.focus(); }
-        else if (!e.shiftKey && document.activeElement === lastEl) { e.preventDefault(); firstEl.focus(); }
+        var a = f[0], b = f[f.length - 1];
+        if (e.shiftKey && document.activeElement === a) { e.preventDefault(); b.focus(); }
+        else if (!e.shiftKey && document.activeElement === b) { e.preventDefault(); a.focus(); }
       });
-      if (o) o.addEventListener('click', function () { set(true); });
-      if (c) c.addEventListener('click', function () { set(false); });
-      if (s) s.addEventListener('click', function () { set(false); });
-      return set;
     }
-    var setMnav = panel('mnav', 'mnav-open', 'mnav-close', 'mnav-scrim');
-    var setSearch = panel('search', 'search-open', 'search-close', 'search-scrim');
-
-    var idxEl = document.getElementById('search-index');
-    var INDEX = idxEl ? JSON.parse(idxEl.textContent || '[]') : [];
-    var results = document.getElementById('search-results');
-    var empty = document.getElementById('search-empty');
-    function norm(s) { return (s || '').toLowerCase(); }
-    function render(q) {
+    function renderSearch(q) {
+      var results = document.getElementById('search-results');
+      var empty = document.getElementById('search-empty');
+      var idxEl = document.getElementById('search-index');
       if (!results) return;
+      var INDEX = idxEl ? JSON.parse(idxEl.textContent || '[]') : [];
       results.innerHTML = '';
-      var query = norm(q).trim();
+      var query = (q || '').toLowerCase().trim();
       var matches = query
-        ? INDEX.filter(function (it) { return norm(it.title).indexOf(query) !== -1; }).slice(0, 12)
+        ? INDEX.filter(function (it) { return (it.title || '').toLowerCase().indexOf(query) !== -1; }).slice(0, 12)
         : INDEX.slice(0, 8);
       if (empty) empty.style.display = matches.length ? 'none' : 'block';
       matches.forEach(function (it) {
         var li = document.createElement('li');
         var a = document.createElement('a');
         a.href = it.href; a.textContent = it.title;
+        if (it.href === CONTACTS) a.setAttribute('data-astro-reload', ''); // Turnstile page → full load
         a.style.cssText = 'display:block; padding:12px 6px; border-bottom:1px solid var(--line); font-size:15px; color:var(--ink);';
         li.appendChild(a); results.appendChild(li);
       });
     }
-    if (input) {
-      input.addEventListener('input', function () { render(input.value); });
-      input.addEventListener('focus', function () { if (!input.value) render(''); });
+
+    function setup() {
+      var hc = document.getElementById('hc-toggle');
+      if (hc) {
+        hc.setAttribute('aria-pressed', String(root.getAttribute('data-hc') === 'true'));
+        if (!hc.__b) {
+          hc.__b = 1;
+          hc.addEventListener('click', function () {
+            var on = root.getAttribute('data-hc') !== 'true';
+            root.setAttribute('data-hc', on ? 'true' : 'false');
+            hc.setAttribute('aria-pressed', String(on));
+            try { localStorage.setItem('naas-hc', on ? 'true' : 'false'); } catch (e) {}
+          });
+        }
+      }
+      applyLang(savedLang());
+      bind('lang-ua', 'click', function () { setLang('uk'); });
+      bind('lang-en', 'click', function () { setLang('en'); });
+      bind('search-open', 'click', function () { showPanel('search', true); });
+      bind('search-close', 'click', function () { showPanel('search', false); });
+      bind('search-scrim', 'click', function () { showPanel('search', false); });
+      bind('mnav-open', 'click', function () { showPanel('mnav', true); });
+      bind('mnav-close', 'click', function () { showPanel('mnav', false); });
+      bind('mnav-scrim', 'click', function () { showPanel('mnav', false); });
+      trap('search'); trap('mnav');
+      bind('search-input', 'input', function () { renderSearch(document.getElementById('search-input').value); });
+      bind('search-input', 'focus', function () { var i = document.getElementById('search-input'); if (i && !i.value) renderSearch(''); });
     }
-    document.addEventListener('keydown', function (e) { if (e.key === 'Escape') { setSearch(false); setMnav(false); } });
+
+    if (!window.__naasHdr) {
+      window.__naasHdr = true;
+      document.addEventListener('keydown', function (e) { if (e.key === 'Escape') { showPanel('search', false); showPanel('mnav', false); } });
+      document.addEventListener('astro:page-load', setup); // re-init after each view transition
+    }
+    setup(); // initial load
   })();
 </script>
