@@ -1,10 +1,53 @@
 ---
 import '../styles/tokens.css';
+import '../styles/global.css';
 import Header from '../components/Header.astro';
+import Partners from '../components/Partners.astro';
 import Footer from '../components/Footer.astro';
-interface Props { title: string; description?: string; }
-const { title, description = 'Національна академія аграрних наук України — офіційний портал.' } = Astro.props;
-const fullTitle = title === 'НААН' ? title : `${title} — НААН`;
+import { GA_ID } from '../config';
+import { contacts } from '../lib/data';
+
+interface Props {
+  title: string;
+  description?: string;
+  image?: string;
+  /** Optional extra JSON-LD blocks (e.g. Article, Person) injected per-page. */
+  jsonLd?: object[];
+  ogType?: string;
+}
+const {
+  title,
+  description = 'Національна академія аграрних наук України — вища галузева наукова установа, науково-методичний і координаційний центр з наукових проблем розвитку АПК України.',
+  image = '/naas-emblem.png',
+  jsonLd = [],
+  ogType = 'website',
+} = Astro.props;
+
+const fullTitle = title === 'НААН' ? 'Національна академія аграрних наук України' : `${title} — НААН`;
+const canonical = new URL(Astro.url.pathname, Astro.site).href;
+const ogImage = new URL(image, Astro.site).href;
+
+// Site-wide organisation schema (real, sourced facts only).
+const orgSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'GovernmentOrganization',
+  name: 'Національна академія аграрних наук України',
+  alternateName: 'НААН',
+  url: Astro.site?.href,
+  logo: new URL('/naas-emblem.png', Astro.site).href,
+  foundingDate: '1931',
+  email: contacts.email,
+  telephone: contacts.phone,
+  taxID: contacts.edrpou,
+  address: {
+    '@type': 'PostalAddress',
+    streetAddress: 'вул. Михайла Омеляновича-Павленка, 9',
+    addressLocality: 'Київ',
+    postalCode: '01010',
+    addressCountry: 'UA',
+  },
+};
+const schemas = [orgSchema, ...jsonLd];
 ---
 <!doctype html>
 <html lang="uk">
@@ -12,17 +55,51 @@ const fullTitle = title === 'НААН' ? title : `${title} — НААН`;
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link rel="icon" type="image/png" href="/naas-emblem.png" />
+    <script is:inline>
+      // Apply saved interface language before paint to avoid a flash of UA->EN.
+      try {
+        var l = localStorage.getItem('naas-lang');
+        if (l === 'en') { document.documentElement.setAttribute('data-lang', 'en'); document.documentElement.lang = 'en'; }
+        if (localStorage.getItem('naas-hc') === 'true') document.documentElement.setAttribute('data-hc', 'true');
+      } catch (e) {}
+    </script>
     <title>{fullTitle}</title>
     <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+
+    <!-- Open Graph / social -->
+    <meta property="og:type" content={ogType} />
+    <meta property="og:site_name" content="НААН" />
+    <meta property="og:title" content={fullTitle} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={ogImage} />
+    <meta property="og:locale" content="uk_UA" />
+    <meta name="twitter:card" content="summary_large_image" />
+
+    {schemas.map((s) => <script type="application/ld+json" set:html={JSON.stringify(s)} />)}
+
+    {GA_ID && (
+      <>
+        <script async src={`https://www.googletagmanager.com/gtag/js?id=${GA_ID}`}></script>
+        <script is:inline define:vars={{ GA_ID }}>
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+          gtag('config', GA_ID);
+        </script>
+      </>
+    )}
   </head>
   <body>
     <a href="#main" class="skip-link">Перейти до основного вмісту</a>
     <Header />
     <main id="main"><slot /></main>
+    <Partners />
     <Footer />
     <style is:global>
-      .skip-link { position:absolute; left:-9999px; top:0; z-index:120; background:var(--navy); color:#fff; padding:12px 16px; border-radius:4px; }
-      .skip-link:focus { left:8px; top:8px; }
+      .skip-link { position: absolute; left: -9999px; top: 0; z-index: 130; background: var(--navy); color: #fff; padding: 12px 16px; border-radius: 4px; font-size: 14px; }
+      .skip-link:focus { left: 8px; top: 8px; }
     </style>
   </body>
 </html>

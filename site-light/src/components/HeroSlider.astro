@@ -1,22 +1,60 @@
 ---
+// V3 — photographic hero: deep-navy wash over an agrarian field motif. White text.
+// To use a real licensed photo instead of the SVG art: add /img/hero/wheat-field.webp
+// and set `background-image` on .hero3 to `linear-gradient(...wash...), url('/img/hero/wheat-field.webp')`.
 import { HERO_H1, HERO_SLOGAN } from '../config';
+import { ROUTES } from '../lib/site';
+const arrow = `<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9"><path d="M5 12h14M13 5l7 7-7 7"/></svg>`;
 ---
-<section class="hero" aria-label="Головний банер">
-  <div class="hero-bg" role="img" aria-label="Пшеничне поле України"></div>
-  <div class="wrap hero-in">
-    <div class="kicker gold">Заснована 1931 · National Academy of Agrarian Sciences of Ukraine</div>
-    <h1 class="serif">{HERO_H1}</h1>
-    <p class="slogan">{HERO_SLOGAN}</p>
+<section class="hero3" aria-label="Головний банер">
+  <!-- agrarian field artwork under the navy wash (decorative) -->
+  <svg class="hero3-art" viewBox="0 0 1440 620" preserveAspectRatio="xMidYMax slice" aria-hidden="true">
+    <defs>
+      <linearGradient id="h3sky" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0" stop-color="#0E1F35"/>
+        <stop offset="0.55" stop-color="#1E3A5F"/>
+        <stop offset="1" stop-color="#16314f"/>
+      </linearGradient>
+    </defs>
+    <rect width="1440" height="620" fill="url(#h3sky)"/>
+    <g fill="none" stroke="#ffffff" stroke-width="2" opacity="0.07">
+      <path d="M0 470 Q720 410 1440 458"/>
+      <path d="M0 502 Q720 442 1440 490"/>
+      <path d="M0 534 Q720 474 1440 522"/>
+      <path d="M0 566 Q720 506 1440 554"/>
+      <path d="M0 598 Q720 538 1440 586"/>
+    </g>
+    <path d="M0 452 Q720 392 1440 440" fill="none" stroke="#E7C879" stroke-width="2" opacity="0.5"/>
+    <g stroke="#E7C879" stroke-width="1.5" opacity="0.22" fill="none">
+      <path d="M120 470 V 545"/><path d="M120 470 q -7 8 -14 6"/><path d="M120 470 q 7 8 14 6"/>
+      <path d="M1300 458 V 540"/><path d="M1300 458 q -7 8 -14 6"/><path d="M1300 458 q 7 8 14 6"/>
+    </g>
+  </svg>
+  <div class="hero3-wash" aria-hidden="true"></div>
+
+  <div class="wrap hero3-in">
+    <span class="mono hero3-kick"><span lang="en">National Academy of Agrarian Sciences of Ukraine</span> · засн. 1931</span>
+    <h1 class="serif hero3-h1">{HERO_H1}</h1>
+    <p class="hero3-lead">{HERO_SLOGAN}</p>
+    <div class="hero3-cta">
+      <a class="btn btn--light" href={ROUTES.today}>НААН сьогодні <Fragment set:html={arrow} /></a>
+      <a class="hero3-ghost" href={ROUTES.structure}>Структура Академії <Fragment set:html={arrow} /></a>
+    </div>
   </div>
-  <div class="dots wrap" aria-hidden="true"><span class="on"></span><span></span><span></span></div>
+
+  <span class="mono hero3-credit" aria-hidden="true">НААН · науково-методичний центр АПК України</span>
 </section>
 <style>
-  .hero { position:relative; background:var(--navy-deep); }
-  .hero-bg { position:absolute; inset:0; background-image:linear-gradient(115deg,rgba(14,31,53,.82),rgba(14,31,53,.42)),url('/img/hero/wheat-field.jpg'); background-size:cover; background-position:center 40%; }
-  .hero-in { position:relative; padding:88px 0 64px; max-width:760px; }
-  .hero .kicker.gold { color:#E7C879; }
-  .hero h1 { font-family:var(--serif); font-weight:500; color:#fff; font-size:clamp(32px,4.4vw,46px); line-height:1.05; letter-spacing:-0.02em; margin-top:14px; }
-  .hero .slogan { color:#cdd7e3; font-size:16px; line-height:1.55; margin-top:16px; max-width:54ch; }
-  .dots { position:relative; display:flex; gap:6px; padding-bottom:18px; margin-top:-8px; }
-  .dots span { width:8px; height:3px; border-radius:2px; background:rgba(255,255,255,.4); } .dots span.on { width:22px; background:#E7C879; }
+  .hero3 { position: relative; overflow: hidden; background: var(--navy-deep); min-height: 580px; display: flex; align-items: center; }
+  .hero3-art { position: absolute; inset: 0; width: 100%; height: 100%; }
+  .hero3-wash { position: absolute; inset: 0; background: linear-gradient(100deg, rgba(14,31,53,0.78) 0%, rgba(14,31,53,0.4) 60%, rgba(14,31,53,0.62) 100%); }
+  .hero3-in { position: relative; z-index: 1; padding: 76px 0; max-width: 760px; }
+  .hero3-kick { color: var(--gold-light); font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; }
+  .hero3-h1 { margin-top: 18px; font-weight: 500; color: #fff; font-size: clamp(34px, 5vw, 60px); line-height: 1.04; letter-spacing: -0.022em; }
+  .hero3-lead { margin-top: 18px; color: rgba(255,255,255,0.85); font-size: clamp(16px, 1.7vw, 19px); line-height: 1.5; max-width: 52ch; }
+  .hero3-cta { display: flex; align-items: center; gap: 24px; margin-top: 34px; flex-wrap: wrap; }
+  .hero3-ghost { display: inline-flex; align-items: center; gap: 8px; color: #fff; font-size: 14px; font-weight: 600; border-bottom: 1px solid rgba(255,255,255,0.45); padding-bottom: 3px; transition: gap 160ms ease, border-color 160ms ease; }
+  .hero3-ghost:hover { gap: 12px; border-bottom-color: var(--gold-light); }
+  .hero3-credit { position: absolute; right: var(--gutter); bottom: 16px; z-index: 1; color: rgba(255,255,255,0.6); font-size: 10px; letter-spacing: 0.04em; }
+  @media (max-width: 767px) { .hero3 { min-height: 480px; } .hero3-credit { display: none; } }
 </style>

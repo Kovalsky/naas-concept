@@ -1,0 +1,14 @@
+---
+import { PLACEHOLDER_TEXT } from '../lib/site';
+interface Props { note?: string }
+const { note } = Astro.props;
+---
+<section class="section section--white">
+  <div class="wrap">
+    <div class="placeholder">
+      <span class="demo-badge">Зразок · у наповненні</span>
+      <p style="margin-top:16px;"><strong>{PLACEHOLDER_TEXT}</strong></p>
+      {note && <p style="margin-top:8px; font-size:13.5px;">{note}</p>}
+    </div>
+  </div>
+</section>

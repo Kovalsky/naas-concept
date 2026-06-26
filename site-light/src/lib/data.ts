@@ -15,3 +15,15 @@ export const anonsy: Anons[] = (anonsyRaw as Anons[]).filter((a) => a.title && a
 export const contacts: Contacts = contactsRaw as Contacts;
 export const divisionCount = divisions.length;
 export const instituteCount = divisions.reduce((n, d) => n + d.ustanovy.length, 0);
+
+// People groupings (leadership = president + vice-presidents, all with photos).
+export const leadership: Person[] = persons.filter((p) => p.group === 'leadership');
+export const members: Person[] = persons.filter((p) => p.group === 'members');
+export const president: Person | undefined = persons.find((p) => p.featured) ?? leadership[0];
+
+// Monogram from a Ukrainian full name ("Гриник Ігор ..." -> "ГІ"); "—" when blank.
+export const initials = (name: string): string => {
+  const parts = (name || '').trim().split(/\s+/).filter(Boolean);
+  if (!parts.length) return '—';
+  return parts.slice(0, 2).map((w) => w[0]?.toUpperCase() ?? '').join('');
+};

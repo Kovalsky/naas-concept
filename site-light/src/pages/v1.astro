@@ -1,12 +1,12 @@
 ---
-// V3 — photo/navy hero homepage (default). Body identical to /v1.
+// V1 — typographic (no-photo) hero homepage. Body identical to / (V3).
 import Base from '../layouts/Base.astro';
-import HeroSlider from '../components/HeroSlider.astro';
+import HeroTypographic from '../components/HeroTypographic.astro';
 import VariantSwitch from '../components/VariantSwitch.astro';
 import HomeBody from '../components/HomeBody.astro';
 ---
 <Base title="НААН" description="Національна академія аграрних наук України — вища галузева наукова установа, науково-методичний і координаційний центр з наукових проблем розвитку АПК України.">
-  <HeroSlider />
-  <VariantSwitch active="v3" />
+  <HeroTypographic />
+  <VariantSwitch active="v1" />
   <HomeBody />
 </Base>

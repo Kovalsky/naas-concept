@@ -6,17 +6,15 @@
   "scripts": {
     "dev": "astro dev",
     "build": "astro build",
-    "build:v1": "HERO=v1 OUT_DIR=dist-v1 astro build",
-    "build:v3": "HERO=v3 OUT_DIR=dist-v3 astro build",
     "preview": "astro preview",
-    "deploy:v1": "npm run build:v1 && wrangler pages deploy dist-v1 --project-name naas-portal-light-v1",
-    "deploy:v3": "npm run build:v3 && wrangler pages deploy dist-v3 --project-name naas-portal-light-v3"
+    "deploy": "SITE_URL=https://naas-portal-light.pages.dev astro build && wrangler pages deploy dist --project-name naas-portal-light --commit-dirty=true"
   },
   "dependencies": {
-    "astro": "^5.6.1",
-    "@fontsource/lora": "^5.0.0",
+    "@astrojs/sitemap": "^3.7.3",
     "@fontsource/inter": "^5.0.0",
-    "@fontsource/jetbrains-mono": "^5.0.0"
+    "@fontsource/jetbrains-mono": "^5.0.0",
+    "@fontsource/lora": "^5.0.0",
+    "astro": "^5.6.1"
   },
   "devDependencies": {
     "wrangler": "^3.114.1"

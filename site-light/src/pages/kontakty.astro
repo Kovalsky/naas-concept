@@ -1,0 +1,147 @@
+---
+import Base from '../layouts/Base.astro';
+import PageHero from '../components/PageHero.astro';
+import { contacts } from '../lib/data';
+import { EXTERNAL } from '../lib/site';
+import { TURNSTILE_SITEKEY } from '../config';
+
+const cards = [
+  {
+    h: 'Адреса та Президія',
+    rows: [
+      { label: 'Адреса', value: contacts.address },
+      { label: 'Телефон', value: contacts.phone, href: `tel:${contacts.phone.replace(/[^+\d]/g, '')}`, mono: true },
+      { label: 'Ел. пошта', value: contacts.email, href: `mailto:${contacts.email}` },
+    ],
+  },
+  {
+    h: 'Прес-служба',
+    rows: [
+      { label: 'Ел. пошта', value: contacts.press_email, href: `mailto:${contacts.press_email}` },
+      { label: 'Телефон', value: contacts.press_phone, href: `tel:${contacts.press_phone.replace(/[^+\d]/g, '')}`, mono: true },
+    ],
+  },
+  {
+    h: 'Реквізити',
+    rows: [
+      { label: contacts.edrpou_label, value: contacts.edrpou, mono: true },
+      { label: 'Профіль Prozorro', value: 'prozorro.gov.ua', href: EXTERNAL.prozorro, external: true },
+    ],
+  },
+];
+---
+<Base title="Контакти" description="Контактна інформація Національної академії аграрних наук України: адреса, телефони, електронна пошта, реквізити.">
+  <PageHero title="Контакти" kicker="Зв'язок з Академією" lead="Офіційні контакти, прес-служба та реквізити Національної академії аграрних наук України." />
+
+  <section class="section section--white">
+    <div class="wrap">
+      <div class="k-grid">
+        {cards.map((c) => (
+          <div class="card k-card">
+            <h2 class="serif k-h">{c.h}</h2>
+            <dl class="k-dl">
+              {c.rows.map((r) => (
+                <div class="k-row">
+                  <dt class="mono k-dt">{r.label}</dt>
+                  <dd class:list={['k-dd', { mono: r.mono }]}>
+                    {r.href
+                      ? <a href={r.href} {...(r.external ? { target: '_blank', rel: 'noopener' } : {})}>{r.value}</a>
+                      : r.value}
+                  </dd>
+                </div>
+              ))}
+            </dl>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Inquiry form (front-end). Turnstile guards submission; message opens a pre-filled
+       email to the official address. Server-side verification + delivery = backend phase. -->
+  <section class="section section--muted">
+    <div class="wrap">
+      <div class="sect-head">
+        <div class="col">
+          <div class="kicker" style="margin-bottom:10px;">Звернення · Inquiry</div>
+          <h2 class="h2">Надіслати звернення</h2>
+        </div>
+      </div>
+      <form id="inquiry" class="k-form" novalidate>
+        <div class="k-field">
+          <label for="f-name">Ім'я <span class="req" aria-hidden="true">*</span></label>
+          <input id="f-name" name="name" type="text" required autocomplete="name" />
+        </div>
+        <div class="k-field">
+          <label for="f-email">Ел. пошта <span class="req" aria-hidden="true">*</span></label>
+          <input id="f-email" name="email" type="email" required autocomplete="email" inputmode="email" />
+        </div>
+        <div class="k-field k-field--full">
+          <label for="f-msg">Повідомлення <span class="req" aria-hidden="true">*</span></label>
+          <textarea id="f-msg" name="message" rows="5" required></textarea>
+        </div>
+        <div class="k-field k-field--full">
+          <div class="cf-turnstile" data-sitekey={TURNSTILE_SITEKEY} data-theme="light"></div>
+        </div>
+        <div class="k-field--full k-submit-row">
+          <button type="submit" class="btn">Надіслати звернення</button>
+          <p id="f-status" class="k-status" role="status" aria-live="polite"></p>
+        </div>
+      </form>
+      <p class="k-note">Захист від спаму — Cloudflare Turnstile. Звернення відкриється у вашій поштовій програмі для надсилання на <a href={`mailto:${contacts.email}`}>{contacts.email}</a>.</p>
+    </div>
+  </section>
+</Base>
+
+<script is:inline src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
+<script is:inline define:vars={{ to: contacts.email }}>
+  (function () {
+    var form = document.getElementById('inquiry');
+    var status = document.getElementById('f-status');
+    if (!form) return;
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
+      var name = form.name.value.trim();
+      var email = form.email.value.trim();
+      var msg = form.message.value.trim();
+      if (!name || !email || !msg) { status.textContent = 'Заповніть усі обовʼязкові поля.'; status.dataset.kind = 'err'; return; }
+      var token = (form.querySelector('[name="cf-turnstile-response"]') || {}).value;
+      if (!token) { status.textContent = 'Підтвердьте, що ви не робот.'; status.dataset.kind = 'err'; return; }
+      var subject = encodeURIComponent('Звернення з порталу НААН — ' + name);
+      var body = encodeURIComponent('Імʼя: ' + name + '\nЕл. пошта: ' + email + '\n\n' + msg);
+      status.textContent = 'Відкриваємо поштову програму…'; status.dataset.kind = 'ok';
+      window.location.href = 'mailto:' + to + '?subject=' + subject + '&body=' + body;
+    });
+  })();
+</script>
+
+<style>
+  .k-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
+  .k-card { padding: 26px; }
+  .k-h { font-size: 18px; font-weight: 500; color: var(--ink); margin-bottom: 16px; }
+  .k-dl { margin: 0; }
+  .k-row { padding: 11px 0; border-top: 1px solid var(--line); }
+  .k-row:first-child { border-top: none; padding-top: 0; }
+  .k-dt { font-size: 10px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink3); margin-bottom: 4px; }
+  .k-dd { font-size: 14.5px; color: var(--ink); line-height: 1.5; }
+  .k-dd.mono { font-family: var(--mono); }
+  .k-dd a { color: var(--navy); border-bottom: 1px solid rgba(30,58,95,0.3); }
+  .k-dd a:hover { border-color: var(--navy); }
+
+  .k-form { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; max-width: 720px; }
+  .k-field { display: flex; flex-direction: column; gap: 7px; }
+  .k-field--full { grid-column: 1 / -1; }
+  .k-field label { font-size: 13px; font-weight: 500; color: var(--ink2); }
+  .req { color: var(--gold-ink); }
+  .k-field input, .k-field textarea { font: inherit; font-size: 15px; color: var(--ink); background: #fff; border: 1px solid var(--line); border-radius: var(--r-btn); padding: 11px 13px; min-height: 46px; }
+  .k-field textarea { resize: vertical; }
+  .k-field input:focus-visible, .k-field textarea:focus-visible { outline: 2px solid var(--navy); outline-offset: 1px; border-color: var(--navy); }
+  .k-submit-row { display: flex; align-items: center; gap: 16px; flex-wrap: wrap; }
+  .k-status { font-size: 13px; margin: 0; }
+  .k-status[data-kind="err"] { color: #b3261e; }
+  .k-status[data-kind="ok"] { color: var(--navy); }
+  .k-note { margin-top: 18px; font-size: 12.5px; color: var(--ink3); max-width: 60ch; }
+  .k-note a { color: var(--navy); }
+  @media (max-width: 900px) { .k-grid { grid-template-columns: 1fr; } }
+  @media (max-width: 560px) { .k-form { grid-template-columns: 1fr; } }
+</style>

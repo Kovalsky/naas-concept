@@ -1,0 +1,29 @@
+---
+import Base from '../layouts/Base.astro';
+import { ROUTES } from '../lib/site';
+---
+<Base
+  title="Сторінку не знайдено"
+  description="На жаль, цієї сторінки не існує або її було переміщено."
+>
+  <section class="section section--white nf">
+    <div class="wrap nf-wrap">
+      <span class="mono nf-code">404</span>
+      <h1 class="serif nf-title">Сторінку не знайдено</h1>
+      <p class="nf-lead">На жаль, цієї сторінки не існує або її було переміщено.</p>
+      <a class="btn" href={ROUTES.home}>На головну</a>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .nf { display: flex; align-items: center; min-height: 60vh; }
+  .nf-wrap { text-align: center; }
+  .nf-code {
+    display: block; font-size: clamp(64px, 12vw, 128px); font-weight: 700;
+    line-height: 1; color: var(--navy); letter-spacing: 0.02em;
+  }
+  .nf-title { font-size: clamp(24px, 3.4vw, 34px); font-weight: 500; color: var(--ink); margin-top: 18px; }
+  .nf-lead { font-size: 16px; line-height: 1.6; color: var(--ink2); margin: 14px auto 30px; max-width: 46ch; }
+  .nf .btn { margin: 0 auto; }
+</style>

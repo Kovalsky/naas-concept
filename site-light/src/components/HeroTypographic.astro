@@ -1,21 +1,44 @@
 ---
+// V1 — typographic hero: light, airy, editorial. Must NOT resemble the gravitas hero.
 import { HERO_H1, HERO_SLOGAN } from '../config';
+import { ROUTES } from '../lib/site';
+const arrow = `<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9"><path d="M5 12h14M13 5l7 7-7 7"/></svg>`;
 ---
-<section class="hero"><div class="wrap hero-in">
-  <div class="kicker">Заснована 1931 · National Academy of Agrarian Sciences of Ukraine</div>
-  <h1 class="serif">{HERO_H1}</h1>
-  <p class="slogan">{HERO_SLOGAN}</p>
-  <span class="gold-rule" aria-hidden="true"></span>
-  <svg class="contour" viewBox="0 0 1280 220" preserveAspectRatio="none" aria-hidden="true">
-    <g fill="none" stroke="#1E3A5F" stroke-width="2"><path d="M0 200 Q640 150 1280 190"/><path d="M0 175 Q640 120 1280 160"/><path d="M0 150 Q640 95 1280 135"/></g>
-    <path d="M0 188 Q640 140 1280 180" fill="none" stroke="#B8860B" stroke-width="2"/>
+<section class="hero1">
+  <div class="wrap hero1-in">
+    <div class="kicker hero1-kick">Національна академія · засн. 1931</div>
+    <h1 class="serif hero1-h1">{HERO_H1}</h1>
+    <p class="hero1-lead">{HERO_SLOGAN}</p>
+    <span class="hero1-rule" aria-hidden="true"></span>
+
+    <div class="hero1-cta">
+      <a class="btn" href={ROUTES.today}>НААН сьогодні <Fragment set:html={arrow} /></a>
+      <a class="link-arrow" href={ROUTES.structure}>Структура Академії <Fragment set:html={arrow} /></a>
+    </div>
+  </div>
+
+  <svg class="hero1-contour" viewBox="0 0 1440 240" preserveAspectRatio="none" aria-hidden="true">
+    <g fill="none" stroke="#1E3A5F" stroke-width="2">
+      <path d="M0 210 Q720 150 1440 200"/>
+      <path d="M0 184 Q720 120 1440 168"/>
+      <path d="M0 158 Q720 92 1440 138"/>
+      <path d="M0 132 Q720 64 1440 110"/>
+    </g>
+    <path d="M0 197 Q720 136 1440 184" fill="none" stroke="#B8860B" stroke-width="2"/>
   </svg>
-</div></section>
+</section>
 <style>
-  .hero { position:relative; overflow:hidden; background:linear-gradient(180deg,#fff,var(--muted)); border-bottom:1px solid var(--line); }
-  .hero-in { position:relative; padding:60px 0 52px; }
-  .hero h1 { font-family:var(--serif); font-weight:500; font-size:clamp(30px,4vw,44px); line-height:1.08; letter-spacing:-0.02em; max-width:18ch; }
-  .hero .slogan { font-size:16px; line-height:1.6; color:var(--ink2); margin-top:16px; max-width:60ch; }
-  .gold-rule { display:block; width:48px; height:2px; background:var(--gold); margin-top:22px; }
-  .contour { position:absolute; left:0; bottom:0; width:100%; height:160px; opacity:.07; pointer-events:none; }
+  .hero1 { position: relative; overflow: hidden; background: linear-gradient(180deg, #fff 0%, var(--muted) 100%); border-bottom: 1px solid var(--line); }
+  .hero1-in { position: relative; z-index: 1; padding: 68px 0 64px; }
+  .hero1-kick { margin-bottom: 20px; }
+  .hero1-h1 { font-weight: 500; font-size: clamp(32px, 5vw, 56px); line-height: 1.05; letter-spacing: -0.022em; color: var(--ink); max-width: 17ch; }
+  .hero1-lead { margin-top: 18px; font-size: clamp(16px, 1.7vw, 18px); line-height: 1.55; color: var(--ink2); max-width: 56ch; }
+  .hero1-rule { display: block; width: 48px; height: 2px; background: var(--gold); margin-top: 26px; }
+  .hero1-facts { display: flex; gap: 44px; margin-top: 28px; flex-wrap: wrap; }
+  .hero1-fact { display: flex; flex-direction: column; }
+  .hero1-fn { font-size: 30px; font-weight: 500; color: var(--navy); line-height: 1; }
+  .hero1-fl { margin-top: 7px; font-size: 11px; letter-spacing: 0.04em; text-transform: uppercase; color: var(--ink3); }
+  .hero1-cta { display: flex; align-items: center; gap: 26px; margin-top: 34px; flex-wrap: wrap; }
+  .hero1-contour { position: absolute; left: 0; bottom: 0; width: 100%; height: 200px; opacity: 0.06; pointer-events: none; }
+  @media (max-width: 560px) { .hero1-facts { gap: 28px; } }
 </style>

@@ -1,0 +1,41 @@
+---
+import { leadership, initials } from '../lib/data';
+import { ROUTES } from '../lib/site';
+const arrow = `<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9"><path d="M5 12h14M13 5l7 7-7 7"/></svg>`;
+---
+<section class="section section--white" aria-labelledby="pres-h">
+  <div class="wrap">
+    <div class="sect-head">
+      <div class="col">
+        <div class="kicker" style="margin-bottom:10px;">Керівництво · <span lang="en">Leadership</span></div>
+        <h2 id="pres-h" class="h2">Керівництво та Президія</h2>
+      </div>
+      <a class="link-arrow only-desktop" href={ROUTES.presidium}>Уся Президія <Fragment set:html={arrow} /></a>
+    </div>
+    <ul class="pres-grid">
+      {leadership.map((p) => (
+        <li>
+          <a class="pres" href={ROUTES.presidium}>
+            {p.photo
+              ? <img class="pres-photo" src={p.photo} alt={`${p.name}`} width="220" height="264" loading="lazy" />
+              : <span class="pres-photo pres-ph" aria-hidden="true">{initials(p.name)}</span>}
+            <span class="pres-name serif">{p.name}</span>
+            <span class="pres-post">{p.post}</span>
+          </a>
+        </li>
+      ))}
+    </ul>
+    <a class="link-arrow only-mobile" style="margin-top:24px;" href={ROUTES.presidium}>Уся Президія <Fragment set:html={arrow} /></a>
+  </div>
+</section>
+<style>
+  .pres-grid { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; }
+  .pres { display: block; }
+  .pres-photo { width: 100%; aspect-ratio: 5/6; object-fit: cover; object-position: center top; border-radius: var(--r-card); border: 1px solid var(--line); background: var(--muted2); display: block; }
+  .pres-ph { display: flex; align-items: center; justify-content: center; font-size: 30px; font-weight: 500; color: rgba(255,255,255,0.6); background: linear-gradient(160deg, #2c3e54, var(--navy)); }
+  .pres-name { display: block; margin-top: 12px; font-size: 15.5px; font-weight: 500; line-height: 1.28; color: var(--ink); }
+  .pres:hover .pres-name { color: var(--navy); }
+  .pres-post { display: block; margin-top: 4px; font-size: 12.5px; line-height: 1.4; color: var(--ink3); }
+  @media (max-width: 900px) { .pres-grid { grid-template-columns: repeat(3, 1fr); } }
+  @media (max-width: 560px) { .pres-grid { grid-template-columns: repeat(2, 1fr); gap: 16px; } }
+</style>

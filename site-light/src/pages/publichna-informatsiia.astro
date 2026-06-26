@@ -1,0 +1,39 @@
+---
+import Base from '../layouts/Base.astro';
+import PageHero from '../components/PageHero.astro';
+import { registries } from '../lib/registries';
+
+// All registries that live under the Публічна інформація hub.
+const items = registries.filter((r) => r.route.startsWith('/publichna-informatsiia/'));
+const countWord = (n: number) => (n === 1 ? 'документ' : n >= 2 && n <= 4 ? 'документи' : 'документів');
+---
+<Base
+  title="Публічна інформація"
+  description="Набори даних, бюджетні документи та публічна інформація розпорядника — Національна академія аграрних наук України."
+>
+  <PageHero
+    title="Публічна інформація"
+    kicker="Розпорядник публічної інформації"
+    lead="Набори даних, бюджетні документи та публічна інформація Академії."
+  />
+
+  <section class="section section--white">
+    <div class="wrap">
+      <div class="rows">
+        {items.map((r) => (
+          <a href={r.route}>
+            <span class="hub-main"><span class="serif hub-title">{r.title}</span></span>
+            <span class="mono hub-count">{r.count} {countWord(r.count)}</span>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--navy)" stroke-width="1.9" style="flex-shrink:0;" aria-hidden="true"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .hub-main { flex: 1; min-width: 0; }
+  .hub-title { display: block; font-size: 16px; font-weight: 500; color: var(--ink); line-height: 1.4; }
+  .hub-count { flex-shrink: 0; font-size: 12px; color: var(--ink3); white-space: nowrap; }
+</style>

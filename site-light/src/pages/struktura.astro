@@ -1,0 +1,101 @@
+---
+import Base from '../layouts/Base.astro';
+import PageHero from '../components/PageHero.astro';
+import { divisions } from '../lib/data';
+
+const normalizeWeb = (w: string) => (w.startsWith('http') ? w : `http://${w}`);
+const stripProto = (w: string) => w.replace(/^https?:\/\//, '').replace(/\/$/, '');
+const countWord = (n: number) => (n === 1 ? 'установа' : n >= 2 && n <= 4 ? 'установи' : 'установ');
+---
+<Base
+  title="Структура Академії"
+  description="Наукові відділення та підпорядковані наукові установи Національної академії аграрних наук України з контактними даними."
+>
+  <PageHero
+    title="Структура Академії"
+    kicker="6 наукових відділень · 50 установ"
+    lead="Наукові відділення та підпорядковані наукові установи Академії з контактами."
+  />
+
+  {divisions.map((d, i) => (
+    <section id={'v' + (i + 1)} class={`section ${i % 2 === 0 ? 'section--white' : 'section--muted'}`}>
+      <div class="wrap">
+        <div class="sect-head">
+          <div class="col">
+            <div class="kicker" style="margin-bottom:10px;">Наукове відділення</div>
+            <h2 class="h2">{d.viddilennia}</h2>
+          </div>
+          <span class="mono div-count">{d.ustanovy.length} {countWord(d.ustanovy.length)}</span>
+        </div>
+
+        <div class="inst-grid">
+          {d.ustanovy.map((it) => (
+            <article class="card card-lift inst">
+              <h3 class="serif inst-name">{it.nazva}</h3>
+              {(it.adresa || it.web || it.email || it.tel || it.faks) && (
+                <div class="inst-fields">
+                  {it.adresa && (
+                    <p class="inst-row">
+                      <span class="mono inst-label">Адреса</span>
+                      <span class="inst-val">{it.adresa}</span>
+                    </p>
+                  )}
+                  {it.web && (
+                    <p class="inst-row">
+                      <span class="mono inst-label">Сайт</span>
+                      <a class="inst-link" href={normalizeWeb(it.web)} target="_blank" rel="noopener">{stripProto(it.web)}</a>
+                    </p>
+                  )}
+                  {it.email && (
+                    <p class="inst-row">
+                      <span class="mono inst-label">Email</span>
+                      <a class="inst-link" href={`mailto:${it.email}`}>{it.email}</a>
+                    </p>
+                  )}
+                  {it.tel && (
+                    <p class="inst-row">
+                      <span class="mono inst-label">Тел.</span>
+                      <span class="mono inst-val">{it.tel}</span>
+                    </p>
+                  )}
+                  {it.faks && (
+                    <p class="inst-row">
+                      <span class="mono inst-label">Факс</span>
+                      <span class="mono inst-val">{it.faks}</span>
+                    </p>
+                  )}
+                </div>
+              )}
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
+  ))}
+</Base>
+
+<style>
+  .div-count {
+    flex-shrink: 0; align-self: flex-end;
+    font-size: 11.5px; font-weight: 600; color: var(--navy);
+    background: rgba(30, 58, 95, 0.07); padding: 6px 11px; border-radius: var(--r-pill);
+    white-space: nowrap;
+  }
+  .inst-grid {
+    display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 16px;
+  }
+  .inst { padding: 22px 24px; display: flex; flex-direction: column; }
+  .inst-name { font-size: 16px; font-weight: 500; line-height: 1.3; color: var(--ink); }
+  .inst-fields { margin-top: 14px; padding-top: 14px; border-top: 1px solid var(--line); }
+  .inst-row { display: flex; gap: 12px; margin: 0; padding: 5px 0; }
+  .inst-label {
+    flex-shrink: 0; width: 50px; padding-top: 2px;
+    font-size: 9.5px; letter-spacing: 0.06em; text-transform: uppercase; color: var(--ink3);
+  }
+  .inst-val { min-width: 0; font-size: 13px; line-height: 1.5; color: var(--ink2); overflow-wrap: anywhere; }
+  .inst-val.mono { font-size: 12.5px; color: var(--ink); }
+  .inst-link { min-width: 0; font-size: 13px; line-height: 1.5; color: var(--navy); overflow-wrap: anywhere; }
+  @media (max-width: 540px) {
+    .inst-grid { grid-template-columns: 1fr; }
+  }
+</style>

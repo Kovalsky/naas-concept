@@ -1,0 +1,60 @@
+---
+import { getCollection } from 'astro:content';
+import Base from '../../layouts/Base.astro';
+import PageHero from '../../components/PageHero.astro';
+import { ROUTES } from '../../lib/site';
+
+export async function getStaticPaths() {
+  const news = await getCollection('news');
+  return news.map((n) => ({ params: { slug: n.data.slug }, props: { n } }));
+}
+const { n } = Astro.props;
+const d = n.data;
+const paragraphs = d.body.split(/\n{2,}/).filter(Boolean);
+const fmtDate = (s: string) => {
+  const [y, m, day] = s.split('-');
+  return `${day}.${m}.${y}`;
+};
+const articleSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'NewsArticle',
+  headline: d.title,
+  datePublished: d.date,
+  image: [d.image],
+  articleSection: d.tag,
+  inLanguage: 'uk',
+  publisher: { '@type': 'Organization', name: 'НААН' },
+};
+---
+<Base
+  title={d.title}
+  description={d.teaser}
+  image={d.image}
+  ogType="article"
+  jsonLd={[articleSchema]}
+>
+  <PageHero
+    title={d.title}
+    kicker={d.tag}
+    crumbs={[{ label: 'Новини', href: ROUTES.news }]}
+  />
+  <section class="section section--white">
+    <div class="wrap" style="max-width:820px;">
+      <div class="mono" style="font-size:12px;letter-spacing:0.04em;color:var(--ink3);margin-bottom:18px;">{fmtDate(d.date)}</div>
+      <img
+        src={d.image}
+        alt={d.title}
+        width="820"
+        height="440"
+        loading="lazy"
+        style="display:block;width:100%;height:auto;border-radius:var(--r-card);border:1px solid var(--line);margin-bottom:28px;background:var(--muted);"
+      />
+      <div class="prose">
+        {paragraphs.map((p) => <p>{p}</p>)}
+      </div>
+      <div style="margin-top:36px;padding-top:24px;border-top:1px solid var(--line);">
+        <a class="link-arrow" href={ROUTES.news}>← Усі новини</a>
+      </div>
+    </div>
+  </section>
+</Base>

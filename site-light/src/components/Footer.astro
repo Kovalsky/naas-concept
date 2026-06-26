@@ -1,28 +1,64 @@
 ---
 import { contacts } from '../lib/data';
-import { FOOTER } from '../lib/site';
+import { FOOTER, ROUTES } from '../lib/site';
+import T from './T.astro';
+const year = new Date().getFullYear();
 ---
-<footer class="foot"><div class="wrap foot-in">
-  <div>
-    <b>Контакти</b>
-    <p>{contacts.address}</p>
-    <p>{contacts.phone} · <a href={`mailto:${contacts.email}`}>{contacts.email}</a></p>
-    <p>{contacts.edrpou_label} {contacts.edrpou}</p>
+<footer class="foot">
+  <div class="wrap foot-grid">
+    <div class="foot-brand">
+      <a href={ROUTES.home} class="foot-id">
+        <img src="/naas-emblem.png" alt="Емблема НААН" width="48" height="48" />
+        <span class="serif foot-name">Національна академія<br/>аграрних наук України</span>
+      </a>
+      <p class="foot-addr">{contacts.address}</p>
+      <p class="foot-addr mono">{contacts.phone}</p>
+      <p class="foot-addr"><a href={`mailto:${contacts.email}`}>{contacts.email}</a></p>
+      <p class="foot-addr mono">{contacts.edrpou_label} {contacts.edrpou}</p>
+    </div>
+
+    <div class="foot-col">
+      <span class="foot-h"><T k="footer.sections" /></span>
+      {FOOTER.sections.map((s) => <a href={s.href}><T k={s.k} /></a>)}
+    </div>
+    <div class="foot-col">
+      <span class="foot-h"><T k="footer.documents" /></span>
+      {FOOTER.documents.map((d) => <a href={d.href} {...(d.external ? { target: '_blank', rel: 'noopener' } : {})}><T k={d.k} /></a>)}
+    </div>
+    <div class="foot-col">
+      <span class="foot-h"><T k="footer.resources" /></span>
+      {FOOTER.resources.map((r) => <a href={r.href} {...(r.external ? { target: '_blank', rel: 'noopener' } : {})}><T k={r.k} /></a>)}
+    </div>
   </div>
-  <div>
-    <b>Розділи</b>
-    {FOOTER.sections.map((s) => <a href={s.href}>{s.label}</a>)}
+
+  <div class="foot-bar">
+    <div class="wrap foot-bar-in">
+      <span>© {year} НААН · Усі права захищено</span>
+      <span class="foot-bar-links">
+        <a href={ROUTES.contacts}><T k="footer.contacts" /></a>
+        <span aria-hidden="true">·</span>
+        <a href="/sitemap-index.xml" target="_blank" rel="noopener">sitemap</a>
+      </span>
+    </div>
   </div>
-  <div>
-    <b>Документи</b>
-    {FOOTER.documents.map((d) => <a href={d.href}>{d.label}</a>)}
-  </div>
-</div></footer>
+</footer>
+
 <style>
-  .foot { background:var(--navy-deep); color:#aab6c6; padding:32px 0; margin-top:0; }
-  .foot-in { display:grid; grid-template-columns:1.4fr 1fr 1fr; gap:24px; font-size:12px; line-height:1.7; }
-  .foot b { color:#fff; font-family:var(--serif); display:block; margin-bottom:8px; }
-  .foot a { display:block; color:#aab6c6; } .foot a:hover { color:#fff; }
-  .foot a:focus-visible { outline:2px solid var(--navy); outline-offset:2px; }
-  @media (max-width:767px){ .foot-in{ grid-template-columns:1fr; } }
+  .foot { background: var(--navy-deep); color: rgba(255,255,255,0.72); }
+  .foot-grid { display: grid; grid-template-columns: 1.6fr 1fr 1fr 1fr; gap: 32px; padding: 56px 0 40px; }
+  .foot-id { display: inline-flex; align-items: center; gap: 12px; margin-bottom: 18px; }
+  .foot-id img { width: 48px; height: 48px; object-fit: contain; }
+  .foot-name { display: block; font-size: 14px; font-weight: 600; color: #fff; line-height: 1.2; }
+  .foot-addr { font-size: 12.5px; line-height: 1.7; color: rgba(255,255,255,0.66); margin: 0; }
+  .foot-addr a:hover { color: #fff; }
+  .foot-col { display: flex; flex-direction: column; }
+  .foot-h { font-family: var(--mono); font-size: 10px; font-weight: 600; letter-spacing: 0.13em; text-transform: uppercase; color: rgba(255,255,255,0.62); margin-bottom: 14px; }
+  .foot-col a { font-size: 13px; line-height: 1.5; color: rgba(255,255,255,0.72); padding: 5px 0; }
+  .foot-col a:hover { color: #fff; }
+  .foot-bar { border-top: 1px solid rgba(255,255,255,0.1); }
+  .foot-bar-in { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 18px 0; font-size: 12px; color: rgba(255,255,255,0.5); }
+  .foot-bar-links { display: flex; align-items: center; gap: 12px; }
+  .foot-bar-links a:hover { color: #fff; }
+  @media (max-width: 900px) { .foot-grid { grid-template-columns: 1fr 1fr; gap: 28px 24px; } }
+  @media (max-width: 560px) { .foot-grid { grid-template-columns: 1fr; } .foot-bar-in { flex-direction: column; align-items: flex-start; gap: 8px; } }
 </style>

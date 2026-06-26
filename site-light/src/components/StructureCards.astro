@@ -1,0 +1,48 @@
+---
+import { divisions } from '../lib/data';
+import { ROUTES } from '../lib/site';
+import T from './T.astro';
+const arrow = `<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9"><path d="M5 12h14M13 5l7 7-7 7"/></svg>`;
+const pad2 = (n: number) => String(n).padStart(2, '0');
+const instWord = (n: number) => (n === 1 ? 'установа' : n >= 2 && n <= 4 ? 'установи' : 'установ');
+// The "ВІДДІЛЕННЯ NN" label already says "Відділення" — drop the duplicate prefix from the name.
+const shortName = (s: string) => { const t = s.replace(/^Відділення\s+/i, ''); return t.charAt(0).toUpperCase() + t.slice(1); };
+---
+<section class="section section--muted" aria-labelledby="struct-h">
+  <div class="wrap">
+    <div class="sect-head">
+      <div class="col">
+        <div class="kicker" style="margin-bottom:10px;">Структура · <span lang="en">Research divisions</span></div>
+        <h2 id="struct-h" class="h2">Структура Академії</h2>
+      </div>
+      <a class="link-arrow only-desktop" href={ROUTES.structure}>Уся структура <Fragment set:html={arrow} /></a>
+    </div>
+
+    <div class="struct-grid">
+      {divisions.map((d, i) => (
+        <a class="card card-lift dcard" href={ROUTES.structure}>
+          <div class="dcard-top">
+            <span class="mono dcard-no">ВІДДІЛЕННЯ {pad2(i + 1)}</span>
+            <span class="dcard-dot" aria-hidden="true"></span>
+          </div>
+          <h3 class="serif dcard-name">{shortName(d.viddilennia)}</h3>
+          <span class="dcard-link">
+            {d.ustanovy.length} {instWord(d.ustanovy.length)} <Fragment set:html={arrow} />
+          </span>
+        </a>
+      ))}
+    </div>
+  </div>
+</section>
+<style>
+  .struct-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
+  .dcard { display: flex; flex-direction: column; padding: 22px 24px 20px; min-height: 168px; }
+  .dcard-top { display: flex; align-items: center; gap: 10px; margin-bottom: 16px; }
+  .dcard-no { font-size: 10px; letter-spacing: 0.14em; color: var(--navy); }
+  .dcard-dot { width: 5px; height: 5px; border-radius: 50%; background: var(--gold); }
+  .dcard-name { flex: 1; font-size: 19px; font-weight: 500; line-height: 1.28; color: var(--ink); letter-spacing: -0.01em; }
+  .dcard-link { display: inline-flex; align-items: center; gap: 7px; margin-top: 16px; font-family: var(--mono); font-size: 11.5px; color: var(--navy); transition: gap 160ms ease; }
+  .dcard:hover .dcard-link { gap: 11px; }
+  @media (max-width: 900px) { .struct-grid { grid-template-columns: 1fr 1fr; } }
+  @media (max-width: 560px) { .struct-grid { grid-template-columns: 1fr; } }
+</style>

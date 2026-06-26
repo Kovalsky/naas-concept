@@ -1,0 +1,87 @@
+---
+import Base from '../../layouts/Base.astro';
+import PageHero from '../../components/PageHero.astro';
+import { ROUTES } from '../../lib/site';
+import { contacts } from '../../lib/data';
+
+const cards = [
+  {
+    title: 'Публічні закупівлі (Тендери)',
+    desc: `Річні плани публічних закупівель Академії. Поточні закупівлі — у системі Prozorro (ЄДРПОУ ${contacts.edrpou}).`,
+    href: ROUTES.transparency + '/tendery',
+  },
+  {
+    title: 'Майнові питання та Оренда',
+    desc: 'Майно, що пропонується до безоплатної передачі та оренди, передача основних засобів.',
+    href: ROUTES.maynovi,
+  },
+  {
+    title: 'Запобігання корупції',
+    desc: 'Антикорупційна програма, уповноважена особа та канали повідомлень про корупцію.',
+    href: ROUTES.anticorr,
+  },
+  {
+    title: 'Доступ до публічної інформації',
+    desc: 'Порядок подання та розгляду запитів на публічну інформацію.',
+    href: ROUTES.dostup,
+  },
+];
+---
+<Base title="Прозорість">
+  <PageHero
+    title="Прозорість"
+    kicker="Відкритість та підзвітність"
+    lead="Публічні закупівлі, майнові питання, запобігання корупції та доступ до публічної інформації."
+  />
+  <section class="section section--white">
+    <div class="wrap">
+      <div class="proz-grid">
+        {cards.map((c) => (
+          <a class="card card-lift proz-card" href={c.href}>
+            <span class="proz-head">
+              <span class="proz-title serif">{c.title}</span>
+              <svg class="proz-arrow" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--navy)" stroke-width="1.8" aria-hidden="true"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+            </span>
+            <span class="proz-desc">{c.desc}</span>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+</Base>
+<style>
+  .proz-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 22px;
+  }
+  .proz-card {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    padding: 26px;
+  }
+  .proz-head {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 14px;
+  }
+  .proz-title {
+    font-size: 19px;
+    font-weight: 500;
+    color: var(--ink);
+    line-height: 1.3;
+  }
+  .proz-arrow {
+    flex-shrink: 0;
+    margin-top: 4px;
+    transition: transform 160ms ease;
+  }
+  .proz-card:hover .proz-arrow { transform: translateX(3px); }
+  .proz-desc {
+    font-size: 13.5px;
+    color: var(--ink2);
+    line-height: 1.55;
+  }
+</style>

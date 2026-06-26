@@ -1,0 +1,45 @@
+---
+import { EXTERNAL } from '../lib/site';
+const resources = [
+  { t: 'Е-Бібліотека', d: 'Електронний архів наукових публікацій, авторефератів та періодики установ у відкритому доступі.', meta: 'Відкритий доступ', href: EXTERNAL.eLib },
+  { t: 'Відео', d: 'Відеоматеріали, записи наукових заходів та лекцій Академії.', meta: 'Відео', href: EXTERNAL.video },
+  { t: 'AGROLECTURES', d: 'Англомовні матеріали української аграрної науки.', meta: 'EN', href: EXTERNAL.agrolectures },
+];
+const open = `<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9"><path d="M7 17 17 7M7 7h10v10"/></svg>`;
+---
+<section class="section section--muted" aria-labelledby="eres-h">
+  <div class="wrap">
+    <div class="sect-head">
+      <div class="col">
+        <div class="kicker" style="margin-bottom:10px;">Е-ресурси · <span lang="en">Library &amp; media</span></div>
+        <h2 id="eres-h" class="h2">Бібліотека, відео та видання</h2>
+      </div>
+    </div>
+    <div class="er-grid">
+      {resources.map((r) => (
+        <a class="card card-lift er" href={r.href} target="_blank" rel="noopener">
+          <span class="er-ico" aria-hidden="true">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--navy)" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
+          </span>
+          <span class="serif er-t">{r.t}</span>
+          <span class="er-d">{r.d}</span>
+          <span class="er-foot">
+            <span class="mono er-meta">{r.meta}</span>
+            <span class="er-open">Перейти <Fragment set:html={open} /></span>
+          </span>
+        </a>
+      ))}
+    </div>
+  </div>
+</section>
+<style>
+  .er-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
+  .er { display: flex; flex-direction: column; padding: 24px; }
+  .er-ico { width: 38px; height: 38px; display: flex; align-items: center; justify-content: center; border-radius: 8px; background: #eef1f5; margin-bottom: 16px; }
+  .er-t { font-size: 18px; font-weight: 500; color: var(--ink); }
+  .er-d { margin-top: 9px; font-size: 13.5px; line-height: 1.55; color: var(--ink2); flex: 1; }
+  .er-foot { display: flex; align-items: center; justify-content: space-between; margin-top: 16px; padding-top: 14px; border-top: 1px solid var(--line); }
+  .er-meta { font-size: 10px; letter-spacing: 0.05em; color: var(--ink3); }
+  .er-open { display: inline-flex; align-items: center; gap: 6px; font-size: 12.5px; font-weight: 600; color: var(--navy); }
+  @media (max-width: 900px) { .er-grid { grid-template-columns: 1fr; } }
+</style>
