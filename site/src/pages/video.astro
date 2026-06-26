@@ -1,0 +1,14 @@
+---
+import Base from '../layouts/Base.astro';
+import Hero from '../components/Hero.astro';
+import VideoGallery from '../components/VideoGallery.astro';
+import videos from '../data/video.json';
+---
+<Base title="Відео" description="Відеоматеріали Національної академії аграрних наук України.">
+  <Hero
+    kicker="Медіа"
+    title="Відео"
+    lead="Лекції, репортажі та записи наукових заходів і захистів за участю установ НААН."
+  />
+  <VideoGallery items={videos} />
+</Base>

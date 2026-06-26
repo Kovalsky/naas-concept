@@ -21,6 +21,10 @@ export const ROUTES = {
   news: '/novyny',
   anonsy: '/anonsy',
   contacts: '/kontakty',
+  // Resource sections migrated from the old site into native pages.
+  eLibrary: '/e-biblioteka',
+  videoPage: '/video',
+  agrolectures: '/agrolectures',
 } as const;
 
 // External targets (open real destinations per ТЗ).
@@ -71,9 +75,9 @@ export const FOOTER = {
     { label: 'Запобігання корупції', href: ROUTES.anticorr, k: 'footer.d.anticorr' },
   ],
   resources: [
-    { label: 'Е-Бібліотека', href: EXTERNAL.eLib, external: true, k: 'footer.r.elib' },
-    { label: 'Відео', href: EXTERNAL.video, external: true, k: 'footer.r.video' },
-    { label: 'AGROLECTURES', href: EXTERNAL.agrolectures, external: true, k: 'footer.r.agrolectures' },
+    { label: 'Е-Бібліотека', href: ROUTES.eLibrary, k: 'footer.r.elib' },
+    { label: 'Відео', href: ROUTES.videoPage, k: 'footer.r.video' },
+    { label: 'AGROLECTURES', href: ROUTES.agrolectures, k: 'footer.r.agrolectures' },
     { label: 'Рада молодих вчених', href: ROUTES.youngSci, k: 'footer.r.youngSci' },
     { label: 'Інтелектуальна власність', href: ROUTES.ip, k: 'footer.r.ip' },
   ],
@@ -110,4 +114,7 @@ export const SEARCH_INDEX: { title: string; href: string }[] = [
   { title: 'Новини', href: ROUTES.news },
   { title: 'Анонси', href: ROUTES.anonsy },
   { title: 'Контакти', href: ROUTES.contacts },
+  { title: 'Е-Бібліотека', href: ROUTES.eLibrary },
+  { title: 'Відео', href: ROUTES.videoPage },
+  { title: 'AGROLECTURES', href: ROUTES.agrolectures },
 ];

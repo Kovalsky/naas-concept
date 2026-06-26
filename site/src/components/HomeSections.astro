@@ -11,9 +11,9 @@ const newsItems = (await getCollection('news')).sort((a, b) => (a.data.date < b.
 const arrow = `<svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9"><path d="M5 12h14M13 5l7 7-7 7"/></svg>`;
 
 const resourceCards = [
-  { name: 'Е-Бібліотека', href: EXTERNAL.eLib, desc: 'Електронний архів наукових публікацій, авторефератів та періодики установ академії у відкритому доступі.', meta: 'Відкритий доступ' },
-  { name: 'Відео', href: EXTERNAL.video, desc: 'Лекції, репортажі з полів, записи наукових заходів і захистів дисертацій НААН.', meta: 'Відеоканал' },
-  { name: 'AGROLECTURES', href: EXTERNAL.agrolectures, desc: 'Англомовний дайджест української аграрної науки для міжнародної спільноти.', meta: 'EN' },
+  { name: 'Е-Бібліотека', href: ROUTES.eLibrary, desc: 'Наукові періодичні видання установ академії — журнали, бюлетені та збірники у відкритому доступі.', meta: 'Відкритий доступ' },
+  { name: 'Відео', href: ROUTES.videoPage, desc: 'Лекції, репортажі з полів, записи наукових заходів і захистів дисертацій НААН.', meta: 'Відеоканал' },
+  { name: 'AGROLECTURES', href: ROUTES.agrolectures, desc: 'Цикл відеолекцій про українську аграрну науку та продовольчу безпеку.', meta: 'Відеолекції' },
 ];
 const externalLinks = [
   { name: 'Звіти про діяльність', desc: 'Щорічні звіти НААН у ДВ «Аграрна наука»', url: 'agroscience-publishing.org.ua', href: EXTERNAL.reports },
@@ -102,7 +102,7 @@ const externalLinks = [
     <h2 class="h2-serif" style="margin-bottom:30px;"><T k="home.resourcesTitle" /></h2>
     <div class="grid grid--auto-sm">
       {resourceCards.map((r) => (
-        <a href={r.href} target="_blank" rel="noopener" style="display:flex; flex-direction:column; gap:12px; padding:24px; border:1px solid var(--line); border-radius:3px; background:#fff;" class="scard">
+        <a href={r.href} style="display:flex; flex-direction:column; gap:12px; padding:24px; border:1px solid var(--line); border-radius:3px; background:#fff;" class="scard">
           <span style="display:flex; align-items:center; gap:12px;">
             <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--navy)" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
             <span style="font-family:var(--serif); font-size:20px; font-weight:600; color:var(--ink);">{r.name}</span>
@@ -110,7 +110,7 @@ const externalLinks = [
           <span style="font-size:14px; line-height:1.55; color:var(--ink2);">{r.desc}</span>
           <span style="display:flex; align-items:center; justify-content:space-between; margin-top:4px; padding-top:13px; border-top:1px solid var(--line);">
             <span class="mono" style="font-size:10.5px; letter-spacing:0.04em; color:var(--ink3);">{r.meta}</span>
-            <span style="display:inline-flex; align-items:center; gap:6px; font-size:12.5px; font-weight:600; color:var(--navy);"><T k="btn.open" /> <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9"><path d="M7 17 17 7M7 7h10v10"/></svg></span>
+            <span style="display:inline-flex; align-items:center; gap:6px; font-size:12.5px; font-weight:600; color:var(--navy);"><T k="btn.open" /> <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9"><path d="M5 12h14M13 5l7 7-7 7"/></svg></span>
           </span>
         </a>
       ))}

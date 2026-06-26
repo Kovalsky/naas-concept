@@ -1,0 +1,45 @@
+---
+// Reusable YouTube gallery (used by /video and /agrolectures). Privacy/perf-friendly:
+// shows the thumbnail as a link to YouTube rather than embedding N heavy iframes.
+interface Item { youtube: string; title: string }
+interface Props { items: Item[] }
+const { items } = Astro.props;
+---
+<section class="section section--white">
+  <div class="wrap">
+    <div class="vid-grid">
+      {items.map((v) => (
+        <a class="vid-card" href={`https://www.youtube.com/watch?v=${v.youtube}`} target="_blank" rel="noopener" aria-label={`Дивитися на YouTube: ${v.title}`}>
+          <span class="vid-thumb">
+            <img src={`https://i.ytimg.com/vi/${v.youtube}/hqdefault.jpg`} alt="" loading="lazy" decoding="async" width="480" height="360" />
+            <span class="vid-play" aria-hidden="true">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+            </span>
+          </span>
+          <span class="vid-title">{v.title}</span>
+        </a>
+      ))}
+    </div>
+  </div>
+</section>
+<style>
+  .vid-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(290px, 1fr)); gap: 22px 20px; }
+  .vid-card { display: flex; flex-direction: column; gap: 11px; }
+  .vid-thumb {
+    position: relative; display: block; aspect-ratio: 16 / 9; overflow: hidden;
+    border-radius: 6px; border: 1px solid var(--line); background: var(--muted);
+    transition: box-shadow 160ms, border-color 160ms;
+  }
+  .vid-thumb img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .vid-play {
+    position: absolute; inset: 0; margin: auto; width: 52px; height: 52px;
+    display: flex; align-items: center; justify-content: center;
+    background: rgba(14, 31, 53, 0.78); color: #fff; border-radius: 50%;
+    padding-left: 3px; transition: background 160ms, transform 160ms;
+  }
+  .vid-card:hover .vid-thumb { border-color: var(--navy); box-shadow: 0 10px 26px rgba(30, 58, 95, 0.16); }
+  .vid-card:hover .vid-play { background: var(--gold); transform: scale(1.06); }
+  .vid-card:focus-visible { outline: 2px solid var(--navy); outline-offset: 3px; border-radius: 8px; }
+  .vid-title { font-family: var(--serif); font-size: 15.5px; font-weight: 600; line-height: 1.35; color: var(--ink); }
+  .vid-card:hover .vid-title { color: var(--navy); }
+</style>
