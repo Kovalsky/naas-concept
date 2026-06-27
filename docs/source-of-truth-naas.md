@@ -128,7 +128,7 @@ Source: typed consolidated doc (photo_19/20/21), confidence ✅ for names; URLs 
   2. Аграрна наука – виробництву — https://www.agroscience-publishing.org.ua/agrarnanaukavyrobnytstvu/
   3. Agricultural Science and Practice — https://agrisp.com/index.php/agrisp
 - **Київський аграрний університет НААН** — https://kaunaas.com
-- **Каталог інноваційних розробок НААН** (2019–2025) — `https://drive.google.com/file/d/19noLlfpdJ`**❓**`W0mjxNkY21SQjxhWDY`**❓**`p1A/view` — **two characters ambiguous (I vs l), link unusable until confirmed (§F).**
+- **Каталог інноваційних розробок НААН** (2019–2025) — https://drive.google.com/file/d/19noLIfpdJlW0mjxNkY21SQjxhWDYlp1A/view — ✅ **RESOLVED** (brute-forced all OCR permutations + verified live: resolves to public file «Katalog-2025.pdf»). The OCR error was «Ll»→«LI» (capital L + capital I).
 
 ---
 
@@ -248,7 +248,7 @@ These are inconsistencies **between** the source documents — flag to stakehold
 
 ## F. GAPS — needs stakeholder / human confirmation (do NOT publish these as-is)
 
-1. **Google Drive catalog link** — file id has two genuinely ambiguous characters (capital `I` vs lowercase `l`) in an italic sans font; Drive ids are case-sensitive so the photo can't resolve them. Best guess: `19noLlfpdJIW0mjxNkY21SQjxhWDYIp1A` (both = capital I). **Confirm the exact link** (or have stakeholder resend it digitally). ❓
+1. ~~Google Drive catalog link~~ — ✅ **RESOLVED.** Correct link: `https://drive.google.com/file/d/19noLIfpdJlW0mjxNkY21SQjxhWDYlp1A/view` (verified live → public PDF «Katalog-2025.pdf»). Found by brute-forcing all I/l/1 + 0/O permutations and testing each against Drive.
 2. **Facebook share links** (Донецька ДСГДС `1LpPqRJzr1`; Інститут сільського господарства Степу `1EBz6d1Xnq`) — read with high confidence but Facebook share ids are fragile; quick to verify by opening. ⚠️
 3. **Інститут садівництва** — present in report table 1.5 (рослинництва) but absent from the typed site catalog. Include it? (§E2)
 4. **аграрної економіки membership** — 6 (typed) vs 4 (table). Which is canonical for the site? (§E3)

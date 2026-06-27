@@ -35,7 +35,7 @@ https://kaunaas.com
 Каталог містить інформацію про інноваційні селекційно-технологічні розробки науково-дослідних установ Національної академії аграрних наук України з питань землеробства ,рослинництва, тваринництва, ветеринарної медицини, економіки, харчової і переробної промисловості у 2019-2025 рр.
 
 Переглянути каталог  можна за посиланням:
-https://drive.google.com/file/d/19noLlfpdJ<?: I | l>W0mjxNkY21SQjxhWDY<?: I | l>p1A/view
+https://drive.google.com/file/d/19noLIfpdJlW0mjxNkY21SQjxhWDYlp1A/view  ✅ RESOLVED — verified live (file «Katalog-2025.pdf»)
 
 *Національна академія аграрних наук України
 завжди рада співпраці*
@@ -49,4 +49,4 @@ https://drive.google.com/file/d/19noLlfpdJ<?: I | l>W0mjxNkY21SQjxhWDY<?: I | l>
 
 ## ⚠️ Потребує уточнення / Needs confirmation
 
-- Google Drive file id: the two ambiguous characters in 'https://drive.google.com/file/d/19noLlfpdJ[?]W0mjxNkY21SQjxhWDY[?]p1A/view' — each '[?]' is a plain vertical stroke that could be capital 'I' or lowercase 'l'. Drive ids are case-sensitive random strings, so this cannot be disambiguated from the photo. Confirm by opening the link or checking the original digital source. Best-guess (majority of passes): both are capital 'I' → 19noLlfpdJIW0mjxNkY21SQjxhWDYIp1A.
+- ✅ **RESOLVED** — correct link: `https://drive.google.com/file/d/19noLIfpdJlW0mjxNkY21SQjxhWDYlp1A/view` (brute-forced + verified live → public PDF «Katalog-2025.pdf»; OCR error was «Ll»→«LI»). Original note: the two ambiguous characters in 'https://drive.google.com/file/d/19noLlfpdJ[?]W0mjxNkY21SQjxhWDY[?]p1A/view' — each '[?]' is a plain vertical stroke that could be capital 'I' or lowercase 'l'. Drive ids are case-sensitive random strings, so this cannot be disambiguated from the photo. Confirm by opening the link or checking the original digital source. Best-guess (majority of passes): both are capital 'I' → 19noLlfpdJIW0mjxNkY21SQjxhWDYIp1A.
