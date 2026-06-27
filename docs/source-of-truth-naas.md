@@ -160,7 +160,7 @@ These are the reviewer's actual change requests (photos 10, 2/12, 15, 16). Confi
 
 **C5. Divisions / institution assignment & emblem (photo_2, full version of photo_12 fragment):**
 - Institution names assigned to divisions are **wrong (old)** — fix assignments. ✅
-- **The glyph drawn at the top of the emblem** (a circled Ψ / trident-like / Neptune-like symbol): reviewer asks «**Що за знак … ? — змінити його!!**» → **identify and change this symbol on the emblem.** ✅ (this is the brand/logo task B)
+- **Emblem quality**: «**Що за знак … ? — змінити його!!**» — the reviewer is pointing at the **low-quality emblem image** and asking to **replace it with the better-quality version from the Logos source** (NOT a redesign of the symbol). ✅ **DONE** — `naas-emblem.png` replaced (both gravitas + light) with the high-quality logos-ukraine emblem.
 - **Remove `email.ru`** addresses from institutions. ✅
 - **Публічна інформація:** section — present but empty (—) → to be defined. ❓
 - **Офіційні документи** section is needed, containing:
@@ -253,7 +253,7 @@ These are inconsistencies **between** the source documents — flag to stakehold
 3. **Інститут садівництва** — present in report table 1.5 (рослинництва) but absent from the typed site catalog. Include it? (§E2)
 4. **аграрної економіки membership** — 6 (typed) vs 4 (table). Which is canonical for the site? (§E3)
 5. **Presidium names (ПІБ)** — the handwritten notes specify *ordering rules* but contain **no actual surnames**. Need the current presidium roster (president, vice-presidents, academician-secretaries by division, chief scientific secretary, members) — and confirmation of the **current president** (the logos-ukraine reference is stale and doesn't name the current one).
-6. **Emblem glyph** — the symbol atop the emblem the reviewer flagged («Що за знак … змінити його!!») — needs the stakeholder to say what the correct symbol is / supply the official high-resolution emblem (also relates to the "duller logo" feedback).
+6. ~~Emblem glyph~~ — **RESOLVED.** «Що за знак … змінити його!!» meant *replace the low-quality emblem with the better Logos version* (not redesign the symbol). Done — high-quality emblem from logos-ukraine applied to both gravitas and light. No glyph change required.
 7. **«Публічна інформація» section** — reviewer left it empty (—); needs content/scope from stakeholder.
 8. Minor table digits flagged but low-impact for site copy: Інститут картоплярства docs = 0; Асканія-Нова 210/19; станцій column singletons. (§D7) — verify only if per-institute stats get published.
 9. Handwritten margin word on presentation p.3 near EN heading — illegible, not printed text; ignore unless stakeholder asks.

@@ -29,7 +29,6 @@ Branch: **`feat/stakeholder-content-corrections`** (committed, **not pushed**). 
 | **New sections**: Видавнича / Міжнародна / Виставкова / Інноваційна діяльність (§C2) | New pages — need content + design decision | — |
 | **«Офіційні документи» section** (статут, рішення/постанови президії, **звіти as files** not a link to ДВ Аграрна наука) (§C5) | New section + actual document files needed | §F7-adjacent |
 | **«Публічна інформація»** content | Reviewer left it empty (—) | §F7 |
-| **Emblem glyph**: the symbol at the apex the reviewer flagged («Що за знак … змінити його!!») | Brightness/quality is now fixed (item 8 above). The *glyph change* is separate — the high-quality emblem still carries the same odd ⚥/atom-like apex symbol; needs the stakeholder to say what it should become (the book-cover variant uses a trident + laurel + atom instead). | §F6, feedback task B |
 | **Innovations catalog link** | Google Drive id has 2 ambiguous chars | §F1 |
 | **More colour / less white** (feedback C) | Design direction needed from stakeholder | feedback task C |
 
