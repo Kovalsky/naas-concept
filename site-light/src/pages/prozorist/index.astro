@@ -9,21 +9,25 @@ const cards = [
     title: 'Публічні закупівлі (Тендери)',
     desc: `Річні плани публічних закупівель Академії. Поточні закупівлі — у системі Prozorro (ЄДРПОУ ${contacts.edrpou}).`,
     href: ROUTES.transparency + '/tendery',
+    icon: '<path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/><path d="M16 13H8M16 17H8M10 9H8"/>',
   },
   {
     title: 'Майнові питання та Оренда',
     desc: 'Майно, що пропонується до безоплатної передачі та оренди, передача основних засобів.',
     href: ROUTES.maynovi,
+    icon: '<path d="M3 21h18"/><path d="M5 21V7l8-4v18"/><path d="M19 21V11l-6-3"/><path d="M9 9h.01M9 12h.01M9 15h.01M9 18h.01"/>',
   },
   {
     title: 'Запобігання корупції',
     desc: 'Антикорупційна програма, уповноважена особа та канали повідомлень про корупцію.',
     href: ROUTES.anticorr,
+    icon: '<path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="m9 12 2 2 4-4"/>',
   },
   {
     title: 'Доступ до публічної інформації',
     desc: 'Порядок подання та розгляду запитів на публічну інформацію.',
     href: ROUTES.dostup,
+    icon: '<circle cx="12" cy="12" r="9"/><path d="M12 16v-4"/><path d="M12 8h.01"/>',
   },
 ];
 ---
@@ -35,53 +39,20 @@ const cards = [
   />
   <section class="section section--white">
     <div class="wrap">
-      <div class="proz-grid">
+      <div class="hub-grid">
         {cards.map((c) => (
-          <a class="card card-lift proz-card" href={c.href}>
-            <span class="proz-head">
-              <span class="proz-title serif">{c.title}</span>
-              <svg class="proz-arrow" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--navy)" stroke-width="1.8" aria-hidden="true"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+          <a class="card card-lift hub-card" href={c.href}>
+            <span class="hub-ic">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" set:html={c.icon} />
             </span>
-            <span class="proz-desc">{c.desc}</span>
+            <span class="hub-card-title serif">{c.title}</span>
+            <span class="hub-card-desc">{c.desc}</span>
+            <span class="hub-card-foot">
+              <span class="hub-card-go">Перейти <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 12h14M13 5l7 7-7 7"/></svg></span>
+            </span>
           </a>
         ))}
       </div>
     </div>
   </section>
 </Base>
-<style>
-  .proz-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-    gap: 22px;
-  }
-  .proz-card {
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-    padding: 26px;
-  }
-  .proz-head {
-    display: flex;
-    align-items: flex-start;
-    justify-content: space-between;
-    gap: 14px;
-  }
-  .proz-title {
-    font-size: 19px;
-    font-weight: 500;
-    color: var(--ink);
-    line-height: 1.3;
-  }
-  .proz-arrow {
-    flex-shrink: 0;
-    margin-top: 4px;
-    transition: transform 160ms ease;
-  }
-  .proz-card:hover .proz-arrow { transform: translateX(3px); }
-  .proz-desc {
-    font-size: 13.5px;
-    color: var(--ink2);
-    line-height: 1.55;
-  }
-</style>

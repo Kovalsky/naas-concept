@@ -6,6 +6,7 @@ import { registries } from '../lib/registries';
 // All registries that live under the Публічна інформація hub.
 const items = registries.filter((r) => r.route.startsWith('/publichna-informatsiia/'));
 const countWord = (n: number) => (n === 1 ? 'документ' : n >= 2 && n <= 4 ? 'документи' : 'документів');
+const icon = '<path d="M3 5v14a9 3 0 0 0 18 0V5"/><path d="M3 12a9 3 0 0 0 18 0"/><ellipse cx="12" cy="5" rx="9" ry="3"/>';
 ---
 <Base
   title="Публічна інформація"
@@ -19,21 +20,20 @@ const countWord = (n: number) => (n === 1 ? 'документ' : n >= 2 && n <= 
 
   <section class="section section--white">
     <div class="wrap">
-      <div class="rows">
+      <div class="hub-grid">
         {items.map((r) => (
-          <a href={r.route}>
-            <span class="hub-main"><span class="serif hub-title">{r.title}</span></span>
-            <span class="mono hub-count">{r.count} {countWord(r.count)}</span>
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--navy)" stroke-width="1.9" style="flex-shrink:0;" aria-hidden="true"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+          <a class="card card-lift hub-card" href={r.route}>
+            <span class="hub-ic">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" set:html={icon} />
+            </span>
+            <span class="hub-card-title serif">{r.title}</span>
+            <span class="hub-card-foot">
+              <span class="hub-card-go">Відкрити <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 12h14M13 5l7 7-7 7"/></svg></span>
+              <span class="hub-card-count">{r.count} {countWord(r.count)}</span>
+            </span>
           </a>
         ))}
       </div>
     </div>
   </section>
 </Base>
-
-<style>
-  .hub-main { flex: 1; min-width: 0; }
-  .hub-title { display: block; font-size: 16px; font-weight: 500; color: var(--ink); line-height: 1.4; }
-  .hub-count { flex-shrink: 0; font-size: 12px; color: var(--ink3); white-space: nowrap; }
-</style>
