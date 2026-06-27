@@ -70,7 +70,7 @@ export const STRINGS: Record<string, { uk: string; en: string }> = {
   'partners.label': { uk: 'Партнерські та державні портали', en: 'Partner & Government Portals' },
 
   // footer
-  'footer.est': { uk: 'ЗАСН. 1931', en: 'EST. 1931' },
+  'footer.est': { uk: 'ЗАСН. 1918', en: 'EST. 1918' },
   'footer.copyright': { uk: '© 2026 Національна академія аграрних наук України', en: '© 2026 National Academy of Agrarian Sciences of Ukraine' },
   'footer.contacts': { uk: 'Контакти', en: 'Contacts' },
   'footer.sections': { uk: 'Розділи', en: 'Sections' },
@@ -95,7 +95,7 @@ export const STRINGS: Record<string, { uk: string; en: string }> = {
   // contacts page
   'contacts.address': { uk: 'Адреса', en: 'Address' },
   'contacts.presidium': { uk: 'Президія', en: 'Presidium' },
-  'contacts.press': { uk: 'Прес-служба', en: 'Press Office' },
+  'contacts.press': { uk: 'Відділ інформаційного забезпечення та зв’язків з громадськістю', en: 'Information Support & Public Relations Department' },
   'contacts.details': { uk: 'Реквізити', en: 'Details' },
   'contacts.prozorroProfile': { uk: 'Профіль Prozorro', en: 'Prozorro Profile' },
 

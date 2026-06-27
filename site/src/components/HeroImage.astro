@@ -13,7 +13,7 @@ const { image } = Astro.props;
 const base = image ? image.replace(/\.(jpe?g|png)$/i, '') : '';
 const arrow = `<svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9"><path d="M5 12h14M13 5l7 7-7 7"/></svg>`;
 const facts = [
-  { n: '1931', k: 'home.factFounded' },
+  { n: '1918', k: 'home.factFounded' },
   { n: String(divisionCount), k: 'home.factDivisions' },
   { n: String(instituteCount), k: 'home.factInstitutions' },
 ];
@@ -26,7 +26,7 @@ const facts = [
         <div class="kicker kicker--muted" style="margin-bottom:18px;"><T k="home.todayKicker" /></div>
         <h1 class="hero-h1">Національна академія аграрних наук України</h1>
         <p class="hero-sub">Державна самоврядна наукова організація — науково-методичний і координаційний центр з наукових проблем розвитку АПК України.</p>
-        <div class="hero-founded"><span class="hero-founded-rule"></span><span>Заснована 1931 року</span></div>
+        <div class="hero-founded"><span class="hero-founded-rule"></span><span>Заснована 1918 року</span></div>
         <p class="hero-lead">Академія координує фундаментальні та прикладні дослідження в аграрній сфері та впроваджує наукові розробки у виробництво.</p>
         <div class="hero-links">
           <a class="link-underline" href={ROUTES.statute}><T k="home.statuteLink" /> <Fragment set:html={arrow} /></a>
@@ -42,7 +42,7 @@ const facts = [
             <img class="hero-emblem" src={image} alt="Стилізована гравюра: пшеничні колоси над полем — у дусі академічного знаку НААН" width="1200" height="896" loading="lazy" decoding="async" />
           </picture>
         ) : (
-        <svg class="hero-emblem" viewBox="0 0 600 460" role="img" aria-label="Стилізована емблема НААН: три пшеничні колоси над полем, засновано 1931 року">
+        <svg class="hero-emblem" viewBox="0 0 600 460" role="img" aria-label="Стилізована емблема НААН: три пшеничні колоси над полем, засновано 1918 року">
           <defs>
             <linearGradient id="heroBg" x1="0" y1="0" x2="0" y2="1">
               <stop offset="0" stop-color="#13294a"/>
@@ -82,7 +82,7 @@ const facts = [
           <use href="#heroEar" transform="translate(252,292) rotate(-15) scale(0.92)"/>
           <use href="#heroEar" transform="translate(348,292) rotate(15) scale(0.92)"/>
           <line x1="232" y1="308" x2="368" y2="308" stroke="#B8860B" stroke-width="1.4" opacity="0.7"/>
-          <text x="300" y="342" text-anchor="middle" fill="#AEBED2" font-family="ui-monospace,monospace" font-size="13" letter-spacing="6" opacity="0.9">EST. 1931</text>
+          <text x="300" y="342" text-anchor="middle" fill="#AEBED2" font-family="ui-monospace,monospace" font-size="13" letter-spacing="6" opacity="0.9">EST. 1918</text>
           <rect x="0.5" y="0.5" width="599" height="459" fill="none" stroke="#B8860B" stroke-width="1" opacity="0.32"/>
         </svg>
         )}

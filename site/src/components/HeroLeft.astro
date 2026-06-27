@@ -5,7 +5,7 @@ import { ROUTES } from '../lib/site';
 import { divisionCount, instituteCount } from '../lib/data';
 const arrow = `<svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9"><path d="M5 12h14M13 5l7 7-7 7"/></svg>`;
 const facts = [
-  { n: '1931', k: 'home.factFounded' },
+  { n: '1918', k: 'home.factFounded' },
   { n: String(divisionCount), k: 'home.factDivisions' },
   { n: String(instituteCount), k: 'home.factInstitutions' },
 ];
@@ -17,7 +17,7 @@ const facts = [
       <div class="kicker kicker--muted" style="margin-bottom:18px;"><T k="home.todayKicker" /></div>
       <h1 style="font-family:var(--serif); font-weight:600; font-size:clamp(30px,4vw,46px); line-height:1.12; letter-spacing:-0.018em; color:var(--ink); text-wrap:balance;">Національна академія аграрних наук України</h1>
       <p style="font-family:var(--serif); font-weight:500; font-size:clamp(17px,2vw,21px); line-height:1.42; color:var(--navy); margin-top:16px; max-width:760px;">Державна самоврядна наукова організація — науково-методичний і координаційний центр з наукових проблем розвитку АПК України.</p>
-      <div style="display:flex; align-items:center; gap:13px; margin-top:22px;"><span style="width:36px; height:2px; background:var(--gold);"></span><span style="font-family:var(--serif); font-style:italic; font-size:15px; color:var(--ink2);">Заснована 1931 року</span></div>
+      <div style="display:flex; align-items:center; gap:13px; margin-top:22px;"><span style="width:36px; height:2px; background:var(--gold);"></span><span style="font-family:var(--serif); font-style:italic; font-size:15px; color:var(--ink2);">Заснована 1918 року</span></div>
       <p style="font-size:17px; line-height:1.65; color:var(--ink2); margin-top:22px; max-width:620px;">Академія координує фундаментальні та прикладні дослідження в аграрній сфері та впроваджує наукові розробки у виробництво.</p>
       <div style="display:flex; flex-wrap:wrap; gap:26px; margin-top:26px;">
         <a class="link-underline" href={ROUTES.statute}><T k="home.statuteLink" /> <Fragment set:html={arrow} /></a>
