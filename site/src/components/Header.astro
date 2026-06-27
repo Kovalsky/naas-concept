@@ -33,7 +33,7 @@ const searchPh = STRINGS['ui.search.ph'];
       )}
     </div>
     <div style="display:flex; align-items:center; gap:16px;">
-      <button id="hc-toggle" aria-label="Контрастна версія для людей з вадами зору" style="display:flex; align-items:center; gap:6px; padding:6px 4px; color:rgba(255,255,255,0.85);">
+      <button id="hc-toggle" aria-pressed="false" aria-label="Контрастна версія для людей з вадами зору" style="display:flex; align-items:center; gap:6px; padding:6px 4px; color:rgba(255,255,255,0.85);">
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="9"/><path d="M12 3a9 9 0 0 1 0 18z" fill="currentColor"/></svg>
         <span class="util-label" style="font-size:12px;"><T k="ui.a11y" /></span>
       </button>
@@ -81,11 +81,11 @@ const searchPh = STRINGS['ui.search.ph'];
 <!-- SEARCH OVERLAY -->
 <div id="search" hidden>
   <div id="search-scrim" style="position:fixed; inset:0; z-index:110; background:rgba(10,20,35,0.55); animation:naasFade 150ms ease;"></div>
-  <div role="dialog" aria-label="Пошук" style="position:fixed; top:0; left:0; right:0; z-index:111; background:#fff; box-shadow:0 14px 50px rgba(0,0,0,0.2); animation:naasDrop 200ms ease;">
+  <div role="dialog" aria-modal="true" aria-label="Пошук" style="position:fixed; top:0; left:0; right:0; z-index:111; background:#fff; box-shadow:0 14px 50px rgba(0,0,0,0.2); animation:naasDrop 200ms ease;">
     <div style="max-width:860px; margin:0 auto; padding:28px 24px 34px;">
       <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:14px;">
         <span class="mono" style="font-size:11px; letter-spacing:0.14em; text-transform:uppercase; color:var(--navy);"><T k="ui.search.title" /></span>
-        <button id="search-close" aria-label="Закрити / Close" class="mono" style="display:flex; align-items:center; gap:6px; font-size:11px; color:var(--ink3);">ESC
+        <button id="search-close" aria-label="Закрити / Close" class="mono" style="display:flex; align-items:center; gap:6px; font-size:11px; color:var(--ink3); padding:10px 8px; margin:-10px -8px;">ESC
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6 6 18M6 6l12 12"/></svg>
         </button>
       </div>
@@ -102,10 +102,10 @@ const searchPh = STRINGS['ui.search.ph'];
 <!-- MOBILE DRAWER -->
 <div id="mnav" hidden>
   <div id="mnav-scrim" style="position:fixed; inset:0; z-index:90; background:rgba(10,20,35,0.45); animation:naasFade 160ms ease;"></div>
-  <nav aria-label="Мобільне меню" style="position:fixed; top:0; right:0; bottom:0; z-index:100; width:min(340px,86vw); background:#fff; box-shadow:-12px 0 40px rgba(0,0,0,0.18); padding:22px; animation:naasDrop 200ms ease; overflow-y:auto;">
+  <nav role="dialog" aria-modal="true" aria-label="Мобільне меню" style="position:fixed; top:0; right:0; bottom:0; z-index:100; width:min(340px,86vw); background:#fff; box-shadow:-12px 0 40px rgba(0,0,0,0.18); padding:22px; animation:naasDrop 200ms ease; overflow-y:auto;">
     <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:22px;">
       <span class="mono" style="font-size:11px; letter-spacing:0.14em; text-transform:uppercase; color:var(--ink3);"><T k="ui.menu" /></span>
-      <button id="mnav-close" aria-label="Закрити / Close" style="width:36px; height:36px; display:flex; align-items:center; justify-content:center; border-radius:6px; color:var(--ink2);">
+      <button id="mnav-close" aria-label="Закрити / Close" style="width:44px; height:44px; display:flex; align-items:center; justify-content:center; border-radius:6px; color:var(--ink2);">
         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6 6 18M6 6l12 12"/></svg>
       </button>
     </div>
@@ -163,6 +163,10 @@ const searchPh = STRINGS['ui.search.ph'];
 
     // Panels (mobile nav + search): open/close, focus trap, and focus return.
     var lastFocus = {};
+    function anyPanelOpen() {
+      var s = document.getElementById('search'), m = document.getElementById('mnav');
+      return (s && !s.hidden) || (m && !m.hidden);
+    }
     function setPanel(id, open) {
       var el = document.getElementById(id);
       if (!el) return;
@@ -175,6 +179,8 @@ const searchPh = STRINGS['ui.search.ph'];
         el.hidden = true;
         if (lastFocus[id] && lastFocus[id].focus) lastFocus[id].focus();
       }
+      // Lock background scroll while any fixed panel is open (mobile especially).
+      document.documentElement.style.overflow = anyPanelOpen() ? 'hidden' : '';
     }
     function trap(id) {
       var el = document.getElementById(id);
@@ -214,7 +220,9 @@ const searchPh = STRINGS['ui.search.ph'];
     // (Re-)initialise on initial load and after every view transition.
     function setup() {
       bind(document.getElementById('hc-toggle'), 'click', function () {
-        root.setAttribute('data-hc', root.getAttribute('data-hc') === 'true' ? 'false' : 'true');
+        var on = root.getAttribute('data-hc') !== 'true';
+        root.setAttribute('data-hc', on ? 'true' : 'false');
+        this.setAttribute('aria-pressed', String(on));
       });
 
       applyHero(curHero());
