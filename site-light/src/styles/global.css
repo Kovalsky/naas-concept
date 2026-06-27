@@ -59,7 +59,7 @@
 .hub-card { display: flex; flex-direction: column; padding: 28px 30px; }
 .hub-ic {
   width: 48px; height: 48px; display: inline-flex; align-items: center; justify-content: center;
-  border-radius: 12px; background: rgba(27,77,82,0.07); color: var(--navy); margin-bottom: 20px;
+  border-radius: 12px; background: rgba(30,58,95,0.07); color: var(--navy); margin-bottom: 20px;
   transition: background 180ms ease, color 180ms ease;
 }
 .hub-card:hover .hub-ic { background: var(--navy); color: #fff; }
@@ -75,7 +75,7 @@
 /* photo placeholder (no real photo): subtle navy diagonal hatch + mono label */
 .photo-ph {
   background:
-    repeating-linear-gradient(135deg, rgba(27,77,82,0.05) 0 1px, transparent 1px 11px),
+    repeating-linear-gradient(135deg, rgba(30,58,95,0.05) 0 1px, transparent 1px 11px),
     linear-gradient(160deg, #eef1f5, #e3e8ee);
   display: flex; align-items: center; justify-content: center;
   color: var(--ink3);
@@ -89,8 +89,8 @@
   padding: 4px 9px; border: 1px solid var(--line); border-radius: var(--r-pill);
   color: var(--ink2);
 }
-.pill--gold { color: var(--green-ink); border-color: rgba(47,107,67,0.32); }
-.pill--navy { color: var(--navy); border-color: rgba(27,77,82,0.28); }
+.pill--gold { color: var(--gold-ink); border-color: rgba(184,134,11,0.32); }
+.pill--navy { color: var(--navy); border-color: rgba(30,58,95,0.28); }
 
 /* ---------- document / external row list ---------- */
 .rows { border: 1px solid var(--line); border-radius: var(--r-card); overflow: hidden; background: #fff; }
@@ -129,7 +129,7 @@
 .page-hero .kicker { color: var(--navy); }
 .page-hero .lead { margin-top: 18px; font-size: 17px; max-width: 56ch; }
 .page-hero .gold-rule { display: flex; gap: 6px; margin-top: 26px; }
-.page-hero .gold-rule::before { content: ""; width: 30px; height: 3px; background: var(--green); border-radius: 2px; }
+.page-hero .gold-rule::before { content: ""; width: 30px; height: 3px; background: var(--gold); border-radius: 2px; }
 .page-hero .gold-rule::after { content: ""; width: 12px; height: 3px; background: var(--navy); border-radius: 2px; }
 @media (max-width: 767px) { .page-hero { padding: 30px 0 40px; } .page-hero-motif { opacity: 0.05; width: 72%; } }
 
@@ -140,27 +140,27 @@
 /* lead-in first paragraph reads as a deck, lifting plain document pages */
 .prose > p:first-of-type { font-size: 18.5px; line-height: 1.6; color: var(--ink); margin-bottom: 20px; }
 .prose h2 { font-size: 25px; margin: 38px 0 13px; padding-top: 4px; }
-.prose h2::before { content: ""; display: block; width: 26px; height: 2px; background: var(--green); margin-bottom: 14px; }
+.prose h2::before { content: ""; display: block; width: 26px; height: 2px; background: var(--gold); margin-bottom: 14px; }
 .prose h3 { font-size: 19px; margin: 28px 0 10px; }
 .prose p { margin: 0 0 15px; }
-.prose a { color: var(--navy); border-bottom: 1px solid rgba(27,77,82,0.3); }
+.prose a { color: var(--navy); border-bottom: 1px solid rgba(30,58,95,0.3); }
 .prose a:hover { border-color: var(--navy); }
 .prose ul, .prose ol { margin: 0 0 16px; padding-left: 22px; }
 .prose li { margin-bottom: 7px; }
 .prose strong { color: var(--ink); font-weight: 600; }
-.prose blockquote { margin: 0 0 16px; padding: 4px 0 4px 18px; border-left: 3px solid var(--green); color: var(--ink2); }
+.prose blockquote { margin: 0 0 16px; padding: 4px 0 4px 18px; border-left: 3px solid var(--gold); color: var(--ink2); }
 
 /* ---------- marked placeholder (content still to be supplied) ---------- */
 .placeholder { border: 1px dashed #d6d4ce; border-radius: var(--r-card); background: #fff; padding: 40px 30px; text-align: center; color: var(--ink3); font-size: 15px; line-height: 1.6; }
 .placeholder strong { color: var(--ink2); font-weight: 600; }
-.demo-badge { display: inline-flex; align-items: center; gap: 7px; font-family: var(--mono); font-size: 10px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--green-ink); border: 1px solid rgba(47,107,67,0.4); border-radius: var(--r-pill); padding: 4px 10px; }
+.demo-badge { display: inline-flex; align-items: center; gap: 7px; font-family: var(--mono); font-size: 10px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--gold-ink); border: 1px solid rgba(184,134,11,0.4); border-radius: var(--r-pill); padding: 4px 10px; }
 
 /* ---------- accessibility: visible focus everywhere ---------- */
 :where(a, button, input, textarea, select, [tabindex]):focus-visible {
   outline: 2px solid var(--navy); outline-offset: 2px; border-radius: 3px;
 }
 /* On dark chrome (util bar, footer, V3 hero) the navy ring is invisible — use gold-light (10:1 on navy). */
-.util :focus-visible, .foot :focus-visible, .hero3 :focus-visible { outline-color: var(--green-light); }
+.util :focus-visible, .foot :focus-visible, .hero3 :focus-visible { outline-color: var(--gold-light); }
 
 /* Hash/skip-link targets clear the 80px sticky header instead of hiding under it. */
 :target { scroll-margin-top: 96px; }

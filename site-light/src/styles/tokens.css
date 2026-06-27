@@ -13,13 +13,10 @@
 
 *, *::before, *::after { box-sizing: border-box; }
 :root {
-  /* brand — deep teal/petrol primary + agrarian green accent.
-     Deliberately off the presidential navy(#2F3F60)+yellow(#FFCC00): blue stays in the
-     national family, green carries the agrarian-science identity. (--navy keeps its name
-     as the "primary brand" token but now holds teal.) */
-  --navy:#1B4D52; --navy-d:#163F43; --navy-deep:#0F2E31;
-  --green:#2F6B43; --green-light:#A7D7B6; /* green-light: legible on dark teal */
-  --green-ink:#1F5132; /* AA-contrast green for small text/tiles on light */
+  /* brand */
+  --navy:#1E3A5F; --navy-d:#142844; --navy-deep:#0E1F35;
+  --gold:#B8860B; --gold-light:#E7C879; /* gold-light: legible gold on navy */
+  --gold-ink:#8A6508; /* AA-contrast gold for small text on light (~5:1) */
   /* ink + neutrals */
   --ink:#0A0A0A; --ink2:#525252; --ink3:#6B6B6B;
   --line:#E5E5E5; --line2:#ECEBE7; --canvas:#FFFFFF; --muted:#F8F9FA; --muted2:#F2F1EC;
