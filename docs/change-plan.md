@@ -72,19 +72,21 @@ For R2: who is academician-secretary of each of the 6 divisions (names), if not 
 
 ## 🔵 Needs NAAS-supplied content (I'll scaffold the page now; you fill text/files)
 
+> **Old-site check (2026-06-27):** I scraped naas.gov.ua and tried the Bitrix admin — see `old-site-content-inventory.md`. The admin is unreadable by automation (persistent connection). Findings folded in below.
+
 ### B1 — New activity sections (§C2)
 Pages + nav/footer links, with placeholder until content arrives:
-- **Міжнародна діяльність НААН** (`/mizhnarodna-diyalnist`)
-- **Виставкова діяльність НААН** (`/vystavkova-diyalnist`)
-- **Інноваційна діяльність НААН** (`/innovatsiyna-diyalnist`) — will host the catalog link (Q2).
+- **Міжнародна діяльність НААН** (`/mizhnarodna-diyalnist`) — ❌ **not on old site** («міжнар…» appears nowhere). Needs academy content.
+- **Виставкова діяльність НААН** (`/vystavkova-diyalnist`) — ❌ old-site link is mislabeled (renders «Вакансії»); no clean content. Needs academy content.
+- **Інноваційна діяльність НААН** (`/innovatsiyna-diyalnist`) — ⚠️ only pieces on old site (catalog ✅ + a "virtual exhibition"); will host the resolved catalog link.
 
 ### B2 — «Публічна інформація» content (§C5, §F7)
-Page exists as placeholder; reviewer left it empty. Needs the datasets/scope to publish.
+Page exists as placeholder. Old site has `/content/publichna-informaciya/` with **14 subsections** (budget, tenders, scientific developments, normative base, property, training, planning, FAO, FAQ…) — **mostly already migrated** to the new site. Can top up gaps; the reviewer's "empty" note likely predates the migration.
 
 ### B3 — «Офіційні документи» section (§C5)
 - **Статут** ✅ already on site (`/statut`, statut_naan_2021.pdf) — link it here.
-- **Рішення та постанови Президії** — need the documents/files.
-- **Звіти про діяльність** — need the actual report **files** (resolves R5 properly).
+- **Рішення та постанови Президії** — ❌ not on the public old site; need from admin/academy.
+- **Звіти про діяльність** — ✅ **a report file exists on the old site**: `http://naas.gov.ua/upload/podani.pdf` (1.18 MB). Candidate — confirm it's the right/current report, then host it here (resolves R5 properly).
 
 ---
 
