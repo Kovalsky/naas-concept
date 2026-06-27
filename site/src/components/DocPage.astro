@@ -2,6 +2,7 @@
 import { getCollection, render } from 'astro:content';
 import Base from '../layouts/Base.astro';
 import Hero from './Hero.astro';
+import Placeholder from './Placeholder.astro';
 
 interface Crumb { label: string; href?: string }
 interface Props {
@@ -18,11 +19,15 @@ const { Content } = entry ? await render(entry) : { Content: null };
 ---
 <Base title={title}>
   <Hero kicker={kicker ?? title} title={title} lead={lead} crumbs={crumbs} />
-  <section class="section section--white">
-    <div class="wrap">
-      <div class="prose">
-        {Content ? <Content /> : <p>Матеріали готуються.</p>}
+  {Content ? (
+    <section class="section section--white">
+      <div class="wrap">
+        <div class="prose">
+          <Content />
+        </div>
       </div>
-    </div>
-  </section>
+    </section>
+  ) : (
+    <Placeholder note="Матеріали цього розділу готуються." />
+  )}
 </Base>

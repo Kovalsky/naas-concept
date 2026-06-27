@@ -24,7 +24,7 @@ const telHref = 'tel:' + contacts.phone.replace(/[^+\d]/g, '');
         </a>
 
         <div class="f-contacts">
-          <div class="f-head"><T k="footer.contacts" /></div>
+          <h2 class="f-head"><T k="footer.contacts" /></h2>
           <span class="f-tick"></span>
           <address class="f-addr">
             <span class="f-row">
@@ -47,7 +47,7 @@ const telHref = 'tel:' + contacts.phone.replace(/[^+\d]/g, '');
       <div class="f-links">
         {cols.map((col) => (
           <div class="f-col">
-            <div class="f-head"><T k={col.k} /></div>
+            <h2 class="f-head"><T k={col.k} /></h2>
             <span class="f-tick"></span>
             <ul class="f-list">
               {col.items.map((it) => (
@@ -137,7 +137,7 @@ const telHref = 'tel:' + contacts.phone.replace(/[^+\d]/g, '');
   @media (max-width: 900px) {
     .site-footer { padding: 44px 0 24px; }
     .f-main { grid-template-columns: 1fr; gap: 38px; }
-    .f-nav { padding: 8px 0; }
+    .f-nav { padding: 8px 0; min-height: 44px; }
   }
   @media (max-width: 560px) {
     .f-links { grid-template-columns: repeat(2, 1fr); gap: 26px 22px; }

@@ -21,7 +21,7 @@ const cards = [
     <div class="wrap">
       <div class="grid grid--auto">
         {cards.map((c) => (
-          <a class="scard" href={c.href} {...(c.external ? { target: '_blank', rel: 'noopener' } : {})}>
+          <a class="scard" href={c.href} aria-label={c.external ? `${c.title} (відкриється у новій вкладці)` : undefined} {...(c.external ? { target: '_blank', rel: 'noopener' } : {})}>
             <span class="title-row"><span class="t">{c.title}</span><Fragment set:html={c.external ? extArrow : arrow} /></span>
             <span class="d">{c.desc}</span>
           </a>
