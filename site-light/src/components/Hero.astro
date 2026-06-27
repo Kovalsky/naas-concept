@@ -4,7 +4,6 @@
 import { Image } from 'astro:assets';
 import { HERO_H1, HERO_SLOGAN } from '../config';
 import { ROUTES } from '../lib/site';
-import { divisionCount, instituteCount } from '../lib/data';
 import { photo } from '../lib/images';
 const arrow = `<svg width="15" height="15" viewBox="0 0 24 24" fill="none" aria-hidden="true" stroke="currentColor" stroke-width="1.9"><path d="M5 12h14M13 5l7 7-7 7"/></svg>`;
 const heroImg = photo('d2'); // sunflower field — strongest available placeholder; swap for NAAS-owned hero later
@@ -12,7 +11,7 @@ const heroImg = photo('d2'); // sunflower field — strongest available placehol
 <section class="hero">
   <div class="wrap hero-in">
     <div class="hero-text">
-      <div class="kicker hero-kick">Засн. 1931 · <span lang="en">National Academy of Agrarian Sciences of Ukraine</span></div>
+      <div class="kicker hero-kick">Засн. 1918 · <span lang="en">National Academy of Agrarian Sciences of Ukraine</span></div>
       <h1 class="serif hero-h1">{HERO_H1}</h1>
       <p class="hero-lead">{HERO_SLOGAN}</p>
       <div class="hero-cta">
@@ -26,7 +25,7 @@ const heroImg = photo('d2'); // sunflower field — strongest available placehol
         : <span class="hero-img hero-ph" aria-hidden="true"></span>}
       <span class="hero-tint" aria-hidden="true"></span>
       <span class="hero-grad" aria-hidden="true"></span>
-      <span class="hero-badge mono" aria-hidden="true"><span class="hero-dot"></span>{instituteCount} установ · {divisionCount} відділень</span>
+      <span class="hero-badge mono" aria-hidden="true"><span class="hero-dot"></span>176 установ · 6 відділень</span>
       <span class="hero-cap mono" aria-hidden="true">Соняшникове поле · ілюстративне фото</span>
     </div>
   </div>

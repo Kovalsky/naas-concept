@@ -1,10 +1,12 @@
 ---
-import { divisionCount, instituteCount } from '../lib/data';
-// EDRPOU lives in the footer/contacts — a registration code is not a headline figure.
+// Figures from the stakeholder source-of-truth (docs/source-of-truth-naas.md §A1/§A2,
+// станом на 01.01.2026): founded 1918; 6 наукових відділень; 84 budget scientific
+// institutions among 176 establishments/enterprises/organisations in NAAS's remit.
 const stats = [
-  { n: '1931', l: 'Рік заснування' },
-  { n: String(divisionCount), l: 'Наукових відділень' },
-  { n: String(instituteCount), l: 'Наукових установ' },
+  { n: '1918', l: 'Рік заснування' },
+  { n: '6', l: 'Наукових відділень' },
+  { n: '84', l: 'Наукові установи' },
+  { n: '176', l: 'Установ і організацій' },
 ];
 ---
 <section class="stats" aria-label="Академія в цифрах">
@@ -19,15 +21,18 @@ const stats = [
 </section>
 <style>
   .stats { background: var(--canvas); border-bottom: 1px solid var(--line); }
-  .stats-in { display: grid; grid-template-columns: repeat(3, 1fr); }
-  .cell { padding: 30px 0 30px 36px; }
+  .stats-in { display: grid; grid-template-columns: repeat(4, 1fr); }
+  .cell { padding: 30px 0 30px 32px; }
   .cell:first-child { padding-left: 0; }
   .cell + .cell { border-left: 1px solid var(--line); }
-  .n { font-size: 46px; font-weight: 500; color: var(--navy); line-height: 1; letter-spacing: -0.01em; }
+  .n { font-size: 44px; font-weight: 500; color: var(--navy); line-height: 1; letter-spacing: -0.01em; }
   .l { font-size: 12.5px; color: var(--ink2); margin-top: 10px; }
-  @media (max-width: 480px) {
-    .cell { padding: 22px 0 22px 18px; }
-    .n { font-size: 36px; }
-    .l { font-size: 11.5px; }
+  @media (max-width: 767px) {
+    .stats-in { grid-template-columns: 1fr 1fr; }
+    .cell { padding: 22px 0 22px 22px; }
+    .cell:nth-child(odd) { padding-left: 0; border-left: none; }
+    .cell:nth-child(3), .cell:nth-child(4) { border-top: 1px solid var(--line); }
+    .n { font-size: 38px; }
   }
+  @media (max-width: 380px) { .n { font-size: 33px; } .l { font-size: 11.5px; } }
 </style>
