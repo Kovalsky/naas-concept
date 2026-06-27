@@ -75,7 +75,7 @@ const monogram = (name: string) => name.split(/\s+/)[0]?.[0] ?? 'Н';
       <div class="grid grid--auto-sm" style="gap:12px;">
         {members.map((p) => (
           <article style="border:1px solid var(--line); border-radius:10px; background:#fff; padding:16px 18px; display:flex; gap:14px; align-items:flex-start;">
-            <span style="flex-shrink:0; width:38px; height:38px; border-radius:9px; background:var(--gold-soft); color:var(--gold); display:flex; align-items:center; justify-content:center; font-family:var(--serif); font-size:16px; font-weight:600;">{monogram(p.name)}</span>
+            <span style="flex-shrink:0; width:38px; height:38px; border-radius:9px; background:var(--gold-soft); color:var(--gold-ink); display:flex; align-items:center; justify-content:center; font-family:var(--serif); font-size:16px; font-weight:600;">{monogram(p.name)}</span>
             <span>
               <span style="display:block; font-size:14.5px; font-weight:600; color:var(--ink); line-height:1.3;">{p.name}</span>
               <span style="display:block; font-size:12.5px; color:var(--ink2); margin-top:4px;">{p.post}</span>
@@ -95,7 +95,7 @@ const monogram = (name: string) => name.split(/\s+/)[0]?.[0] ?? 'Н';
 
         <!-- Статут -->
         <article style="border:1px solid var(--line); border-radius:12px; padding:26px; background:#fff; display:flex; flex-direction:column;">
-          <span class="mono" style="align-self:flex-start; font-size:10px; letter-spacing:0.08em; text-transform:uppercase; color:var(--gold); border:1px solid rgba(184,134,11,0.4); padding:3px 8px; border-radius:4px; margin-bottom:12px;">Чинна редакція</span>
+          <span class="mono" style="align-self:flex-start; font-size:10px; letter-spacing:0.08em; text-transform:uppercase; color:var(--gold-ink); border:1px solid rgba(184,134,11,0.4); padding:3px 8px; border-radius:4px; margin-bottom:12px;">Чинна редакція</span>
           <h3 style="font-family:var(--serif); font-size:19px; font-weight:600; color:var(--ink); line-height:1.25;">Статут НААН</h3>
           <p style="font-size:13.5px; color:var(--ink2); line-height:1.6; margin-top:10px; flex:1;">Визначає правовий статус, мету, структуру та порядок діяльності Академії.</p>
           <div style="display:flex; gap:14px; align-items:center; flex-wrap:wrap; margin-top:18px;">
