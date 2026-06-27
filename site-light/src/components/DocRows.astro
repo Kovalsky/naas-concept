@@ -1,11 +1,11 @@
 ---
 // Five TZ-named blocks presented as a plain row list — no invented cluster heading.
 // Each row title IS the exact TZ block name; targets per the interaction map.
-import { ROUTES, EXTERNAL } from '../lib/site';
+import { ROUTES } from '../lib/site';
 const rows = [
   { n: '01', t: 'Статут НААН', d: 'Чинна редакція Статуту Академії — завантаження у форматі PDF.', href: ROUTES.statute },
   { n: '02', t: 'Рішення та Постанови Президії', d: 'Архів офіційних розпоряджень і постанов Президії Академії.', href: ROUTES.today + '#rishennia' },
-  { n: '03', t: 'Звіти про діяльність', d: 'Щорічні звіти про діяльність — ДВ «Аграрна наука».', href: EXTERNAL.reports, external: true },
+  { n: '03', t: 'Звіти про діяльність', d: 'Звіти про діяльність Академії та інші офіційні документи.', href: ROUTES.officialDocs },
   { n: '04', t: 'Тендери та Прозорість', d: 'Публічні закупівлі (Prozorro), майнові питання, запобігання корупції, доступ до інформації.', href: ROUTES.transparency },
   { n: '05', t: 'Публічна інформація', d: 'Набори даних, бюджетні документи та публічна інформація розпорядника.', href: ROUTES.publicInfo },
 ];

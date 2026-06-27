@@ -5,7 +5,7 @@ import Base from '../layouts/Base.astro';
 import PageHero from '../components/PageHero.astro';
 import { leadership, members, president, initials } from '../lib/data';
 import { img } from '../lib/images';
-import { ROUTES, EXTERNAL } from '../lib/site';
+import { ROUTES } from '../lib/site';
 
 const pages = await getCollection('pages');
 const about = pages.find((p) => p.id === 'naan-sohodni');
@@ -124,9 +124,9 @@ const arrow = `<svg width="15" height="15" viewBox="0 0 24 24" fill="none" aria-
           <span style="flex:1;"><span style="display:block; font-size:16px; font-weight:500; color:var(--ink);">Статут НААН</span><span style="display:block; margin-top:4px; font-size:13px; color:var(--ink2);">Чинна редакція Статуту Академії (PDF).</span></span>
           <Fragment set:html={arrow} />
         </a>
-        <a href={EXTERNAL.reports} target="_blank" rel="noopener">
+        <a href={ROUTES.officialDocs}>
           <span class="fmt-tile" style="background:var(--green-ink);">WEB</span>
-          <span style="flex:1;"><span style="display:block; font-size:16px; font-weight:500; color:var(--ink);">Звіти про діяльність</span><span style="display:block; margin-top:4px; font-size:13px; color:var(--ink2);">Щорічні звіти — ДВ «Аграрна наука».</span></span>
+          <span style="flex:1;"><span style="display:block; font-size:16px; font-weight:500; color:var(--ink);">Звіти про діяльність</span><span style="display:block; margin-top:4px; font-size:13px; color:var(--ink2);">Звіти, статут та рішення Президії — розділ «Офіційні документи».</span></span>
           <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="var(--ink3)" stroke-width="1.7" aria-hidden="true"><path d="M7 17 17 7M7 7h10v10"/></svg>
         </a>
       </div>

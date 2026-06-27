@@ -1,0 +1,30 @@
+---
+import Base from '../layouts/Base.astro';
+import PageHero from '../components/PageHero.astro';
+
+const host = (u: string) => u.replace(/^https?:\/\//, '').replace(/\/.*$/, '');
+const items = [
+  { t: 'Державне видавництво «Аграрна наука» НААН', url: 'https://www.agroscience-publishing.org.ua/', note: 'Спеціалізоване державне видавництво Академії' },
+  { t: 'Вісник аграрної науки', url: 'https://agrovisnyk.com/index.php/agrovisnyk', note: 'Науково-теоретичний журнал' },
+  { t: 'Аграрна наука – виробництву', url: 'https://www.agroscience-publishing.org.ua/agrarnanaukavyrobnytstvu/', note: 'Науково-виробниче видання' },
+  { t: 'Agricultural Science and Practice', url: 'https://agrisp.com/index.php/agrisp', note: 'Англомовний науковий журнал' },
+];
+---
+<Base title="Видавнича діяльність" description="Наукові видання НААН: державне видавництво «Аграрна наука» та фахові періодичні видання Академії.">
+  <PageHero title="Видавнича діяльність НААН" kicker="Видавнича діяльність" lead="Наукові видання Академії: державне видавництво «Аграрна наука» та фахові періодичні видання НААН." />
+  <section class="section section--white">
+    <div class="wrap">
+      <div class="rows">
+        {items.map((it) => (
+          <a href={it.url} target="_blank" rel="noopener">
+            <span style="flex:1; min-width:0;">
+              <span style="display:block; font-size:16px; font-weight:500; color:var(--ink);">{it.t}</span>
+              <span style="display:block; margin-top:4px; font-size:13px; color:var(--ink2);">{it.note} · {host(it.url)}</span>
+            </span>
+            <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="var(--ink3)" stroke-width="1.7" aria-hidden="true"><path d="M7 17 17 7M7 7h10v10"/></svg>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+</Base>

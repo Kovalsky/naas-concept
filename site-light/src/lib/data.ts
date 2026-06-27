@@ -7,7 +7,7 @@ export interface Institute { nazva: string; kerivnyk: string; web: string; email
 export interface Division { viddilennia: string; ustanovy: Institute[]; }
 export interface Person { name: string; post: string; photo: string; phone: string; bio: string; group: 'leadership' | 'members'; featured: boolean; }
 export interface Anons { date: string; title: string; teaser: string; image: string; url: string; }
-export interface Contacts { address: string; phone: string; email: string; press_email: string; press_phone: string; edrpou: string; edrpou_label: string; }
+export interface Contacts { address: string; phone: string; phone2: string; email: string; press_email: string; press_phone: string; fax: string; edrpou: string; edrpou_label: string; }
 
 export const persons: Person[] = personsRaw as Person[];
 export const divisions: Division[] = institutesRaw as Division[];
