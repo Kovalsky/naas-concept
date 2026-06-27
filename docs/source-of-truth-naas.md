@@ -239,8 +239,8 @@ Full decoded content in §C. Verbatim transcriptions retained in the workflow ou
 These are inconsistencies **between** the source documents — flag to stakeholder; do not silently pick one.
 
 1. **Founding date framing:** typed doc + presentation + handwritten note say **1918**; but the same presentation is "to the 100th anniversary" while the academy in its current form is ~31 years (post-1991). The academy holds *both* a centenary medal (from 1918) and a "31 years" identity. → Present 1918 as origin; don't hard-assert a single "N-th anniversary." (Already noted in `feedback-2026-06-patyka.md`.)
-2. **рослинництва count:** typed catalog (§B2) = **12** institutions; report table 1.5 = **13** (table additionally lists **«Інститут садівництва»**, #23). → Confirm whether Інститут садівництва belongs on the site list.
-3. **аграрної економіки count:** typed catalog (§B5) = **6** (incl. ТДВ «Інститут обліку і фінансів» and «Інститут інноваційної біоекономіки»); report table 1.5 = **4** (omits those two). → Confirm the canonical membership.
+2. **рослинництва count:** typed catalog (§B2) = **12**; report table 1.5 = **13** (adds «Інститут садівництва»). → ✅ **DECIDED: keep садівництво** (name-only, no URL in any source); рослинництва = **13**, roster total = **46**. (Note: садівництво is only in report table 08, not structural list 02 — accepted by stakeholder.)
+3. **аграрної економіки count:** → ✅ **DECIDED: 6** (typed structural list 02 is authoritative for membership; report table 08 is statistics, not the structure).
 4. **Budget-institution subtotal:** headline **84** vs the enumerated **83** in the typed doc prose (§A2). → Off-by-one in source.
 5. **«тис.осіб» typo:** typed doc writes staff counts as "тис. осіб" (thousands) but the numbers are persons (confirmed by table 1.2). Use **persons**.
 
@@ -249,10 +249,10 @@ These are inconsistencies **between** the source documents — flag to stakehold
 ## F. GAPS — needs stakeholder / human confirmation (do NOT publish these as-is)
 
 1. ~~Google Drive catalog link~~ — ✅ **RESOLVED.** Correct link: `https://drive.google.com/file/d/19noLIfpdJlW0mjxNkY21SQjxhWDYlp1A/view` (verified live → public PDF «Katalog-2025.pdf»). Found by brute-forcing all I/l/1 + 0/O permutations and testing each against Drive.
-2. **Facebook share links** (Донецька ДСГДС `1LpPqRJzr1`; Інститут сільського господарства Степу `1EBz6d1Xnq`) — read with high confidence but Facebook share ids are fragile; quick to verify by opening. ⚠️
-3. **Інститут садівництва** — present in report table 1.5 (рослинництва) but absent from the typed site catalog. Include it? (§E2)
-4. **аграрної економіки membership** — 6 (typed) vs 4 (table). Which is canonical for the site? (§E3)
-5. **Presidium names (ПІБ)** — the handwritten notes specify *ordering rules* but contain **no actual surnames**. Need the current presidium roster (president, vice-presidents, academician-secretaries by division, chief scientific secretary, members) — and confirmation of the **current president** (the logos-ukraine reference is stale and doesn't name the current one).
+2. ~~Facebook share links~~ — ✅ VERIFIED live: `1LpPqRJzr1` → facebook.com/cnzdiapw (Донецька ДСГДС); `1EBz6d1Xnq` → facebook.com/isgs.naan (Інститут СГ Степу). Both valid.
+3. ~~Інститут садівництва~~ — ✅ DECIDED: **include, name-only** (no URL exists in any source). рослинництва = 13.
+4. ~~аграрної економіки membership~~ — ✅ DECIDED: **6** (typed list 02 = authoritative structure).
+5. ~~Presidium names~~ — ✅ RESOLVED: `persons.json` already holds the full current roster (president **Гриник І.В.**, 1 first-VP, 5 VPs, 6 academician-secretaries by division, 15 members) and the reviewer's ordering is applied. Stakeholder may confirm it's current, but it is NOT blocking.
 6. ~~Emblem glyph~~ — **RESOLVED.** «Що за знак … змінити його!!» meant *replace the low-quality emblem with the better Logos version* (not redesign the symbol). Done — high-quality emblem from logos-ukraine applied to both gravitas and light. No glyph change required.
 7. **«Публічна інформація» section** — reviewer left it empty (—); needs content/scope from stakeholder.
 8. Minor table digits flagged but low-impact for site copy: Інститут картоплярства docs = 0; Асканія-Нова 210/19; станцій column singletons. (§D7) — verify only if per-institute stats get published.
