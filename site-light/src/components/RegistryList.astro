@@ -4,7 +4,7 @@ interface Props { registry: Registry; lead?: string }
 const { registry, lead } = Astro.props;
 
 const fmtColor: Record<string, string> = {
-  PDF: 'var(--gold)', DOC: 'var(--navy)', DOCX: 'var(--navy)', XLS: '#1F7A4D', XLSX: '#1F7A4D',
+  PDF: 'var(--gold-ink)', DOC: 'var(--navy)', DOCX: 'var(--navy)', XLS: '#1F7A4D', XLSX: '#1F7A4D',
   PNG: '#737373', JPG: '#737373', JPEG: '#737373',
 };
 const countWord = (n: number) => (n === 1 ? 'документ' : n >= 2 && n <= 4 ? 'документи' : 'документів');
