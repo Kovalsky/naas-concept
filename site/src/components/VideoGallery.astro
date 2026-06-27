@@ -7,9 +7,9 @@ const { items } = Astro.props;
 ---
 <section class="section section--white">
   <div class="wrap">
-    <div class="vid-grid">
+    <ul class="vid-grid">
       {items.map((v) => (
-        <a class="vid-card" href={`https://www.youtube.com/watch?v=${v.youtube}`} target="_blank" rel="noopener" aria-label={`Дивитися на YouTube: ${v.title}`}>
+        <li><a class="vid-card" href={`https://www.youtube.com/watch?v=${v.youtube}`} target="_blank" rel="noopener" aria-label={`Дивитися на YouTube: ${v.title} (відкриється у новій вкладці)`}>
           <span class="vid-thumb">
             <img src={`https://i.ytimg.com/vi/${v.youtube}/hqdefault.jpg`} alt="" loading="lazy" decoding="async" width="480" height="360" />
             <span class="vid-play" aria-hidden="true">
@@ -17,14 +17,14 @@ const { items } = Astro.props;
             </span>
           </span>
           <span class="vid-title">{v.title}</span>
-        </a>
+        </a></li>
       ))}
-    </div>
+    </ul>
   </div>
 </section>
 <style>
-  .vid-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(290px, 1fr)); gap: 22px 20px; }
-  .vid-card { display: flex; flex-direction: column; gap: 11px; }
+  .vid-grid { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(min(290px, 100%), 360px)); justify-content: center; gap: 22px 20px; }
+  .vid-card { display: flex; flex-direction: column; gap: 11px; height: 100%; }
   .vid-thumb {
     position: relative; display: block; aspect-ratio: 16 / 9; overflow: hidden;
     border-radius: 6px; border: 1px solid var(--line); background: var(--muted);
