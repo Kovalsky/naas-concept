@@ -18,12 +18,14 @@ const trail: Crumb[] = [{ label: 'Головна', href: ROUTES.home }, ...crumb
         <>
           {c.href && i < trail.length - 1
             ? <a href={c.href}>{i === 0 ? <T k="ui.crumb.home" /> : c.label}</a>
-            : <span class="cur">{c.label}</span>}
+            : <span class="cur" aria-current={i === trail.length - 1 ? 'page' : undefined}>{c.label}</span>}
           {i < trail.length - 1 && <span class="sep">/</span>}
         </>
       ))}
     </nav>
-    {kicker && <div class="kicker" style="margin-bottom:14px;">{kicker}</div>}
+    {/* Render the kicker only when it adds information — skip it when it merely
+        repeats the H1 (several pages passed kicker === title). */}
+    {kicker && kicker !== title && <div class="kicker" style="margin-bottom:14px;">{kicker}</div>}
     <h1>{title}</h1>
     {lead && <p class="lead">{lead}</p>}
   </div>

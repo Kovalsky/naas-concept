@@ -6,6 +6,7 @@ import FieldRule from './FieldRule.astro';
 import T from './T.astro';
 import { ROUTES, EXTERNAL, SHOWCASE } from '../lib/site';
 import { anonsy } from '../lib/data';
+import { formatDateUk } from '../lib/format';
 
 const newsItems = (await getCollection('news')).sort((a, b) => (a.data.date < b.data.date ? 1 : -1));
 const arrow = `<svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9"><path d="M5 12h14M13 5l7 7-7 7"/></svg>`;
@@ -53,7 +54,7 @@ const externalLinks = [
               <a href={`${ROUTES.news}/${n.data.slug}`} style="display:flex; gap:13px; align-items:flex-start;">
                 <img src={n.data.image} alt="" width="60" height="60" loading="lazy" style="flex-shrink:0; width:60px; height:60px; object-fit:cover; border-radius:6px; border:1px solid var(--line); background:var(--muted);" />
                 <span style="min-width:0;">
-                  <span class="mono" style="display:block; font-size:10px; letter-spacing:0.04em; color:var(--ink3); margin-bottom:4px;">{n.data.date} · {n.data.tag}</span>
+                  <span class="mono" style="display:block; font-size:10px; letter-spacing:0.04em; color:var(--ink3); margin-bottom:4px;">{formatDateUk(n.data.date)} · {n.data.tag}</span>
                   <span style="display:block; font-size:14px; line-height:1.38; color:var(--ink); font-weight:500;">{n.data.title}</span>
                 </span>
               </a>
