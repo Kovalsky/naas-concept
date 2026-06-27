@@ -15,6 +15,7 @@ Branch: **`feat/stakeholder-content-corrections`** (committed, **not pushed**). 
 | 5 | **Division order** → official sequence землеробства → рослинництва → зоотехнії → ветеринарної → економіки → наукового забезпечення (§A3) | `data/institutes.json` |
 | 6 | **Press unit** «Прес-служба» → «Відділ інформаційного забезпечення та зв’язків з громадськістю» (§C3) | `lib/i18n.ts` (`contacts.press`) |
 | 7 | **Removed 3 `mail.ru` emails** (biapv@, cnzdiapw@, viapv@) (§C5) | `data/institutes.json` |
+| 8 | **Emblem replaced with the high-quality version** — sourced from the stakeholder's link (logos-ukraine.com.ua, 646×646), cream background flood-filled to transparent, trimmed, resized to a crisp 320×320 RGBA (was a dull 228×227 copy from the old site). Reads correctly on both white header and navy footer. | `public/naas-emblem.png` |
 
 `contacts.json` address / phone / email already matched the source — left as-is.
 
@@ -28,7 +29,7 @@ Branch: **`feat/stakeholder-content-corrections`** (committed, **not pushed**). 
 | **New sections**: Видавнича / Міжнародна / Виставкова / Інноваційна діяльність (§C2) | New pages — need content + design decision | — |
 | **«Офіційні документи» section** (статут, рішення/постанови президії, **звіти as files** not a link to ДВ Аграрна наука) (§C5) | New section + actual document files needed | §F7-adjacent |
 | **«Публічна інформація»** content | Reviewer left it empty (—) | §F7 |
-| **Emblem**: change the flagged glyph + fix "duller than official" brightness | Needs official hi-res emblem + decision on the symbol | §F6, feedback task B |
+| **Emblem glyph**: the symbol at the apex the reviewer flagged («Що за знак … змінити його!!») | Brightness/quality is now fixed (item 8 above). The *glyph change* is separate — the high-quality emblem still carries the same odd ⚥/atom-like apex symbol; needs the stakeholder to say what it should become (the book-cover variant uses a trident + laurel + atom instead). | §F6, feedback task B |
 | **Innovations catalog link** | Google Drive id has 2 ambiguous chars | §F1 |
 | **More colour / less white** (feedback C) | Design direction needed from stakeholder | feedback task C |
 
