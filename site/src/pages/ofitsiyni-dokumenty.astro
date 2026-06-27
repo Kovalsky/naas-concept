@@ -1,0 +1,45 @@
+---
+import Base from '../layouts/Base.astro';
+import Hero from '../components/Hero.astro';
+import { ROUTES } from '../lib/site';
+
+// Official documents of the Academy. Statute is live; presidium decisions and
+// activity reports are pending the actual files from NAAS (stakeholder §C5:
+// reports must be files here, not a link to the publisher).
+interface Doc { title: string; note: string; href?: string }
+const docs: Doc[] = [
+  { title: 'Статут НААН', note: 'Чинна редакція', href: ROUTES.statute },
+  { title: 'Рішення та постанови Президії', note: '' },
+  { title: 'Звіти про діяльність НААН', note: '' },
+];
+---
+<Base title="Офіційні документи">
+  <Hero
+    kicker="Офіційні документи"
+    title="Офіційні документи"
+    crumbs={[{ label: 'НААН сьогодні', href: ROUTES.today }]}
+    lead="Установчі та нормативні документи Академії, рішення Президії та звіти про діяльність."
+  />
+  <section class="section section--white">
+    <div class="wrap">
+      <div class="rows">
+        {docs.map((it) => (
+          it.href ? (
+            <a href={it.href}>
+              <span style="flex:1; min-width:0;">
+                <span class="row-title">{it.title}</span>
+                {it.note && <span class="row-desc">{it.note}</span>}
+              </span>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--navy)" stroke-width="1.9" style="flex-shrink:0;" aria-hidden="true"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+            </a>
+          ) : (
+            <div class="row">
+              <span style="flex:1; min-width:0;"><span class="row-title" style="color:var(--ink2);">{it.title}</span></span>
+              <span class="mono" style="font-size:11px; color:var(--ink3); white-space:nowrap;">матеріал готується</span>
+            </div>
+          )
+        ))}
+      </div>
+    </div>
+  </section>
+</Base>

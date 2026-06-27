@@ -42,9 +42,11 @@ export interface Anons {
 export interface Contacts {
   address: string;
   phone: string;
+  phone2: string;
   email: string;
   press_email: string;
   press_phone: string;
+  fax: string;
   edrpou: string;
   edrpou_label: string;
 }

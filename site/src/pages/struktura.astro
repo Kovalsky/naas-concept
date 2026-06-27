@@ -2,6 +2,17 @@
 import Base from '../layouts/Base.astro';
 import Hero from '../components/Hero.astro';
 import { divisions, instituteCount, divisionCount, initials } from '../lib/data';
+import { ROUTES } from '../lib/site';
+
+// One-line description per division (keyed by exact viddilennia name).
+const divDesc: Record<string, string> = {
+  'Відділення землеробства, меліорації та механізації': 'Ґрунтознавство, агрохімія, землеробство, водні ресурси, меліорація та механізація агропромислового виробництва.',
+  'Відділення рослинництва': 'Селекція, насінництво, захист рослин і технології вирощування сільськогосподарських культур.',
+  'Відділення зоотехнії': 'Розведення, генетика, годівля та біологія сільськогосподарських тварин, бджільництво й рибне господарство.',
+  'Відділення ветеринарної медицини': 'Діагностика, профілактика та лікування хвороб тварин і ветеринарно-санітарна безпека.',
+  'Відділення аграрної економіки і продовольства': 'Економіка АПК, продовольча безпека, облік, фінанси та аграрна політика.',
+  'Відділення наукового забезпечення інноваційного розвитку': 'Впровадження інновацій, регіональний розвиток, наукова інформація та трансфер технологій.',
+};
 
 const normalizeWeb = (w: string) => (w.startsWith('http') ? w : `http://${w}`);
 // Display the host only (drop path/query) so long URLs can't overflow the card;
@@ -22,14 +33,31 @@ const plural = (n: number, one: string, few: string, many: string) => {
     lead={`${divisionCount} наукових відділень та ${instituteCount} підпорядкованих наукових установ і підприємств із контактними даними.`}
   />
 
+  <!-- Частина 1: керівний апарат -->
+  <section class="section section--muted" style="padding-top:46px; padding-bottom:46px;">
+    <div class="wrap">
+      <div style="border:1px solid var(--line); border-left:4px solid var(--navy); border-radius:12px; padding:26px 28px; background:#fff; max-width:760px;">
+        <h2 style="font-family:var(--serif); font-size:clamp(20px,2.4vw,26px); font-weight:600; color:var(--ink); margin-bottom:10px;">Структура апарату Президії НААН</h2>
+        <p style="font-size:15.5px; line-height:1.65; color:var(--ink2);">Вищим керівним органом Академії є Загальні збори. У період між ними діяльністю керує Президія на чолі з президентом, а поточну роботу забезпечує її апарат.</p>
+        <a class="link-underline" href={ROUTES.presidium} style="margin-top:16px; display:inline-flex; align-items:center; gap:7px; font-weight:600; color:var(--navy);">Склад Президії НААН
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Частина 2: наукові установи -->
   <section class="section section--white">
     <div class="wrap">
+      <h2 style="font-family:var(--serif); font-size:clamp(22px,2.6vw,30px); font-weight:600; color:var(--ink); margin-bottom:6px;">Наукові установи НААН</h2>
+      <p style="font-size:15px; color:var(--ink2); margin-bottom:34px; max-width:720px;">Шість наукових відділень та підпорядковані їм установи, підприємства й організації.</p>
       {divisions.map((d) => (
         <div style="margin-bottom:48px;">
           <div style="display:flex; align-items:baseline; gap:14px; border-top:3px solid var(--navy); padding-top:14px; margin-bottom:22px;">
             <h2 style="font-family:var(--serif); font-size:clamp(20px,2.4vw,26px); font-weight:600; color:var(--ink);">{d.viddilennia}</h2>
             <span class="mono" style="flex-shrink:0; font-size:11px; font-weight:600; color:var(--navy); background:rgba(30,58,95,0.07); padding:5px 9px; border-radius:5px; white-space:nowrap;">{d.ustanovy.length} {plural(d.ustanovy.length, 'установа', 'установи', 'установ')}</span>
           </div>
+          {divDesc[d.viddilennia] && <p style="font-size:14.5px; line-height:1.6; color:var(--ink2); margin:-8px 0 22px; max-width:780px;">{divDesc[d.viddilennia]}</p>}
 
           <div class="grid grid--auto-lg" style="gap:18px;">
             {d.ustanovy.map((it) => (

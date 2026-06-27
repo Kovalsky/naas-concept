@@ -80,6 +80,7 @@ export const STRINGS: Record<string, { uk: string; en: string }> = {
   'footer.s.training': { uk: 'Атестація та підготовка кадрів', en: 'Training & Certification' },
   'footer.s.transparency': { uk: 'Прозорість', en: 'Transparency' },
   'footer.s.news': { uk: 'Новини', en: 'News' },
+  'footer.s.publishing': { uk: 'Видавнича діяльність', en: 'Publishing' },
   'footer.d.statute': { uk: 'Статут НААН', en: 'NAAS Statute' },
   'footer.d.publicInfo': { uk: 'Публічна інформація', en: 'Public Information' },
   'footer.d.procurement': { uk: 'Публічні закупівлі', en: 'Public Procurement' },

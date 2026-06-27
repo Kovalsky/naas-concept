@@ -1,9 +1,11 @@
 {
   "address": "01010, Київ, вул. Михайла Омеляновича-Павленка, 9",
   "phone": "+38 (044) 521 92 77",
+  "phone2": "+38 (044) 521 92 95",
   "email": "prezid@naas.gov.ua",
   "press_email": "infonaas2021@gmail.com",
   "press_phone": "+38 (044) 280 64 06",
+  "fax": "+38 (044) 280 57 05",
   "edrpou": "00024360",
   "edrpou_label": "ЄДРПОУ"
 }

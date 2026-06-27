@@ -21,6 +21,8 @@ export const ROUTES = {
   news: '/novyny',
   anonsy: '/anonsy',
   contacts: '/kontakty',
+  publishing: '/vydavnycha-diyalnist',
+  officialDocs: '/ofitsiyni-dokumenty',
   // Resource sections migrated from the old site into native pages.
   eLibrary: '/e-biblioteka',
   videoPage: '/video',
@@ -66,12 +68,13 @@ export const FOOTER = {
     { label: 'Атестація та кадри', href: ROUTES.training, k: 'footer.s.training' },
     { label: 'Прозорість', href: ROUTES.transparency, k: 'footer.s.transparency' },
     { label: 'Новини', href: ROUTES.news, k: 'footer.s.news' },
+    { label: 'Видавнича діяльність', href: ROUTES.publishing, k: 'footer.s.publishing' },
   ],
   documents: [
     { label: 'Статут НААН', href: ROUTES.statute, k: 'footer.d.statute' },
     { label: 'Публічна інформація', href: ROUTES.publicInfo, k: 'footer.d.publicInfo' },
     { label: 'Публічні закупівлі', href: EXTERNAL.prozorro, external: true, k: 'footer.d.procurement' },
-    { label: 'Звіти про діяльність', href: EXTERNAL.reports, external: true, k: 'footer.d.reports' },
+    { label: 'Звіти про діяльність', href: ROUTES.officialDocs, k: 'footer.d.reports' },
     { label: 'Запобігання корупції', href: ROUTES.anticorr, k: 'footer.d.anticorr' },
   ],
   resources: [
@@ -114,6 +117,8 @@ export const SEARCH_INDEX: { title: string; href: string }[] = [
   { title: 'Новини', href: ROUTES.news },
   { title: 'Анонси', href: ROUTES.anonsy },
   { title: 'Контакти', href: ROUTES.contacts },
+  { title: 'Видавнича діяльність', href: ROUTES.publishing },
+  { title: 'Офіційні документи', href: ROUTES.officialDocs },
   { title: 'Е-Бібліотека', href: ROUTES.eLibrary },
   { title: 'Відео', href: ROUTES.videoPage },
   { title: 'AGROLECTURES', href: ROUTES.agrolectures },

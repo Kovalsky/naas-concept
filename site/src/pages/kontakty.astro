@@ -19,7 +19,9 @@ const tel = (p: string) => 'tel:' + p.replace(/[^+\d]/g, '');
           <div class="kicker kicker--muted" style="margin-bottom:10px;"><T k="contacts.presidium" /></div>
           <div class="contact-links">
             <a class="contact-link mono" href={tel(contacts.phone)}>{contacts.phone}</a>
+            <a class="contact-link mono" href={tel(contacts.phone2)}>{contacts.phone2}</a>
             <a class="contact-link mono" href={`mailto:${contacts.email}`}>{contacts.email}</a>
+            <span class="contact-link mono" style="color:var(--ink3);">Факс: {contacts.fax}</span>
           </div>
         </div>
         <div style="border:1px solid var(--line); border-radius:12px; padding:26px; background:#fff;">

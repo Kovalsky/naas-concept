@@ -114,13 +114,13 @@ const monogram = (name: string) => name.split(/\s+/)[0]?.[0] ?? 'Н';
           <p style="font-size:13.5px; color:var(--ink3); line-height:1.6; margin-top:10px; flex:1;">{PLACEHOLDER_TEXT}</p>
         </article>
 
-        <!-- Звіти про діяльність (external) -->
+        <!-- Звіти про діяльність -->
         <article style="border:1px solid var(--line); border-radius:12px; padding:26px; background:#fff; display:flex; flex-direction:column;">
-          <span class="mono" style="align-self:flex-start; font-size:10px; letter-spacing:0.08em; text-transform:uppercase; color:var(--navy); border:1px solid rgba(30,58,95,0.3); padding:3px 8px; border-radius:4px; margin-bottom:12px;">Зовнішній ресурс</span>
+          <span class="mono" style="align-self:flex-start; font-size:10px; letter-spacing:0.08em; text-transform:uppercase; color:var(--navy); border:1px solid rgba(30,58,95,0.3); padding:3px 8px; border-radius:4px; margin-bottom:12px;">Документи</span>
           <h3 style="font-family:var(--serif); font-size:19px; font-weight:600; color:var(--ink); line-height:1.25;">Звіти про діяльність</h3>
-          <p style="font-size:13.5px; color:var(--ink2); line-height:1.6; margin-top:10px; flex:1;">Щорічні звіти НААН публікуються у Державному видавництві «Аграрна наука».</p>
-          <a class="link-underline" href={EXTERNAL.reports} target="_blank" rel="noopener" style="margin-top:18px;">agroscience-publishing.org.ua
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17 17 7M7 7h10v10"/></svg>
+          <p style="font-size:13.5px; color:var(--ink2); line-height:1.6; margin-top:10px; flex:1;">Звіти про діяльність Академії, статут, рішення та постанови Президії — у розділі «Офіційні документи».</p>
+          <a class="link-underline" href={ROUTES.officialDocs} style="margin-top:18px;">Офіційні документи
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
           </a>
         </article>
 
