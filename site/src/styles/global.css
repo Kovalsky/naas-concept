@@ -179,6 +179,11 @@ img { max-width: 100%; }
 .prose a:hover { border-color: var(--navy); }
 .prose ul, .prose ol { margin: 0 0 16px; padding-left: 22px; }
 .prose li { margin-bottom: 6px; }
+/* Markdown tables: on-token styling + horizontal scroll so wide tables
+   (asset registers, budget tables) never overflow the mobile content box. */
+.prose table { display: block; width: 100%; overflow-x: auto; border-collapse: collapse; font-size: 14px; margin: 0 0 16px; }
+.prose th, .prose td { border: 1px solid var(--line); padding: 8px 12px; text-align: left; vertical-align: top; }
+.prose thead th { background: var(--muted); font-weight: 600; color: var(--ink); white-space: nowrap; }
 
 /* ---------- responsive ---------- */
 .only-desktop { display: flex; }
@@ -199,7 +204,20 @@ html[data-hero="wide"]    .hero-variant[data-hero="wide"] { display: block; }
 html:not([data-hero]) .hero-variant[data-hero="classic"] { display: block; }
 
 /* utility-bar labels collapse to icons on small screens (names kept via aria-label) */
-@media (max-width: 640px) { .util-label { display: none; } }
+@media (max-width: 640px) {
+  .util-label { display: none; }
+  /* Hide the homepage hero-variant switcher on phones: it's a nice-to-have that
+     crowds the 34px utility bar, and the default classic hero still renders.
+     !important overrides the inline display:flex on #hero-switch. */
+  #hero-switch { display: none !important; }
+}
+
+/* Document/external-link rows: let long mono URLs drop to their own line on
+   phones instead of crushing the title column. */
+@media (max-width: 560px) {
+  .rows a, .rows .row { flex-wrap: wrap; gap: 4px 12px; }
+  .row-url { white-space: normal; word-break: break-word; flex-basis: 100%; order: 3; }
+}
 
 /* homepage hero variant selector (three visible options; active = gold underline) */
 .hero-opt { padding: 4px 1px; color: rgba(255,255,255,0.5); border-bottom: 2px solid transparent; transition: color 140ms, border-color 140ms; white-space: nowrap; }
