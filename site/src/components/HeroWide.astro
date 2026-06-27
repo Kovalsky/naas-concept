@@ -7,7 +7,7 @@ import { ROUTES } from '../lib/site';
 import { divisionCount, instituteCount } from '../lib/data';
 const arrow = `<svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9"><path d="M5 12h14M13 5l7 7-7 7"/></svg>`;
 const facts = [
-  { n: '1931', k: 'home.factFounded' },
+  { n: '1918', k: 'home.factFounded' },
   { n: String(divisionCount), k: 'home.factDivisions' },
   { n: String(instituteCount), k: 'home.factInstitutions' },
 ];
@@ -19,7 +19,7 @@ const facts = [
       <div class="hw-kicker mono"><T k="home.todayKicker" /></div>
       <h1 class="hw-h1">Національна академія аграрних наук України</h1>
       <p class="hw-sub">Державна самоврядна наукова організація — науково-методичний і координаційний центр з наукових проблем розвитку АПК України.</p>
-      <div class="hw-founded"><span class="hw-rule"></span><span>Заснована 1931 року</span></div>
+      <div class="hw-founded"><span class="hw-rule"></span><span>Заснована 1918 року</span></div>
       <div class="hw-links">
         <a class="hw-link" href={ROUTES.statute}><T k="home.statuteLink" /> <Fragment set:html={arrow} /></a>
         <a class="hw-link" href={ROUTES.presidium}><T k="home.presidiumLink" /> <Fragment set:html={arrow} /></a>
