@@ -23,7 +23,7 @@ import { img } from '../lib/images';
               ? <Image src={m} alt="" widths={[320, 480, 640]} sizes="(max-width:560px) 100vw, (max-width:900px) 50vw, 320px" format="webp" loading="lazy" decoding="async" style={imgStyle} />
               : <img src={a.image} alt="" width="400" height="220" loading="lazy" style={imgStyle} />}
             <div style="display:flex;flex-direction:column;gap:9px;padding:20px;">
-              <span class="mono" style="font-size:11px;letter-spacing:0.04em;color:var(--gold-ink);">{a.date}</span>
+              <span class="mono" style="font-size:11px;letter-spacing:0.04em;color:var(--green-ink);">{a.date}</span>
               <h2 style="font-family:var(--serif);font-size:18px;font-weight:500;color:var(--ink);line-height:1.3;">{a.title}</h2>
               <p style="font-size:13.5px;color:var(--ink2);line-height:1.55;">{a.teaser}</p>
             </div>
