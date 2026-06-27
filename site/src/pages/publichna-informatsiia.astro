@@ -20,6 +20,9 @@ for (const line of raw.split('\n')) {
   if (bold) {
     label = bold[1];
     href = link?.[2];
+    // Keep the descriptive remainder after the em-dash (markdown stripped to text).
+    const after = body.split('—').slice(1).join('—').trim();
+    if (after) note = after.replace(/\[([^\]]+)\]\([^)]+\)/g, '$1').replace(/[*_]/g, '').trim();
   } else if (link && body.trimStart().startsWith('[')) {
     label = link[1];
     href = link[2];

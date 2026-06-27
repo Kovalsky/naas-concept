@@ -16,20 +16,31 @@ const tel = (p: string) => 'tel:' + p.replace(/[^+\d]/g, '');
           <p class="mono" style="font-size:12.5px; color:var(--ink3); margin-top:14px;">{contacts.edrpou_label} {contacts.edrpou}</p>
         </div>
         <div style="border:1px solid var(--line); border-radius:12px; padding:26px; background:#fff;">
-          <div class="kicker kicker--muted" style="margin-bottom:14px;"><T k="contacts.presidium" /></div>
-          <p style="font-size:15px; line-height:1.9; color:var(--ink2);">
-            <a class="mono" href={tel(contacts.phone)} style="color:var(--navy);">{contacts.phone}</a><br/>
-            <a class="mono" href={`mailto:${contacts.email}`} style="color:var(--navy);">{contacts.email}</a>
-          </p>
+          <div class="kicker kicker--muted" style="margin-bottom:10px;"><T k="contacts.presidium" /></div>
+          <div class="contact-links">
+            <a class="contact-link mono" href={tel(contacts.phone)}>{contacts.phone}</a>
+            <a class="contact-link mono" href={`mailto:${contacts.email}`}>{contacts.email}</a>
+          </div>
         </div>
         <div style="border:1px solid var(--line); border-radius:12px; padding:26px; background:#fff;">
-          <div class="kicker kicker--muted" style="margin-bottom:14px;"><T k="contacts.press" /></div>
-          <p style="font-size:15px; line-height:1.9; color:var(--ink2);">
-            <a class="mono" href={tel(contacts.press_phone)} style="color:var(--navy);">{contacts.press_phone}</a><br/>
-            <a class="mono" href={`mailto:${contacts.press_email}`} style="color:var(--navy);">{contacts.press_email}</a>
-          </p>
+          <div class="kicker kicker--muted" style="margin-bottom:10px;"><T k="contacts.press" /></div>
+          <div class="contact-links">
+            <a class="contact-link mono" href={tel(contacts.press_phone)}>{contacts.press_phone}</a>
+            <a class="contact-link mono" href={`mailto:${contacts.press_email}`}>{contacts.press_email}</a>
+          </div>
         </div>
       </div>
     </div>
   </section>
 </Base>
+<style>
+  /* Contact phone/email as comfortable 44px tap targets with a hover affordance
+     (was inline text only ~28px tall with no hover/focus cue). */
+  .contact-links { display: flex; flex-direction: column; }
+  .contact-link {
+    display: inline-flex; align-items: center; min-height: 44px;
+    font-size: 15px; color: var(--navy); width: max-content; max-width: 100%;
+    overflow-wrap: anywhere; border-bottom: 1px solid transparent; transition: border-color 140ms;
+  }
+  .contact-link:hover { border-bottom-color: var(--navy); }
+</style>

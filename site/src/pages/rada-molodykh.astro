@@ -26,24 +26,26 @@ for (const l of lines) {
     <div class="wrap">
       {central.length > 0 && (
         <div style="margin-bottom:36px;">
-          <div class="kicker" style="margin-bottom:12px;">Центральна рада</div>
-          {central.map((c) => (
-            <div style="border:1px solid var(--navy); border-radius:12px; background:rgba(30,58,95,0.04); padding:22px 24px;">
-              <div style="font-family:var(--serif); font-size:19px; font-weight:600; color:var(--ink);">{c}</div>
-            </div>
-          ))}
+          <h2 class="kicker" style="margin-bottom:12px;">Центральна рада</h2>
+          <ul role="list" style="list-style:none; margin:0; padding:0; display:grid; gap:12px;">
+            {central.map((c) => (
+              <li style="border:1px solid var(--navy); border-radius:12px; background:rgba(30,58,95,0.04); padding:22px 24px;">
+                <span style="display:block; font-family:var(--serif); font-size:19px; font-weight:600; color:var(--ink);">{c}</span>
+              </li>
+            ))}
+          </ul>
         </div>
       )}
 
-      <div class="kicker kicker--muted" style="margin-bottom:14px;">Ради молодих вчених установ ({units.length})</div>
-      <div class="grid grid--auto" style="gap:12px;">
+      <h2 class="kicker kicker--muted" style="margin-bottom:14px;">Ради молодих вчених установ ({units.length})</h2>
+      <ul class="grid grid--auto" role="list" style="gap:12px; list-style:none; margin:0; padding:0;">
         {units.map((c) => (
-          <div style="border:1px solid var(--line); border-radius:10px; background:#fff; padding:16px 18px; display:flex; gap:13px; align-items:flex-start;">
-            <span style="flex-shrink:0; width:8px; height:8px; border-radius:50%; background:var(--gold); margin-top:7px;"></span>
+          <li style="border:1px solid var(--line); border-radius:10px; background:#fff; padding:16px 18px; display:flex; gap:13px; align-items:flex-start;">
+            <span style="flex-shrink:0; width:8px; height:8px; border-radius:50%; background:var(--gold); margin-top:7px;" aria-hidden="true"></span>
             <span style="font-size:14px; line-height:1.45; color:var(--ink);">{c}</span>
-          </div>
+          </li>
         ))}
-      </div>
+      </ul>
     </div>
   </section>
 </Base>
