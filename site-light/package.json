@@ -7,7 +7,8 @@
     "dev": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
-    "deploy": "SITE_URL=https://naas-portal-light.pages.dev astro build && wrangler pages deploy dist --project-name naas-portal-light --branch=main --commit-dirty=true"
+    "check": "node /Users/falco/dev/naas_github_pages/scripts/check-facts.mjs",
+    "deploy": "SITE_URL=https://naas-portal-light.pages.dev astro build && npm run check && wrangler pages deploy dist --project-name naas-portal-light --branch=main --commit-dirty=true"
   },
   "dependencies": {
     "@astrojs/sitemap": "^3.7.3",
