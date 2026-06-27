@@ -31,7 +31,6 @@ export const ROUTES = {
 
 // External targets (open real destinations per ТЗ).
 export const EXTERNAL = {
-  reports: 'https://www.agroscience-publishing.org.ua/books/',
   prozorro: 'https://prozorro.gov.ua/',
   video: 'https://www.youtube.com/results?search_query=Національна+академія+аграрних+наук+України',
   // naas.gov.ua is HTTP-only (no valid TLS); these paths return 200 over http.

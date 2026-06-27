@@ -1,7 +1,7 @@
 ---
 import Base from '../layouts/Base.astro';
 import Hero from '../components/Hero.astro';
-import { divisions, instituteCount, divisionCount, initials } from '../lib/data';
+import { divisions, divisionCount, initials } from '../lib/data';
 import { ROUTES } from '../lib/site';
 
 // One-line description per division (keyed by exact viddilennia name).
@@ -30,7 +30,7 @@ const plural = (n: number, one: string, few: string, many: string) => {
   <Hero
     kicker="Структура Академії"
     title="Структура Академії"
-    lead={`${divisionCount} наукових відділень та ${instituteCount} підпорядкованих наукових установ і підприємств із контактними даними.`}
+    lead={`${divisionCount} наукових відділень Академії та підпорядковані їм наукові установи, підприємства й організації.`}
   />
 
   <!-- Частина 1: керівний апарат -->

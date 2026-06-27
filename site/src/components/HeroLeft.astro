@@ -2,12 +2,12 @@
 // Original homepage hero: left-aligned text with the full-width facts band below.
 import T from './T.astro';
 import { ROUTES } from '../lib/site';
-import { divisionCount, instituteCount } from '../lib/data';
+import { divisionCount } from '../lib/data';
 const arrow = `<svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9"><path d="M5 12h14M13 5l7 7-7 7"/></svg>`;
 const facts = [
   { n: '1918', k: 'home.factFounded' },
   { n: String(divisionCount), k: 'home.factDivisions' },
-  { n: String(instituteCount), k: 'home.factInstitutions' },
+  { n: '84', k: 'home.factInstitutions' },
 ];
 ---
 <section style="background:#fff; padding:64px 0 56px; position:relative; overflow:hidden;">

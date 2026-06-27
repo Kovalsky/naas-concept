@@ -70,8 +70,12 @@ for (const [name, root] of Object.entries(ROOTS)) {
 }
 
 // ---------------------------------------------------------------------------
-// 3. CONSISTENCY: institution count. The single source is institutes.json
-//    (roster length). Every displayed "<N> установ" headline must equal it.
+// 3. CONSISTENCY: institution count.
+//    Scheme: "наукові установи / наукових установ" headline = 84 (authoritative
+//    budget scientific institutions); the macro figures «N установ і організацій»
+//    (176 total) and «N бюджетні наукові установи» (84) are labelled separately;
+//    the roster (institutes.json) is what struktura LISTS. The old/rejected
+//    value 50 must appear nowhere; the "наукових установ" headline must be uniform.
 // ---------------------------------------------------------------------------
 const rosterPath = `${ROOTS.gravitas}/src/data/institutes.json`;
 let rosterLen = null;
@@ -80,29 +84,26 @@ try {
   rosterLen = roster.reduce((n, d) => n + (d.ustanovy?.length || 0), 0);
 } catch { v('FAIL', 'institution-count', 'shared', 'cannot read institutes.json'); }
 
-if (rosterLen != null) {
-  const seen = new Map(); // value -> [where...]
-  const countRe = /(\d{2,4})\s*(?:підпорядкован[а-яі]*\s*)?(?:наукових\s+)?установ/gi;
-  for (const f of files) {
-    const txt = read(f);
-    let m;
-    while ((m = countRe.exec(txt))) {
-      const n = +m[1];
-      if (n < 10) continue; // skip pixel sizes etc.
-      const key = String(n);
-      if (!seen.has(key)) seen.set(key, []);
-      seen.get(key).push(`${label(f)}:${f.split('/src/')[1]}`);
-    }
+if (rosterLen === 50) v('FAIL', 'institution-count', 'shared:data/institutes.json', 'Roster still has 50 institutions (old/rejected list). Rebuild to the authoritative list.');
+
+const headline = new Map(); // headline "наукових установ" number -> [where]
+for (const f of files) {
+  const txt = read(f);
+  // rejected stale number adjacent to an institution noun
+  if (/\b50\s+(наукови|установ|підпорядкован)/i.test(txt))
+    v('FAIL', 'institution-count', `${label(f)}:${f.split('/src/')[1]}`, 'Shows "50" institutions — rejected by stakeholder («не 50»).');
+  // headline "(\d) наукові установи / наукових установ" (adjacent) must be uniform
+  let m; const re = /(\d{2,3})\s+наукови[хй]\s+установ[аи]?/gi;
+  while ((m = re.exec(txt))) {
+    const k = m[1];
+    if (!headline.has(k)) headline.set(k, []);
+    headline.get(k).push(`${label(f)}:${f.split('/src/')[1]}`);
   }
-  const distinct = [...seen.keys()];
-  // The roster length itself is the derived count shown by hero/struktura.
-  const allValues = new Set([...distinct, String(rosterLen)]);
-  if (allValues.size > 1) {
-    v('FAIL', 'institution-count',
-      `roster=${rosterLen}; hardcoded={${distinct.join(', ') || 'none'}}`,
-      `Institution count is inconsistent. The roster (institutes.json) has ${rosterLen}, but other surfaces show {${distinct.join(', ')}}. Pick ONE source of truth: rebuild the roster to the correct list so the derived count matches, OR make every headline read from it. Occurrences: ` +
-      [...seen.entries()].map(([k, w]) => `${k}→[${w.join(', ')}]`).join('  '));
-  }
+}
+if (headline.size > 1) {
+  v('FAIL', 'institution-count', `headline values: {${[...headline.keys()].join(', ')}}`,
+    'The "наукових установ" headline shows different numbers across surfaces: ' +
+    [...headline.entries()].map(([k, w]) => `${k}→[${w.join(', ')}]`).join('  '));
 }
 
 // ---------------------------------------------------------------------------

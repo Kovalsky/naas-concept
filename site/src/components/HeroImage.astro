@@ -6,7 +6,7 @@
 // omit it to fall back to the built-in inline SVG emblem.
 import T from './T.astro';
 import { ROUTES } from '../lib/site';
-import { divisionCount, instituteCount } from '../lib/data';
+import { divisionCount } from '../lib/data';
 interface Props { image?: string }
 const { image } = Astro.props;
 // Derive optimized WebP siblings (built alongside each JPEG) for a <picture> source.
@@ -15,7 +15,7 @@ const arrow = `<svg width="17" height="17" viewBox="0 0 24 24" fill="none" strok
 const facts = [
   { n: '1918', k: 'home.factFounded' },
   { n: String(divisionCount), k: 'home.factDivisions' },
-  { n: String(instituteCount), k: 'home.factInstitutions' },
+  { n: '84', k: 'home.factInstitutions' },
 ];
 ---
 <section class="hero-img-sec">
