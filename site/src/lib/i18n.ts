@@ -24,7 +24,6 @@ export const STRINGS: Record<string, { uk: string; en: string }> = {
 
   // homepage hero variant switcher
   'hero.classic': { uk: 'Класична', en: 'Classic' },
-  'hero.emblem': { uk: 'Емблема', en: 'Emblem' },
   'hero.banner': { uk: 'Банер', en: 'Banner' },
 
   // buttons

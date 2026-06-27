@@ -27,7 +27,6 @@ const searchPh = STRINGS['ui.search.ph'];
         <div id="hero-switch" role="group" aria-label="Вигляд головної сторінки" style="display:flex; align-items:center; gap:9px; font-family:var(--mono); font-size:12px;">
           <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" style="color:rgba(255,255,255,0.5); flex-shrink:0;"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg>
           <button class="hero-opt" data-hero-set="classic" aria-pressed="true"><T k="hero.classic" /></button>
-          <button class="hero-opt" data-hero-set="emblem" aria-pressed="false"><T k="hero.emblem" /></button>
           <button class="hero-opt" data-hero-set="wide" aria-pressed="false"><T k="hero.banner" /></button>
         </div>
       )}
@@ -130,7 +129,7 @@ const searchPh = STRINGS['ui.search.ph'];
   (function () {
     var root = document.documentElement;
     var FOCUSABLE = 'a[href], button:not([disabled]), input, [tabindex]:not([tabindex="-1"])';
-    var LK = 'naas-lang', HK = 'naas-hero', HERO_SET = ['classic', 'emblem', 'wide'];
+    var LK = 'naas-lang', HK = 'naas-hero', HERO_SET = ['classic', 'wide'];
 
     // Bind a listener once per element instance — the header DOM is fresh after each
     // view transition, so re-running setup() re-binds without duplicating handlers.
