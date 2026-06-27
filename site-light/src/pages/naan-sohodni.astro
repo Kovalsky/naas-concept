@@ -14,7 +14,7 @@ const rishennia = pages.find((p) => p.id === 'rishennia-postanovy');
 const { Content: RishenniaContent } = rishennia ? await render(rishennia) : { Content: null };
 
 const deputies = leadership.filter((p) => p !== president);
-const arrow = `<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9"><path d="M5 12h14M13 5l7 7-7 7"/></svg>`;
+const arrow = `<svg width="15" height="15" viewBox="0 0 24 24" fill="none" aria-hidden="true" stroke="currentColor" stroke-width="1.9"><path d="M5 12h14M13 5l7 7-7 7"/></svg>`;
 ---
 <Base title="НААН сьогодні" description="Національна академія аграрних наук України: історія, місія, структура, керівництво та Президія.">
   <PageHero
@@ -37,7 +37,7 @@ const arrow = `<svg width="15" height="15" viewBox="0 0 24 24" fill="none" strok
     <div class="wrap">
       <div class="sect-head">
         <div class="col">
-          <div class="kicker" style="margin-bottom:10px;">Керівництво · Leadership</div>
+          <div class="kicker" style="margin-bottom:10px;">Керівництво · <span lang="en">Leadership</span></div>
           <h2 class="h2">Керівництво та Президія</h2>
         </div>
       </div>
@@ -94,7 +94,7 @@ const arrow = `<svg width="15" height="15" viewBox="0 0 24 24" fill="none" strok
     <div class="wrap">
       <div class="sect-head">
         <div class="col">
-          <div class="kicker" style="margin-bottom:10px;">Президія · Decisions</div>
+          <div class="kicker" style="margin-bottom:10px;">Президія · <span lang="en">Decisions</span></div>
           <h2 class="h2">Рішення та Постанови Президії</h2>
         </div>
       </div>

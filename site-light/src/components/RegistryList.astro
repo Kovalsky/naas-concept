@@ -4,7 +4,7 @@ interface Props { registry: Registry; lead?: string }
 const { registry, lead } = Astro.props;
 
 const fmtColor: Record<string, string> = {
-  PDF: '#B8860B', DOC: '#1E3A5F', DOCX: '#1E3A5F', XLS: '#1F7A4D', XLSX: '#1F7A4D',
+  PDF: 'var(--gold)', DOC: 'var(--navy)', DOCX: 'var(--navy)', XLS: '#1F7A4D', XLSX: '#1F7A4D',
   PNG: '#737373', JPG: '#737373', JPEG: '#737373',
 };
 const countWord = (n: number) => (n === 1 ? 'документ' : n >= 2 && n <= 4 ? 'документи' : 'документів');
@@ -15,7 +15,7 @@ const fmtSize = (kb: number) => (kb >= 1024 ? `${(kb / 1024).toFixed(1)} MB` : k
 <div class="rows">
   {registry.items.map((it) => (
     <a href={it.href} target="_blank" rel="noopener">
-      <span class="fmt-tile" style={`background:${fmtColor[it.ext] ?? '#525252'};`}>{it.ext}</span>
+      <span class="fmt-tile" style={`background:${fmtColor[it.ext] ?? 'var(--ink2)'};`}>{it.ext}</span>
       <span class="reg-main">
         <span class="reg-title">{it.title}</span>
         {it.external && <span class="mono reg-ext">зовнішнє посилання · naas.gov.ua</span>}

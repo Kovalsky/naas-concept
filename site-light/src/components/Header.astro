@@ -231,6 +231,7 @@ const searchPh = STRINGS['ui.search.ph'];
         var li = document.createElement('li');
         var a = document.createElement('a');
         a.href = it.href; a.textContent = it.title;
+        if (it.external) { a.target = '_blank'; a.rel = 'noopener'; } // external resource → new tab
         if (it.href === CONTACTS) a.setAttribute('data-astro-reload', ''); // Turnstile page → full load
         a.style.cssText = 'display:block; padding:12px 6px; border-bottom:1px solid var(--line); font-size:15px; color:var(--ink);';
         li.appendChild(a); results.appendChild(li);

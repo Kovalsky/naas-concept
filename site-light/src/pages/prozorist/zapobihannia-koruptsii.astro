@@ -1,12 +1,9 @@
 ---
 import Base from '../../layouts/Base.astro';
 import PageHero from '../../components/PageHero.astro';
+import Placeholder from '../../components/Placeholder.astro';
 import { ROUTES } from '../../lib/site';
 
-// NOTE: the kit's <Placeholder/> imports PLACEHOLDER_TEXT from ../lib/site, but the
-// light src/lib/site.ts does not re-export it — using the component would break the
-// build. Inlining the identical markup/text here keeps this page self-contained.
-const PLACEHOLDER_TEXT = 'Розділ у підготовці. Матеріали готуються до публікації.';
 const note = 'Антикорупційна програма, контакти уповноваженої особи та канали повідомлень про корупцію буде опубліковано після того, як їх надасть розпорядник інформації.';
 ---
 <Base title="Запобігання корупції">
@@ -16,13 +13,5 @@ const note = 'Антикорупційна програма, контакти у
     crumbs={[{ label: 'Прозорість', href: ROUTES.transparency }]}
     lead="Антикорупційна програма, уповноважена особа та канали повідомлень."
   />
-  <section class="section section--white">
-    <div class="wrap">
-      <div class="placeholder">
-        <span class="demo-badge">Зразок · у наповненні</span>
-        <p style="margin-top:16px;"><strong>{PLACEHOLDER_TEXT}</strong></p>
-        <p style="margin-top:8px; font-size:13.5px;">{note}</p>
-      </div>
-    </div>
-  </section>
+  <Placeholder note={note} />
 </Base>
