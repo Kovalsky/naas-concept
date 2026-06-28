@@ -1,14 +1,8 @@
 ---
 import Base from '../layouts/Base.astro';
 import PageHero from '../components/PageHero.astro';
-import { ROUTES } from '../lib/site';
-
-interface Doc { t: string; note: string; href?: string }
-const docs: Doc[] = [
-  { t: 'Статут НААН', note: 'Чинна редакція', href: ROUTES.statute },
-  { t: 'Рішення та постанови Президії', note: '' },
-  { t: 'Звіти про діяльність НААН', note: '' },
-];
+import sections from '@shared/data/sections.json';
+const docs = sections.officialDocs;
 ---
 <Base title="Офіційні документи" description="Установчі та нормативні документи НААН: статут, рішення Президії та звіти про діяльність.">
   <PageHero title="Офіційні документи" kicker="Офіційні документи" lead="Установчі та нормативні документи Академії, рішення Президії та звіти про діяльність." />
@@ -19,14 +13,14 @@ const docs: Doc[] = [
           it.href ? (
             <a href={it.href}>
               <span style="flex:1; min-width:0;">
-                <span style="display:block; font-size:16px; font-weight:500; color:var(--ink);">{it.t}</span>
+                <span style="display:block; font-size:16px; font-weight:500; color:var(--ink);">{it.title}</span>
                 {it.note && <span style="display:block; margin-top:4px; font-size:13px; color:var(--ink2);">{it.note}</span>}
               </span>
               <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="var(--navy)" stroke-width="1.8" aria-hidden="true"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
             </a>
           ) : (
             <div style="display:flex; align-items:center; gap:16px;">
-              <span style="flex:1; min-width:0;"><span style="display:block; font-size:16px; font-weight:500; color:var(--ink2);">{it.t}</span></span>
+              <span style="flex:1; min-width:0;"><span style="display:block; font-size:16px; font-weight:500; color:var(--ink2);">{it.title}</span></span>
               <span class="mono" style="font-size:11px; color:var(--ink3); white-space:nowrap;">матеріал готується</span>
             </div>
           )
