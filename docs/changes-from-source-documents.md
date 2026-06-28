@@ -43,10 +43,11 @@ Legend: ✅ applied & live · 📄 placeholder page live (awaiting academy text)
 
 ---
 
-## Not applied (no data in the documents — academy must supply)
-- Text for **Міжнародна** and **Виставкова діяльність** (placeholders are live).
-- **Presidium decisions / постанови** files (no content on old site or in admin — 38 iblocks checked).
+## Requested by the reviewer, but content not provided → needs the academy
+These sections/items were **explicitly requested in the handwritten notes** (so the *pages* were created per that instruction), but the notes did **not** include the actual text/files, and the content exists nowhere on the old site or in the Bitrix admin (38 iblocks checked). So only the academy can supply them:
+- **Text for «Міжнародна діяльність» and «Виставкова діяльність»** — requested in the «Додати» list (`source-documents/12-handwritten-general-page-contacts`); placeholder pages are live, awaiting text.
+- **«Рішення та постанови Президії»** files and **«Звіти про діяльність» files** — requested in the «Офіційні документи» note (`source-documents/10-handwritten-divisions-publicinfo-officialdocs`: «має бути звіт про діяльність НААН — файли, не посилання на ДВ»).
 - Confirmation that the old site's `podani.pdf` is the correct **activity report** to host.
-- «Публічна інформація» is largely already migrated; old site has 14 subsections (see `old-site-content-inventory.md`).
+- «Публічна інформація» is largely already migrated; the old site has 14 subsections (see `old-site-content-inventory.md`).
 
 *Companion docs: `source-documents/` (originals + extractions), `source-of-truth-naas.md`, `feedback-2026-06-patyka.md`, `site-audit-vs-source.md`, `old-site-content-inventory.md`, `consistency-algorithm.md`.*
