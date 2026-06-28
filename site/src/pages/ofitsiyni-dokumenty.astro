@@ -2,24 +2,11 @@
 import Base from '../layouts/Base.astro';
 import Hero from '../components/Hero.astro';
 import { ROUTES } from '../lib/site';
-
-// Official documents of the Academy. Statute is live; presidium decisions and
-// activity reports are pending the actual files from NAAS (stakeholder §C5:
-// reports must be files here, not a link to the publisher).
-interface Doc { title: string; note: string; href?: string }
-const docs: Doc[] = [
-  { title: 'Статут НААН', note: 'Чинна редакція', href: ROUTES.statute },
-  { title: 'Рішення та постанови Президії', note: '' },
-  { title: 'Звіти про діяльність НААН', note: '' },
-];
+import sections from '../data/sections.json';
+const docs = sections.officialDocs;
 ---
 <Base title="Офіційні документи">
-  <Hero
-    kicker="Офіційні документи"
-    title="Офіційні документи"
-    crumbs={[{ label: 'НААН сьогодні', href: ROUTES.today }]}
-    lead="Установчі та нормативні документи Академії, рішення Президії та звіти про діяльність."
-  />
+  <Hero kicker="Офіційні документи" title="Офіційні документи" crumbs={[{ label: 'НААН сьогодні', href: ROUTES.today }]} lead="Установчі та нормативні документи Академії, рішення Президії та звіти про діяльність." />
   <section class="section section--white">
     <div class="wrap">
       <div class="rows">
@@ -30,7 +17,7 @@ const docs: Doc[] = [
                 <span class="row-title">{it.title}</span>
                 {it.note && <span class="row-desc">{it.note}</span>}
               </span>
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--navy)" stroke-width="1.9" style="flex-shrink:0;" aria-hidden="true"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--navy)" stroke-width="1.8" style="flex-shrink:0;" aria-hidden="true"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
             </a>
           ) : (
             <div class="row">

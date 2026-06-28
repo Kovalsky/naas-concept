@@ -1,0 +1,14 @@
+{
+  "publications": [
+    { "title": "Державне видавництво «Аграрна наука» НААН", "url": "https://www.agroscience-publishing.org.ua/", "note": "Спеціалізоване державне видавництво Академії" },
+    { "title": "Вісник аграрної науки", "url": "https://agrovisnyk.com/index.php/agrovisnyk", "note": "Науково-теоретичний журнал" },
+    { "title": "Аграрна наука – виробництву", "url": "https://www.agroscience-publishing.org.ua/agrarnanaukavyrobnytstvu/", "note": "Науково-виробниче видання" },
+    { "title": "Agricultural Science and Practice", "url": "https://agrisp.com/index.php/agrisp", "note": "Англомовний науковий журнал" }
+  ],
+  "officialDocs": [
+    { "title": "Статут НААН", "note": "Чинна редакція", "href": "/statut" },
+    { "title": "Рішення та постанови Президії", "note": "" },
+    { "title": "Звіти про діяльність НААН", "note": "" }
+  ],
+  "innovationCatalog": { "title": "Каталог інноваційних розробок НААН (2019–2025)", "note": "Селекційно-технологічні розробки науково-дослідних установ НААН · PDF", "url": "https://drive.google.com/file/d/19noLIfpdJlW0mjxNkY21SQjxhWDYlp1A/view" }
+}
