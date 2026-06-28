@@ -6,6 +6,7 @@ import PageHero from '../components/PageHero.astro';
 import { leadership, members, president, initials } from '../lib/data';
 import { img } from '../lib/images';
 import { ROUTES, PLACEHOLDER_TEXT } from '../lib/site';
+import { page } from '@content/pageContent';
 
 const pages = await getCollection('pages');
 const about = pages.find((p) => p.id === 'naan-sohodni');
@@ -14,13 +15,14 @@ const rishennia = pages.find((p) => p.id === 'rishennia-postanovy');
 const { Content: RishenniaContent } = rishennia ? await render(rishennia) : { Content: null };
 
 const deputies = leadership.filter((p) => p !== president);
+const { meta, hero } = page('/naan-sohodni');
 const arrow = `<svg width="15" height="15" viewBox="0 0 24 24" fill="none" aria-hidden="true" stroke="currentColor" stroke-width="1.9"><path d="M5 12h14M13 5l7 7-7 7"/></svg>`;
 ---
-<Base title="НААН сьогодні" description="Національна академія аграрних наук України: історія, місія, структура, керівництво та Президія.">
+<Base title={meta.title} description={meta.description}>
   <PageHero
-    title="НААН сьогодні"
-    kicker="Про Академію"
-    lead="Державна самоврядна наукова організація — історія, місія, керівництво та офіційні документи Академії."
+    title={hero!.title}
+    kicker={hero!.kicker}
+    lead={hero!.lead}
   />
 
   <!-- About / history / mission (verbatim shared markdown) -->
