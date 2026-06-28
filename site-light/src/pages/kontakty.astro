@@ -4,6 +4,8 @@ import PageHero from '../components/PageHero.astro';
 import { contacts } from '../lib/data';
 import { EXTERNAL } from '../lib/site';
 import { TURNSTILE_SITEKEY } from '../config';
+import { page } from '@content/pageContent';
+const { meta, hero } = page('/kontakty');
 
 const cards = [
   {
@@ -32,8 +34,8 @@ const cards = [
   },
 ];
 ---
-<Base title="Контакти" description="Контактна інформація Національної академії аграрних наук України: адреса, телефони, електронна пошта, реквізити.">
-  <PageHero title="Контакти" kicker="Зв'язок з Академією" lead="Офіційні контакти, відділ інформаційного забезпечення та зв’язків з громадськістю і реквізити Національної академії аграрних наук України." />
+<Base title={meta.title} description={meta.description}>
+  <PageHero title={hero!.title} kicker={hero!.kicker} lead={hero!.lead} />
 
   <section class="section section--white">
     <div class="wrap">

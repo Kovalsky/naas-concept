@@ -2,6 +2,8 @@
 import Base from '../layouts/Base.astro';
 import Hero from '../components/Hero.astro';
 import raw from '@content/pages/rada-molodykh.md?raw';
+import { page } from '@content/pageContent';
+const { meta, hero } = page('/rada-molodykh');
 
 // Parse the markdown into: intro paragraph (shown once), central council list,
 // and institution council list — strictly by section heading.
@@ -20,8 +22,8 @@ for (const l of lines) {
   }
 }
 ---
-<Base title="Рада молодих вчених">
-  <Hero kicker="Спільнота" title="Рада молодих вчених" lead={intro} />
+<Base title={meta.title} description={meta.description}>
+  <Hero kicker={hero!.kicker} title={hero!.title} lead={hero!.lead} />
   <section class="section section--white">
     <div class="wrap">
       {central.length > 0 && (
