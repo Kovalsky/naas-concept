@@ -41,6 +41,7 @@ export const STRINGS: Record<string, { uk: string; en: string }> = {
   'home.factFounded': { uk: 'рік заснування', en: 'year founded' },
   'home.factDivisions': { uk: 'наукових відділень', en: 'research divisions' },
   'home.factInstitutions': { uk: 'наукових установ', en: 'research institutions' },
+  'home.factOrganizations': { uk: 'установ і організацій', en: 'institutions & organisations' },
   'home.sectionsKicker': { uk: 'Розділи порталу', en: 'Portal sections' },
   'home.sectionsTitle': { uk: 'Основні розділи', en: 'Main Sections' },
   'home.newsTitle': { uk: 'Новини', en: 'News' },
