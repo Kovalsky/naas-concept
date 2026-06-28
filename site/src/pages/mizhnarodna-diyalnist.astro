@@ -1,0 +1,13 @@
+---
+import Base from '../layouts/Base.astro';
+import Hero from '../components/Hero.astro';
+import { ROUTES, PLACEHOLDER_TEXT } from '../lib/site';
+---
+<Base title="Міжнародна діяльність">
+  <Hero kicker="Міжнародна діяльність" title="Міжнародна діяльність НААН" crumbs={[{ label: 'НААН сьогодні', href: ROUTES.today }]} lead="Міжнародне наукове співробітництво Національної академії аграрних наук України." />
+  <section class="section section--white">
+    <div class="wrap">
+      <div style="border:1px dashed var(--line); border-radius:12px; background:#fff; padding:40px; text-align:center; color:var(--ink3); font-size:15px; line-height:1.6;">{PLACEHOLDER_TEXT}</div>
+    </div>
+  </section>
+</Base>

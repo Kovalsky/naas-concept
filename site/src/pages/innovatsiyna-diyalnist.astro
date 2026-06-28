@@ -1,0 +1,23 @@
+---
+import Base from '../layouts/Base.astro';
+import Hero from '../components/Hero.astro';
+import { ROUTES, PLACEHOLDER_TEXT } from '../lib/site';
+const catalog = 'https://drive.google.com/file/d/19noLIfpdJlW0mjxNkY21SQjxhWDYlp1A/view';
+---
+<Base title="Інноваційна діяльність">
+  <Hero kicker="Інноваційна діяльність" title="Інноваційна діяльність НААН" crumbs={[{ label: 'НААН сьогодні', href: ROUTES.today }]} lead="Інноваційні розробки та трансфер технологій Національної академії аграрних наук України." />
+  <section class="section section--white">
+    <div class="wrap">
+      <div class="rows">
+        <a href={catalog} target="_blank" rel="noopener">
+          <span style="flex:1; min-width:0;">
+            <span class="row-title">Каталог інноваційних розробок НААН (2019–2025)</span>
+            <span class="row-desc">Селекційно-технологічні розробки науково-дослідних установ НААН · PDF</span>
+          </span>
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--navy)" stroke-width="1.9" style="flex-shrink:0;" aria-hidden="true"><path d="M7 17 17 7M7 7h10v10"/></svg>
+        </a>
+      </div>
+      <div style="border:1px dashed var(--line); border-radius:12px; background:#fff; padding:28px; margin-top:22px; text-align:center; color:var(--ink3); font-size:14.5px; line-height:1.6;">{PLACEHOLDER_TEXT}</div>
+    </div>
+  </section>
+</Base>
