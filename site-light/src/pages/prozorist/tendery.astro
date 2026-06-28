@@ -4,15 +4,17 @@ import PageHero from '../../components/PageHero.astro';
 import RegistryList from '../../components/RegistryList.astro';
 import { ROUTES, EXTERNAL } from '../../lib/site';
 import { byRoute, LEADS } from '../../lib/registries';
+import { page } from '@content/pageContent';
 
 const registry = byRoute('/prozorist/tendery');
+const { meta, hero } = page('/prozorist/tendery');
 ---
-<Base title="Публічні закупівлі">
+<Base title={meta.title} description={meta.description}>
   <PageHero
-    title="Публічні закупівлі"
-    kicker="Тендери"
-    crumbs={[{ label: 'Прозорість', href: ROUTES.transparency }]}
-    lead="Річні плани публічних закупівель Академії. Поточні закупівлі — у системі Prozorro."
+    title={hero!.title}
+    kicker={hero!.kicker}
+    crumbs={hero!.crumbs}
+    lead={hero!.lead}
   />
   <section class="section section--white">
     <div class="wrap">

@@ -3,10 +3,12 @@ import Base from '../layouts/Base.astro';
 import Hero from '../components/Hero.astro';
 import { ROUTES, PLACEHOLDER_TEXT } from '../lib/site';
 import sections from '@content/data/sections.json';
+import { page } from '@content/pageContent';
 const catalog = sections.innovationCatalog;
+const { meta, hero } = page('/innovatsiyna-diyalnist');
 ---
-<Base title="Інноваційна діяльність">
-  <Hero kicker="Інноваційна діяльність" title="Інноваційна діяльність НААН" crumbs={[{ label: 'НААН сьогодні', href: ROUTES.today }]} lead="Інноваційні розробки та трансфер технологій Національної академії аграрних наук України." />
+<Base title={meta.title} description={meta.description}>
+  <Hero kicker={hero!.kicker} title={hero!.title} crumbs={hero!.crumbs} lead={hero!.lead} />
   <section class="section section--white">
     <div class="wrap">
       <div class="rows">

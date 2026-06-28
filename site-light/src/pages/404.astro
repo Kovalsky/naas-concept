@@ -1,11 +1,10 @@
 ---
 import Base from '../layouts/Base.astro';
 import { ROUTES } from '../lib/site';
+import { page } from '@content/pageContent';
+const { meta } = page('/404');
 ---
-<Base
-  title="Сторінку не знайдено"
-  description="На жаль, цієї сторінки не існує або її було переміщено."
->
+<Base title={meta.title} description={meta.description}>
   <section class="section section--white nf">
     <div class="wrap nf-wrap">
       <span class="mono nf-code">404</span>

@@ -131,3 +131,9 @@ export const SEARCH_INDEX: { title: string; href: string }[] = [
   { title: 'Відео', href: ROUTES.videoPage },
   { title: 'AGROLECTURES', href: ROUTES.agrolectures },
 ];
+
+// Brand identity — academy display name, shared so every header/footer matches (single source).
+export const BRAND = {
+  name: 'Національна академія аграрних наук України',
+  nameLines: ['Національна академія', 'аграрних наук України'],
+} as const;

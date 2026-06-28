@@ -5,18 +5,20 @@ import Base from '../../layouts/Base.astro';
 import PageHero from '../../components/PageHero.astro';
 import { img } from '../../lib/images';
 import { ROUTES } from '../../lib/site';
+import { page } from '@content/pageContent';
 
 const news = (await getCollection('news')).sort((a, b) => (a.data.date < b.data.date ? 1 : -1));
 const fmtDate = (d: string) => {
   const [y, m, day] = d.split('-');
   return `${day}.${m}.${y}`;
 };
+const { meta, hero } = page('/novyny');
 ---
-<Base title="Новини">
+<Base title={meta.title} description={meta.description}>
   <PageHero
-    title="Новини"
-    kicker="Новини Академії"
-    lead="Останні новини та повідомлення Національної академії аграрних наук України."
+    title={hero!.title}
+    kicker={hero!.kicker}
+    lead={hero!.lead}
   />
   <section class="section section--white">
     <div class="wrap">

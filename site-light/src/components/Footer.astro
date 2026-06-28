@@ -1,6 +1,7 @@
 ---
 import { contacts } from '../lib/data';
 import { FOOTER, ROUTES } from '../lib/site';
+import { BRAND } from '@content/site';
 import T from './T.astro';
 const year = new Date().getFullYear();
 ---
@@ -9,7 +10,7 @@ const year = new Date().getFullYear();
     <div class="foot-brand">
       <a href={ROUTES.home} class="foot-id">
         <img src="/naas-emblem.png" alt="Емблема НААН" width="48" height="48" />
-        <span class="serif foot-name">Національна академія<br/>аграрних наук України</span>
+        <span class="serif foot-name">{BRAND.nameLines[0]}<br/>{BRAND.nameLines[1]}</span>
       </a>
       <p class="foot-addr">{contacts.address}</p>
       <p class="foot-addr mono">{contacts.phone}</p>

@@ -4,6 +4,8 @@ import { Image } from 'astro:assets';
 import PageHero from '../components/PageHero.astro';
 import { divisions } from '../lib/data';
 import { photo } from '../lib/images';
+import { page } from '@content/pageContent';
+const { meta, hero } = page('/struktura');
 
 const normalizeWeb = (w: string) => (w.startsWith('http') ? w : `http://${w}`);
 const stripProto = (w: string) => w.replace(/^https?:\/\//, '').replace(/\/$/, '');
@@ -19,14 +21,11 @@ const divPhoto = (name: string): string | undefined => {
   return undefined;
 };
 ---
-<Base
-  title="Структура Академії"
-  description="Наукові відділення та підпорядковані наукові установи Національної академії аграрних наук України з контактними даними."
->
+<Base title={meta.title} description={meta.description}>
   <PageHero
-    title="Структура Академії"
-    kicker="6 наукових відділень · 84 наукові установи"
-    lead="Наукові відділення та підпорядковані наукові установи Академії з контактами."
+    title={hero!.title}
+    kicker={hero!.kicker}
+    lead={hero!.lead}
   />
 
   {divisions.map((d, i) => {

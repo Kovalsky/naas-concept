@@ -1,8 +1,10 @@
 ---
 import Base from '../layouts/Base.astro';
 import { ROUTES } from '../lib/site';
+import { page } from '@content/pageContent';
+const { meta } = page('/404');
 ---
-<Base title="Сторінку не знайдено">
+<Base title={meta.title} description={meta.description}>
   <section class="section section--white" style="min-height:60vh; display:grid; place-content:center;">
     <div class="wrap" style="text-align:center;">
       <div class="mono" style="font-size:13px; letter-spacing:0.14em; color:var(--gold-ink); margin-bottom:12px;">ПОМИЛКА 404</div>

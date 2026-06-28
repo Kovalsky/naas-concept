@@ -5,10 +5,12 @@ import RegistryList from '../../components/RegistryList.astro';
 import Placeholder from '../../components/Placeholder.astro';
 import { byRoute, LEADS } from '../../lib/registries';
 import { ROUTES } from '../../lib/site';
+import { page } from '@content/pageContent';
 const registry = byRoute('/prozorist/tendery');
+const { meta, hero } = page('/prozorist/tendery');
 ---
-<Base title="Публічні закупівлі — річні плани">
-  <Hero kicker="Прозорість" title="Річні плани закупівель" crumbs={[{ label: 'Прозорість', href: ROUTES.transparency }]} lead="Поточні процедури закупівель Академія проводить у системі Prozorro (ЄДРПОУ 00024360); тут — архів річних планів." />
+<Base title={meta.title} description={meta.description}>
+  <Hero kicker={hero!.kicker} title={hero!.title} crumbs={hero!.crumbs} lead={hero!.lead} />
   <section class="section section--white">
     <div class="wrap">
       {registry ? <RegistryList registry={registry} lead={LEADS[registry.route]} /> : <Placeholder />}

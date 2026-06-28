@@ -3,6 +3,7 @@ import Base from '../../layouts/Base.astro';
 import PageHero from '../../components/PageHero.astro';
 import { ROUTES } from '../../lib/site';
 import { contacts } from '../../lib/data';
+import { page } from '@content/pageContent';
 
 const cards = [
   {
@@ -30,12 +31,13 @@ const cards = [
     icon: '<circle cx="12" cy="12" r="9"/><path d="M12 16v-4"/><path d="M12 8h.01"/>',
   },
 ];
+const { meta, hero } = page('/prozorist');
 ---
-<Base title="Прозорість">
+<Base title={meta.title} description={meta.description}>
   <PageHero
-    title="Прозорість"
-    kicker="Відкритість та підзвітність"
-    lead="Публічні закупівлі, майнові питання, запобігання корупції та доступ до публічної інформації."
+    title={hero!.title}
+    kicker={hero!.kicker}
+    lead={hero!.lead}
   />
   <section class="section section--white">
     <div class="wrap">

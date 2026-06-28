@@ -1,5 +1,6 @@
 ---
 import { FOOTER } from '../lib/site';
+import { BRAND } from '@content/site';
 import { contacts } from '../lib/data';
 import T from './T.astro';
 const ext = (e?: boolean) => (e ? { target: '_blank', rel: 'noopener' } : {});
@@ -18,7 +19,7 @@ const telHref = 'tel:' + contacts.phone.replace(/[^+\d]/g, '');
         <a href="/" class="f-id" aria-label="НААН — головна">
           <img src="/naas-emblem.png" alt="Емблема НААН" width="72" height="72" />
           <span class="f-id-text">
-            <span class="f-id-name">Національна академія<br/>аграрних наук України</span>
+            <span class="f-id-name">{BRAND.nameLines[0]}<br/>{BRAND.nameLines[1]}</span>
             <span class="f-id-est"><T k="footer.est" /></span>
           </span>
         </a>
