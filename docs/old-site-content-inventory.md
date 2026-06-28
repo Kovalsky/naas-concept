@@ -2,7 +2,15 @@
 
 Recon of the legacy Bitrix site to fill the remaining content gaps. The site is **cp1251, HTTP-only, and partly broken** (some `/preview/` pages return "DB query error"; at least one menu link is mislabeled). Public content was fetched directly (curl).
 
-> **Bitrix admin note:** the admin panel **cannot be read by browser-automation tools** — it holds a persistent push/pull connection, so the page never reaches "document idle" and screenshot / page-text / accessibility-tree all time out (`executeScript waited 45000ms for document_idle`). This is structural, not transient. Public content was scraped instead; anything admin-only would need manual copy-paste or academy export.
+> **Bitrix admin access (corrected 2026-06-28):** the admin's *read* tools (screenshot / page-text / accessibility-tree) all time out because Bitrix holds a live notification connection so the page never reaches "document idle" (`executeScript waited 45000ms for document_idle`). **However, executing JavaScript in the page (`javascript_tool`) works** — it doesn't wait for idle — so the admin IS readable that way (via the user's logged-in session). Findings from the admin are in §Admin below.
+
+## Admin findings (read via JS, 2026-06-28)
+
+The content tree has **38 content iblocks**. Cross-checked against the pending items:
+- ❌ **No iblock** for Міжнародна діяльність, Виставкова діяльність, Інноваційна діяльність, or presidium decisions/постанови. They do **not exist** in the admin — confirming they are genuinely *new* sections to be authored by the academy, not migratable.
+- ✅ **Президія** exists as iblocks: Бюро президії, Склад президії, Апарат президії (roster already current in `persons.json`).
+- ✅ **Публічна інформація** subsections exist as iblocks (Бюджетні запити, Тендери, Наукові розробки, Нормативно-правова база, Планування, Підготовка/атестація, Використання коштів, Паспорт бюджету, Оголошення, Різне, FAO, Вакансії) — mostly already migrated.
+- ⚙️ **«Відділення та установи НААН» (iblock 9)** holds the institution structure (6 division sections), but its data is **dated 20.11.2017** — old. It predates «Інститут садівництва» (which only appears in the 2026 report), so the admin has **no URL for садівництво** → it stays name-only, as agreed. The old per-institute contacts here are stale (the reviewer flagged old names) and were intentionally not reused (roster = names + URLs from the fresher typed list).
 
 ## ✅ Retrievable (public site)
 
