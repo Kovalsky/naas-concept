@@ -1,0 +1,39 @@
+---
+import Base from '../layouts/Base.astro';
+import PageHero from '../components/PageHero.astro';
+import { registries } from '../lib/registries';
+
+// All registries that live under the Інтелектуальна власність hub.
+const items = registries.filter((r) => r.route.startsWith('/intelektualna-vlasnist/'));
+const countWord = (n: number) => (n === 1 ? 'документ' : n >= 2 && n <= 4 ? 'документи' : 'документів');
+const icon = '<path d="M9 18h6"/><path d="M10 22h4"/><path d="M15.09 14c.18-.98.65-1.74 1.41-2.5A4.65 4.65 0 0 0 18 8 6 6 0 0 0 6 8c0 1 .23 2.23 1.5 3.5.76.76 1.23 1.52 1.41 2.5"/>';
+---
+<Base
+  title="Інтелектуальна власність"
+  description="Об'єкти права інтелектуальної власності Академії: нормативна база та віртуальна виставка інноваційних розробок."
+>
+  <PageHero
+    title="Інтелектуальна власність"
+    kicker="Об'єкти права інтелектуальної власності"
+    lead="Нормативно-правова база та віртуальна виставка інноваційних розробок Академії."
+  />
+
+  <section class="section section--white">
+    <div class="wrap">
+      <div class="hub-grid">
+        {items.map((r) => (
+          <a class="card card-lift hub-card" href={r.route}>
+            <span class="hub-ic">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" set:html={icon} />
+            </span>
+            <span class="hub-card-title serif">{r.title}</span>
+            <span class="hub-card-foot">
+              <span class="hub-card-go">Відкрити <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 12h14M13 5l7 7-7 7"/></svg></span>
+              <span class="hub-card-count">{r.count} {countWord(r.count)}</span>
+            </span>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+</Base>

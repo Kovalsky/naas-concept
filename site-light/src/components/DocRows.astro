@@ -1,0 +1,39 @@
+---
+// Five TZ-named blocks presented as a plain row list — no invented cluster heading.
+// Each row title IS the exact TZ block name; targets per the interaction map.
+import { ROUTES } from '../lib/site';
+const rows = [
+  { n: '01', t: 'Статут НААН', d: 'Чинна редакція Статуту Академії — завантаження у форматі PDF.', href: ROUTES.statute },
+  { n: '02', t: 'Рішення та Постанови Президії', d: 'Архів офіційних розпоряджень і постанов Президії Академії.', href: ROUTES.today + '#rishennia' },
+  { n: '03', t: 'Звіти про діяльність', d: 'Звіти про діяльність Академії та інші офіційні документи.', href: ROUTES.officialDocs },
+  { n: '04', t: 'Тендери та Прозорість', d: 'Публічні закупівлі (Prozorro), майнові питання, запобігання корупції, доступ до інформації.', href: ROUTES.transparency },
+  { n: '05', t: 'Публічна інформація', d: 'Набори даних, бюджетні документи та публічна інформація розпорядника.', href: ROUTES.publicInfo },
+];
+---
+<section class="section section--muted" aria-label="Офіційні документи та розділи">
+  <div class="wrap">
+    <div class="rows docrows">
+      {rows.map((r) => (
+        <a href={r.href} {...(r.external ? { target: '_blank', rel: 'noopener' } : {})}>
+          <span class="mono dr-n">{r.n}</span>
+          <span class="dr-x">
+            <span class="serif dr-t">{r.t}</span>
+            <span class="dr-d">{r.d}</span>
+          </span>
+          {r.external
+            ? <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="var(--ink3)" stroke-width="1.7" aria-hidden="true"><path d="M7 17 17 7M7 7h10v10"/></svg>
+            : <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="var(--navy)" stroke-width="1.8" aria-hidden="true"><path d="M5 12h14M13 5l7 7-7 7"/></svg>}
+        </a>
+      ))}
+    </div>
+  </div>
+</section>
+<style>
+  .docrows > a { gap: 20px; padding: 20px 22px; align-items: flex-start; }
+  .dr-n { flex-shrink: 0; font-size: 12px; color: var(--ink3); padding-top: 3px; }
+  .dr-x { flex: 1; min-width: 0; }
+  .dr-t { display: block; font-size: 18px; font-weight: 500; line-height: 1.3; color: var(--ink); }
+  .docrows > a:hover .dr-t { color: var(--navy); }
+  .dr-d { display: block; margin-top: 5px; font-size: 13.5px; line-height: 1.5; color: var(--ink2); }
+  .docrows > a svg { flex-shrink: 0; margin-top: 4px; }
+</style>

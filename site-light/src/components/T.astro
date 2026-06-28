@@ -1,0 +1,11 @@
+---
+// Renders both language variants of a chrome string; the active one is shown
+// via CSS based on <html data-lang>. Body content does NOT use this — chrome only.
+import { STRINGS } from '../lib/i18n';
+interface Props { k: string }
+const { k } = Astro.props;
+const s = STRINGS[k];
+const uk = s?.uk ?? k;
+const en = s?.en ?? uk;
+---
+<span class="t-uk" lang="uk">{uk}</span><span class="t-en" lang="en">{en}</span>

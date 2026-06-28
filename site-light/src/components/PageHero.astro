@@ -1,0 +1,38 @@
+---
+import { ROUTES } from '../lib/site';
+import T from './T.astro';
+interface Crumb { label: string; href?: string }
+interface Props {
+  kicker?: string;
+  title: string;
+  lead?: string;
+  crumbs?: Crumb[];
+}
+const { kicker, title, lead, crumbs = [] } = Astro.props;
+const trail: Crumb[] = [{ label: 'Головна', href: ROUTES.home }, ...crumbs, { label: title }];
+---
+<section class="page-hero">
+  <svg class="page-hero-motif" viewBox="0 0 480 320" fill="none" preserveAspectRatio="xMaxYMid slice" aria-hidden="true">
+    <path d="M-40 64 C 130 18 330 18 540 72" stroke="currentColor" stroke-width="1.5" />
+    <path d="M-40 116 C 130 70 330 70 540 124" stroke="currentColor" stroke-width="1.5" />
+    <path d="M-40 168 C 130 122 330 122 540 176" stroke="currentColor" stroke-width="1.5" />
+    <path d="M-40 220 C 130 174 330 174 540 228" stroke="currentColor" stroke-width="1.5" />
+    <path d="M-40 272 C 130 226 330 226 540 280" stroke="currentColor" stroke-width="1.5" />
+  </svg>
+  <div class="wrap">
+    <nav class="crumbs" aria-label="Навігаційний шлях">
+      {trail.map((c, i) => (
+        <>
+          {c.href && i < trail.length - 1
+            ? <a href={c.href}>{i === 0 ? <T k="ui.crumb.home" /> : c.label}</a>
+            : <span class="cur" aria-current="page">{c.label}</span>}
+          {i < trail.length - 1 && <span class="sep" aria-hidden="true">/</span>}
+        </>
+      ))}
+    </nav>
+    {kicker && kicker !== title && <div class="kicker" style="margin-bottom:14px;">{kicker}</div>}
+    <h1>{title}</h1>
+    {lead && <p class="lead">{lead}</p>}
+    <span class="gold-rule" aria-hidden="true"></span>
+  </div>
+</section>

@@ -1,0 +1,31 @@
+---
+import Base from '../../layouts/Base.astro';
+import PageHero from '../../components/PageHero.astro';
+import RegistryList from '../../components/RegistryList.astro';
+import { registries, LEADS } from '../../lib/registries';
+import { ROUTES } from '../../lib/site';
+
+export function getStaticPaths() {
+  return registries
+    .filter((r) => r.route.startsWith('/publichna-informatsiia/'))
+    .map((registry) => ({
+      params: { slug: registry.route.replace('/publichna-informatsiia/', '') },
+      props: { registry },
+    }));
+}
+
+const { registry } = Astro.props;
+---
+<Base title={registry.title}>
+  <PageHero
+    title={registry.title}
+    kicker="Публічна інформація"
+    crumbs={[{ label: 'Публічна інформація', href: ROUTES.publicInfo }]}
+  />
+
+  <section class="section section--white">
+    <div class="wrap">
+      <RegistryList registry={registry} lead={LEADS[registry.route]} />
+    </div>
+  </section>
+</Base>

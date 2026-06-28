@@ -1,0 +1,17 @@
+---
+import Base from '../../layouts/Base.astro';
+import PageHero from '../../components/PageHero.astro';
+import Placeholder from '../../components/Placeholder.astro';
+import { ROUTES } from '../../lib/site';
+
+const note = 'Антикорупційна програма, контакти уповноваженої особи та канали повідомлень про корупцію буде опубліковано після того, як їх надасть розпорядник інформації.';
+---
+<Base title="Запобігання корупції">
+  <PageHero
+    title="Запобігання корупції"
+    kicker="Прозорість"
+    crumbs={[{ label: 'Прозорість', href: ROUTES.transparency }]}
+    lead="Антикорупційна програма, уповноважена особа та канали повідомлень."
+  />
+  <Placeholder note={note} />
+</Base>

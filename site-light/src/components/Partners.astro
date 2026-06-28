@@ -1,0 +1,31 @@
+---
+import { PARTNERS } from '../lib/site';
+import T from './T.astro';
+---
+<section class="partners" aria-label="Партнерські та державні портали">
+  <div class="wrap partners-in">
+    <span class="eyebrow"><T k="partners.label" /></span>
+    <div class="partners-row">
+      {PARTNERS.map((p) => (
+        <a href={p.href} target="_blank" rel="noopener" class="pmark">
+          <span>{p.label}</span>
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M7 17 17 7M7 7h10v10"/></svg>
+        </a>
+      ))}
+    </div>
+  </div>
+</section>
+<style>
+  .partners { background: var(--canvas); border-top: 1px solid var(--line); }
+  .partners-in { display: flex; align-items: center; gap: 28px; padding: 22px 0; flex-wrap: wrap; }
+  .partners-row { display: flex; align-items: stretch; gap: 0; flex-wrap: wrap; flex: 1; }
+  .pmark { display: inline-flex; align-items: center; gap: 8px; padding: 8px 22px; font-size: 13px; font-weight: 500; color: var(--ink2); border-left: 1px solid var(--line); }
+  .partners-row .pmark:first-child { border-left: none; padding-left: 0; }
+  .pmark svg { color: var(--ink3); }
+  .pmark:hover { color: var(--navy); }
+  .pmark:hover svg { color: var(--navy); }
+  @media (max-width: 767px) {
+    .partners-row { flex-direction: column; align-items: flex-start; }
+    .pmark { border-left: none; padding: 7px 0; }
+  }
+</style>

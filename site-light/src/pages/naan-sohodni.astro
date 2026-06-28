@@ -1,0 +1,165 @@
+---
+import { getCollection, render } from 'astro:content';
+import { Image } from 'astro:assets';
+import Base from '../layouts/Base.astro';
+import PageHero from '../components/PageHero.astro';
+import { leadership, members, president, initials } from '../lib/data';
+import { img } from '../lib/images';
+import { ROUTES } from '../lib/site';
+
+const pages = await getCollection('pages');
+const about = pages.find((p) => p.id === 'naan-sohodni');
+const { Content: AboutContent } = about ? await render(about) : { Content: null };
+const rishennia = pages.find((p) => p.id === 'rishennia-postanovy');
+const { Content: RishenniaContent } = rishennia ? await render(rishennia) : { Content: null };
+
+const deputies = leadership.filter((p) => p !== president);
+const arrow = `<svg width="15" height="15" viewBox="0 0 24 24" fill="none" aria-hidden="true" stroke="currentColor" stroke-width="1.9"><path d="M5 12h14M13 5l7 7-7 7"/></svg>`;
+---
+<Base title="НААН сьогодні" description="Національна академія аграрних наук України: історія, місія, структура, керівництво та Президія.">
+  <PageHero
+    title="НААН сьогодні"
+    kicker="Про Академію"
+    lead="Державна самоврядна наукова організація — історія, місія, керівництво та офіційні документи Академії."
+  />
+
+  <!-- About / history / mission (verbatim shared markdown) -->
+  <section class="section section--white">
+    <div class="wrap">
+      <div class="prose">
+        {AboutContent ? <AboutContent /> : <p>Контент у процесі наповнення.</p>}
+      </div>
+    </div>
+  </section>
+
+  <!-- Керівництво та Президія -->
+  <section id="prezidiya" class="section section--muted">
+    <div class="wrap">
+      <div class="sect-head">
+        <div class="col">
+          <div class="kicker" style="margin-bottom:10px;">Керівництво · <span lang="en">Leadership</span></div>
+          <h2 class="h2">Керівництво та Президія</h2>
+        </div>
+      </div>
+
+      {president && (
+        <div class="pres-lead">
+          {img(president.photo)
+            ? <Image class="pres-lead-photo" src={img(president.photo)!} alt={president.name} widths={[200, 300, 400]} sizes="(max-width:767px) 40vw, 200px" format="webp" loading="eager" fetchpriority="high" decoding="async" />
+            : president.photo
+              ? <img class="pres-lead-photo" src={president.photo} alt={president.name} width="200" height="240" loading="eager" fetchpriority="high" />
+              : <span class="pres-lead-photo pres-ph" aria-hidden="true">{initials(president.name)}</span>}
+          <div class="pres-lead-x">
+            <span class="mono pres-lead-role">Президент НААН</span>
+            <h3 class="serif pres-lead-name">{president.name}</h3>
+            <p class="pres-lead-post">{president.post}</p>
+            {president.phone && <p class="mono pres-lead-tel">{president.phone}</p>}
+          </div>
+        </div>
+      )}
+
+      <h3 class="sub-h serif">Віцепрезиденти</h3>
+      <ul class="people-grid">
+        {deputies.map((p) => (
+          <li class="person">
+            {img(p.photo)
+              ? <Image class="person-photo" src={img(p.photo)!} alt={p.name} widths={[150, 220, 300]} sizes="(max-width:767px) 45vw, 150px" format="webp" loading="lazy" decoding="async" />
+              : p.photo
+                ? <img class="person-photo" src={p.photo} alt={p.name} width="150" height="180" loading="lazy" />
+                : <span class="person-photo pres-ph" aria-hidden="true">{initials(p.name)}</span>}
+            <span class="person-name serif">{p.name}</span>
+            <span class="person-post">{p.post}</span>
+            {p.phone && <span class="mono person-tel">{p.phone}</span>}
+          </li>
+        ))}
+      </ul>
+
+      <h3 class="sub-h serif">Члени Президії</h3>
+      <ul class="member-list">
+        {members.map((p) => (
+          <li class="member">
+            <span class="member-mono mono" aria-hidden="true">{initials(p.name)}</span>
+            <span class="member-x">
+              <span class="member-name">{p.name}</span>
+              <span class="member-post">{p.post}</span>
+            </span>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </section>
+
+  <!-- Рішення та Постанови Президії -->
+  <section id="rishennia" class="section section--white">
+    <div class="wrap">
+      <div class="sect-head">
+        <div class="col">
+          <div class="kicker" style="margin-bottom:10px;">Президія · <span lang="en">Decisions</span></div>
+          <h2 class="h2">Рішення та Постанови Президії</h2>
+        </div>
+      </div>
+      <div class="prose" style="margin-bottom:22px;">
+        {RishenniaContent ? <RishenniaContent /> : null}
+      </div>
+      <div class="placeholder">
+        <span class="demo-badge">Зразок · у наповненні</span>
+        <p style="margin-top:16px;"><strong>Архів офіційних рішень і постанов Президії готується до публікації.</strong></p>
+        <p style="margin-top:8px; font-size:13.5px;">Документи будуть доступні після перенесення з реєстру старого порталу (етап із системою керування контентом).</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Офіційні документи -->
+  <section id="dokumenty" class="section section--muted">
+    <div class="wrap">
+      <div class="sect-head">
+        <div class="col">
+          <div class="kicker" style="margin-bottom:10px;">Документи</div>
+          <h2 class="h2">Офіційні документи</h2>
+        </div>
+      </div>
+      <div class="rows">
+        <a href={ROUTES.statute}>
+          <span class="fmt-tile" style="background:var(--navy);">DOC</span>
+          <span style="flex:1;"><span style="display:block; font-size:16px; font-weight:500; color:var(--ink);">Статут НААН</span><span style="display:block; margin-top:4px; font-size:13px; color:var(--ink2);">Чинна редакція Статуту Академії (PDF).</span></span>
+          <Fragment set:html={arrow} />
+        </a>
+        <a href={ROUTES.officialDocs}>
+          <span class="fmt-tile" style="background:var(--gold-ink);">WEB</span>
+          <span style="flex:1;"><span style="display:block; font-size:16px; font-weight:500; color:var(--ink);">Звіти про діяльність</span><span style="display:block; margin-top:4px; font-size:13px; color:var(--ink2);">Звіти, статут та рішення Президії — розділ «Офіційні документи».</span></span>
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="var(--ink3)" stroke-width="1.7" aria-hidden="true"><path d="M7 17 17 7M7 7h10v10"/></svg>
+        </a>
+      </div>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .sub-h { font-size: 20px; font-weight: 500; color: var(--ink); margin: 36px 0 18px; }
+  .pres-lead { display: flex; gap: 26px; align-items: center; background: #fff; border: 1px solid var(--line); border-radius: var(--r-card); padding: 26px; max-width: 560px; }
+  .pres-lead-photo { width: 168px; height: 202px; object-fit: cover; object-position: center top; border-radius: var(--r-card); flex-shrink: 0; background: var(--muted2); }
+  .pres-ph { display: flex; align-items: center; justify-content: center; font-size: 28px; font-weight: 500; color: rgba(255,255,255,0.6); background: linear-gradient(160deg, #2c3e54, var(--navy)); }
+  .pres-lead-role { font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--navy); }
+  .pres-lead-name { font-size: 24px; font-weight: 500; color: var(--ink); margin-top: 8px; line-height: 1.2; }
+  .pres-lead-post { font-size: 14px; color: var(--ink2); margin-top: 6px; }
+  .pres-lead-tel { font-size: 13px; color: var(--ink3); margin-top: 10px; }
+
+  .people-grid { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(176px, 1fr)); gap: 20px; }
+  .person { display: block; }
+  .person-photo { width: 100%; aspect-ratio: 5/6; object-fit: cover; object-position: center top; border-radius: var(--r-card); border: 1px solid var(--line); background: var(--muted2); }
+  .person-name { display: block; margin-top: 12px; font-size: 15.5px; font-weight: 500; color: var(--ink); line-height: 1.3; }
+  .person-post { display: block; margin-top: 4px; font-size: 13px; color: var(--ink2); line-height: 1.4; }
+  .person-tel { display: block; margin-top: 6px; font-size: 12px; color: var(--ink3); }
+
+  .member-list { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(2, 1fr); gap: 0 28px; }
+  .member { display: flex; gap: 14px; align-items: center; padding: 14px 0; border-top: 1px solid var(--line); }
+  .member-mono { flex-shrink: 0; width: 38px; height: 38px; display: flex; align-items: center; justify-content: center; border-radius: 50%; border: 1px solid var(--line); font-size: 12px; color: var(--navy); background: #fff; }
+  .member-name { display: block; font-size: 14.5px; font-weight: 500; color: var(--ink); }
+  .member-post { display: block; margin-top: 2px; font-size: 12.5px; color: var(--ink3); }
+
+  @media (max-width: 767px) {
+    .people-grid { grid-template-columns: repeat(2, 1fr); }
+    .member-list { grid-template-columns: 1fr; }
+    .pres-lead { flex-direction: column; }
+  }
+</style>

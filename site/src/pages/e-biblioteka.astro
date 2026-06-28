@@ -1,7 +1,7 @@
 ---
 import Base from '../layouts/Base.astro';
 import Hero from '../components/Hero.astro';
-import periodicals from '../data/elibrary.json';
+import periodicals from '@content/data/elibrary.json';
 const sorted = [...periodicals].sort((a, b) => a.name.localeCompare(b.name, 'uk'));
 ---
 <Base title="Е-Бібліотека" description="Електронна бібліотека НААН — наукові періодичні видання установ академії у відкритому доступі.">
