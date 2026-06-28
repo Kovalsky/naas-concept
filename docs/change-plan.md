@@ -74,11 +74,13 @@ For R2: who is academician-secretary of each of the 6 divisions (names), if not 
 
 > **Old-site check (2026-06-27):** I scraped naas.gov.ua and tried the Bitrix admin — see `old-site-content-inventory.md`. The admin is unreadable by automation (persistent connection). Findings folded in below.
 
-### B1 — New activity sections (§C2)
-Pages + nav/footer links, with placeholder until content arrives:
-- **Міжнародна діяльність НААН** (`/mizhnarodna-diyalnist`) — ❌ **not on old site** («міжнар…» appears nowhere). Needs academy content.
-- **Виставкова діяльність НААН** (`/vystavkova-diyalnist`) — ❌ old-site link is mislabeled (renders «Вакансії»); no clean content. Needs academy content.
-- **Інноваційна діяльність НААН** (`/innovatsiyna-diyalnist`) — ⚠️ only pieces on old site (catalog ✅ + a "virtual exhibition"); will host the resolved catalog link.
+### B1 — New activity sections (§C2) — ✅ PAGES CREATED & DEPLOYED (both versions)
+All four «діяльність» sections now exist + are wired into footer/search, both gravitas + light:
+- **Видавнича діяльність** ✅ (real content — publisher + journals).
+- **Міжнародна діяльність НААН** (`/mizhnarodna-diyalnist`) — page live; **placeholder** (content not on old site/admin — academy must author).
+- **Виставкова діяльність НААН** (`/vystavkova-diyalnist`) — page live; **placeholder** (academy content).
+- **Інноваційна діяльність НААН** (`/innovatsiyna-diyalnist`) — page live with the **resolved catalog link** (Каталог 2019–2025); placeholder for the rest.
+Confirmed via public scrape + Bitrix admin (38 iblocks) that Міжнародна/Виставкова have no migratable content — only academy text will fill them.
 
 ### B2 — «Публічна інформація» content (§C5, §F7)
 Page exists as placeholder. Old site has `/content/publichna-informaciya/` with **14 subsections** (budget, tenders, scientific developments, normative base, property, training, planning, FAO, FAQ…) — **mostly already migrated** to the new site. Can top up gaps; the reviewer's "empty" note likely predates the migration.
