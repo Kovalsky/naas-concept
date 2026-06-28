@@ -3,9 +3,10 @@ import { Image } from 'astro:assets';
 import { divisions } from '../lib/data';
 import { ROUTES } from '../lib/site';
 import { photo } from '../lib/images';
+import { plural } from '@content/plural';
 const arrow = `<svg width="14" height="14" viewBox="0 0 24 24" fill="none" aria-hidden="true" stroke="currentColor" stroke-width="1.9"><path d="M5 12h14M13 5l7 7-7 7"/></svg>`;
 const pad2 = (n: number) => String(n).padStart(2, '0');
-const instWord = (n: number) => (n === 1 ? 'установа' : n >= 2 && n <= 4 ? 'установи' : 'установ');
+const instWord = (n: number) => plural(n, 'установа', 'установи', 'установ');
 const shortName = (s: string) => { const t = s.replace(/^Відділення\s+/i, ''); return t.charAt(0).toUpperCase() + t.slice(1); };
 // Map a division to its photograph by topic (data order is not fixed). Innovation has no photo → navy graphic.
 const divPhoto = (name: string): string | undefined => {

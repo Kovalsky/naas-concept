@@ -3,10 +3,11 @@ import Base from '../layouts/Base.astro';
 import PageHero from '../components/PageHero.astro';
 import { registries } from '../lib/registries';
 import { page } from '@content/pageContent';
+import { plural } from '@content/plural';
 
 // All registries that live under the Публічна інформація hub.
 const items = registries.filter((r) => r.route.startsWith('/publichna-informatsiia/'));
-const countWord = (n: number) => (n === 1 ? 'документ' : n >= 2 && n <= 4 ? 'документи' : 'документів');
+const countWord = (n: number) => plural(n, 'документ', 'документи', 'документів');
 const icon = '<path d="M3 5v14a9 3 0 0 0 18 0V5"/><path d="M3 12a9 3 0 0 0 18 0"/><ellipse cx="12" cy="5" rx="9" ry="3"/>';
 const { meta, hero } = page('/publichna-informatsiia');
 ---

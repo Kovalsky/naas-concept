@@ -1,20 +1,11 @@
 ---
 import Base from '../../layouts/Base.astro';
 import Hero from '../../components/Hero.astro';
-import { ROUTES, EXTERNAL } from '../../lib/site';
-import { contacts } from '../../lib/data';
 import { page } from '@content/pageContent';
+import { PROZORIST_CARDS as cards } from '@content/prozoristCards';
 
 const arrow = `<svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9"><path d="M5 12h14M13 5l7 7-7 7"/></svg>`;
 const extArrow = `<svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="var(--navy)" stroke-width="1.9"><path d="M7 17 17 7M7 7h10v10"/></svg>`;
-
-const cards = [
-  { title: 'Публічні закупівлі (Prozorro)', desc: `Профіль розпорядника у системі Prozorro, ЄДРПОУ ${contacts.edrpou}.`, href: EXTERNAL.prozorro, external: true },
-  { title: 'Річні плани закупівель', desc: 'Архів річних планів публічних закупівель Академії.', href: '/prozorist/tendery' },
-  { title: 'Майнові питання', desc: 'Інформація про майно, що пропонується до безоплатної передачі та оренди.', href: ROUTES.maynovi },
-  { title: 'Доступ до публічної інформації', desc: 'Нормативно-правова база, запити та набори даних розпорядника інформації.', href: ROUTES.dostup },
-  { title: 'Запобігання корупції', desc: 'Антикорупційні заходи та документи.', href: ROUTES.anticorr },
-];
 const { meta, hero } = page('/prozorist');
 ---
 <Base title={meta.title} description={meta.description}>
