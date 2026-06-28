@@ -3,19 +3,19 @@ import { getCollection, render } from 'astro:content';
 import Base from '../layouts/Base.astro';
 import PageHero from '../components/PageHero.astro';
 import { EXTERNAL } from '../lib/site';
+import { page } from '@content/pageContent';
 
 const pages = await getCollection('pages');
 const entry = pages.find((p) => p.id === 'statut');
 const { Content } = entry ? await render(entry) : { Content: null };
+const { meta, hero } = page('/statut');
 ---
-<Base
-  title="Статут НААН"
-  description="Чинна редакція Статуту Національної академії аграрних наук України."
->
+<Base title={meta.title} description={meta.description}>
   <PageHero
-    title="Статут НААН"
-    kicker="Засновчі документи"
-    lead="Чинна редакція Статуту Національної академії аграрних наук України."
+    title={hero!.title}
+    kicker={hero!.kicker}
+    lead={hero!.lead}
+    crumbs={hero!.crumbs}
   />
 
   <section class="section section--white">

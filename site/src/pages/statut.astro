@@ -3,14 +3,16 @@ import { getCollection, render } from 'astro:content';
 import Base from '../layouts/Base.astro';
 import Hero from '../components/Hero.astro';
 import T from '../components/T.astro';
-import { ROUTES, EXTERNAL } from '../lib/site';
+import { EXTERNAL } from '../lib/site';
+import { page } from '@content/pageContent';
 
 const pages = await getCollection('pages');
 const entry = pages.find((p) => p.id === 'statut');
 const { Content } = entry ? await render(entry) : { Content: null };
+const { meta, hero } = page('/statut');
 ---
-<Base title="Статут НААН">
-  <Hero kicker="Документи" title="Статут НААН" crumbs={[{ label: 'НААН сьогодні', href: ROUTES.today }]} lead="Статут Національної академії аграрних наук України — чинна редакція." />
+<Base title={meta.title} description={meta.description}>
+  <Hero kicker={hero!.kicker} title={hero!.title} crumbs={hero!.crumbs} lead={hero!.lead} />
   <section class="section section--white">
     <div class="wrap">
       <a class="btn-navy" href={EXTERNAL.statutePdf} target="_blank" rel="noopener" style="margin-bottom:28px;">

@@ -12,3 +12,5 @@
 export * from './i18n';
 export * from './site';
 export * from './registries';
+export { page } from './pageContent';
+export type { PageEntry, PageHero, PageMeta, Crumb } from './pageContent';
