@@ -1,12 +1,12 @@
 ---
 import Base from '../layouts/Base.astro';
-import Hero from '../components/Hero.astro';
+import PageHero from '../components/PageHero.astro';
 import VideoGallery from '../components/VideoGallery.astro';
 import videos from '@content/data/video.json';
 import { page } from '@content/pageContent';
 const { meta, hero } = page('/video');
 ---
 <Base title={meta.title} description={meta.description}>
-  <Hero kicker={hero!.kicker} title={hero!.title} lead={hero!.lead} />
+  <PageHero title={hero!.title} kicker={hero!.kicker} lead={hero!.lead} />
   <VideoGallery items={videos} />
 </Base>

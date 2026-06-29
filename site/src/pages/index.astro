@@ -3,6 +3,7 @@ import Base from '../layouts/Base.astro';
 import HeroC from '../components/HeroC.astro';
 import HeroWide from '../components/HeroWide.astro';
 import HomeSections from '../components/HomeSections.astro';
+import AboutBand from '../components/AboutBand.astro';
 // Both hero variants render; the client-side switcher (utility bar, top-left)
 // shows one at a time and remembers the choice in localStorage. Default = classic,
 // so the live look is unchanged until someone toggles it.
@@ -10,5 +11,6 @@ import HomeSections from '../components/HomeSections.astro';
 <Base title="НААН" description="Національна академія аграрних наук України — державна самоврядна наукова організація, науково-методичний і координаційний центр з наукових проблем розвитку АПК.">
   <div class="hero-variant" data-hero="classic"><HeroC /></div>
   <div class="hero-variant" data-hero="wide"><HeroWide /></div>
+  <AboutBand />
   <HomeSections />
 </Base>

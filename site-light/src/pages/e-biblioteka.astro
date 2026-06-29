@@ -1,13 +1,13 @@
 ---
 import Base from '../layouts/Base.astro';
-import Hero from '../components/Hero.astro';
+import PageHero from '../components/PageHero.astro';
 import periodicals from '@content/data/elibrary.json';
 import { page } from '@content/pageContent';
-const sorted = [...periodicals].sort((a, b) => a.name.localeCompare(b.name, 'uk'));
 const { meta, hero } = page('/e-biblioteka');
+const sorted = [...periodicals].sort((a, b) => a.name.localeCompare(b.name, 'uk'));
 ---
 <Base title={meta.title} description={meta.description}>
-  <Hero kicker={hero!.kicker} title={hero!.title} lead={hero!.lead} />
+  <PageHero title={hero!.title} kicker={hero!.kicker} lead={hero!.lead} />
   <section class="section section--white">
     <div class="wrap">
       <div class="elib-bar">
@@ -35,12 +35,12 @@ const { meta, hero } = page('/e-biblioteka');
 </Base>
 <style>
   .elib-bar { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 14px; margin-bottom: 22px; }
-  .elib-search { display: flex; align-items: center; gap: 10px; flex: 1; min-width: 240px; max-width: 460px; border: 1px solid var(--line); border-radius: 6px; padding: 10px 14px; transition: border-color 140ms; }
+  .elib-search { display: flex; align-items: center; gap: 10px; flex: 1; min-width: 240px; max-width: 460px; border: 1px solid var(--line); border-radius: var(--r-card, 6px); padding: 10px 14px; transition: border-color 140ms; }
   .elib-search:focus-within { border-color: var(--navy); box-shadow: 0 0 0 3px rgba(30, 58, 95, 0.15); }
   .elib-search input { flex: 1; border: none; outline: none; font-size: 16px; background: transparent; }
   .elib-count { font-size: 11.5px; letter-spacing: 0.04em; color: var(--ink3); white-space: nowrap; }
   .elib-grid { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(min(300px, 100%), 1fr)); gap: 12px; }
-  .elib-card { display: flex; align-items: flex-start; gap: 13px; height: 100%; padding: 16px 18px; border: 1px solid var(--line); border-radius: 4px; background: #fff; transition: border-color 150ms, box-shadow 150ms; }
+  .elib-card { display: flex; align-items: flex-start; gap: 13px; height: 100%; padding: 16px 18px; border: 1px solid var(--line); border-radius: var(--r-card, 4px); background: #fff; transition: border-color 150ms, box-shadow 150ms; }
   .elib-card:hover { border-color: var(--navy); box-shadow: 0 6px 18px rgba(30, 58, 95, 0.07); }
   .elib-card:focus-visible { outline: 2px solid var(--navy); outline-offset: 2px; }
   .elib-ic { color: var(--navy); flex-shrink: 0; margin-top: 1px; }
