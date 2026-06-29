@@ -1,9 +1,8 @@
 ---
-// «НААН сьогодні» — intro/mission band. Text is pulled verbatim from the real
+// Homepage "About" band — intro + mission. Text is pulled verbatim from the real
 // shared markdown (naan-sohodni.md) so nothing is invented and it never drifts.
 import { getCollection } from 'astro:content';
 import { ROUTES } from '../lib/site';
-import T from './T.astro';
 
 const pages = await getCollection('pages');
 const entry = pages.find((p) => p.id === 'naan-sohodni');
@@ -14,31 +13,62 @@ const misIdx = blocks.findIndex((b) => /^##\s*Місія/i.test(b));
 const mission = misIdx >= 0 ? (blocks[misIdx + 1] ?? '') : '';
 const arrow = `<svg width="15" height="15" viewBox="0 0 24 24" fill="none" aria-hidden="true" stroke="currentColor" stroke-width="1.9"><path d="M5 12h14M13 5l7 7-7 7"/></svg>`;
 ---
-<section class="section section--white" aria-labelledby="about-h">
+<section class="section section--white about" aria-labelledby="about-h">
   <div class="wrap">
-    <div class="sect-head">
-      <div class="col">
-        <div class="kicker" style="margin-bottom:10px;"><T k="home.todayKicker" /></div>
-        <h2 id="about-h" class="h2 h2--lg">Державна самоврядна наукова організація</h2>
-      </div>
-      <a class="link-arrow only-desktop" href={ROUTES.today}>Докладніше про НААН <Fragment set:html={arrow} /></a>
-    </div>
+    <header class="about-head">
+      <p class="kicker about-eyebrow"><span class="about-tick" aria-hidden="true"></span>Про Академію</p>
+      <h2 id="about-h" class="h2 h2--lg about-h2">Державна самоврядна наукова організація</h2>
+    </header>
 
     <div class="about-grid">
-      <p class="about-intro">{intro}</p>
+      <p class="serif about-intro">{intro}</p>
       <aside class="about-mission">
-        <span class="eyebrow">Місія</span>
-        <p>{mission}</p>
+        <span class="about-mission-label">Місія</span>
+        <p class="about-mission-text">{mission}</p>
       </aside>
     </div>
-    <a class="link-arrow only-mobile" style="margin-top:24px;" href={ROUTES.today}>Докладніше про НААН <Fragment set:html={arrow} /></a>
+
+    <a class="link-arrow about-link" href={ROUTES.today}>Докладніше про НААН <Fragment set:html={arrow} /></a>
   </div>
 </section>
 <style>
-  .about-grid { display: grid; grid-template-columns: 1.5fr 1fr; gap: 48px; align-items: start; }
-  .about-intro { font-family: var(--serif); font-size: clamp(19px, 2.1vw, 23px); line-height: 1.5; color: var(--ink); font-weight: 400; }
-  .about-mission { border-left: 2px solid var(--gold); padding-left: 22px; }
-  .about-mission .eyebrow { display: block; margin-bottom: 10px; }
-  .about-mission p { font-size: 15px; line-height: 1.66; color: var(--ink2); }
-  @media (max-width: 900px) { .about-grid { grid-template-columns: 1fr; gap: 28px; } }
+  .about-head { max-width: 840px; margin-bottom: 38px; }
+  .about-eyebrow {
+    display: inline-flex; align-items: center; gap: 11px; margin-bottom: 16px;
+  }
+  .about-tick { width: 24px; height: 2px; background: var(--gold); }
+  .about-h2 { max-width: 20ch; }
+
+  .about-grid {
+    display: grid; grid-template-columns: 1.5fr 1fr;
+    gap: 48px; align-items: start;
+  }
+  .about-intro {
+    font-weight: 400; font-size: clamp(17px, 1.5vw, 20px);
+    line-height: 1.6; color: var(--ink2); text-wrap: pretty;
+  }
+
+  /* Mission aside: a soft navy-wash card (airy, flat) with a thin gold tag */
+  .about-mission {
+    align-self: start;
+    background: rgba(30, 58, 95, 0.045);
+    border: 1px solid rgba(30, 58, 95, 0.09);
+    border-radius: var(--r-card);
+    padding: 26px 28px;
+  }
+  .about-mission-label {
+    display: inline-flex; align-items: center; gap: 9px; margin-bottom: 12px;
+    font-family: var(--mono); font-size: 10px; font-weight: 600;
+    letter-spacing: 0.14em; text-transform: uppercase; color: var(--gold-ink);
+  }
+  .about-mission-label::before { content: ""; width: 18px; height: 2px; background: var(--gold); }
+  .about-mission-text { font-size: 14.5px; line-height: 1.66; color: var(--ink2); }
+
+  .about-link { margin-top: 32px; }
+
+  @media (max-width: 900px) {
+    .about-head { margin-bottom: 28px; }
+    .about-grid { grid-template-columns: 1fr; gap: 24px; }
+    .about-link { margin-top: 26px; }
+  }
 </style>
