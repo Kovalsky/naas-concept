@@ -4,6 +4,7 @@ import { Image } from 'astro:assets';
 import PageHero from '../components/PageHero.astro';
 import { divisions } from '../lib/data';
 import { photo } from '../lib/images';
+import { ROUTES } from '../lib/site';
 import { page } from '@content/pageContent';
 import { plural } from '@content/plural';
 const { meta, hero } = page('/struktura');
@@ -28,6 +29,18 @@ const divPhoto = (name: string): string | undefined => {
     kicker={hero!.kicker}
     lead={hero!.lead}
   />
+
+  <section class="section section--muted" style="padding-top:40px; padding-bottom:40px;">
+    <div class="wrap">
+      <div style="border:1px solid var(--line); border-left:4px solid var(--navy); border-radius:var(--r-card,12px); padding:26px 28px; background:#fff; max-width:760px;">
+        <h2 class="serif" style="font-size:clamp(20px,2.4vw,26px); font-weight:600; color:var(--ink); margin-bottom:10px;">Структура апарату Президії НААН</h2>
+        <p style="font-size:15.5px; line-height:1.65; color:var(--ink2);">Вищим керівним органом Академії є Загальні збори. У період між ними діяльністю керує Президія на чолі з президентом, а поточну роботу забезпечує її апарат.</p>
+        <a href={ROUTES.presidium} style="margin-top:16px; display:inline-flex; align-items:center; gap:7px; font-weight:600; color:var(--navy);">Склад Президії НААН
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+        </a>
+      </div>
+    </div>
+  </section>
 
   {divisions.map((d, i) => {
     const ph = photo(divPhoto(d.viddilennia));
