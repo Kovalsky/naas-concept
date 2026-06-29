@@ -9,11 +9,11 @@
 .mono  { font-family: var(--mono); font-feature-settings: "tnum"; }
 
 /* Section rhythm: alternate white <-> muted, hairline separators. */
-.section { padding: 72px 0; }
+.section { padding: 96px 0; }
 .section--muted { background: var(--muted); }
 .section--white { background: var(--canvas); }
 .section + .section { border-top: 1px solid var(--line); }
-@media (max-width: 767px) { .section { padding: 48px 0; } }
+@media (max-width: 767px) { .section { padding: 60px 0; } }
 
 /* Section header: kicker + serif H2 on the left, "all ->" link on the right. */
 .sect-head { display: flex; align-items: flex-end; justify-content: space-between; gap: 20px; margin-bottom: 30px; }

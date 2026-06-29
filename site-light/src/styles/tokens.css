@@ -1,7 +1,8 @@
 /* Self-hosted fonts (woff2 bundled by Vite — no external CDN) */
-@import '@fontsource/spectral/400.css';
-@import '@fontsource/spectral/500.css';
-@import '@fontsource/spectral/600.css';
+@import '@fontsource/lora/400.css';
+@import '@fontsource/lora/500.css';
+@import '@fontsource/lora/600.css';
+@import '@fontsource/lora/700.css';
 @import '@fontsource/inter/300.css';
 @import '@fontsource/inter/400.css';
 @import '@fontsource/inter/500.css';
@@ -21,12 +22,12 @@
   --ink:#0A0A0A; --ink2:#525252; --ink3:#6B6B6B;
   --line:#E5E5E5; --line2:#ECEBE7; --canvas:#FFFFFF; --muted:#F8F9FA; --muted2:#F2F1EC;
   /* type */
-  --serif:'Spectral',Georgia,serif;
+  --serif:'Lora',Georgia,serif;
   --sans:'Inter',system-ui,-apple-system,'Segoe UI',sans-serif;
   --mono:'JetBrains Mono',ui-monospace,monospace;
   /* layout */
   --wrap:1320px; --gutter:32px;
-  --r-card:12px; --r-btn:8px; --r-pill:999px;
+  --r-card:8px; --r-btn:4px; --r-pill:999px;
 }
 html { scroll-behavior: smooth; }
 body { margin:0; font-family:var(--sans); color:var(--ink); background:var(--canvas); -webkit-font-smoothing:antialiased; text-rendering:optimizeLegibility; }
