@@ -13,13 +13,13 @@
 
 *, *::before, *::after { box-sizing: border-box; }
 :root {
-  /* brand — warm editorial: deep olive (primary, ex-"navy" role) + terracotta (accent, ex-"gold") */
-  --navy:#46522E; --navy-d:#39431F; --navy-deep:#2C3417;
-  --gold:#B05A34; --gold-light:#DD9166; /* terracotta; -light tint reads on olive */
-  --gold-ink:#9B4A28; /* AA terracotta for small text on cream (~5:1) */
-  /* ink + neutrals — warm paper */
-  --ink:#2B2520; --ink2:#5A4F44; --ink3:#827566;
-  --line:#E4DBC9; --line2:#EDE5D5; --canvas:#FAF6EE; --muted:#F3ECDD; --muted2:#ECE3D0;
+  /* brand */
+  --navy:#1E3A5F; --navy-d:#142844; --navy-deep:#0E1F35;
+  --gold:#B8860B; --gold-light:#E7C879; /* gold-light: legible gold on navy */
+  --gold-ink:#8A6508; /* AA-contrast gold for small text on light (~5:1) */
+  /* ink + neutrals */
+  --ink:#0A0A0A; --ink2:#525252; --ink3:#6B6B6B;
+  --line:#E5E5E5; --line2:#ECEBE7; --canvas:#FFFFFF; --muted:#F8F9FA; --muted2:#F2F1EC;
   /* type */
   --serif:'Spectral',Georgia,serif;
   --sans:'Inter',system-ui,-apple-system,'Segoe UI',sans-serif;
