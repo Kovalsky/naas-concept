@@ -1,7 +1,7 @@
 ---
 import Base from '../layouts/Base.astro';
 import Hero from '../components/Hero.astro';
-import { divisions, divisionCount, initials } from '../lib/data';
+import { divisions, divisionCount, instituteCount, initials } from '../lib/data';
 import { ROUTES } from '../lib/site';
 
 // One-line description per division (keyed by exact viddilennia name).
@@ -50,58 +50,123 @@ const plural = (n: number, one: string, few: string, many: string) => {
   <section class="section section--white">
     <div class="wrap">
       <h2 style="font-family:var(--serif); font-size:clamp(22px,2.6vw,30px); font-weight:600; color:var(--ink); margin-bottom:6px;">Наукові установи НААН</h2>
-      <p style="font-size:15px; color:var(--ink2); margin-bottom:34px; max-width:720px;">Шість наукових відділень та підпорядковані їм установи, підприємства й організації.</p>
+      <p style="font-size:15px; color:var(--ink2); margin-bottom:40px; max-width:720px;">{divisionCount} наукових відділень та {instituteCount} підпорядкованих їм установ, підприємств і організацій. Оберіть установу, щоб перейти на її офіційний сайт.</p>
       {divisions.map((d) => (
-        <div style="margin-bottom:48px;">
-          <div style="display:flex; align-items:baseline; gap:14px; border-top:3px solid var(--navy); padding-top:14px; margin-bottom:22px;">
-            <h2 style="font-family:var(--serif); font-size:clamp(20px,2.4vw,26px); font-weight:600; color:var(--ink);">{d.viddilennia}</h2>
-            <span class="mono" style="flex-shrink:0; font-size:11px; font-weight:600; color:var(--navy); background:rgba(30,58,95,0.07); padding:5px 9px; border-radius:5px; white-space:nowrap;">{d.ustanovy.length} {plural(d.ustanovy.length, 'установа', 'установи', 'установ')}</span>
+        <div class="div-block">
+          <div class="div-head">
+            <h3 class="div-name">{d.viddilennia}</h3>
+            <span class="div-count mono">{d.ustanovy.length} {plural(d.ustanovy.length, 'установа', 'установи', 'установ')}</span>
           </div>
-          {divDesc[d.viddilennia] && <p style="font-size:14.5px; line-height:1.6; color:var(--ink2); margin:-8px 0 22px; max-width:780px;">{divDesc[d.viddilennia]}</p>}
+          {divDesc[d.viddilennia] && <p class="div-desc">{divDesc[d.viddilennia]}</p>}
 
-          <div class="grid grid--auto-lg" style="gap:18px;">
+          <ul class="inst-grid grid grid--auto-sm" role="list">
             {d.ustanovy.map((it) => (
-              <article style="border:1px solid var(--line); border-radius:12px; overflow:hidden; background:#fff; display:flex; flex-direction:column;">
-                <div style="position:relative; height:84px; background:linear-gradient(150deg,#274059 0%,#16304d 100%); overflow:hidden;" aria-hidden="true">
-                  <div style="position:absolute; inset:0; background-image:repeating-linear-gradient(135deg,rgba(255,255,255,0.05) 0 1px,transparent 1px 10px);"></div>
-                  <svg viewBox="0 0 200 84" preserveAspectRatio="xMidYMid slice" focusable="false" style="position:absolute; inset:0; width:100%; height:100%; opacity:0.5;" fill="none" stroke="#E8C766" stroke-width="1.4" stroke-linecap="round"><path d="M0 64 Q100 44 200 60"/><path d="M0 72 Q100 52 200 68"/><path d="M150 28 V58 M150 38 Q140 36 137 28 M150 38 Q160 36 163 28 M150 47 Q140 45 137 37 M150 47 Q160 45 163 37"/></svg>
-                </div>
-                <div style="padding:0 22px 22px; margin-top:-24px; flex:1; display:flex; flex-direction:column;">
-                  <div style="width:50px; height:50px; border-radius:10px; background:var(--navy); color:#fff; border:3px solid #fff; display:flex; align-items:center; justify-content:center; font-family:var(--serif); font-size:15px; font-weight:600; box-shadow:0 4px 10px rgba(0,0,0,0.1);">{initials(it.nazva)}</div>
-                  <h3 style="font-family:var(--serif); font-size:17px; font-weight:600; color:var(--ink); line-height:1.25; margin-top:14px;">{it.nazva}</h3>
-                  {it.adresa && <p style="font-size:13px; color:var(--ink2); line-height:1.5; margin-top:9px;">{it.adresa}</p>}
-                  <dl style="display:grid; grid-template-columns:repeat(auto-fit,minmax(min(150px,100%),1fr)); gap:12px 18px; margin-top:18px; padding-top:18px; border-top:1px solid var(--line);">
-                    {it.tel && (
-                      <div>
-                        <dt class="mono" style="font-size:9.5px; letter-spacing:0.08em; text-transform:uppercase; color:var(--ink3); margin-bottom:3px;">Тел.</dt>
-                        <dd class="mono" style="margin:0; font-size:12.5px; color:var(--ink);">{it.tel}</dd>
-                      </div>
-                    )}
-                    {it.faks && (
-                      <div>
-                        <dt class="mono" style="font-size:9.5px; letter-spacing:0.08em; text-transform:uppercase; color:var(--ink3); margin-bottom:3px;">Факс</dt>
-                        <dd class="mono" style="margin:0; font-size:12.5px; color:var(--ink2);">{it.faks}</dd>
-                      </div>
-                    )}
-                    {it.email && (
-                      <div style="grid-column:1/-1;">
-                        <dt class="mono" style="font-size:9.5px; letter-spacing:0.08em; text-transform:uppercase; color:var(--ink3); margin-bottom:3px;">Email</dt>
-                        <dd style="margin:0;"><a class="mono" href={`mailto:${it.email}`} style="font-size:12.5px; color:var(--navy);">{it.email}</a></dd>
-                      </div>
-                    )}
-                  </dl>
+              <li>
+                <article class="inst">
+                  <div class="inst__top">
+                    <span class="inst__mono" aria-hidden="true">{initials(it.nazva)}</span>
+                    <h4 class="inst__name">{it.nazva}</h4>
+                  </div>
+                  {it.kerivnyk && <p class="inst__meta"><span class="inst__label mono">Керівник</span>{it.kerivnyk}</p>}
+                  {it.adresa && <p class="inst__meta">{it.adresa}</p>}
+                  {(it.tel || it.email) && (
+                    <dl class="inst__contacts">
+                      {it.tel && (
+                        <div><dt class="inst__label mono">Тел.</dt><dd class="mono">{it.tel}</dd></div>
+                      )}
+                      {it.email && (
+                        <div><dt class="inst__label mono">Email</dt><dd><a class="mono inst__email" href={`mailto:${it.email}`}>{it.email}</a></dd></div>
+                      )}
+                    </dl>
+                  )}
                   {it.web && (
-                    <a href={normalizeWeb(it.web)} target="_blank" rel="noopener" style="margin-top:18px; display:inline-flex; align-items:center; gap:7px; font-size:13px; font-weight:600; color:var(--navy); align-self:flex-start; max-width:100%; min-width:0; overflow-wrap:anywhere;">
+                    <a class="inst__link mono" href={normalizeWeb(it.web)} target="_blank" rel="noopener" aria-label={`Сайт установи ${it.nazva} (відкриється в новій вкладці)`}>
                       {stripProto(it.web)}
-                      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17 17 7M7 7h10v10"/></svg>
+                      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><path d="M7 17 17 7M7 7h10v10"/></svg>
                     </a>
                   )}
-                </div>
-              </article>
+                </article>
+              </li>
             ))}
-          </div>
+          </ul>
         </div>
       ))}
     </div>
   </section>
 </Base>
+
+<style>
+  .div-block { margin-bottom: 44px; }
+  .div-block:last-child { margin-bottom: 0; }
+
+  .div-head {
+    display: flex; align-items: baseline; gap: 14px;
+    border-top: 3px solid var(--navy); padding-top: 14px; margin-bottom: 16px;
+  }
+  .div-name {
+    font-family: var(--serif); font-weight: 600; color: var(--ink);
+    font-size: clamp(19px, 2.2vw, 24px); line-height: 1.2;
+  }
+  .div-count {
+    flex-shrink: 0; font-size: 11px; font-weight: 600; color: var(--navy);
+    background: rgba(30, 58, 95, 0.07); padding: 5px 9px; border-radius: 5px;
+    white-space: nowrap;
+  }
+  .div-desc {
+    font-size: 14.5px; line-height: 1.6; color: var(--ink2);
+    margin: 0 0 22px; max-width: 780px;
+  }
+
+  /* institute directory cards: each item has only a name + website,
+     so the card is intentionally lean — monogram + name + link. */
+  .inst-grid { list-style: none; margin: 0; padding: 0; }
+
+  .inst {
+    height: 100%;
+    display: flex; flex-direction: column;
+    border: 1px solid var(--line); border-radius: 10px;
+    background: #fff; padding: 18px 20px;
+    transition: border-color 160ms ease, box-shadow 160ms ease;
+  }
+  .inst:hover { border-color: var(--navy); box-shadow: 0 6px 18px rgba(30, 58, 95, 0.08); }
+
+  .inst__top { display: flex; align-items: flex-start; gap: 13px; }
+  .inst__mono {
+    flex-shrink: 0; width: 42px; height: 42px; border-radius: 9px;
+    background: var(--navy); color: #fff;
+    display: flex; align-items: center; justify-content: center;
+    font-family: var(--serif); font-size: 14px; font-weight: 600;
+  }
+  .inst__name {
+    font-family: var(--serif); font-size: 16px; font-weight: 600;
+    color: var(--ink); line-height: 1.3; margin: 0;
+  }
+
+  .inst__meta {
+    font-size: 13px; line-height: 1.55; color: var(--ink2); margin: 11px 0 0;
+  }
+  .inst__contacts {
+    display: grid; gap: 10px 18px; margin: 14px 0 0;
+    padding-top: 14px; border-top: 1px solid var(--line);
+  }
+  .inst__contacts dd { margin: 0; font-size: 12.5px; color: var(--ink); }
+  .inst__label {
+    display: block; font-size: 9.5px; letter-spacing: 0.08em;
+    text-transform: uppercase; color: var(--ink3); margin-bottom: 3px;
+  }
+  .inst__email { color: var(--navy); }
+
+  .inst__link {
+    margin-top: auto; padding-top: 16px;
+    display: inline-flex; align-items: center; gap: 7px;
+    align-self: flex-start; max-width: 100%; min-width: 0;
+    font-size: 12.5px; font-weight: 600; color: var(--navy);
+    overflow-wrap: anywhere;
+    transition: gap 160ms ease;
+  }
+  .inst__link svg { flex-shrink: 0; }
+  .inst:hover .inst__link { gap: 11px; }
+  .inst__link:focus-visible {
+    outline: 2px solid var(--navy); outline-offset: 3px; border-radius: 3px;
+  }
+</style>
