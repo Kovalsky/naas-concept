@@ -59,7 +59,7 @@
 .hub-card { display: flex; flex-direction: column; padding: 28px 30px; }
 .hub-ic {
   width: 48px; height: 48px; display: inline-flex; align-items: center; justify-content: center;
-  border-radius: 12px; background: rgba(30,58,95,0.07); color: var(--navy); margin-bottom: 20px;
+  border-radius: 12px; background: rgba(70, 82, 46,0.07); color: var(--navy); margin-bottom: 20px;
   transition: background 180ms ease, color 180ms ease;
 }
 .hub-card:hover .hub-ic { background: var(--navy); color: #fff; }
@@ -75,7 +75,7 @@
 /* photo placeholder (no real photo): subtle navy diagonal hatch + mono label */
 .photo-ph {
   background:
-    repeating-linear-gradient(135deg, rgba(30,58,95,0.05) 0 1px, transparent 1px 11px),
+    repeating-linear-gradient(135deg, rgba(70, 82, 46,0.05) 0 1px, transparent 1px 11px),
     linear-gradient(160deg, #eef1f5, #e3e8ee);
   display: flex; align-items: center; justify-content: center;
   color: var(--ink3);
@@ -89,8 +89,8 @@
   padding: 4px 9px; border: 1px solid var(--line); border-radius: var(--r-pill);
   color: var(--ink2);
 }
-.pill--gold { color: var(--gold-ink); border-color: rgba(184,134,11,0.32); }
-.pill--navy { color: var(--navy); border-color: rgba(30,58,95,0.28); }
+.pill--gold { color: var(--gold-ink); border-color: rgba(176, 90, 52,0.32); }
+.pill--navy { color: var(--navy); border-color: rgba(70, 82, 46,0.28); }
 
 /* ---------- document / external row list ---------- */
 .rows { border: 1px solid var(--line); border-radius: var(--r-card); overflow: hidden; background: #fff; }
@@ -143,7 +143,7 @@
 .prose h2::before { content: ""; display: block; width: 26px; height: 2px; background: var(--gold); margin-bottom: 14px; }
 .prose h3 { font-size: 19px; margin: 28px 0 10px; }
 .prose p { margin: 0 0 15px; }
-.prose a { color: var(--navy); border-bottom: 1px solid rgba(30,58,95,0.3); }
+.prose a { color: var(--navy); border-bottom: 1px solid rgba(70, 82, 46,0.3); }
 .prose a:hover { border-color: var(--navy); }
 .prose ul, .prose ol { margin: 0 0 16px; padding-left: 22px; }
 .prose li { margin-bottom: 7px; }
@@ -153,7 +153,7 @@
 /* ---------- marked placeholder (content still to be supplied) ---------- */
 .placeholder { border: 1px dashed #d6d4ce; border-radius: var(--r-card); background: #fff; padding: 40px 30px; text-align: center; color: var(--ink3); font-size: 15px; line-height: 1.6; }
 .placeholder strong { color: var(--ink2); font-weight: 600; }
-.demo-badge { display: inline-flex; align-items: center; gap: 7px; font-family: var(--mono); font-size: 10px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--gold-ink); border: 1px solid rgba(184,134,11,0.4); border-radius: var(--r-pill); padding: 4px 10px; }
+.demo-badge { display: inline-flex; align-items: center; gap: 7px; font-family: var(--mono); font-size: 10px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--gold-ink); border: 1px solid rgba(176, 90, 52,0.4); border-radius: var(--r-pill); padding: 4px 10px; }
 
 /* ---------- accessibility: visible focus everywhere ---------- */
 :where(a, button, input, textarea, select, [tabindex]):focus-visible {

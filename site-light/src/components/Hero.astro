@@ -32,7 +32,7 @@ const heroImg = photo('d2'); // sunflower field — strongest available placehol
   </div>
 </section>
 <style>
-  .hero { border-bottom: 1px solid var(--line); background: radial-gradient(120% 80% at 90% -10%, rgba(30,58,95,0.07), transparent 56%); }
+  .hero { border-bottom: 1px solid var(--line); background: radial-gradient(120% 80% at 90% -10%, rgba(70, 82, 46,0.07), transparent 56%); }
   .hero-in { display: grid; grid-template-columns: 1.04fr 0.96fr; gap: 46px; padding: 56px 0; align-items: center; }
   .hero-kick { margin-bottom: 0; }
   .hero-h1 { font-weight: 600; font-size: clamp(30px, 3.8vw, 48px); line-height: 1.06; letter-spacing: -0.02em; color: var(--ink); margin-top: 16px; }
@@ -43,8 +43,8 @@ const heroImg = photo('d2'); // sunflower field — strongest available placehol
   .hero-shot { position: relative; border-radius: 18px; overflow: hidden; aspect-ratio: 4/3; border: 1px solid var(--line); }
   /* Decorative photo: desaturate + navy grade so mixed/low-quality stock reads as one intentional brand treatment. */
   .hero-img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; filter: grayscale(0.32) contrast(1.04) brightness(1.02) saturate(1.05); }
-  .hero-ph { background: linear-gradient(150deg, #2c3e54, var(--navy-deep)); filter: none; }
-  .hero-tint { position: absolute; inset: 0; background: linear-gradient(160deg, rgba(30,58,95,0.26) 0%, rgba(14,31,53,0.22) 100%); mix-blend-mode: multiply; }
+  .hero-ph { background: linear-gradient(150deg, #4A5730, var(--navy-deep)); filter: none; }
+  .hero-tint { position: absolute; inset: 0; background: linear-gradient(160deg, rgba(70, 82, 46,0.26) 0%, rgba(14,31,53,0.22) 100%); mix-blend-mode: multiply; }
   .hero-grad { position: absolute; inset: 0; background: linear-gradient(180deg, transparent 55%, rgba(12,28,48,0.45)); }
   .hero-badge { position: absolute; right: 14px; top: 14px; display: inline-flex; align-items: center; gap: 7px; font-size: 11px; color: #fff; background: rgba(12,28,48,0.55); border: 1px solid rgba(255,255,255,0.2); border-radius: var(--r-pill); padding: 6px 12px; }
   .hero-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--gold-light); }
