@@ -137,3 +137,13 @@ export const BRAND = {
   name: 'Національна академія аграрних наук України',
   nameLines: ['Національна академія', 'аграрних наук України'],
 } as const;
+
+// Homepage hero — canonical text (descriptor uses the stakeholder-corrected
+// «державна самоврядна наукова організація»; the old wording is rejected).
+// Shared so every design's banner shows the same official copy.
+export const HOME_HERO = {
+  h1: 'Національна академія аграрних наук України',
+  descriptor: 'Державна самоврядна наукова організація — науково-методичний і координаційний центр з наукових проблем розвитку АПК України.',
+  founded: 'Заснована 1918 року',
+  mission: 'Академія координує фундаментальні та прикладні дослідження в аграрній сфері та впроваджує наукові розробки у виробництво.',
+} as const;

@@ -4,6 +4,7 @@
 import T from './T.astro';
 import { ROUTES } from '../lib/site';
 import { divisionCount } from '../lib/data';
+import { HOME_HERO } from '@content/site';
 const arrow = `<svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9"><path d="M5 12h14M13 5l7 7-7 7"/></svg>`;
 const facts = [
   { n: '1918', k: 'home.factFounded' },
@@ -17,10 +18,10 @@ const facts = [
   <div class="wrap" style="position:relative;">
     <div class="hero-c">
       <div class="kicker kicker--muted" style="margin-bottom:18px;"><T k="home.todayKicker" /></div>
-      <h1 style="font-family:var(--serif); font-weight:600; font-size:clamp(30px,4vw,46px); line-height:1.12; letter-spacing:-0.018em; color:var(--ink); text-wrap:balance;">Національна академія аграрних наук України</h1>
-      <p style="font-family:var(--serif); font-weight:500; font-size:clamp(17px,2vw,21px); line-height:1.42; color:var(--navy); margin:16px auto 0; max-width:720px;">Державна самоврядна наукова організація — науково-методичний і координаційний центр з наукових проблем розвитку АПК України.</p>
-      <div style="display:flex; align-items:center; justify-content:center; gap:13px; margin-top:20px;"><span style="width:36px; height:2px; background:var(--gold);"></span><span style="font-family:var(--serif); font-style:italic; font-size:15px; color:var(--ink2);">Заснована 1918 року</span></div>
-      <p style="font-size:17px; line-height:1.65; color:var(--ink2); margin:20px auto 0; max-width:620px;">Академія координує фундаментальні та прикладні дослідження в аграрній сфері та впроваджує наукові розробки у виробництво.</p>
+      <h1 style="font-family:var(--serif); font-weight:600; font-size:clamp(30px,4vw,46px); line-height:1.12; letter-spacing:-0.018em; color:var(--ink); text-wrap:balance;">{HOME_HERO.h1}</h1>
+      <p style="font-family:var(--serif); font-weight:500; font-size:clamp(17px,2vw,21px); line-height:1.42; color:var(--navy); margin:16px auto 0; max-width:720px;">{HOME_HERO.descriptor}</p>
+      <div style="display:flex; align-items:center; justify-content:center; gap:13px; margin-top:20px;"><span style="width:36px; height:2px; background:var(--gold);"></span><span style="font-family:var(--serif); font-style:italic; font-size:15px; color:var(--ink2);">{HOME_HERO.founded}</span></div>
+      <p style="font-size:17px; line-height:1.65; color:var(--ink2); margin:20px auto 0; max-width:620px;">{HOME_HERO.mission}</p>
       <div style="display:flex; flex-wrap:wrap; justify-content:center; gap:26px; margin-top:26px;">
         <a class="link-underline" href={ROUTES.statute}><T k="home.statuteLink" /> <Fragment set:html={arrow} /></a>
         <a class="link-underline" href={ROUTES.presidium}><T k="home.presidiumLink" /> <Fragment set:html={arrow} /></a>

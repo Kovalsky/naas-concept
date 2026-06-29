@@ -2,7 +2,7 @@
 // Homepage hero — split layout: verbatim name + slogan + real-route links on the left,
 // optimised agrarian photograph on the right. Single design (the V1/V3 variant split is retired).
 import { Image } from 'astro:assets';
-import { HERO_H1, HERO_SLOGAN } from '../config';
+import { HOME_HERO } from '@content/site';
 import { ROUTES } from '../lib/site';
 import { photo } from '../lib/images';
 const arrow = `<svg width="15" height="15" viewBox="0 0 24 24" fill="none" aria-hidden="true" stroke="currentColor" stroke-width="1.9"><path d="M5 12h14M13 5l7 7-7 7"/></svg>`;
@@ -12,8 +12,9 @@ const heroImg = photo('d2'); // sunflower field — strongest available placehol
   <div class="wrap hero-in">
     <div class="hero-text">
       <div class="kicker hero-kick">Засн. 1918 · <span lang="en">National Academy of Agrarian Sciences of Ukraine</span></div>
-      <h1 class="serif hero-h1">{HERO_H1}</h1>
-      <p class="hero-lead">{HERO_SLOGAN}</p>
+      <h1 class="serif hero-h1">{HOME_HERO.h1}</h1>
+      <p class="hero-lead">{HOME_HERO.descriptor}</p>
+      <p class="hero-lead hero-mission">{HOME_HERO.mission}</p>
       <div class="hero-cta">
         <a class="btn" href={ROUTES.today}>НААН сьогодні <Fragment set:html={arrow} /></a>
         <a class="link-arrow" href={ROUTES.structure}>Структура Академії <Fragment set:html={arrow} /></a>
@@ -36,6 +37,7 @@ const heroImg = photo('d2'); // sunflower field — strongest available placehol
   .hero-kick { margin-bottom: 0; }
   .hero-h1 { font-weight: 600; font-size: clamp(30px, 3.8vw, 48px); line-height: 1.06; letter-spacing: -0.02em; color: var(--ink); margin-top: 16px; }
   .hero-lead { font-size: clamp(16px, 1.7vw, 18px); line-height: 1.55; color: var(--ink2); margin-top: 18px; max-width: 44ch; }
+  .hero-mission { font-size: clamp(14px, 1.5vw, 15.5px); margin-top: 12px; color: var(--ink3); }
   .hero-cta { display: flex; align-items: center; gap: 24px; margin-top: 28px; flex-wrap: wrap; }
 
   .hero-shot { position: relative; border-radius: 18px; overflow: hidden; aspect-ratio: 4/3; border: 1px solid var(--line); }
