@@ -19,12 +19,12 @@ const sorted = [...periodicals].sort((a, b) => a.name.localeCompare(b.name, 'uk'
       </div>
 
       <ul class="elib-grid" id="elib-grid">
-        {sorted.map((p) => (
+        {sorted.map((p, i) => (
           <li class="elib-item" data-name={p.name.toLowerCase()}>
-            <a href={p.src} target="_blank" rel="noopener" class="elib-card" aria-label={`${p.name} — відкривається у новій вкладці`}>
-              <svg class="elib-ic" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
-              <span class="elib-name">{p.name}</span>
-              <svg class="elib-arrow" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9"><path d="M7 17 17 7M7 7h10v10"/></svg>
+            <a href={p.src} target="_blank" rel="noopener" class={`jcover jc-${(i % 8) + 1}`} aria-label={`${p.name} — відкривається у новій вкладці`}>
+              <span class="jc-top mono">Періодика</span>
+              <span class="jc-title serif">{p.name}</span>
+              <svg class="jc-arrow" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M7 17 17 7M7 7h10v10"/></svg>
             </a>
           </li>
         ))}
@@ -39,14 +39,24 @@ const sorted = [...periodicals].sort((a, b) => a.name.localeCompare(b.name, 'uk'
   .elib-search:focus-within { border-color: var(--navy); box-shadow: 0 0 0 3px rgba(30, 58, 95, 0.15); }
   .elib-search input { flex: 1; border: none; outline: none; font-size: 16px; background: transparent; }
   .elib-count { font-size: 11.5px; letter-spacing: 0.04em; color: var(--ink3); white-space: nowrap; }
-  .elib-grid { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(min(300px, 100%), 1fr)); gap: 12px; }
-  .elib-card { display: flex; align-items: flex-start; gap: 13px; height: 100%; padding: 16px 18px; border: 1px solid var(--line); border-radius: var(--r-card, 4px); background: #fff; transition: border-color 150ms, box-shadow 150ms; }
-  .elib-card:hover { border-color: var(--navy); box-shadow: 0 6px 18px rgba(30, 58, 95, 0.07); }
-  .elib-card:focus-visible { outline: 2px solid var(--navy); outline-offset: 2px; }
-  .elib-ic { color: var(--navy); flex-shrink: 0; margin-top: 1px; }
-  .elib-name { flex: 1; font-size: 14.5px; font-weight: 600; color: var(--ink); line-height: 1.35; }
-  .elib-arrow { color: var(--ink3); flex-shrink: 0; margin-top: 3px; }
-  .elib-card:hover .elib-arrow { color: var(--navy); }
+  .elib-grid { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(min(168px, 100%), 1fr)); gap: 20px; }
+  /* Journal covers — V3 Hybrid: coloured 3:4 spines, Lora title, hover lift. */
+  .jcover { position: relative; display: flex; flex-direction: column; aspect-ratio: 3/4; padding: 15px 15px 17px; border-radius: var(--r-card); overflow: hidden; color: #fff; box-shadow: 0 4px 14px rgba(20,20,20,0.14); transition: transform 200ms ease, box-shadow 200ms ease; }
+  .jcover::after { content: ""; position: absolute; inset: 0; background: linear-gradient(180deg, rgba(0,0,0,0) 36%, rgba(0,0,0,0.44)); }
+  .jcover:hover { transform: translateY(-3px); box-shadow: 0 14px 30px rgba(20,20,20,0.24); }
+  .jcover:focus-visible { outline: 2px solid var(--gold-light); outline-offset: 2px; }
+  .jc-top { position: relative; z-index: 1; font-size: 9px; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: rgba(255,255,255,0.72); }
+  .jc-title { position: relative; z-index: 1; margin-top: auto; font-size: 14.5px; font-weight: 500; line-height: 1.24; color: #fff; text-wrap: balance; padding-right: 16px; }
+  .jc-arrow { position: absolute; z-index: 1; right: 13px; bottom: 16px; color: rgba(255,255,255,0); transition: color 180ms ease; }
+  .jcover:hover .jc-arrow { color: rgba(255,255,255,0.9); }
+  .jc-1 { background: linear-gradient(168deg, #24507e 0%, #14304f 100%); }
+  .jc-2 { background: linear-gradient(168deg, #6e5a3c 0%, #3a2c16 100%); }
+  .jc-3 { background: linear-gradient(168deg, #4a6e34 0%, #243d18 100%); }
+  .jc-4 { background: linear-gradient(168deg, #7a4049 0%, #3a1820 100%); }
+  .jc-5 { background: linear-gradient(168deg, #565656 0%, #262626 100%); }
+  .jc-6 { background: linear-gradient(168deg, #356073 0%, #18323e 100%); }
+  .jc-7 { background: linear-gradient(168deg, #8a7340 0%, #423318 100%); }
+  .jc-8 { background: linear-gradient(168deg, #5f4a68 0%, #2c1c34 100%); }
   .elib-empty { margin-top: 20px; font-size: 13px; color: var(--ink3); }
 </style>
 <script is:inline>
