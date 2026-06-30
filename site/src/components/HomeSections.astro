@@ -9,6 +9,8 @@ import { anonsy } from '../lib/data';
 import { formatDateUk } from '../lib/format';
 
 const newsItems = (await getCollection('news')).sort((a, b) => (a.data.date < b.data.date ? 1 : -1));
+const featured = newsItems[0];
+const restNews = newsItems.slice(1, 4);
 const arrow = `<svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9"><path d="M5 12h14M13 5l7 7-7 7"/></svg>`;
 
 const resourceCards = [
@@ -37,24 +39,36 @@ const externalLinks = [
   </div>
 </section>
 
-<!-- THREE NEWS FEEDS -->
+<!-- NEWS & ANNOUNCEMENTS -->
 <section class="section section--muted" style="border-top:1px solid var(--line);">
   <div class="wrap">
     <FieldRule />
-    <div class="grid" style="grid-template-columns:repeat(auto-fit,minmax(300px,1fr)); gap:28px;">
-      <div>
-        <div style="display:flex; align-items:baseline; justify-content:space-between; border-top:3px solid var(--navy); padding-top:14px; margin-bottom:14px;">
-          <h2 style="font-family:var(--serif); font-size:22px; font-weight:600; color:var(--ink);"><T k="home.newsTitle" /></h2>
-          <a href={ROUTES.news} style="font-size:13px; font-weight:500; color:var(--navy); border-bottom:1px solid var(--navy); padding-bottom:1px;"><T k="btn.all" /></a>
+    <div class="kicker" style="margin-bottom:8px;"><T k="home.feedKicker" /></div>
+    <h2 class="h2-serif" style="margin-bottom:30px;"><T k="home.feedTitle" /></h2>
+
+    <div class="nf-grid">
+      <!-- Новини: featured lead + compact list -->
+      <div class="nf-col">
+        <div class="nf-head nf-head--news">
+          <h3 class="nf-title"><T k="home.newsTitle" /></h3>
+          <a class="nf-all" href={ROUTES.news}><T k="btn.all" /> <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 12h14M13 5l7 7-7 7"/></svg></a>
         </div>
-        <ul style="list-style:none; margin:0; padding:0;">
-          {newsItems.slice(0, 5).map((n) => (
-            <li style="border-top:1px solid var(--line); padding:12px 0;">
-              <a href={`${ROUTES.news}/${n.data.slug}`} style="display:flex; gap:13px; align-items:flex-start;">
-                <img src={n.data.image} alt="" width="60" height="60" loading="lazy" style="flex-shrink:0; width:60px; height:60px; object-fit:cover; border-radius:6px; border:1px solid var(--line); background:var(--muted);" />
-                <span style="min-width:0;">
-                  <span class="mono" style="display:block; font-size:10px; letter-spacing:0.04em; color:var(--ink3); margin-bottom:4px;">{formatDateUk(n.data.date)} · {n.data.tag}</span>
-                  <span style="display:block; font-size:14px; line-height:1.38; color:var(--ink); font-weight:500;">{n.data.title}</span>
+        {featured && (
+          <a class="nf-feat" href={`${ROUTES.news}/${featured.data.slug}`}>
+            <span class="nf-feat__imgwrap"><img class="nf-feat__img" src={featured.data.image} alt="" width="720" height="405" loading="lazy" /></span>
+            <span class="nf-meta mono">{formatDateUk(featured.data.date)} · {featured.data.tag}</span>
+            <span class="nf-feat__title">{featured.data.title}</span>
+            <span class="nf-feat__teaser">{featured.data.teaser}</span>
+          </a>
+        )}
+        <ul class="nf-list">
+          {restNews.map((n) => (
+            <li>
+              <a class="nf-item" href={`${ROUTES.news}/${n.data.slug}`}>
+                <img class="nf-thumb" src={n.data.image} alt="" width="62" height="62" loading="lazy" />
+                <span class="nf-item__body">
+                  <span class="nf-meta mono">{formatDateUk(n.data.date)} · {n.data.tag}</span>
+                  <span class="nf-item__title">{n.data.title}</span>
                 </span>
               </a>
             </li>
@@ -62,33 +76,37 @@ const externalLinks = [
         </ul>
       </div>
 
-      <div>
-        <div style="display:flex; align-items:baseline; justify-content:space-between; border-top:3px solid var(--ink3); padding-top:14px; margin-bottom:14px;">
-          <h2 style="font-family:var(--serif); font-size:22px; font-weight:600; color:var(--ink);"><T k="home.deptsTitle" /></h2>
+      <!-- Right rail: Анонси + Новини відділень -->
+      <div class="nf-rail">
+        <div class="nf-col">
+          <div class="nf-head nf-head--anons">
+            <h3 class="nf-title"><T k="home.announceTitle" /></h3>
+            <a class="nf-all" href={ROUTES.anonsy}><T k="btn.all" /> <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 12h14M13 5l7 7-7 7"/></svg></a>
+          </div>
+          <ul class="nf-list">
+            {anonsy.map((a) => (
+              <li>
+                <a class="nf-item" href={ROUTES.anonsy}>
+                  <img class="nf-thumb" src={a.image} alt="" width="62" height="62" loading="lazy" />
+                  <span class="nf-item__body">
+                    <span class="nf-meta nf-meta--gold mono">{a.date}</span>
+                    <span class="nf-item__title">{a.title}</span>
+                  </span>
+                </a>
+              </li>
+            ))}
+          </ul>
         </div>
-        <div style="border-top:1px solid var(--line); padding:18px 0;">
-          <div style="border:1px dashed var(--line); border-radius:8px; background:#fff; padding:26px 22px; color:var(--ink3); font-size:13.5px; line-height:1.6;"><T k="home.deptsFeed" /></div>
-        </div>
-      </div>
 
-      <div>
-        <div style="display:flex; align-items:baseline; justify-content:space-between; border-top:3px solid var(--gold); padding-top:14px; margin-bottom:14px;">
-          <h2 style="font-family:var(--serif); font-size:22px; font-weight:600; color:var(--ink);"><T k="home.announceTitle" /></h2>
-          <a href={ROUTES.anonsy} style="font-size:13px; font-weight:500; color:var(--navy); border-bottom:1px solid var(--navy); padding-bottom:1px;"><T k="btn.all" /></a>
+        <div class="nf-col">
+          <div class="nf-head nf-head--depts">
+            <h3 class="nf-title"><T k="home.deptsTitle" /></h3>
+          </div>
+          <div class="nf-empty">
+            <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 2 2 7l10 5 10-5-10-5Z"/><path d="m2 17 10 5 10-5"/><path d="m2 12 10 5 10-5"/></svg>
+            <span><T k="home.deptsFeed" /></span>
+          </div>
         </div>
-        <ul style="list-style:none; margin:0; padding:0;">
-          {anonsy.map((a) => (
-            <li style="border-top:1px solid var(--line); padding:12px 0;">
-              <a href={ROUTES.anonsy} style="display:flex; gap:13px; align-items:flex-start;">
-                <img src={a.image} alt="" width="60" height="60" loading="lazy" style="flex-shrink:0; width:60px; height:60px; object-fit:cover; border-radius:6px; border:1px solid var(--line); background:var(--muted);" />
-                <span style="min-width:0;">
-                  <span class="mono" style="display:block; font-size:10px; letter-spacing:0.04em; color:var(--gold-ink); margin-bottom:4px;">{a.date}</span>
-                  <span style="display:block; font-size:14px; line-height:1.38; color:var(--ink); font-weight:500;">{a.title}</span>
-                </span>
-              </a>
-            </li>
-          ))}
-        </ul>
       </div>
     </div>
   </div>
@@ -117,6 +135,68 @@ const externalLinks = [
     </div>
   </div>
 </section>
+
+<style>
+  /* news + announcements feed */
+  .nf-grid { display: grid; grid-template-columns: 1.7fr 1fr; gap: 30px; align-items: start; }
+  .nf-rail { display: flex; flex-direction: column; gap: 32px; }
+  @media (max-width: 900px) { .nf-grid { grid-template-columns: 1fr; gap: 36px; } }
+
+  .nf-head {
+    display: flex; align-items: center; justify-content: space-between; gap: 12px;
+    border-top: 3px solid var(--navy); padding-top: 13px; margin-bottom: 16px;
+  }
+  .nf-head--anons { border-top-color: var(--gold); }
+  .nf-head--depts { border-top-color: var(--line); }
+  .nf-title { font-family: var(--serif); font-size: 21px; font-weight: 600; color: var(--ink); line-height: 1.2; }
+
+  .nf-all {
+    display: inline-flex; align-items: center; gap: 5px; flex-shrink: 0;
+    font-size: 12.5px; font-weight: 600; color: var(--navy); transition: gap 160ms ease;
+  }
+  .nf-all:hover { gap: 9px; }
+  .nf-all svg { flex-shrink: 0; }
+  .nf-all:focus-visible { outline: 2px solid var(--navy); outline-offset: 3px; border-radius: 3px; }
+
+  .nf-meta { display: block; font-size: 10.5px; letter-spacing: 0.04em; color: var(--ink3); }
+  .nf-meta--gold { color: var(--gold-ink); }
+
+  /* featured lead story */
+  .nf-feat { display: flex; flex-direction: column; gap: 9px; margin-bottom: 4px; }
+  .nf-feat__imgwrap {
+    display: block; border-radius: 10px; overflow: hidden;
+    border: 1px solid var(--line); background: var(--muted); aspect-ratio: 16 / 9;
+  }
+  .nf-feat__img { display: block; width: 100%; height: 100%; object-fit: cover; transition: transform 420ms ease; }
+  .nf-feat:hover .nf-feat__img { transform: scale(1.04); }
+  .nf-feat .nf-meta { margin-top: 4px; }
+  .nf-feat__title { font-family: var(--serif); font-size: 22px; font-weight: 600; color: var(--ink); line-height: 1.28; transition: color 160ms ease; }
+  .nf-feat:hover .nf-feat__title { color: var(--navy); }
+  .nf-feat__teaser { font-size: 14px; line-height: 1.55; color: var(--ink2); }
+  .nf-feat:focus-visible { outline: 2px solid var(--navy); outline-offset: 4px; border-radius: 12px; }
+
+  /* compact list rows */
+  .nf-list { list-style: none; margin: 0; padding: 0; }
+  .nf-item { display: flex; gap: 13px; align-items: flex-start; padding: 13px 0; border-top: 1px solid var(--line); }
+  .nf-thumb {
+    flex-shrink: 0; width: 62px; height: 62px; object-fit: cover;
+    border-radius: 7px; border: 1px solid var(--line); background: var(--muted);
+  }
+  .nf-item__body { min-width: 0; display: flex; flex-direction: column; gap: 5px; }
+  .nf-item__title { font-size: 14px; line-height: 1.4; color: var(--ink); font-weight: 500; transition: color 160ms ease; }
+  .nf-item:hover .nf-item__title { color: var(--navy); }
+  .nf-item:focus-visible { outline: 2px solid var(--navy); outline-offset: 3px; border-radius: 6px; }
+
+  /* "in preparation" empty state */
+  .nf-empty {
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    text-align: center; gap: 12px; min-height: 150px; height: 100%;
+    padding: 28px 22px; border: 1px solid var(--line); border-radius: 10px; background: #fff;
+    color: var(--ink3);
+  }
+  .nf-empty svg { color: var(--ink3); opacity: 0.75; }
+  .nf-empty span { font-size: 13px; line-height: 1.55; max-width: 250px; }
+</style>
 
 <!-- EXTERNAL LINKS -->
 <section class="section section--muted">

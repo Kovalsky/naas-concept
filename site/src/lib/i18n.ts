@@ -50,6 +50,8 @@ export const STRINGS: Record<string, { uk: string; en: string }> = {
     en: 'The research-division news feed is in preparation.',
   },
   'home.announceTitle': { uk: 'Анонси', en: 'Announcements' },
+  'home.feedKicker': { uk: 'Стрічка', en: 'Feed' },
+  'home.feedTitle': { uk: 'Новини та анонси', en: 'News & Announcements' },
   'home.resourcesKicker': { uk: 'Ресурси', en: 'Resources' },
   'home.resourcesTitle': { uk: 'Бібліотека, відео та видання', en: 'Library, Video & Publications' },
   'home.externalKicker': { uk: 'Зовнішні ресурси', en: 'External resources' },
