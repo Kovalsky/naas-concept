@@ -1,19 +1,23 @@
 [
   {
     "name": "Агроекологічний журнал",
-    "src": "http://naas.gov.ua/content/literatura/1024/"
+    "src": "http://naas.gov.ua/content/literatura/1024/",
+    "cover": "/img/journals/1024.png"
   },
   {
     "name": "Агропромислове виробництво Полісся",
-    "src": "http://naas.gov.ua/content/literatura/1033/"
+    "src": "http://naas.gov.ua/content/literatura/1033/",
+    "cover": "/img/journals/1033.png"
   },
   {
     "name": "Агрохімія і ґрунтознавство",
-    "src": "http://naas.gov.ua/content/literatura/1023/"
+    "src": "http://naas.gov.ua/content/literatura/1023/",
+    "cover": "/img/journals/1023.jpg"
   },
   {
     "name": "Асканія-Нова",
-    "src": "http://naas.gov.ua/content/literatura/1054/"
+    "src": "http://naas.gov.ua/content/literatura/1054/",
+    "cover": "/img/journals/1054.jpg"
   },
   {
     "name": "Біоенергетика",
@@ -21,11 +25,13 @@
   },
   {
     "name": "Біологія тварин",
-    "src": "http://naas.gov.ua/content/literatura/1057/"
+    "src": "http://naas.gov.ua/content/literatura/1057/",
+    "cover": "/img/journals/1057.jpg"
   },
   {
     "name": "Бюлетень Інституту сільського господарства степової зони",
-    "src": "http://naas.gov.ua/content/literatura/1037/"
+    "src": "http://naas.gov.ua/content/literatura/1037/",
+    "cover": "/img/journals/1037.png"
   },
   {
     "name": "Ветеринарна біотехнологія",
@@ -33,7 +39,8 @@
   },
   {
     "name": "Вівчарство",
-    "src": "http://naas.gov.ua/content/literatura/1053/"
+    "src": "http://naas.gov.ua/content/literatura/1053/",
+    "cover": "/img/journals/1053.jpg"
   },
   {
     "name": "Вісник аграрної науки",
@@ -41,7 +48,8 @@
   },
   {
     "name": "Вісник Центру наукового забезпечення АПВ Харківської області",
-    "src": "http://naas.gov.ua/content/literatura/1049/"
+    "src": "http://naas.gov.ua/content/literatura/1049/",
+    "cover": "/img/journals/1049.png"
   },
   {
     "name": "Генетичні ресурси рослин",
@@ -49,15 +57,18 @@
   },
   {
     "name": "Глобально-локальні перетворення власності й суспільного розподілу на тлі запровадження безумовного базового доходу",
-    "src": "http://naas.gov.ua/content/literatura/8178/"
+    "src": "http://naas.gov.ua/content/literatura/8178/",
+    "cover": "/img/journals/8178.jpg"
   },
   {
     "name": "До питання методології дослідження права людини на продовольство в сталій агропродовольчій системі",
-    "src": "http://naas.gov.ua/content/literatura/8175/"
+    "src": "http://naas.gov.ua/content/literatura/8175/",
+    "cover": "/img/journals/8175.jpg"
   },
   {
     "name": "Економіка АПК",
-    "src": "http://naas.gov.ua/content/literatura/1060/"
+    "src": "http://naas.gov.ua/content/literatura/1060/",
+    "cover": "/img/journals/1060.png"
   },
   {
     "name": "Економіка: регіональний розвиток та інновації",
@@ -69,15 +80,18 @@
   },
   {
     "name": "Збалансоване природокористування",
-    "src": "http://naas.gov.ua/content/literatura/1025/"
+    "src": "http://naas.gov.ua/content/literatura/1025/",
+    "cover": "/img/journals/1025.jpg"
   },
   {
     "name": "Збірник наукових праць ННЦ \"Інститут землеробства НААН\"",
-    "src": "http://naas.gov.ua/content/literatura/2185/"
+    "src": "http://naas.gov.ua/content/literatura/2185/",
+    "cover": "/img/journals/2185.jpg"
   },
   {
     "name": "Збірник наукових праць Селекційно-генетичного інституту – Національного центру насіннєзнавства та сортовивчення",
-    "src": "http://naas.gov.ua/content/literatura/1036/"
+    "src": "http://naas.gov.ua/content/literatura/1036/",
+    "cover": "/img/journals/1036.png"
   },
   {
     "name": "Землеробство",
@@ -85,7 +99,8 @@
   },
   {
     "name": "Зрошуване землеробство",
-    "src": "http://naas.gov.ua/content/literatura/1035/"
+    "src": "http://naas.gov.ua/content/literatura/1035/",
+    "cover": "/img/journals/1035.jpg"
   },
   {
     "name": "Історія науки і біографістика",
@@ -93,7 +108,8 @@
   },
   {
     "name": "Карантин і захист рослин",
-    "src": "http://naas.gov.ua/content/literatura/1051/"
+    "src": "http://naas.gov.ua/content/literatura/1051/",
+    "cover": "/img/journals/1051.png"
   },
   {
     "name": "Корми і кормовиробництво",
@@ -101,7 +117,8 @@
   },
   {
     "name": "Луб’яні та технічні культури",
-    "src": "http://naas.gov.ua/content/literatura/1064/"
+    "src": "http://naas.gov.ua/content/literatura/1064/",
+    "cover": "/img/journals/1064.jpg"
   },
   {
     "name": "Меліорація і водне господарство",
@@ -109,35 +126,43 @@
   },
   {
     "name": "Міжвідомчий тематичний науковий збірник «Розведення і генетика тварин",
-    "src": "http://naas.gov.ua/content/literatura/4041/"
+    "src": "http://naas.gov.ua/content/literatura/4041/",
+    "cover": "/img/journals/4041.jpg"
   },
   {
     "name": "Модель «належного урядування» як шлях реформування публічної політики в Україні",
-    "src": "http://naas.gov.ua/content/literatura/8176/"
+    "src": "http://naas.gov.ua/content/literatura/8176/",
+    "cover": "/img/journals/8176.jpg"
   },
   {
     "name": "Наука про рослини (агрономія, садівництво, виноградарство)",
-    "src": "http://naas.gov.ua/content/literatura/8250/"
+    "src": "http://naas.gov.ua/content/literatura/8250/",
+    "cover": "/img/journals/8250.jpg"
   },
   {
     "name": "Науково-технічний бюлетень Інституту олійних культур",
-    "src": "http://naas.gov.ua/content/literatura/1045/"
+    "src": "http://naas.gov.ua/content/literatura/1045/",
+    "cover": "/img/journals/1045.jpg"
   },
   {
     "name": "Науково-технічний бюлетень Інституту тваринництва НААН",
-    "src": "http://naas.gov.ua/content/literatura/1055/"
+    "src": "http://naas.gov.ua/content/literatura/1055/",
+    "cover": "/img/journals/1055.jpg"
   },
   {
     "name": "Національна доповідь щодо завершення земельної реформи",
-    "src": "http://naas.gov.ua/content/literatura/2312/"
+    "src": "http://naas.gov.ua/content/literatura/2312/",
+    "cover": "/img/journals/2312.png"
   },
   {
     "name": "Новітні технології",
-    "src": "http://naas.gov.ua/content/literatura/1042/"
+    "src": "http://naas.gov.ua/content/literatura/1042/",
+    "cover": "/img/journals/1042.png"
   },
   {
     "name": "Облік і фінанси",
-    "src": "http://naas.gov.ua/content/literatura/1062/"
+    "src": "http://naas.gov.ua/content/literatura/1062/",
+    "cover": "/img/journals/1062.jpg"
   },
   {
     "name": "Овочівництво і баштанництво",
@@ -145,18 +170,22 @@
   },
   {
     "name": "Ознаки соціальної якості життя воєнного часу в Україні й завдання її повоєнного піднесення",
-    "src": "http://naas.gov.ua/content/literatura/8174/"
+    "src": "http://naas.gov.ua/content/literatura/8174/",
+    "cover": "/img/journals/8174.jpg"
   },
   {
     "name": "Оцінювання ефективності міжнародних інвестицій у діяльність територіальних громад України",
-    "src": "http://naas.gov.ua/content/literatura/8177/"
+    "src": "http://naas.gov.ua/content/literatura/8177/",
+    "cover": "/img/journals/8177.jpg"
   },
   {
     "name": "Продовольчі ресурси",
-    "src": "http://naas.gov.ua/content/literatura/1061/"
+    "src": "http://naas.gov.ua/content/literatura/1061/",
+    "cover": "/img/journals/1061.png"
   },
   {
     "name": "Птахівництво",
-    "src": "http://naas.gov.ua/content/literatura/1056/"
+    "src": "http://naas.gov.ua/content/literatura/1056/",
+    "cover": "/img/journals/1056.jpg"
   }
 ]

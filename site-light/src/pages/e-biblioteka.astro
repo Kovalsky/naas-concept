@@ -19,15 +19,21 @@ const sorted = [...periodicals].sort((a, b) => a.name.localeCompare(b.name, 'uk'
       </div>
 
       <ul class="elib-grid" id="elib-grid">
-        {sorted.map((p, i) => (
+        {sorted.map((p, i) => {
+          const cover = (p as { cover?: string }).cover;
+          return (
           <li class="elib-item" data-name={p.name.toLowerCase()}>
-            <a href={p.src} target="_blank" rel="noopener" class={`jcover jc-${(i % 8) + 1}`} aria-label={`${p.name} — відкривається у новій вкладці`}>
-              <span class="jc-top mono">Періодика</span>
-              <span class="jc-title serif">{p.name}</span>
-              <svg class="jc-arrow" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M7 17 17 7M7 7h10v10"/></svg>
+            <a href={p.src} target="_blank" rel="noopener" class="jbook" aria-label={`${p.name} — відкривається у новій вкладці`}>
+              <span class={`jbook-cover${cover ? '' : ` jc-${(i % 8) + 1}`}`}>
+                {cover
+                  ? <img class="jbook-img" src={cover} alt={`Обкладинка: ${p.name}`} loading="lazy" decoding="async" />
+                  : <span class="jbook-ph mono" aria-hidden="true">Періодика</span>}
+              </span>
+              <span class="jbook-name serif">{p.name}</span>
             </a>
           </li>
-        ))}
+          );
+        })}
       </ul>
       <p id="elib-empty" class="elib-empty mono" role="status" aria-live="polite" hidden>Видань за цим запитом не знайдено.</p>
     </div>
@@ -39,16 +45,16 @@ const sorted = [...periodicals].sort((a, b) => a.name.localeCompare(b.name, 'uk'
   .elib-search:focus-within { border-color: var(--navy); box-shadow: 0 0 0 3px rgba(30, 58, 95, 0.15); }
   .elib-search input { flex: 1; border: none; outline: none; font-size: 16px; background: transparent; }
   .elib-count { font-size: 11.5px; letter-spacing: 0.04em; color: var(--ink3); white-space: nowrap; }
-  .elib-grid { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(min(168px, 100%), 1fr)); gap: 20px; }
-  /* Journal covers — V3 Hybrid: coloured 3:4 spines, Lora title, hover lift. */
-  .jcover { position: relative; display: flex; flex-direction: column; aspect-ratio: 3/4; padding: 15px 15px 17px; border-radius: var(--r-card); overflow: hidden; color: #fff; box-shadow: 0 4px 14px rgba(20,20,20,0.14); transition: transform 200ms ease, box-shadow 200ms ease; }
-  .jcover::after { content: ""; position: absolute; inset: 0; background: linear-gradient(180deg, rgba(0,0,0,0) 36%, rgba(0,0,0,0.44)); }
-  .jcover:hover { transform: translateY(-3px); box-shadow: 0 14px 30px rgba(20,20,20,0.24); }
-  .jcover:focus-visible { outline: 2px solid var(--gold-light); outline-offset: 2px; }
-  .jc-top { position: relative; z-index: 1; font-size: 9px; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: rgba(255,255,255,0.72); }
-  .jc-title { position: relative; z-index: 1; margin-top: auto; font-size: 14.5px; font-weight: 500; line-height: 1.24; color: #fff; text-wrap: balance; padding-right: 16px; }
-  .jc-arrow { position: absolute; z-index: 1; right: 13px; bottom: 16px; color: rgba(255,255,255,0); transition: color 180ms ease; }
-  .jcover:hover .jc-arrow { color: rgba(255,255,255,0.9); }
+  .elib-grid { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(min(158px, 100%), 1fr)); gap: 26px 20px; }
+  /* Journal covers — real cover scans from the old site; gradient spine fallback for the 11 without one. */
+  .jbook { display: flex; flex-direction: column; }
+  .jbook-cover { position: relative; aspect-ratio: 3/4; border-radius: var(--r-card); overflow: hidden; background: var(--muted2); box-shadow: 0 4px 14px rgba(20,20,20,0.13); transition: transform 200ms ease, box-shadow 200ms ease; }
+  .jbook:hover .jbook-cover { transform: translateY(-3px); box-shadow: 0 14px 30px rgba(20,20,20,0.22); }
+  .jbook:focus-visible { outline: 2px solid var(--navy); outline-offset: 3px; border-radius: 4px; }
+  .jbook-img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+  .jbook-ph { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; font-size: 10px; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: rgba(255,255,255,0.82); }
+  .jbook-name { margin-top: 11px; font-size: 13px; font-weight: 500; line-height: 1.32; color: var(--ink); letter-spacing: -0.005em; }
+  .jbook:hover .jbook-name { color: var(--navy); }
   .jc-1 { background: linear-gradient(168deg, #24507e 0%, #14304f 100%); }
   .jc-2 { background: linear-gradient(168deg, #6e5a3c 0%, #3a2c16 100%); }
   .jc-3 { background: linear-gradient(168deg, #4a6e34 0%, #243d18 100%); }
