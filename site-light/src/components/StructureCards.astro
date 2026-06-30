@@ -56,9 +56,9 @@ const divPhoto = (name: string): string | undefined => {
   .struct-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
   .dcard { display: flex; flex-direction: column; overflow: hidden; }
   .dcard-ph { position: relative; height: 200px; background: var(--muted2); }
-  .dcard-img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: block; }
+  .dcard-img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: center 42%; display: block; }
   /* Bright agrarian photo in full colour — the warmth that sets Light apart (gravitas greys/navy-tints these). */
-  img.dcard-img { filter: saturate(1.08) contrast(1.03); }
+  img.dcard-img { filter: saturate(1.05) contrast(1.02); }
   .dcard-graphic { display: flex; background: linear-gradient(150deg, #2f4a6e, var(--navy)); }
   .dcard-b { display: flex; flex-direction: column; flex: 1; padding: 24px 26px 26px; }
   .dcard-eyebrow { color: var(--ink3); margin-bottom: 10px; }
