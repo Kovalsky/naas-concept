@@ -3,6 +3,8 @@ import Base from '../layouts/Base.astro';
 import Hero from '../components/Hero.astro';
 import { divisions, divisionCount, instituteCount, initials } from '../lib/data';
 import { ROUTES } from '../lib/site';
+import { page } from '@content/pageContent';
+const { meta, hero } = page('/struktura');
 
 // One-line description per division (keyed by exact viddilennia name).
 const divDesc: Record<string, string> = {
@@ -26,11 +28,11 @@ const plural = (n: number, one: string, few: string, many: string) => {
   return many;
 };
 ---
-<Base title="Структура Академії">
+<Base title={meta.title} description={meta.description}>
   <Hero
-    kicker="Структура Академії"
-    title="Структура Академії"
-    lead={`${divisionCount} наукових відділень Академії та підпорядковані їм наукові установи, підприємства й організації.`}
+    kicker={hero!.kicker}
+    title={hero!.title}
+    lead={hero!.lead}
   />
 
   <!-- Частина 1: керівний апарат -->

@@ -1,0 +1,45 @@
+---
+import Base from '../../layouts/Base.astro';
+import PageHero from '../../components/PageHero.astro';
+import RegistryList from '../../components/RegistryList.astro';
+import { ROUTES, EXTERNAL } from '../../lib/site';
+import { byRoute, LEADS } from '../../lib/registries';
+import { page } from '@content/pageContent';
+
+const registry = byRoute('/prozorist/tendery');
+const { meta, hero } = page('/prozorist/tendery');
+---
+<Base title={meta.title} description={meta.description}>
+  <PageHero
+    title={hero!.title}
+    kicker={hero!.kicker}
+    crumbs={hero!.crumbs}
+    lead={hero!.lead}
+  />
+  <section class="section section--white">
+    <div class="wrap">
+      {registry
+        ? <RegistryList registry={registry} lead={LEADS['/prozorist/tendery']} />
+        : <p class="lead">Документи у процесі наповнення.</p>}
+      <p class="proz-note">
+        Поточні та завершені закупівлі Академії доступні у системі публічних закупівель
+        <a href={EXTERNAL.prozorro} target="_blank" rel="noopener" class="link-arrow proz-note-link">
+          Prozorro
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M7 17 17 7M7 7h10v10"/></svg>
+        </a>
+      </p>
+    </div>
+  </section>
+</Base>
+<style>
+  .proz-note {
+    margin-top: 26px;
+    font-size: 14px;
+    color: var(--ink2);
+    line-height: 1.6;
+  }
+  .proz-note-link {
+    margin-left: 6px;
+    vertical-align: baseline;
+  }
+</style>

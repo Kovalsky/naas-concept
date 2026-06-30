@@ -1,0 +1,33 @@
+---
+import Base from '../../layouts/Base.astro';
+import PageHero from '../../components/PageHero.astro';
+import { page } from '@content/pageContent';
+import { PROZORIST_CARDS as cards } from '@content/prozoristCards';
+
+const { meta, hero } = page('/prozorist');
+---
+<Base title={meta.title} description={meta.description}>
+  <PageHero
+    title={hero!.title}
+    kicker={hero!.kicker}
+    lead={hero!.lead}
+  />
+  <section class="section section--white">
+    <div class="wrap">
+      <div class="hub-grid">
+        {cards.map((c) => (
+          <a class="card card-lift hub-card" href={c.href} {...(c.external ? { target: '_blank', rel: 'noopener' } : {})}>
+            <span class="hub-ic">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" set:html={c.icon} />
+            </span>
+            <span class="hub-card-title serif">{c.title}</span>
+            <span class="hub-card-desc">{c.desc}</span>
+            <span class="hub-card-foot">
+              <span class="hub-card-go">Перейти <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 12h14M13 5l7 7-7 7"/></svg></span>
+            </span>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+</Base>

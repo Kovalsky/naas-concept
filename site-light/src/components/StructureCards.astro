@@ -1,0 +1,74 @@
+---
+import { Image } from 'astro:assets';
+import { divisions } from '../lib/data';
+import { ROUTES } from '../lib/site';
+import { photo } from '../lib/images';
+import { plural } from '@content/plural';
+const arrow = `<svg width="14" height="14" viewBox="0 0 24 24" fill="none" aria-hidden="true" stroke="currentColor" stroke-width="1.9"><path d="M5 12h14M13 5l7 7-7 7"/></svg>`;
+const pad2 = (n: number) => String(n).padStart(2, '0');
+const instWord = (n: number) => plural(n, 'установа', 'установи', 'установ');
+const shortName = (s: string) => { const t = s.replace(/^Відділення\s+/i, ''); return t.charAt(0).toUpperCase() + t.slice(1); };
+// Map a division to its photograph by topic (data order is not fixed). Innovation has no photo → navy graphic.
+const divPhoto = (name: string): string | undefined => {
+  const n = name.toLowerCase();
+  if (/землероб|меліора|механіза/.test(n)) return 'd1';
+  if (/рослинн/.test(n)) return 'd2';
+  if (/зоотехн/.test(n)) return 'd3';
+  if (/ветеринар/.test(n)) return 'd4';
+  if (/економік|продовол/.test(n)) return 'd5';
+  return undefined;
+};
+---
+<section class="section section--muted" aria-labelledby="struct-h">
+  <div class="wrap">
+    <div class="sect-head">
+      <div class="col">
+        <div class="kicker" style="margin-bottom:10px;">Структура · <span lang="en">Research divisions</span></div>
+        <h2 id="struct-h" class="h2">Структура Академії</h2>
+      </div>
+      <a class="link-arrow only-desktop" href={ROUTES.structure}>Уся структура <Fragment set:html={arrow} /></a>
+    </div>
+
+    <div class="struct-grid">
+      {divisions.map((d, i) => {
+        const ph = photo(divPhoto(d.viddilennia));
+        return (
+          <a class="card card-lift dcard" href={ROUTES.structure}>
+            <div class="dcard-ph">
+              {ph
+                ? <Image class="dcard-img" src={ph} alt="" widths={[300, 440, 640]} sizes="(max-width:560px) 100vw, (max-width:900px) 50vw, 33vw" format="webp" loading="lazy" decoding="async" />
+                : <span class="dcard-img dcard-graphic" aria-hidden="true">
+                    <svg viewBox="0 0 400 160" preserveAspectRatio="xMidYMid slice"><g fill="none" stroke="#fff" stroke-width="2" opacity="0.5"><circle cx="130" cy="78" r="5"/><circle cx="280" cy="56" r="5"/><circle cx="210" cy="110" r="5"/><path d="M130 78 L210 110 L280 56M130 78 L280 56"/></g></svg>
+                  </span>}
+              {ph && <span class="dcard-tint" aria-hidden="true"></span>}
+              <span class="dcard-grad" aria-hidden="true"></span>
+              <span class="mono dcard-no">ВІДДІЛЕННЯ {pad2(i + 1)}</span>
+            </div>
+            <div class="dcard-b">
+              <h3 class="serif dcard-name">{shortName(d.viddilennia)}</h3>
+              <span class="dcard-link">{d.ustanovy.length} {instWord(d.ustanovy.length)} <Fragment set:html={arrow} /></span>
+            </div>
+          </a>
+        );
+      })}
+    </div>
+  </div>
+</section>
+<style>
+  .struct-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
+  .dcard { display: flex; flex-direction: column; overflow: hidden; }
+  .dcard-ph { position: relative; height: 140px; }
+  .dcard-img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: block; }
+  /* Navy grade only on real photos (not the navy graphic) so mixed stock reads as one brand treatment. */
+  img.dcard-img { filter: grayscale(0.34) contrast(1.04) brightness(1.01) saturate(1.05); }
+  .dcard-graphic { background: linear-gradient(150deg, #274c78, var(--navy-deep)); }
+  .dcard-tint { position: absolute; inset: 0; background: linear-gradient(160deg, rgba(30,58,95,0.26) 0%, rgba(14,31,53,0.22) 100%); mix-blend-mode: multiply; }
+  .dcard-grad { position: absolute; inset: 0; background: linear-gradient(180deg, transparent 42%, rgba(12,28,48,0.4)); }
+  .dcard-no { position: absolute; left: 16px; bottom: 12px; font-size: 10px; letter-spacing: 0.14em; color: #fff; }
+  .dcard-b { display: flex; flex-direction: column; flex: 1; padding: 16px 20px 18px; }
+  .dcard-name { flex: 1; font-size: 18px; font-weight: 500; line-height: 1.26; color: var(--ink); letter-spacing: -0.01em; }
+  .dcard-link { display: inline-flex; align-items: center; gap: 7px; margin-top: 14px; font-family: var(--mono); font-size: 11.5px; color: var(--navy); transition: gap 160ms ease; }
+  .dcard:hover .dcard-link { gap: 11px; }
+  @media (max-width: 900px) { .struct-grid { grid-template-columns: 1fr 1fr; } }
+  @media (max-width: 560px) { .struct-grid { grid-template-columns: 1fr; } }
+</style>

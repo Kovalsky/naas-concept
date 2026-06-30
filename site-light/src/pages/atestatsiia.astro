@@ -1,0 +1,70 @@
+---
+import Base from '../layouts/Base.astro';
+import PageHero from '../components/PageHero.astro';
+import RegistryList from '../components/RegistryList.astro';
+import { byRoute, LEADS } from '../lib/registries';
+import { t } from '../lib/i18n';
+
+const registry = byRoute('/atestatsiia');
+
+// The four TZ sub-blocks of «Атестація та підготовка кадрів».
+const tiles = [
+  { n: '01', t: 'Підготовка наукових кадрів', sub: 'Аспірантура / Докторантура', d: 'Підготовка наукових кадрів через аспірантуру та докторантуру: програми, ліцензії та правила прийому.' },
+  { n: '02', t: 'Атестація наукових кадрів', sub: 'Спеціалізовані вчені ради', d: 'Атестація наукових кадрів через спеціалізовані вчені ради та захисти дисертацій.' },
+  { n: '03', t: 'Наукові видання НААН', sub: 'Фахові журнали', d: 'Фахові наукові видання Академії та вимоги до публікацій.' },
+  { n: '04', t: 'Державна атестація та акредитація', sub: 'Кваліфікаційні групи', d: 'Державна атестація та акредитація наукових установ.' },
+];
+---
+<Base title="Атестація та підготовка кадрів">
+  <PageHero
+    title={t('atest.title')}
+    kicker={t('atest.kicker')}
+    lead={t('atest.lead')}
+  />
+
+  <section class="section section--white">
+    <div class="wrap">
+      <div class="att-grid">
+        {tiles.map((t) => (
+          <div class="att">
+            <span class="mono att-n">{t.n}</span>
+            <span class="att-x">
+              <span class="serif att-t">{t.t}</span>
+              <span class="mono att-sub">{t.sub}</span>
+              <span class="att-d">{t.d}</span>
+            </span>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--muted">
+    <div class="wrap">
+      <div class="sect-head">
+        <div class="col">
+          <div class="kicker" style="margin-bottom:10px;">Документи</div>
+          <h2 class="h2">Документи з атестації та підготовки кадрів</h2>
+        </div>
+      </div>
+      {registry
+        ? <RegistryList registry={registry} lead={LEADS['/atestatsiia']} />
+        : <p class="lead">Документи у процесі наповнення.</p>}
+    </div>
+  </section>
+</Base>
+
+<style>
+  .att-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  .att {
+    display: flex; gap: 16px; background: #fff;
+    border: 1px solid var(--line); border-left: 3px solid var(--navy);
+    border-radius: var(--r-card); padding: 22px 24px;
+  }
+  .att-n { flex-shrink: 0; font-size: 18px; font-weight: 600; color: var(--gold-ink); line-height: 1.1; }
+  .att-x { min-width: 0; }
+  .att-t { display: block; font-size: 18px; font-weight: 500; line-height: 1.25; color: var(--ink); }
+  .att-sub { display: block; margin-top: 4px; font-size: 10.5px; letter-spacing: 0.06em; text-transform: uppercase; color: var(--ink3); }
+  .att-d { display: block; margin-top: 10px; font-size: 13.5px; line-height: 1.55; color: var(--ink2); }
+  @media (max-width: 767px) { .att-grid { grid-template-columns: 1fr; } }
+</style>

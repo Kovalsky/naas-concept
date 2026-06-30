@@ -2,9 +2,11 @@
 import Base from '../layouts/Base.astro';
 import Hero from '../components/Hero.astro';
 import { anonsy } from '../lib/data';
+import { page } from '@content/pageContent';
+const { meta, hero } = page('/anonsy');
 ---
-<Base title="Анонси">
-  <Hero kicker="Анонси" title="Анонси" lead="Анонси наукових заходів, семінарів та видань НААН." />
+<Base title={meta.title} description={meta.description}>
+  <Hero kicker={hero!.kicker} title={hero!.title} lead={hero!.lead} />
   <section class="section section--white">
     <div class="wrap">
       <div class="grid grid--auto">

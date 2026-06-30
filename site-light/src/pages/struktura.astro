@@ -1,0 +1,141 @@
+---
+import Base from '../layouts/Base.astro';
+import { Image } from 'astro:assets';
+import PageHero from '../components/PageHero.astro';
+import { divisions } from '../lib/data';
+import { photo } from '../lib/images';
+import { ROUTES } from '../lib/site';
+import { page } from '@content/pageContent';
+import { plural } from '@content/plural';
+const { meta, hero } = page('/struktura');
+
+const normalizeWeb = (w: string) => (w.startsWith('http') ? w : `http://${w}`);
+const stripProto = (w: string) => w.replace(/^https?:\/\//, '').replace(/\/$/, '');
+const countWord = (n: number) => plural(n, 'установа', 'установи', 'установ');
+// Same topic→photo mapping as the homepage division cards, so Структура reads as one system.
+const divPhoto = (name: string): string | undefined => {
+  const n = name.toLowerCase();
+  if (/землероб|меліора|механіза/.test(n)) return 'd1';
+  if (/рослинн/.test(n)) return 'd2';
+  if (/зоотехн/.test(n)) return 'd3';
+  if (/ветеринар/.test(n)) return 'd4';
+  if (/економік|продовол/.test(n)) return 'd5';
+  return undefined;
+};
+---
+<Base title={meta.title} description={meta.description}>
+  <PageHero
+    title={hero!.title}
+    kicker={hero!.kicker}
+    lead={hero!.lead}
+  />
+
+  <section class="section section--muted" style="padding-top:40px; padding-bottom:40px;">
+    <div class="wrap">
+      <div style="border:1px solid var(--line); border-left:4px solid var(--navy); border-radius:var(--r-card,12px); padding:26px 28px; background:#fff; max-width:760px;">
+        <h2 class="serif" style="font-size:clamp(20px,2.4vw,26px); font-weight:600; color:var(--ink); margin-bottom:10px;">Структура апарату Президії НААН</h2>
+        <p style="font-size:15.5px; line-height:1.65; color:var(--ink2);">Вищим керівним органом Академії є Загальні збори. У період між ними діяльністю керує Президія на чолі з президентом, а поточну роботу забезпечує її апарат.</p>
+        <a href={ROUTES.presidium} style="margin-top:16px; display:inline-flex; align-items:center; gap:7px; font-weight:600; color:var(--navy);">Склад Президії НААН
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  {divisions.map((d, i) => {
+    const ph = photo(divPhoto(d.viddilennia));
+    return (
+      <section id={'v' + (i + 1)} class={`section ${i % 2 === 0 ? 'section--white' : 'section--muted'}`}>
+        <div class="wrap">
+          <div class="sect-head div-head">
+            <div class="dh-left">
+              {ph
+                ? <Image class="dh-photo" src={ph} alt="" widths={[72, 144]} sizes="72px" format="webp" loading="lazy" decoding="async" />
+                : <span class="dh-photo dh-graphic" aria-hidden="true"></span>}
+              <div class="col">
+                <div class="kicker" style="margin-bottom:9px;">Наукове відділення</div>
+                <h2 class="h2">{d.viddilennia}</h2>
+              </div>
+            </div>
+            <span class="mono div-count">{d.ustanovy.length} {countWord(d.ustanovy.length)}</span>
+          </div>
+
+          <div class="inst-grid">
+            {d.ustanovy.map((it) => (
+              <article class="card card-lift inst">
+                <h3 class="serif inst-name">{it.nazva}</h3>
+                {(it.adresa || it.web || it.email || it.tel || it.faks) && (
+                  <div class="inst-fields">
+                    {it.adresa && (
+                      <p class="inst-row">
+                        <span class="mono inst-label">Адреса</span>
+                        <span class="inst-val">{it.adresa}</span>
+                      </p>
+                    )}
+                    {it.web && (
+                      <p class="inst-row">
+                        <span class="mono inst-label">Сайт</span>
+                        <a class="inst-link" href={normalizeWeb(it.web)} target="_blank" rel="noopener">{stripProto(it.web)}</a>
+                      </p>
+                    )}
+                    {it.email && (
+                      <p class="inst-row">
+                        <span class="mono inst-label">Email</span>
+                        <a class="inst-link" href={`mailto:${it.email}`}>{it.email}</a>
+                      </p>
+                    )}
+                    {it.tel && (
+                      <p class="inst-row">
+                        <span class="mono inst-label">Тел.</span>
+                        <span class="mono inst-val">{it.tel}</span>
+                      </p>
+                    )}
+                    {it.faks && (
+                      <p class="inst-row">
+                        <span class="mono inst-label">Факс</span>
+                        <span class="mono inst-val">{it.faks}</span>
+                      </p>
+                    )}
+                  </div>
+                )}
+              </article>
+            ))}
+          </div>
+        </div>
+      </section>
+    );
+  })}
+</Base>
+
+<style>
+  .div-head { align-items: center; }
+  .dh-left { display: flex; align-items: center; gap: 18px; min-width: 0; }
+  .dh-photo { width: 70px; height: 70px; border-radius: var(--r-card); object-fit: cover; object-position: center; flex-shrink: 0; }
+  img.dh-photo { filter: grayscale(0.34) contrast(1.04) brightness(1.01) saturate(1.05); }
+  .dh-graphic { background: linear-gradient(150deg, #274c78, var(--navy-deep)); }
+  .div-count {
+    flex-shrink: 0; align-self: center;
+    font-size: 11.5px; font-weight: 600; color: var(--navy);
+    background: rgba(30, 58, 95, 0.07); padding: 6px 11px; border-radius: var(--r-pill);
+    white-space: nowrap;
+  }
+  .inst-grid {
+    display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 16px;
+  }
+  .inst { padding: 22px 24px; display: flex; flex-direction: column; }
+  .inst-name { font-size: 16px; font-weight: 500; line-height: 1.3; color: var(--ink); }
+  .inst-fields { margin-top: 14px; padding-top: 14px; border-top: 1px solid var(--line); }
+  .inst-row { display: flex; gap: 12px; margin: 0; padding: 5px 0; }
+  .inst-label {
+    flex-shrink: 0; width: 50px; padding-top: 2px;
+    font-size: 9.5px; letter-spacing: 0.06em; text-transform: uppercase; color: var(--ink3);
+  }
+  .inst-val { min-width: 0; font-size: 13px; line-height: 1.5; color: var(--ink2); overflow-wrap: anywhere; }
+  .inst-val.mono { font-size: 12.5px; color: var(--ink); }
+  .inst-link { min-width: 0; font-size: 13px; line-height: 1.5; color: var(--navy); overflow-wrap: anywhere; }
+  @media (max-width: 540px) {
+    .inst-grid { grid-template-columns: 1fr; }
+    .dh-photo { width: 56px; height: 56px; }
+    .dh-left { gap: 14px; }
+  }
+</style>

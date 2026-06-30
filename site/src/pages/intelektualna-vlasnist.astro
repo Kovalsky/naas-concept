@@ -1,7 +1,8 @@
 ---
 import Base from '../layouts/Base.astro';
 import Hero from '../components/Hero.astro';
-import raw from '../data/pages/intelektualna-vlasnist.md?raw';
+import raw from '@content/pages/intelektualna-vlasnist.md?raw';
+import { page } from '@content/pageContent';
 
 // Render only the intro bullet list (the named subsections), which sits
 // between the H1 and the first `##` block. Everything after that first
@@ -19,9 +20,10 @@ const hrefFor = (s: string): string | undefined => {
   if (/виставк/i.test(s)) return '/intelektualna-vlasnist/vystavka';
   return undefined;
 };
+const { meta, hero } = page('/intelektualna-vlasnist');
 ---
-<Base title="Інтелектуальна власність">
-  <Hero kicker="Інтелектуальна власність" title="Інтелектуальна власність" lead="Об'єкти права інтелектуальної власності Академії, нормативна база, віртуальна виставка інноваційних розробок та новини." />
+<Base title={meta.title} description={meta.description}>
+  <Hero kicker={hero!.kicker} title={hero!.title} lead={hero!.lead} />
   <section class="section section--white">
     <div class="wrap">
       <div class="kicker kicker--muted" style="margin-bottom:16px;">Розділи</div>

@@ -1,0 +1,44 @@
+---
+import { ROUTES } from '../lib/site';
+const tiles = [
+  { n: '01', t: 'Підготовка наукових кадрів', sub: 'Аспірантура / Докторантура', d: 'Підготовка наукових кадрів через аспірантуру та докторантуру: програми, ліцензії та правила прийому.' },
+  { n: '02', t: 'Атестація наукових кадрів', sub: 'Спеціалізовані вчені ради', d: 'Атестація наукових кадрів через спеціалізовані вчені ради та захисти дисертацій.' },
+  { n: '03', t: 'Наукові видання НААН', sub: 'Фахові журнали', d: 'Фахові наукові видання Академії та вимоги до публікацій.' },
+  { n: '04', t: 'Державна атестація та акредитація', sub: 'Кваліфікаційні групи', d: 'Державна атестація та акредитація наукових установ.' },
+];
+const arrow = `<svg width="15" height="15" viewBox="0 0 24 24" fill="none" aria-hidden="true" stroke="currentColor" stroke-width="1.9"><path d="M5 12h14M13 5l7 7-7 7"/></svg>`;
+---
+<section class="section section--muted" aria-labelledby="att-h">
+  <div class="wrap">
+    <div class="sect-head">
+      <div class="col">
+        <div class="kicker" style="margin-bottom:10px;">Атестація · <span lang="en">Training &amp; certification</span></div>
+        <h2 id="att-h" class="h2">Атестація та підготовка кадрів</h2>
+      </div>
+      <a class="link-arrow only-desktop" href={ROUTES.training}>Усі документи <Fragment set:html={arrow} /></a>
+    </div>
+    <div class="att-grid">
+      {tiles.map((t) => (
+        <a class="att" href={ROUTES.training}>
+          <span class="mono att-n">{t.n}</span>
+          <span class="att-x">
+            <span class="serif att-t">{t.t}</span>
+            <span class="mono att-sub">{t.sub}</span>
+            <span class="att-d">{t.d}</span>
+          </span>
+        </a>
+      ))}
+    </div>
+  </div>
+</section>
+<style>
+  .att-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  .att { display: flex; gap: 16px; background: #fff; border: 1px solid var(--line); border-left: 3px solid var(--navy); border-radius: var(--r-card); padding: 22px 24px; transition: border-color 200ms ease, transform 200ms ease; }
+  .att:hover { transform: translateY(-2px); border-color: #c4c4c4; border-left-color: var(--navy); }
+  .att-n { flex-shrink: 0; font-size: 18px; font-weight: 600; color: var(--gold-ink); line-height: 1.1; }
+  .att-x { min-width: 0; }
+  .att-t { display: block; font-size: 18px; font-weight: 500; line-height: 1.25; color: var(--ink); }
+  .att-sub { display: block; margin-top: 4px; font-size: 10.5px; letter-spacing: 0.06em; text-transform: uppercase; color: var(--ink3); }
+  .att-d { display: block; margin-top: 10px; font-size: 13.5px; line-height: 1.55; color: var(--ink2); }
+  @media (max-width: 767px) { .att-grid { grid-template-columns: 1fr; } }
+</style>

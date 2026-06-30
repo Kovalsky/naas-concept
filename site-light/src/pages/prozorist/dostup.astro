@@ -1,0 +1,13 @@
+---
+import DocPage from '../../components/DocPage.astro';
+import { ROUTES } from '../../lib/site';
+import { page } from '@content/pageContent';
+const { meta, hero } = page('/prozorist/dostup');
+---
+<DocPage
+  pageId="dostup-publichna"
+  title={meta.title}
+  kicker={hero!.kicker}
+  crumbs={hero!.crumbs}
+  lead={hero!.lead}
+/>

@@ -1,0 +1,122 @@
+/* ============================================================
+   NAAS Light Portal — Design tokens (canonical reference layer)
+   Design language: "Наукова ясність" / Scientific Clarity
+   ------------------------------------------------------------
+   The LIVE primitives below mirror ../src/styles/tokens.css
+   char-for-char. Unlike the gravitas build, light's primitives
+   are ALREADY imported and live — this file does NOT replace
+   them. Its job is to (a) document the live set and (b) add the
+   ADDITIVE scale tokens (semantic aliases, promoted off-token
+   colours, spacing / elevation / z-index / motion / type scales)
+   that MASTER.md references but that are not yet in the live file.
+
+   ⚠️ NOT IMPORTED. Reference / adoption target only. Wiring it in
+   is a visual no-op: the additive variables are unused until a
+   component references them. See MASTER.md §10.
+   ============================================================ */
+
+:root {
+  /* ---------- LIVE primitives (verbatim from src/styles/tokens.css) ---------- */
+  /* brand */
+  --navy:#1E3A5F; --navy-d:#142844; --navy-deep:#0E1F35;
+  --gold:#B8860B; --gold-light:#E7C879; /* gold-light: legible gold on navy (~10:1) */
+  --gold-ink:#8A6508;                   /* AA gold for small text on light (~5:1) */
+  /* ink + neutrals */
+  --ink:#0A0A0A; --ink2:#525252; --ink3:#6B6B6B;
+  --line:#E5E5E5; --line2:#ECEBE7; --canvas:#FFFFFF; --muted:#F8F9FA; --muted2:#F2F1EC;
+  /* type */
+  --serif:'Lora',Georgia,serif;
+  --sans:'Inter',system-ui,-apple-system,'Segoe UI',sans-serif;
+  --mono:'JetBrains Mono',ui-monospace,monospace;
+  /* layout */
+  --wrap:1320px; --gutter:32px;         /* --gutter drops to 18px under 768px (live @media) */
+  --r-card:8px; --r-btn:4px; --r-pill:999px;
+
+  /* ---------- ADDITIVE: surface / white ---------- */
+  --surface:#FFFFFF;        /* #fff appears literally 21× (Header, Footer, cards, etc.) — name it */
+
+  /* ---------- ADDITIVE: semantic aliases ---------- */
+  --color-bg:var(--canvas);
+  --color-surface:var(--surface);
+  --color-surface-muted:var(--muted);     /* sectioned regions, washes */
+  --color-surface-dark:var(--navy-deep);  /* util bar, footer, V3 hero */
+  --color-text:var(--ink);
+  --color-text-secondary:var(--ink2);
+  --color-text-tertiary:var(--ink3);      /* lightest text allowed */
+  --color-on-dark:rgba(255,255,255,0.72); /* body text on navy chrome */
+  --color-primary:var(--navy);
+  --color-primary-hover:var(--navy-d);
+  --color-on-primary:#FFFFFF;
+  --color-accent:var(--gold);             /* thin rules / dots / tags only — never text */
+  --color-accent-text:var(--gold-ink);    /* gold as small text (AA) */
+  --color-accent-on-dark:var(--gold-light);
+  --color-border:var(--line);
+  --color-border-hover:#C4C4C4;           /* card/tile hover border (off-token grey) */
+  --color-focus-ring:var(--navy);
+  --color-focus-ring-on-dark:var(--gold-light);
+
+  /* ---------- ADDITIVE: promoted off-token colours (found in components) ---------- */
+  --danger:#B3261E;            /* form error text (kontakty.astro:141) — only red in the build */
+  --filetype-pdf:var(--gold);  /* RegistryList badge map */
+  --filetype-doc:var(--navy);
+  --filetype-sheet:#1F7A4D;    /* XLS/XLSX — no green token exists */
+  --filetype-img:#737373;      /* PNG/JPG/JPEG — distinct from --ink2/--ink3 */
+  --filetype-other:var(--ink2);/* fallback badge (RegistryList ?? '#525252') */
+  --navy-tint:#2C3E54;         /* desaturated navy — placeholder-avatar gradient start (×2 files) */
+  --navy-hero:#16314F;         /* hero SVG gradient stop (HeroSlider) */
+  --icon-chip:#EEF1F5;         /* e-resource icon tile bg (EResources) */
+  --navy-wash-07:rgba(30,58,95,0.07); /* navy @7% — div-count chip, hover washes */
+  --navy-wash-30:rgba(30,58,95,0.30); /* navy @30% — subtle link underline */
+  --scrim:rgba(10,20,35,0.55);        /* search overlay scrim */
+  --scrim-soft:rgba(10,20,35,0.45);   /* drawer scrim */
+
+  /* ---------- ADDITIVE: spacing scale (4px base) ---------- */
+  --space-1:4px;   --space-2:8px;   --space-3:12px;  --space-4:16px;
+  --space-5:20px;  --space-6:24px;  --space-7:28px;  --space-8:32px;
+  --space-10:40px; --space-12:48px; --space-14:56px; --space-16:64px;
+  --space-18:72px;
+  --section-y:72px;        /* .section vertical padding (48px under 768px) */
+  --section-y-sm:48px;
+
+  /* ---------- ADDITIVE: radius (live --r-* above; helpers) ---------- */
+  --r-dot:50%;             /* dots, round monogram chips */
+  /* note: .nrow-img uses a stray 6px — normalise to --r-card (Newsroom.astro:114) */
+
+  /* ---------- ADDITIVE: elevation (the ENTIRE build has only these two) ---------- */
+  --shadow-overlay:0 14px 50px rgba(0,0,0,0.2);   /* search overlay (Header.astro:145) */
+  --shadow-drawer:-12px 0 40px rgba(0,0,0,0.18);  /* mobile drawer (Header.astro:156) */
+  /* Everything else is flat: hairline borders only. Do not add shadows to cards. */
+
+  /* ---------- ADDITIVE: z-index scale (as built) ---------- */
+  --z-header:60;
+  --z-drawer-scrim:90;
+  --z-drawer:100;
+  --z-search-scrim:110;
+  --z-search:111;
+  --z-skip:130;            /* skip-link (Base.astro:105) — must beat everything */
+
+  /* ---------- ADDITIVE: motion (only 150/160/200ms + ease exist) ---------- */
+  --motion-fade:150ms;     /* scrim fade (naasFade) */
+  --motion-base:160ms;     /* hover micro-interactions (gap, colour, background) */
+  --motion-enter:200ms;    /* panel entrance (naasDrop) + card lift */
+  --ease:ease;             /* the only easing in the build */
+
+  /* ---------- ADDITIVE: type scale (px roles; fluid heads use clamp) ---------- */
+  --fs-hero-v3:clamp(34px,5vw,60px);   /* HeroSlider h1 */
+  --fs-hero-v1:clamp(32px,5vw,56px);   /* HeroTypographic h1 */
+  --fs-page-h1:clamp(30px,4vw,50px);   /* PageHero h1 (.page-hero h1) */
+  --fs-h2:clamp(26px,3.2vw,36px);      /* .h2 */
+  --fs-h2-lg:clamp(30px,3.8vw,44px);   /* .h2--lg */
+  --fs-h3:19px;
+  --fs-lead:16px;                      /* .lead (clamp(16px,1.7vw,18-19px) in heroes) */
+  --fs-body:15.5px;
+  --fs-body-sm:14px;
+  --fs-meta:13px;
+  --fs-label:11px;                     /* mono kicker/meta */
+  --fs-micro:10px;                     /* mono micro-labels, eyebrow */
+
+  --lh-tight:1.06;        /* hero/display */
+  --lh-heading:1.22;      /* h2/h3 */
+  --lh-body:1.6;
+  --lh-prose:1.72;
+}

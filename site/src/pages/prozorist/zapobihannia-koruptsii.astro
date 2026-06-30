@@ -3,8 +3,10 @@ import Base from '../../layouts/Base.astro';
 import Hero from '../../components/Hero.astro';
 import Placeholder from '../../components/Placeholder.astro';
 import { ROUTES } from '../../lib/site';
+import { page } from '@content/pageContent';
+const { meta, hero } = page('/prozorist/zapobihannia-koruptsii');
 ---
-<Base title="Запобігання корупції">
-  <Hero kicker="Прозорість" title="Запобігання корупції" crumbs={[{ label: 'Прозорість', href: ROUTES.transparency }]} lead="Антикорупційна програма, уповноважена особа з питань запобігання та виявлення корупції та канали повідомлення про можливі порушення." />
+<Base title={meta.title} description={meta.description}>
+  <Hero kicker={hero!.kicker} title={hero!.title} crumbs={hero!.crumbs} lead={hero!.lead} />
   <Placeholder note="Документи та контактні дані антикорупційного напряму оприлюднюються в міру підготовки." />
 </Base>

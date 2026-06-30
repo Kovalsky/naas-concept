@@ -1,7 +1,8 @@
 ---
 import Base from '../layouts/Base.astro';
 import Hero from '../components/Hero.astro';
-import raw from '../data/pages/publichna-informatsiia.md?raw';
+import raw from '@content/pages/publichna-informatsiia.md?raw';
+import { page } from '@content/pageContent';
 
 // Parse the bundle's directory list (markdown bullets) into rows. Linked where a
 // route exists; «матеріал готується» where flagged. No invented entries.
@@ -33,9 +34,10 @@ for (const line of raw.split('\n')) {
   rows.push({ label, href, note });
 }
 const lead = raw.split('\n').find((l) => l && !l.startsWith('#') && !l.startsWith('-'))?.trim();
+const { meta, hero } = page('/publichna-informatsiia');
 ---
-<Base title="Публічна інформація">
-  <Hero kicker="Публічна інформація" title="Публічна інформація" lead={lead} />
+<Base title={meta.title} description={meta.description}>
+  <Hero kicker={hero!.kicker} title={hero!.title} lead={hero!.lead} />
   <section class="section section--white">
     <div class="wrap">
       <div class="rows">

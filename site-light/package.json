@@ -1,0 +1,24 @@
+{
+  "name": "naas-portal-light",
+  "type": "module",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "check": "node /Users/falco/dev/naas_github_pages/scripts/check-facts.mjs",
+    "deploy": "SITE_URL=https://naas-portal-light.pages.dev astro build && npm run check && wrangler pages deploy dist --project-name naas-portal-light --branch=main --commit-dirty=true"
+  },
+  "dependencies": {
+    "@astrojs/sitemap": "^3.7.3",
+    "@fontsource/inter": "^5.0.0",
+    "@fontsource/jetbrains-mono": "^5.0.0",
+    "@fontsource/lora": "^5.0.0",
+    "@fontsource/spectral": "^5.2.8",
+    "astro": "^5.6.1"
+  },
+  "devDependencies": {
+    "wrangler": "^3.114.1"
+  }
+}

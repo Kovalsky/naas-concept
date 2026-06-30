@@ -1,6 +1,7 @@
 ---
 import { getCollection } from 'astro:content';
 import { NAV, ROUTES, SEARCH_INDEX } from '../lib/site';
+import { BRAND } from '@content/site';
 import { STRINGS } from '../lib/i18n';
 import T from './T.astro';
 
@@ -52,7 +53,7 @@ const searchPh = STRINGS['ui.search.ph'];
     <a href={ROUTES.home} style="display:flex; align-items:center; gap:13px;" aria-label="НААН — головна">
       <img src="/naas-emblem.png" alt="Емблема НААН" width="64" height="64" style="flex-shrink:0; width:64px; height:64px; object-fit:contain; display:block;" />
       <span style="line-height:1.16;">
-        <span style="display:block; font-family:var(--serif); font-size:15px; font-weight:600; color:var(--ink); letter-spacing:-0.01em;">Національна академія<br/>аграрних наук України</span>
+        <span style="display:block; font-family:var(--serif); font-size:15px; font-weight:600; color:var(--ink); letter-spacing:-0.01em;">{BRAND.nameLines[0]}<br/>{BRAND.nameLines[1]}</span>
         <span style="display:block; font-family:var(--mono); font-size:10px; color:var(--ink3); letter-spacing:0.12em; margin-top:4px;">ЗАСН. 1918</span>
       </span>
     </a>

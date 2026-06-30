@@ -11,11 +11,16 @@
 // ============================================================================
 import { readFileSync, readdirSync, statSync, existsSync } from 'node:fs';
 import { execSync } from 'node:child_process';
+import { fileURLToPath } from 'node:url';
+import { dirname, resolve } from 'node:path';
 
+// Resolve relative to this script so the gate works from any checkout/worktree.
+const REPO = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 const ROOTS = {
-  gravitas: '/Users/falco/dev/naas_github_pages/site',
-  light: '/Users/falco/dev/naas_light_wt/site-light',
+  gravitas: `${REPO}/site`,
+  light: `${REPO}/site-light`,
 };
+const CONTENT = `${REPO}/content`;
 
 const violations = [];
 const v = (sev, fact, where, msg) => violations.push({ sev, fact, where, msg });
@@ -34,8 +39,10 @@ function walk(dir, acc = []) {
 }
 const files = [];
 for (const [, root] of Object.entries(ROOTS)) files.push(...walk(`${root}/src`));
+files.push(...walk(CONTENT)); // shared content layer (data, pages, strings, modules)
 const read = (f) => { try { return readFileSync(f, 'utf8'); } catch { return ''; } };
-const label = (f) => f.includes('/site-light/') ? 'light' : 'gravitas';
+const rel = (f) => f.replace(`${REPO}/`, '');
+const label = (f) => f.includes('/site-light/') ? 'light' : f.includes('/content/') ? 'content' : 'gravitas';
 
 // ---------------------------------------------------------------------------
 // 1. FORBIDDEN strings (rejected by stakeholder) — must appear NOWHERE.
@@ -51,9 +58,9 @@ const FOUNDING_1931 = /(ЗАСН\.?\s*1931|EST\.?\s*1931|[Зз]аснован[а
 for (const f of files) {
   const txt = read(f);
   for (const { fact, re, msg } of FORBIDDEN) {
-    if (re.test(txt)) v('FAIL', fact, `${label(f)}:${f.split('/src/')[1]}`, msg);
+    if (re.test(txt)) v('FAIL', fact, `${label(f)}:${rel(f)}`, msg);
   }
-  if (FOUNDING_1931.test(txt)) v('FAIL', 'founding-year', `${label(f)}:${f.split('/src/')[1]}`, 'Founding year shown as 1931 — must be 1918.');
+  if (FOUNDING_1931.test(txt)) v('FAIL', 'founding-year', `${label(f)}:${rel(f)}`, 'Founding year shown as 1931 — must be 1918.');
 }
 
 // ---------------------------------------------------------------------------
@@ -77,7 +84,7 @@ for (const [name, root] of Object.entries(ROOTS)) {
 //    the roster (institutes.json) is what struktura LISTS. The old/rejected
 //    value 50 must appear nowhere; the "наукових установ" headline must be uniform.
 // ---------------------------------------------------------------------------
-const rosterPath = `${ROOTS.gravitas}/src/data/institutes.json`;
+const rosterPath = `${CONTENT}/data/institutes.json`;
 let rosterLen = null;
 try {
   const roster = JSON.parse(read(rosterPath));
@@ -91,13 +98,13 @@ for (const f of files) {
   const txt = read(f);
   // rejected stale number adjacent to an institution noun
   if (/\b50\s+(наукови|установ|підпорядкован)/i.test(txt))
-    v('FAIL', 'institution-count', `${label(f)}:${f.split('/src/')[1]}`, 'Shows "50" institutions — rejected by stakeholder («не 50»).');
+    v('FAIL', 'institution-count', `${label(f)}:${rel(f)}`, 'Shows "50" institutions — rejected by stakeholder («не 50»).');
   // headline "(\d) наукові установи / наукових установ" (adjacent) must be uniform
   let m; const re = /(\d{2,3})\s+наукови[хй]\s+установ[аи]?/gi;
   while ((m = re.exec(txt))) {
     const k = m[1];
     if (!headline.has(k)) headline.set(k, []);
-    headline.get(k).push(`${label(f)}:${f.split('/src/')[1]}`);
+    headline.get(k).push(`${label(f)}:${rel(f)}`);
   }
 }
 if (headline.size > 1) {

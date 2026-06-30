@@ -1,15 +1,13 @@
 ---
 import Base from '../layouts/Base.astro';
 import Hero from '../components/Hero.astro';
-import periodicals from '../data/elibrary.json';
+import periodicals from '@content/data/elibrary.json';
+import { page } from '@content/pageContent';
 const sorted = [...periodicals].sort((a, b) => a.name.localeCompare(b.name, 'uk'));
+const { meta, hero } = page('/e-biblioteka');
 ---
-<Base title="Е-Бібліотека" description="Електронна бібліотека НААН — наукові періодичні видання установ академії у відкритому доступі.">
-  <Hero
-    kicker="Ресурси"
-    title="Е-Бібліотека"
-    lead="Наукові періодичні видання установ Академії — журнали, бюлетені та збірники наукових праць у відкритому доступі."
-  />
+<Base title={meta.title} description={meta.description}>
+  <Hero kicker={hero!.kicker} title={hero!.title} lead={hero!.lead} />
   <section class="section section--white">
     <div class="wrap">
       <div class="elib-bar">

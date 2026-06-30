@@ -1,0 +1,32 @@
+---
+import { getCollection, render } from 'astro:content';
+import Base from '../layouts/Base.astro';
+import PageHero from '../components/PageHero.astro';
+import { EXTERNAL } from '../lib/site';
+import { page } from '@content/pageContent';
+
+const pages = await getCollection('pages');
+const entry = pages.find((p) => p.id === 'statut');
+const { Content } = entry ? await render(entry) : { Content: null };
+const { meta, hero } = page('/statut');
+---
+<Base title={meta.title} description={meta.description}>
+  <PageHero
+    title={hero!.title}
+    kicker={hero!.kicker}
+    lead={hero!.lead}
+    crumbs={hero!.crumbs}
+  />
+
+  <section class="section section--white">
+    <div class="wrap">
+      <a class="btn" href={EXTERNAL.statutePdf} target="_blank" rel="noopener" style="margin-bottom:30px;">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3"/></svg>
+        Завантажити Статут (PDF)
+      </a>
+      <div class="prose">
+        {Content ? <Content /> : <p>Контент у процесі наповнення.</p>}
+      </div>
+    </div>
+  </section>
+</Base>

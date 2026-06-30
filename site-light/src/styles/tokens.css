@@ -1,0 +1,46 @@
+/* Self-hosted fonts (woff2 bundled by Vite — no external CDN) */
+@import '@fontsource/spectral/400.css';
+@import '@fontsource/spectral/500.css';
+@import '@fontsource/spectral/600.css';
+@import '@fontsource/inter/300.css';
+@import '@fontsource/inter/400.css';
+@import '@fontsource/inter/500.css';
+@import '@fontsource/inter/600.css';
+@import '@fontsource/jetbrains-mono/400.css';
+@import '@fontsource/jetbrains-mono/500.css';
+@import '@fontsource/jetbrains-mono/600.css'; /* mono labels use 600 (footer headers, badges, file tiles) */
+@import '@fontsource/jetbrains-mono/700.css'; /* 404 display code */
+
+*, *::before, *::after { box-sizing: border-box; }
+:root {
+  /* brand */
+  --navy:#1E3A5F; --navy-d:#142844; --navy-deep:#0E1F35;
+  --gold:#B8860B; --gold-light:#E7C879; /* gold-light: legible gold on navy */
+  --gold-ink:#8A6508; /* AA-contrast gold for small text on light (~5:1) */
+  /* ink + neutrals */
+  --ink:#0A0A0A; --ink2:#525252; --ink3:#6B6B6B;
+  --line:#E5E5E5; --line2:#ECEBE7; --canvas:#FFFFFF; --muted:#F8F9FA; --muted2:#F2F1EC;
+  /* type */
+  --serif:'Spectral',Georgia,serif;
+  --sans:'Inter',system-ui,-apple-system,'Segoe UI',sans-serif;
+  --mono:'JetBrains Mono',ui-monospace,monospace;
+  /* layout */
+  --wrap:1320px; --gutter:32px;
+  --r-card:12px; --r-btn:8px; --r-pill:999px;
+}
+html { scroll-behavior: smooth; }
+body { margin:0; font-family:var(--sans); color:var(--ink); background:var(--canvas); -webkit-font-smoothing:antialiased; text-rendering:optimizeLegibility; }
+a { color:inherit; text-decoration:none; }
+button { font:inherit; color:inherit; background:none; border:none; padding:0; cursor:pointer; }
+input, textarea, select { font:inherit; color:inherit; }
+h1,h2,h3,h4,p { margin:0; }
+img { max-width:100%; height:auto; display:block; } /* height:auto so width+aspect-ratio drive sizing, not the <Image> height attribute */
+::selection { background:var(--navy); color:#fff; }
+.wrap { max-width:var(--wrap); margin:0 auto; padding:0 var(--gutter); }
+.serif { font-family:var(--serif); }
+.mono { font-family:var(--mono); }
+.kicker, .eyebrow { font-family:var(--mono); font-size:10px; font-weight:500; letter-spacing:0.13em; text-transform:uppercase; }
+.kicker { color:var(--navy); }
+.eyebrow { color:var(--ink3); }
+@media (max-width:767px){ :root{ --gutter:18px; } }
+@media (prefers-reduced-motion: reduce){ html{ scroll-behavior:auto; } *{ animation-duration:.001ms!important; transition-duration:.001ms!important; } }

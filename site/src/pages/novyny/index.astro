@@ -4,11 +4,13 @@ import Base from '../../layouts/Base.astro';
 import Hero from '../../components/Hero.astro';
 import { ROUTES } from '../../lib/site';
 import { formatDateUk } from '../../lib/format';
+import { page } from '@content/pageContent';
 
 const news = (await getCollection('news')).sort((a, b) => (a.data.date < b.data.date ? 1 : -1));
+const { meta, hero } = page('/novyny');
 ---
-<Base title="Новини">
-  <Hero kicker="Новини" title="Новини" lead="Новини та події Національної академії аграрних наук України." />
+<Base title={meta.title} description={meta.description}>
+  <Hero kicker={hero!.kicker} title={hero!.title} lead={hero!.lead} />
   <section class="section section--white">
     <div class="wrap">
       <div class="grid grid--auto">

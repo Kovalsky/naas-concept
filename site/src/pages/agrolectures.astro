@@ -2,13 +2,11 @@
 import Base from '../layouts/Base.astro';
 import Hero from '../components/Hero.astro';
 import VideoGallery from '../components/VideoGallery.astro';
-import lectures from '../data/agrolectures.json';
+import lectures from '@content/data/agrolectures.json';
+import { page } from '@content/pageContent';
+const { meta, hero } = page('/agrolectures');
 ---
-<Base title="AGROLECTURES" description="AGROLECTURES — відеолекції та сюжети про українську аграрну науку від НААН.">
-  <Hero
-    kicker="Медіа"
-    title="AGROLECTURES"
-    lead="Цикл відеолекцій та сюжетів про українську аграрну науку, продовольчу безпеку та діяльність установ НААН."
-  />
+<Base title={meta.title} description={meta.description}>
+  <Hero kicker={hero!.kicker} title={hero!.title} lead={hero!.lead} />
   <VideoGallery items={lectures} />
 </Base>

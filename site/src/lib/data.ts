@@ -1,10 +1,10 @@
 // Typed access to the content data files. Every page renders from
 // these — no content is hardcoded in markup.
-import personsRaw from '../data/persons.json';
-import institutesRaw from '../data/institutes.json';
-import anonsyRaw from '../data/anonsy.json';
-import resourcesRaw from '../data/resources.json';
-import contactsRaw from '../data/contacts.json';
+import personsRaw from '@content/data/persons.json';
+import institutesRaw from '@content/data/institutes.json';
+import anonsyRaw from '@content/data/anonsy.json';
+import resourcesRaw from '@content/data/resources.json';
+import contactsRaw from '@content/data/contacts.json';
 
 export interface Person {
   name: string;
