@@ -1,10 +1,12 @@
 ---
-// Homepage "About" band — intro + mission. Text is pulled verbatim from the real
-// shared markdown (naan-sohodni.md) so nothing is invented and it never drifts.
-// Self-contained styling: this design system has no global .h2/.eyebrow/.link-arrow,
-// so the band defines its own scoped treatment from the design tokens.
+// Homepage "About" band — intro + mission. Text pulled verbatim from the shared
+// markdown (naan-sohodni.md) so nothing is invented. Styled to match the other
+// home sections (FieldRule + .kicker + .h2-serif); the mission is a light
+// gold-rule callout — no heavy panel — so the band sits in the same visual family
+// as «Основні розділи», «Стрічка» and the rest below it.
 import { getCollection } from 'astro:content';
 import { ROUTES } from '../lib/site';
+import FieldRule from './FieldRule.astro';
 
 const pages = await getCollection('pages');
 const entry = pages.find((p) => p.id === 'naan-sohodni');
@@ -13,86 +15,38 @@ const blocks = body.split(/\n{2,}/).map((s) => s.trim()).filter(Boolean);
 const intro = blocks.find((b) => !b.startsWith('#')) ?? '';
 const misIdx = blocks.findIndex((b) => /^##\s*Місія/i.test(b));
 const mission = misIdx >= 0 ? (blocks[misIdx + 1] ?? '') : '';
-const arrow = `<svg width="15" height="15" viewBox="0 0 24 24" fill="none" aria-hidden="true" stroke="currentColor" stroke-width="1.9"><path d="M5 12h14M13 5l7 7-7 7"/></svg>`;
+const arrow = `<svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9"><path d="M5 12h14M13 5l7 7-7 7"/></svg>`;
 ---
-<section class="section section--white about" aria-labelledby="about-h">
+<section class="section section--white" aria-labelledby="about-h">
   <div class="wrap">
-    <header class="about-head">
-      <p class="about-eyebrow"><span class="about-tick" aria-hidden="true"></span>Про Академію</p>
-      <h2 id="about-h" class="about-h2">Провідний центр аграрної науки</h2>
-    </header>
+    <FieldRule />
+    <div class="kicker" style="margin-bottom:8px;">Про Академію</div>
+    <h2 id="about-h" class="h2-serif" style="margin-bottom:28px;">Провідний центр аграрної науки</h2>
 
     <div class="about-grid">
       <p class="about-intro">{intro}</p>
       <aside class="about-mission">
-        <span class="about-mission-rule" aria-hidden="true"></span>
-        <span class="about-mission-label">Місія</span>
+        <span class="kicker kicker--muted about-mission-label">Місія</span>
         <p class="about-mission-text">{mission}</p>
       </aside>
     </div>
 
-    <a class="about-link" href={ROUTES.today}>Докладніше про НААН <Fragment set:html={arrow} /></a>
+    <a class="link-underline about-link" href={ROUTES.today}>Докладніше про НААН <Fragment set:html={arrow} /></a>
   </div>
 </section>
 <style>
-  /* crisp divider from the white hero above */
-  .about { border-top: 1px solid var(--line); }
-
-  .about-head { max-width: 840px; margin-bottom: 42px; }
-  .about-eyebrow {
-    display: inline-flex; align-items: center; gap: 12px;
-    margin-bottom: 18px;
-    font-family: var(--mono); font-size: 11px; font-weight: 600;
-    letter-spacing: 0.16em; text-transform: uppercase; color: var(--navy);
-  }
-  .about-tick { width: 26px; height: 2px; background: var(--gold); }
-  .about-h2 {
-    font-family: var(--serif); font-weight: 600;
-    font-size: clamp(28px, 3.4vw, 42px); line-height: 1.12;
-    letter-spacing: -0.018em; color: var(--ink); text-wrap: balance;
-  }
-
-  .about-grid {
-    display: grid; grid-template-columns: 1.5fr 1fr;
-    gap: 52px; align-items: start;
-  }
+  .about-grid { display: grid; grid-template-columns: 1.5fr 1fr; gap: 48px; align-items: start; }
   .about-intro {
     font-family: var(--serif); font-weight: 400;
-    font-size: clamp(18px, 1.5vw, 21px); line-height: 1.62;
+    font-size: clamp(18px, 1.6vw, 21px); line-height: 1.6;
     color: var(--ink2); text-wrap: pretty;
   }
-
-  /* Mission as a formal navy panel — the band's focal anchor, with a gold accent.
-     --navy-deep to match the other large dark surfaces (utility bar, hero figures
-     band, footer); the brighter --navy is reserved for accents. */
-  .about-mission {
-    align-self: start; position: relative;
-    background: var(--navy-deep); border-radius: 4px;
-    padding: 30px 32px 32px;
-  }
-  .about-mission-rule {
-    display: block; width: 34px; height: 3px;
-    background: var(--gold); border-radius: 2px; margin-bottom: 18px;
-  }
-  .about-mission-label {
-    display: block; margin-bottom: 12px;
-    font-family: var(--mono); font-size: 11px; font-weight: 600;
-    letter-spacing: 0.18em; text-transform: uppercase; color: #fff;
-  }
-  .about-mission-text { font-size: 15px; line-height: 1.66; color: rgba(255, 255, 255, 0.84); }
-
-  .about-link {
-    display: inline-flex; align-items: center; gap: 8px; margin-top: 36px;
-    font-size: 14px; font-weight: 600; color: var(--navy);
-    border-bottom: 1px solid var(--navy); padding-bottom: 2px;
-    transition: gap 160ms ease;
-  }
-  .about-link:hover { gap: 12px; }
-  .about-link svg { flex-shrink: 0; }
-
+  .about-mission { border-left: 2px solid var(--gold); padding-left: 22px; }
+  .about-mission-label { display: block; margin-bottom: 10px; }
+  .about-mission-text { font-size: 15px; line-height: 1.66; color: var(--ink2); }
+  .about-link { margin-top: 32px; }
   @media (max-width: 900px) {
-    .about-head { margin-bottom: 30px; }
     .about-grid { grid-template-columns: 1fr; gap: 26px; }
-    .about-link { margin-top: 28px; }
+    .about-link { margin-top: 26px; }
   }
 </style>
