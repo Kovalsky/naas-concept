@@ -6,7 +6,6 @@ import { STRINGS } from '../lib/i18n';
 import T from './T.astro';
 
 const path = Astro.url.pathname.replace(/\/$/, '') || '/';
-const isHome = path === '/';
 const isActive = (href: string) => {
   const base = href.split('#')[0].replace(/\/$/, '') || '/';
   if (base === '/') return path === '/';
@@ -23,15 +22,10 @@ const searchPh = STRINGS['ui.search.ph'];
 <!-- UTILITY BAR -->
 <div style="background:var(--navy-deep); color:rgba(255,255,255,0.92); height:34px; font-size:12.5px;">
   <div class="wrap" style="height:100%; display:flex; align-items:center; justify-content:space-between;">
-    <div style="display:flex; align-items:center;">
-      {isHome && (
-        <div id="hero-switch" role="group" aria-label="Вигляд головної сторінки" style="display:flex; align-items:center; gap:9px; font-family:var(--mono); font-size:12px;">
-          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" style="color:rgba(255,255,255,0.5); flex-shrink:0;"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg>
-          <button class="hero-opt" data-hero-set="classic" aria-pressed="true"><T k="hero.classic" /></button>
-          <button class="hero-opt" data-hero-set="wide" aria-pressed="false"><T k="hero.banner" /></button>
-        </div>
-      )}
-    </div>
+    {/* Left side intentionally empty (flex spacer keeps the controls right-aligned).
+        The homepage hero-variant switch is now a hidden keyboard shortcut — see the
+        Ctrl/Cmd+Shift+Alt+B handler below — so it isn't exposed to ordinary visitors. */}
+    <div></div>
     <div style="display:flex; align-items:center; gap:16px;">
       <button id="hc-toggle" aria-pressed="false" aria-label="Контрастна версія для людей з вадами зору" style="display:flex; align-items:center; gap:6px; padding:6px 4px; color:rgba(255,255,255,0.85);">
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="9"/><path d="M12 3a9 9 0 0 1 0 18z" fill="currentColor"/></svg>
@@ -48,19 +42,19 @@ const searchPh = STRINGS['ui.search.ph'];
 </div>
 
 <!-- MAIN HEADER -->
-<header style="position:sticky; top:0; z-index:60; background:rgba(255,255,255,0.96); backdrop-filter:saturate(180%) blur(8px); border-bottom:1px solid var(--line);">
+<header style="position:sticky; top:0; z-index:60; background:rgba(255,255,255,0.96); -webkit-backdrop-filter:saturate(180%) blur(8px); backdrop-filter:saturate(180%) blur(8px); border-bottom:1px solid var(--line);">
   <div class="wrap" style="height:84px; display:flex; align-items:center; justify-content:space-between; gap:24px;">
     <a href={ROUTES.home} style="display:flex; align-items:center; gap:13px;" aria-label="НААН — головна">
-      <img src="/naas-emblem.png" alt="Емблема НААН" width="64" height="64" style="flex-shrink:0; width:64px; height:64px; object-fit:contain; display:block;" />
+      <img class="hdr-emblem" src="/naas-emblem.png" alt="Емблема НААН" width="64" height="64" style="flex-shrink:0; width:64px; height:64px; object-fit:contain; display:block;" />
       <span style="line-height:1.16;">
-        <span style="display:block; font-family:var(--serif); font-size:15px; font-weight:600; color:var(--ink); letter-spacing:-0.01em;">{BRAND.nameLines[0]}<br/>{BRAND.nameLines[1]}</span>
-        <span style="display:block; font-family:var(--mono); font-size:10px; color:var(--ink3); letter-spacing:0.12em; margin-top:4px;">ЗАСН. 1918</span>
+        <span class="hdr-brand-name" style="display:block; font-family:var(--serif); font-size:15px; font-weight:600; color:var(--ink); letter-spacing:-0.01em;">{BRAND.nameLines[0]}<br/>{BRAND.nameLines[1]}</span>
+        <span class="hdr-founded" style="display:block; font-family:var(--mono); font-size:10px; color:var(--ink3); letter-spacing:0.12em; margin-top:4px;">ЗАСН. 1918</span>
       </span>
     </a>
 
-    <nav aria-label="Головне меню" class="only-desktop" style="align-items:center; gap:30px;">
+    <nav aria-label="Головне меню" class="hdr-nav" style="align-items:center; gap:26px;">
       {NAV.map((item) => (
-        <a href={item.href} style={`position:relative; font-size:14px; font-weight:${isActive(item.href) ? 600 : 500}; color:${isActive(item.href) ? 'var(--navy)' : 'var(--ink2)'}; padding:6px 0;`}>
+        <a href={item.href} style={`position:relative; white-space:nowrap; font-size:14px; font-weight:${isActive(item.href) ? 600 : 500}; color:${isActive(item.href) ? 'var(--navy)' : 'var(--ink2)'}; padding:6px 0;`}>
           <T k={item.k} />
           {isActive(item.href) && <span style="position:absolute; left:0; right:0; bottom:-2px; height:2px; background:var(--gold); border-radius:2px;"></span>}
         </a>
@@ -71,7 +65,7 @@ const searchPh = STRINGS['ui.search.ph'];
       <button id="search-open" aria-label="Пошук / Search" style="display:flex; align-items:center; justify-content:center; width:44px; height:44px; border-radius:6px; color:var(--ink2);">
         <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9"><circle cx="11" cy="11" r="7.5"/><path d="m21 21-4.3-4.3"/></svg>
       </button>
-      <button id="mnav-open" class="only-mobile" aria-label="Меню / Menu" style="align-items:center; justify-content:center; width:44px; height:44px; border-radius:6px; color:var(--ink); border:1px solid var(--line);">
+      <button id="mnav-open" class="hdr-burger" aria-label="Меню / Menu" style="align-items:center; justify-content:center; width:44px; height:44px; border-radius:6px; color:var(--ink); border:1px solid var(--line);">
         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
       </button>
     </div>
@@ -123,6 +117,39 @@ const searchPh = STRINGS['ui.search.ph'];
      shifts from navy to gold (same accent as active nav links) when focused. */
   .search-row { border-bottom: 2px solid var(--navy); transition: border-color 160ms; }
   .search-row:focus-within { border-bottom-color: var(--gold); }
+
+  /* ---- header: desktop nav vs. drawer ----
+     The 6-item Ukrainian nav plus the two-line wordmark stop fitting on one row
+     below ~1180px (labels like «Атестація та підготовка кадрів» wrap to two lines
+     and the wordmark breaks to four). Collapse to the drawer there rather than
+     letting the bar break. These classes are header-only (replaced the generic
+     .only-desktop/.only-mobile, whose 900px breakpoint left a broken 900–1180 band). */
+  .hdr-nav { display: flex; }
+  .hdr-burger { display: none; }
+  @media (max-width: 1180px) {
+    .hdr-nav { display: none; }
+    .hdr-burger { display: flex; }
+  }
+
+  /* Hover/focus affordances. Nav-link colour is set inline per item (active vs.
+     rest), so the hover override needs !important to win over the inline style. */
+  .hdr-nav a { transition: color 140ms; }
+  .hdr-nav a:hover { color: var(--navy) !important; }
+  #search-open { transition: background 140ms, color 140ms; }
+  #search-open:hover, #mnav-open:hover { background: var(--muted); }
+  #search-open:hover { color: var(--navy); }
+  /* Utility-bar accessibility toggle: brighten to full white on hover (inline
+     colour is 85% white, so the hover needs !important to take effect). */
+  #hc-toggle { transition: color 140ms; }
+  #hc-toggle:hover { color: #fff !important; }
+
+  /* Phones: compact the wordmark so the full academy name sits on two tidy lines
+     beside the emblem and the two action buttons, instead of wrapping to four
+     cramped lines. (font-size/width need !important to beat the inline styles.) */
+  @media (max-width: 480px) {
+    .hdr-emblem { width: 52px !important; height: 52px !important; }
+    .hdr-brand-name { font-size: 13px !important; line-height: 1.2; }
+  }
 </style>
 
 <script type="application/json" id="search-index" set:html={JSON.stringify(searchIndex)}></script>
@@ -152,13 +179,18 @@ const searchPh = STRINGS['ui.search.ph'];
     function savedLang() { try { return localStorage.getItem(LK) || 'uk'; } catch (e) { return 'uk'; } }
     function setLang(l) { try { localStorage.setItem(LK, l); } catch (e) {} applyLang(l); }
 
-    // Homepage hero variant selector (three options, direct pick). Persisted.
+    // Homepage hero variant (classic by default; 'wide' banner is opt-in). The pick
+    // is persisted and applied via the [data-hero] CSS switch. There is no visible
+    // control — it is toggled only through the hidden keyboard shortcut (see setup()).
     function curHero() { try { var v = localStorage.getItem(HK); return HERO_SET.indexOf(v) >= 0 ? v : 'classic'; } catch (e) { return 'classic'; } }
     function applyHero(h) {
       if (HERO_SET.indexOf(h) < 0) h = 'classic';
       root.setAttribute('data-hero', h);
-      var opts = document.querySelectorAll('#hero-switch .hero-opt');
-      for (var i = 0; i < opts.length; i++) opts[i].setAttribute('aria-pressed', String(opts[i].getAttribute('data-hero-set') === h));
+    }
+    function toggleHero() {
+      var next = curHero() === 'wide' ? 'classic' : 'wide';
+      try { localStorage.setItem(HK, next); } catch (e) {}
+      applyHero(next);
     }
 
     // Panels (mobile nav + search): open/close, focus trap, and focus return.
@@ -226,14 +258,6 @@ const searchPh = STRINGS['ui.search.ph'];
       });
 
       applyHero(curHero());
-      var opts = document.querySelectorAll('#hero-switch .hero-opt');
-      for (var i = 0; i < opts.length; i++) {
-        bind(opts[i], 'click', function () {
-          var h = this.getAttribute('data-hero-set');
-          try { localStorage.setItem(HK, h); } catch (e) {}
-          applyHero(h);
-        });
-      }
 
       applyLang(savedLang());
       bind(document.getElementById('lang-ua'), 'click', function () { setLang('uk'); });
@@ -254,7 +278,16 @@ const searchPh = STRINGS['ui.search.ph'];
 
     if (!window.__naasHdr) {
       window.__naasHdr = true;
-      document.addEventListener('keydown', function (e) { if (e.key === 'Escape') { setPanel('search', false); setPanel('mnav', false); } });
+      document.addEventListener('keydown', function (e) {
+        if (e.key === 'Escape') { setPanel('search', false); setPanel('mnav', false); return; }
+        // Hidden homepage hero-variant toggle (no visible control): Ctrl/Cmd+Shift+Alt+B.
+        // Deliberately an obscure chord so ordinary visitors never trigger it; effective
+        // on the homepage, harmless elsewhere. e.code keeps it layout-independent.
+        if ((e.ctrlKey || e.metaKey) && e.shiftKey && e.altKey && e.code === 'KeyB') {
+          e.preventDefault();
+          toggleHero();
+        }
+      });
       document.addEventListener('astro:page-load', setup); // re-init after each view transition
     }
     setup(); // initial load

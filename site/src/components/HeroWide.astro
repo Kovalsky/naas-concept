@@ -10,16 +10,15 @@ const facts = [
   { n: '1918', k: 'home.factFounded' },
   { n: String(divisionCount), k: 'home.factDivisions' },
   { n: '84', k: 'home.factInstitutions' },
+  { n: '176', k: 'home.factOrganizations' },
 ];
 ---
 <section class="hw-sec">
   <div class="hw-scrim"></div>
   <div class="wrap hw-wrap">
     <div class="hw-copy">
-      <div class="hw-kicker mono"><T k="home.todayKicker" /></div>
       <h1 class="hw-h1">Національна академія аграрних наук України</h1>
       <p class="hw-sub">Державна самоврядна наукова організація — науково-методичний і координаційний центр з наукових проблем розвитку АПК України.</p>
-      <div class="hw-founded"><span class="hw-rule"></span><span>Заснована 1918 року</span></div>
       <div class="hw-links">
         <a class="hw-link" href={ROUTES.statute}><T k="home.statuteLink" /> <Fragment set:html={arrow} /></a>
         <a class="hw-link" href={ROUTES.presidium}><T k="home.presidiumLink" /> <Fragment set:html={arrow} /></a>

@@ -206,10 +206,6 @@ html:not([data-hero]) .hero-variant[data-hero="classic"] { display: block; }
 /* utility-bar labels collapse to icons on small screens (names kept via aria-label) */
 @media (max-width: 640px) {
   .util-label { display: none; }
-  /* Hide the homepage hero-variant switcher on phones: it's a nice-to-have that
-     crowds the 34px utility bar, and the default classic hero still renders.
-     !important overrides the inline display:flex on #hero-switch. */
-  #hero-switch { display: none !important; }
 }
 
 /* Document/external-link rows: let long mono URLs drop to their own line on
@@ -219,10 +215,6 @@ html:not([data-hero]) .hero-variant[data-hero="classic"] { display: block; }
   .row-url { white-space: normal; word-break: break-word; flex-basis: 100%; order: 3; }
 }
 
-/* homepage hero variant selector (three visible options; active = gold underline) */
-.hero-opt { padding: 4px 1px; color: rgba(255,255,255,0.5); border-bottom: 2px solid transparent; transition: color 140ms, border-color 140ms; white-space: nowrap; }
-.hero-opt:hover { color: rgba(255,255,255,0.82); }
-.hero-opt[aria-pressed="true"] { color: #fff; border-bottom-color: var(--gold); }
 
 /* ---------- keyboard focus ---------- */
 /* Surface-adaptive fallback ring: currentColor = navy/ink on light, white/gold on dark. */
