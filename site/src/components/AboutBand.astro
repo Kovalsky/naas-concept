@@ -62,10 +62,12 @@ const arrow = `<svg width="15" height="15" viewBox="0 0 24 24" fill="none" aria-
     color: var(--ink2); text-wrap: pretty;
   }
 
-  /* Mission as a formal navy panel — the band's focal anchor, with a gold accent */
+  /* Mission as a formal navy panel — the band's focal anchor, with a gold accent.
+     --navy-deep to match the other large dark surfaces (utility bar, hero figures
+     band, footer); the brighter --navy is reserved for accents. */
   .about-mission {
     align-self: start; position: relative;
-    background: var(--navy); border-radius: 4px;
+    background: var(--navy-deep); border-radius: 4px;
     padding: 30px 32px 32px;
   }
   .about-mission-rule {
