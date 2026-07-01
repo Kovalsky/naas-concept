@@ -1,0 +1,326 @@
+/* ============================================================
+   NAAS Portal — "Lucidity" Design System · canonical tokens
+   ------------------------------------------------------------
+   Third NAAS design system (sibling of "gravitas" in
+   ../site/design-system/ and "light"). Extracted faithfully from
+   the reference build  ../v3-hybrid.html  — an editorial /
+   scientific-journal treatment: photo-led hero, mono data ribbon,
+   journal catalog, tighter radii, flat border+lift hover.
+   Named "Lucidity" for its felt quality: the same institutional
+   navy depth as gravitas, but held CLEAR and legible rather than
+   heavy — hairline order, data-precision, luminous restraint.
+
+   Three-layer architecture:  PRIMITIVE → SEMANTIC → COMPONENT.
+   Import this file, then build with var(--color-*), var(--btn-*),
+   var(--r-*), var(--fs-*) — never raw hex/px.
+
+   Target domain: naas-portal-lucidity   ·   lang: uk (default) + en
+   ============================================================ */
+
+:root {
+
+  /* ════════════════════════════════════════════════════════
+     LAYER 1 — PRIMITIVES  (raw values, the only place hex lives)
+     ════════════════════════════════════════════════════════ */
+
+  /* --- Navy ramp (institutional core) --- */
+  --navy-900: #0E1F35;   /* "deep" — footer, utility bar, newsletter, hero floor */
+  --navy-800: #142844;   /* "dark" — primary hover/pressed */
+  --navy-700: #1E3A5F;   /* BASE brand — links, buttons, active, kickers, map */
+  --navy-600: #2C3E54;   /* portrait-monogram gradient start */
+  --navy-500: #274059;   /* decorative navy gradient (catalog headers) */
+
+  /* --- Wheat / gold ramp (earned accent) --- */
+  --gold-700: #8A6508;   /* AA-safe gold for small TEXT (~5.3:1 on white) */
+  --gold-600: #B8860B;   /* mid wheat — kept for tints / the AA-safe wheat CTA derives from gold-700 */
+  --gold-500: #F0A818;   /* SEAL bright gold (the official emblem's wheat) — palette "B" non-text accent */
+  --gold-300: #E8C766;   /* decorative light gold (wheat motif / crest highlight) */
+  --gold-soft: rgba(184,134,11,0.10);  /* gold tint fill */
+  --gold-line: rgba(184,134,11,0.30);  /* gold border (event "Конференція" tag) */
+
+  /* --- Danger ramp (form-invalid / destructive — the one non-navy/wheat hue) --- */
+  --red-700: #B42318;   /* AA-safe danger TEXT/fill on white (~6.4:1) — error messages, destructive label */
+  --red-600: #D92D20;   /* danger accent/border/icon (non-text; ~4.3:1 graphical) */
+
+  /* --- Teal (seal frame) — palette "B" secondary accent, echoing the official emblem --- */
+  --teal-700: #0B6E80;   /* AA-safe seal teal (5.9:1 on white) — secondary links / tags / accents / fills */
+  --teal-800: #0A5F6E;   /* teal hover / pressed */
+
+  /* --- Ink ramp (text) --- */
+  --ink-900: #0A0A0A;    /* primary text, headings */
+  --ink-600: #525252;    /* body / secondary text */
+  --ink-500: #737373;    /* captions, meta, tertiary (lightest text allowed) */
+
+  /* --- Neutrals / lines / surfaces --- */
+  --white:    #FFFFFF;   /* page bg, cards, surfaces */
+  --grey-50:  #F8F9FA;   /* "muted" — sectioned regions (cool) */
+  --grey-200: #E5E5E5;   /* "line" — borders, dividers (cool) */
+  --warm-200: #E7E5E0;   /* warm border / news-thumb base */
+  --grey-300: #CFCDC7;   /* news-thumb gradient end (warm grey) */
+  --grey-350: #C4C4C4;   /* card-lift hover border, scrollbar thumb */
+  --grey-400: #D4D4D4;   /* photo placeholder base */
+
+  /* --- Alpha tokens --- */
+  --black-a55: rgba(0,0,0,0.55);    /* photo-placeholder label text (dev scaffolding) */
+  --black-a15: rgba(0,0,0,0.15);    /* hero bottom fade */
+  --black-a04: rgba(0,0,0,0.04);    /* sticky-header scroll shadow */
+  --black-a03: rgba(0,0,0,0.03);    /* news-placeholder hatch (dev scaffolding) */
+  --on-dark-90: rgba(255,255,255,0.90);   /* invert-button hover (hero CTA) */
+  --on-dark-85: rgba(255,255,255,0.85);
+  --on-dark-80: rgba(255,255,255,0.80);
+  --on-dark-75: rgba(255,255,255,0.75);
+  --on-dark-70: rgba(255,255,255,0.70);
+  --on-dark-60: rgba(255,255,255,0.60);
+  --on-dark-55: rgba(255,255,255,0.55);   /* MIN for AA on navy-900 small labels */
+  --on-dark-50: rgba(255,255,255,0.50);   /* decorative only — below AA for text */
+  --on-dark-40: rgba(255,255,255,0.40);
+  --on-dark-30: rgba(255,255,255,0.30);   /* footer download-button border */
+  --on-dark-20: rgba(255,255,255,0.20);
+  --on-dark-15: rgba(255,255,255,0.15);   /* portrait monogram circle border */
+  --on-dark-10: rgba(255,255,255,0.10);
+  --on-dark-08: rgba(255,255,255,0.08);   /* portrait monogram circle fill */
+
+  /* --- Hero overlay stops (navy multiply over photo) --- */
+  --hero-stop-1: rgba(14,31,53,0.72);
+  --hero-stop-2: rgba(30,58,95,0.55);
+  --hero-stop-3: rgba(14,31,53,0.78);
+
+  /* --- High-contrast mode primitives --- */
+  --hc-bg: #000000;
+  --hc-fg: #FFFFFF;
+  --hc-link: #FFFF00;
+
+  /* --- Font families (the three-font system IS the brand) --- */
+  --serif: 'Lora', Georgia, 'Times New Roman', serif;
+  --sans:  'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --mono:  'JetBrains Mono', ui-monospace, SFMono-Regular, monospace;
+
+  /* --- Decorative division-photo gradients (color-coded by відділення) --- */
+  --div-soil:   linear-gradient(160deg, #8A7355 0%, #5E4A30 100%);
+  --div-plant:  linear-gradient(160deg, #6B8E4E 0%, #3D5A2A 100%);
+  --div-animal: linear-gradient(160deg, #9B8268 0%, #6E5A45 100%);
+  --div-vet:    linear-gradient(160deg, #5B7A8C 0%, #2F4856 100%);
+  --div-econ:   linear-gradient(160deg, #A89368 0%, #786339 100%);
+  --div-innov:  linear-gradient(160deg, #4A6280 0%, #1E3A5F 100%);
+
+  /* --- Decorative journal-cover gradients (catalog spines) --- */
+  --jc-1: linear-gradient(170deg, #1E3A5F 0%, #0E1F35 100%);
+  --jc-2: linear-gradient(170deg, #5E4A30 0%, #2A1F10 100%);
+  --jc-3: linear-gradient(170deg, #3D5A2A 0%, #1A2A10 100%);
+  --jc-4: linear-gradient(170deg, #6B3540 0%, #2E1118 100%);
+  --jc-5: linear-gradient(170deg, #4A4A4A 0%, #1A1A1A 100%);
+  --jc-6: linear-gradient(170deg, #2F4856 0%, #142028 100%);
+  --jc-7: linear-gradient(170deg, #786339 0%, #382C14 100%);
+  --jc-8: linear-gradient(170deg, #54405C 0%, #28182E 100%);
+
+
+  /* ════════════════════════════════════════════════════════
+     LAYER 2 — SEMANTIC  (purpose aliases — bind to these)
+     ════════════════════════════════════════════════════════ */
+
+  /* Surfaces */
+  --color-bg:            var(--white);
+  --color-surface:       var(--white);
+  --color-surface-muted: var(--grey-50);    /* sectioned bands */
+  --color-surface-dark:  var(--navy-700);   /* navy panels (newsletter, utility bar body) */
+  --color-surface-deep:  var(--navy-900);   /* footer, deepest navy */
+
+  /* Text */
+  --color-text:           var(--ink-900);
+  --color-text-secondary: var(--ink-600);
+  --color-text-tertiary:  var(--ink-500);   /* lightest text; keep on white, AA-borderline on muted */
+  --color-text-on-dark:        var(--on-dark-85);
+  --color-text-on-dark-strong: var(--white);
+  --color-text-on-dark-muted:  var(--on-dark-60);
+
+  /* Brand / interactive */
+  --color-primary:        var(--navy-700);
+  --color-primary-hover:  var(--navy-800);
+  --color-on-primary:     var(--white);
+
+  /* Accent (earned — wheat). Palette "B": the non-text accent is the SEAL's bright gold (--gold-500);
+     gold TEXT stays --gold-700 because bright #F0A818 is 2.04:1 on white — decorative / non-text only. */
+  --color-accent:         var(--gold-500);  /* rules, dots, borders, icons — NON-text, seal-bright */
+  --color-accent-text:    var(--gold-700);  /* the ONLY gold allowed for small text (AA, 5.3:1) */
+  --color-on-accent:      var(--white);
+
+  /* Secondary (teal — seal-frame echo; palette "B"). Unlike gold, works as BOTH text and fill (5.9:1). */
+  --color-secondary:       var(--teal-700);
+  --color-secondary-hover: var(--teal-800);
+  --color-on-secondary:    var(--white);
+
+  /* Lines */
+  --color-border:      var(--grey-200);
+  --color-border-warm: var(--warm-200);
+  --color-border-hover: var(--grey-350);    /* card-lift hover border */
+  /* --color-border / -hover are DECORATIVE (1.27:1 / 1.74:1 on white — below WCAG 1.4.11 3:1).
+     When a border is the SOLE identifier of a control or state, use --color-border-strong and/or
+     pair the color change with a non-color cue (the --lift-hover transform, an icon, weight). */
+  --color-border-strong: #767676;           /* AA-safe boundary (3.0:1 on white) — sole-cue borders, inputs */
+
+  /* States */
+  --color-focus-ring:         var(--navy-700);   /* on light surfaces */
+  --color-focus-ring-on-dark: var(--white);      /* on navy/photo surfaces — navy ring is invisible there */
+  --color-danger:        var(--red-700);    /* form-invalid text/border, destructive label */
+  --color-on-danger:     var(--white);      /* text on a danger fill (white-on-red-700 ~6.4:1) */
+  --color-danger-border: var(--red-600);    /* invalid-field border / danger outline (non-text) */
+
+  /* Hero photo treatment */
+  --hero-overlay: linear-gradient(180deg,
+                    var(--hero-stop-1) 0%,
+                    var(--hero-stop-2) 40%,
+                    var(--hero-stop-3) 100%);
+  --hero-fade-bottom: linear-gradient(180deg, transparent, var(--black-a15));
+
+
+  /* ════════════════════════════════════════════════════════
+     LAYER 3 — COMPONENT  (component-specific aliases)
+     ════════════════════════════════════════════════════════ */
+
+  /* Buttons — four variants */
+  --btn-primary-bg:        var(--color-primary);      /* navy fill / white text */
+  --btn-primary-bg-hover:  var(--color-primary-hover);
+  --btn-primary-fg:        var(--color-on-primary);
+  --btn-invert-bg:         var(--white);               /* white fill / navy text — on photo hero */
+  --btn-invert-bg-hover:   var(--on-dark-90);
+  --btn-invert-fg:         var(--color-primary);
+  /* Accent CTA: source wheat #B8860B on white text is 3.25:1 (fails AA). The system
+     uses gold-700 — the AA-safe wheat (5.32:1 w/ white) — so the wheat CTA stays
+     white-on-gold AND accessible. --color-accent (gold-600) remains for NON-text accents. */
+  --btn-accent-bg:         var(--gold-700);            /* AA-safe wheat fill / white text — newsletter */
+  --btn-accent-fg:         var(--color-on-accent);
+  --btn-ghost-border:      var(--color-border);        /* bordered, hover→navy */
+  --btn-ghost-fg:          var(--color-text);
+  --btn-ghost-fg-hover:    var(--color-primary);
+
+  /* Chips & pills */
+  --chip-bg:            var(--white);
+  --chip-border:        var(--color-border);
+  --chip-fg:            var(--color-text-secondary);
+  --chip-hover-border:  var(--color-primary);
+  --chip-hover-fg:      var(--color-primary);
+  --chip-active-bg:     var(--color-primary);
+  --chip-active-fg:     var(--white);
+  --pill-dot:           var(--color-accent);   /* wheat dot in audience pills */
+
+  /* Badges (open-access / subscription / event tags) */
+  --badge-open-fg:      var(--color-primary);
+  --badge-open-border:  rgba(30,58,95,0.30);
+  --badge-sub-fg:       var(--color-text-tertiary);
+  --badge-sub-border:   var(--color-border);
+  --badge-conf-fg:      var(--color-accent-text);   /* gold-ink, AA-safe (not raw gold) */
+  --badge-conf-border:  var(--gold-line);
+
+  /* Stat ribbon */
+  --stat-num-color:  var(--color-primary);
+
+  /* Surfaces with decorative placeholders */
+  --portrait-bg: linear-gradient(160deg, var(--navy-600) 0%, var(--navy-700) 100%);
+  --news-thumb:  linear-gradient(135deg, var(--warm-200) 0%, var(--grey-300) 100%);
+  --photo-ph:    var(--grey-400);
+
+
+  /* ════════════════════════════════════════════════════════
+     SCALES — radius · spacing · type · elevation · motion · z
+     ════════════════════════════════════════════════════════ */
+
+  /* Radius (TIGHTER than gravitas — crisp editorial signature) */
+  --r-xs:   2px;     /* photo-label chips */
+  --r-btn:  4px;     /* buttons, inputs, icon buttons, file badges, social squares */
+  --r-card: 8px;     /* cards, placeholders, journal covers, portraits, date boxes */
+  --r-pill: 999px;   /* chips, audience pills */
+  --r-circle: 50%;   /* dots, avatars */
+
+  /* Border width — the hairline IS the Lucidity signature (was a raw 1px everywhere) */
+  --border-hairline: 1px;   /* cards, inputs, badges, dividers, table rows */
+  --border-emphasis: 2px;   /* active underline, invalid-field, focus geometry */
+
+  /* Focus ring geometry (colour is --color-focus-ring / -on-dark) */
+  --focus-ring-width:  2px;
+  --focus-ring-offset: 3px;
+
+  /* Spacing (4px base) */
+  --space-1: 4px;   --space-2: 8px;   --space-3: 12px;  --space-4: 16px;
+  --space-5: 20px;  --space-6: 24px;  --space-7: 28px;  --space-8: 32px;
+  --space-10: 40px; --space-12: 48px; --space-14: 56px; --space-16: 64px;
+  --space-20: 80px; --space-24: 96px;
+  --gutter: 24px;        /* px-6 horizontal page inset */
+  --wrap: 1320px;        /* max content width */
+  --section-y: 96px;     /* py-24 default section rhythm (also 80 / 64 / 32 variants) */
+
+  /* Layout heights (as built) */
+  --h-utilitybar: 32px;
+  --h-header: 72px;
+  --h-hero: 640px;
+  --h-stats: 200px;
+
+  /* Type — families set above; sizes are role tokens (fluid heads use clamp) */
+  --fs-hero:     clamp(36px, 5.2vw, 64px);   /* photo-hero H1, serif 500 */
+  --fs-display:  clamp(34px, 4.4vw, 56px);
+  --fs-stat:     clamp(36px, 5.4vw, 56px);   /* mono ribbon numbers */
+  --fs-h2:       clamp(32px, 3.8vw, 44px);   /* section heads, serif 500 */
+  --fs-h2-sm:    clamp(28px, 3.2vw, 36px);
+  --fs-h2-feed:  32px;                        /* news / partners block heads */
+  --fs-h2-panel: 30px;                        /* newsletter panel heading */
+  --fs-h3-xl:    26px;                        /* events-aside heading */
+  --fs-h3-panel: 24px;                        /* contact-card heading */
+  --fs-h3-lg:    22px;                        /* feature headline / event date num */
+  --fs-h3:       20px;                        /* card titles, serif 500 */
+  --fs-lead:     18px;                        /* hero sub, divider italic */
+  --fs-title:    17px;                        /* news-card title */
+  --fs-name:     16px;                        /* presidium name */
+  --fs-ui:       15px;                        /* list item / event title */
+  --fs-body:     14px;                        /* body, nav, buttons, card desc */
+  --fs-caption:  13px;                        /* teasers, chips, footer links, journal title */
+  --fs-meta:     12px;                        /* utility bar, event meta, captions */
+  --fs-eyebrow:  11px;                        /* eyebrow / kicker (mono-or-sans 600) */
+  --fs-mono:     11px;                        /* mono dates / DOI / meta */
+  --fs-micro:    10px;                        /* journal top label, portrait, footer eyebrow */
+  --fs-nano:     9px;                          /* journal "Q3 · Scopus" top */
+  --fs-input:    16px;                         /* min on mobile inputs (avoid iOS zoom) */
+
+  /* Line-height (values verified against the source build) */
+  --lh-none:           1;        /* stat / date numbers (leading-none) */
+  --lh-hero:           1.05;     /* photo-hero H1 */
+  --lh-heading-tight:  1.1;      /* research / partners section h2 */
+  --lh-heading:        1.15;     /* DOMINANT section-head lh (news/events/publications/presidium…) */
+  --lh-heading-loose:  1.2;      /* contact-card h2, journal-cover title */
+  --lh-tight:          1.25;     /* Tailwind leading-tight (wordmark, feature heads) */
+  --lh-snug:           1.375;    /* Tailwind leading-snug (card / news / event titles) */
+  --lh-body:           1.5;      /* body copy */
+  --lh-relaxed:        1.625;    /* Tailwind leading-relaxed (descriptions, prose) */
+
+  /* Tracking */
+  --tracking-display: -0.02em;   /* hero */
+  --tracking-tight:   -0.01em;   /* section heads, serif-display */
+  --tracking-eyebrow:  0.14em;   /* eyebrow uppercase */
+  --tracking-mono:     0.12em;   /* mono labels uppercase (journal top label) */
+  --tracking-wide:     0.05em;   /* mono date/meta labels (Tailwind tracking-wider) */
+
+  /* Weights actually used */
+  --fw-light: 300; --fw-regular: 400; --fw-medium: 500; --fw-semibold: 600; --fw-bold: 700;
+
+  /* Elevation — flat by default; v3-hybrid hover is BORDER+LIFT, not shadow */
+  --shadow-header:  0 1px 0 var(--black-a04);          /* sticky-header scroll cue */
+  --shadow-sm:      0 8px 22px rgba(30,58,95,0.08);    /* optional raised card */
+  --shadow-overlay: 0 14px 50px rgba(0,0,0,0.20);      /* search / modal */
+  --lift-hover:    translateY(-2px);                    /* card-lift transform */
+  --lift-hover-sm: translateY(-1px);                    /* lighter lift — audience pills */
+
+  /* Motion (faithful to v3-hybrid) */
+  --motion-fast: 150ms;   /* chips, link gap */
+  --motion-base: 180ms;   /* audience pills, logo, generic hover */
+  --motion-slow: 200ms;   /* card-lift, map dots, header */
+  --ease: ease;
+
+  /* Z-index */
+  --z-header: 40;
+  --z-skip: 100;
+  --z-overlay: 110;
+  --z-modal: 111;
+}
+
+/* Reduced-motion: respect user preference (animate transform/opacity only). */
+@media (prefers-reduced-motion: reduce) {
+  :root { --motion-fast: 1ms; --motion-base: 1ms; --motion-slow: 1ms; }
+}

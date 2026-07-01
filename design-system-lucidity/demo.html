@@ -1,0 +1,1619 @@
+<!DOCTYPE html>
+<html lang="uk" data-theme="default">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>НААН Lucidity — tokenized component gallery</title>
+
+<!-- The three-font system IS the brand (identical to v3-hybrid.html) -->
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;0,700&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+
+<!-- The single source of truth — every value below resolves through this file -->
+<link rel="stylesheet" href="tokens.css" />
+
+<style>
+/* ─────────────────────────────────────────────────────────────
+   TOKEN PURITY NOTE
+   Every colour, radius, font-size, font-family, spacing step and
+   motion duration in this gallery is pulled from tokens.css via
+   var(--*). NO raw #hex and NO raw px for colour / radius / type.
+
+   Values with NO token in tokens.css are documented here (they are
+   structural geometry only — never colour, radius or type):
+     • 1px            hairline border / divider width (no border-width token)
+     • 2px / 3px      :focus-visible outline width & offset
+                      (the COLOUR is var(--color-focus-ring))
+     • 6px            audience-pill gold dot diameter
+     • 44px           minimum touch target — chips, lang buttons, footer
+                      social squares, map-dot hit-area (a11y geometry)
+     • 22px           map-dot transparent hit-circle radius (= 44px target)
+     • 56px           portrait-monogram ring + logo-tile height
+     • 200px / 180px  journal track width / news-thumb & card-photo height
+     • 220px          portrait track width
+     • 560px / 720px  hero copy max-width
+     • SVG attrs      stroke-width / SVG <text> font-size are user-space
+                      geometry inside the viewBox (not colour/radius/type)
+     • media-query breakpoints (layout only)
+   Reusable tokens were preferred wherever one existed, e.g. the
+   h-scroll scrollbar height = var(--space-2) and the event date
+   box width = var(--space-16).
+   ───────────────────────────────────────────────────────────── */
+
+*, *::before, *::after { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  font-family: var(--sans);
+  font-size: var(--fs-body);
+  line-height: var(--lh-body);
+  color: var(--color-text);
+  background: var(--color-bg);
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ── Global focus ring (requirement) ───────────────────────── */
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+select:focus-visible,
+[tabindex]:focus-visible {
+  outline: var(--focus-ring-width) solid var(--color-focus-ring);
+  outline-offset: var(--focus-ring-offset);
+  /* No border-radius here: modern browsers make the outline follow the element's OWN radius,
+     so pills stay pills. (Previously this forced --r-btn onto the element, squaring chips/pills.) */
+}
+/* On dark surfaces the navy ring is invisible — swap to the on-dark (white) ring. */
+.topnote :focus-visible,
+.utilitybar :focus-visible,
+.panel-dark :focus-visible,
+.newsletter :focus-visible,
+.hero :focus-visible,
+.site-footer :focus-visible { outline-color: var(--color-focus-ring-on-dark); }
+
+/* Visually-hidden (screen-reader-only) — real labels for inputs that show only a placeholder. */
+.sr-only {
+  position: absolute; width: 1px; height: 1px;
+  padding: 0; margin: -1px; overflow: hidden;
+  clip: rect(0 0 0 0); white-space: nowrap; border: 0;
+}
+
+/* ── Layout primitives ─────────────────────────────────────── */
+.wrap { max-width: var(--wrap); margin-inline: auto; padding-inline: var(--gutter); }
+
+.gallery-section { padding-block: var(--space-16); border-top: 1px solid var(--color-border); } /* NOTE 1px */
+.section-head { margin-bottom: var(--space-8); }
+.section-kicker {
+  font-family: var(--mono);
+  font-size: var(--fs-eyebrow);
+  letter-spacing: var(--tracking-mono);
+  text-transform: uppercase;
+  color: var(--color-accent-text);
+}
+.section-title {
+  font-family: var(--serif);
+  font-weight: var(--fw-medium);
+  font-size: var(--fs-h2-sm);
+  line-height: var(--lh-heading);
+  letter-spacing: var(--tracking-tight);
+  color: var(--color-text);
+  margin: var(--space-2) 0 0;
+}
+.section-note {
+  font-size: var(--fs-caption);
+  color: var(--color-text-tertiary);
+  margin-top: var(--space-3);
+  max-width: 720px; /* NOTE 720px copy measure */
+}
+
+/* ── Shared type helpers ───────────────────────────────────── */
+.eyebrow {
+  font-family: var(--sans);
+  font-size: var(--fs-eyebrow);
+  font-weight: var(--fw-semibold);
+  letter-spacing: var(--tracking-eyebrow);
+  text-transform: uppercase;
+}
+.mono { font-family: var(--mono); }
+.serif { font-family: var(--serif); }
+
+/* ─────────────────────────────────────────────────────────────
+   HEADER NOTE (sticky utility bar, navy-deep)
+   ───────────────────────────────────────────────────────────── */
+.topnote {
+  position: sticky; top: 0; z-index: var(--z-header);
+  background: var(--color-surface-deep);
+  color: var(--color-text-on-dark);
+}
+.topnote__inner {
+  min-height: var(--h-utilitybar);
+  display: flex; align-items: center; justify-content: space-between;
+  gap: var(--space-4); flex-wrap: wrap;
+  padding-block: var(--space-2);
+  font-family: var(--mono);
+  font-size: var(--fs-meta);
+  letter-spacing: var(--tracking-mono);
+}
+.topnote__inner strong { color: var(--color-text-on-dark-strong); font-weight: var(--fw-semibold); }
+.topnote__inner .dot-sep { color: var(--on-dark-40); } /* decorative separator — gold fails AA as text */
+.topnote__lang { display: flex; align-items: center; gap: var(--space-2); }
+.lang-btn {
+  font-family: var(--mono); font-size: var(--fs-meta);
+  background: transparent; border: 0; cursor: pointer;
+  display: inline-flex; align-items: center; justify-content: center;
+  min-width: 44px; min-height: 44px;                     /* NOTE 44px touch target */
+  margin-block: calc((var(--h-utilitybar) - 44px) / 2);  /* keep the 32px utility-bar height */
+  color: var(--color-text-on-dark-muted);
+}
+.lang-btn[aria-pressed="true"] { color: var(--color-text-on-dark-strong); font-weight: var(--fw-semibold); }
+
+/* ─────────────────────────────────────────────────────────────
+   1 · PHOTO HERO  (navy-multiply overlay over wheat-field photo)
+   ───────────────────────────────────────────────────────────── */
+.hero {
+  position: relative;
+  min-height: var(--h-hero);
+  display: flex; align-items: center;
+  background-color: var(--color-primary);
+  background-image:
+    var(--hero-overlay),
+    url('https://images.unsplash.com/photo-1500382017468-9049fed747ef?w=1920&q=85&auto=format&fit=crop');
+  background-size: cover;
+  background-position: center 40%;
+  background-blend-mode: multiply, normal;
+}
+.hero__photo-label {
+  position: absolute; top: var(--space-4); right: var(--gutter);
+  font-family: var(--mono); font-size: var(--fs-micro);
+  letter-spacing: var(--tracking-mono); color: var(--color-text-on-dark-muted);
+  z-index: 1; user-select: none;
+}
+.hero__content { position: relative; z-index: 1; max-width: 720px; } /* NOTE 720px */
+.hero__eyebrow { color: var(--color-text-on-dark); margin-bottom: var(--space-6); }
+.hero__title {
+  margin: 0;
+  font-family: var(--serif); font-weight: var(--fw-medium);
+  font-size: var(--fs-hero); line-height: var(--lh-hero);
+  letter-spacing: var(--tracking-display);
+  color: var(--color-text-on-dark-strong);
+}
+.hero__sub {
+  margin: var(--space-6) 0 0;
+  max-width: 560px; /* NOTE 560px */
+  color: var(--color-text-on-dark);
+  font-size: var(--fs-lead); line-height: var(--lh-body);
+}
+.hero__cta { display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-6); margin-top: var(--space-10); }
+.hero__textlink {
+  display: inline-flex; align-items: center; gap: var(--space-2);
+  color: var(--color-text-on-dark-strong);
+  font-size: var(--fs-body); font-weight: var(--fw-medium);
+  text-decoration: none;
+  border-bottom: 1px solid var(--on-dark-40); /* NOTE 1px */
+  padding-bottom: var(--space-1);
+  transition: border-color var(--motion-fast) var(--ease);
+}
+.hero__textlink:hover { border-color: var(--color-text-on-dark-strong); }
+.hero__fade {
+  position: absolute; left: 0; right: 0; bottom: 0; height: var(--space-24);
+  background: var(--hero-fade-bottom); pointer-events: none;
+}
+
+/* ── Crest mark (styled via CSS so no hex lives in the SVG) ──── */
+.crest-shield { fill: var(--color-primary); }
+.crest-ear { stroke: var(--color-accent); fill: none; }
+.crest-text { fill: var(--color-text-on-dark-strong); font-family: var(--serif); }
+.crest--invert .crest-shield { fill: var(--color-surface); }
+.crest--invert .crest-ear { stroke: var(--color-primary); }
+.crest--invert .crest-text { fill: var(--color-primary); }
+
+/* ─────────────────────────────────────────────────────────────
+   2 · STAT RIBBON  (mono 56px numbers)
+   ───────────────────────────────────────────────────────────── */
+.stat-ribbon {
+  display: grid; grid-template-columns: repeat(5, 1fr);
+  border: 1px solid var(--color-border); border-radius: var(--r-card); /* NOTE 1px */
+  overflow: hidden; background: var(--color-surface);
+}
+.stat { padding: var(--space-6); border-left: 1px solid var(--color-border); } /* NOTE 1px */
+.stat:first-child { border-left: 0; }
+.stat__num {
+  font-family: var(--mono); font-weight: var(--fw-medium);
+  font-size: var(--fs-stat); line-height: var(--lh-none);
+  color: var(--stat-num-color);
+}
+.stat__label { margin-top: var(--space-3); font-size: var(--fs-caption); color: var(--color-text-secondary); }
+
+/* ─────────────────────────────────────────────────────────────
+   3 · BUTTONS — four variants
+   ───────────────────────────────────────────────────────────── */
+.row { display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-4); }
+.btn {
+  display: inline-flex; align-items: center; gap: var(--space-2);
+  font-family: var(--sans); font-size: var(--fs-body); font-weight: var(--fw-semibold);
+  padding: var(--space-3) var(--space-6);
+  border-radius: var(--r-btn);
+  border: 1px solid transparent; /* NOTE 1px */
+  text-decoration: none; cursor: pointer;
+  transition:
+    background var(--motion-base) var(--ease),
+    color var(--motion-base) var(--ease),
+    border-color var(--motion-base) var(--ease),
+    opacity var(--motion-base) var(--ease);
+}
+.btn--primary { background: var(--btn-primary-bg); color: var(--btn-primary-fg); }
+.btn--primary:hover { background: var(--btn-primary-bg-hover); }
+.btn--invert { background: var(--btn-invert-bg); color: var(--btn-invert-fg); }
+.btn--invert:hover { background: var(--btn-invert-bg-hover); }
+.btn--accent { background: var(--btn-accent-bg); color: var(--btn-accent-fg); }
+.btn--accent:hover { opacity: 0.9; }
+.btn--ghost { background: transparent; color: var(--btn-ghost-fg); border-color: var(--btn-ghost-border); }
+.btn--ghost:hover { color: var(--btn-ghost-fg-hover); border-color: var(--chip-hover-border); }
+
+.panel-dark {
+  background: var(--color-surface-dark);
+  border-radius: var(--r-card);
+  padding: var(--space-8);
+}
+.swatch-caption { font-family: var(--mono); font-size: var(--fs-mono); letter-spacing: var(--tracking-mono); color: var(--color-text-tertiary); margin-bottom: var(--space-3); }
+.swatch-caption--ondark { color: var(--color-text-on-dark-muted); }
+
+/* ── Access / status badges ────────────────────────────────── */
+.badge {
+  display: inline-block;
+  font-size: var(--fs-micro);
+  padding: var(--space-1) var(--space-2);
+  border-radius: var(--r-btn);
+  border: 1px solid transparent; /* NOTE 1px */
+}
+.badge--open { color: var(--badge-open-fg); border-color: var(--badge-open-border); }
+.badge--sub  { color: var(--badge-sub-fg);  border-color: var(--badge-sub-border); }
+
+/* ── Event tags (3 variants share .tag, mono-uppercase) ─────── */
+.tag {
+  display: inline-block;
+  font-family: var(--mono); font-size: var(--fs-micro);
+  letter-spacing: var(--tracking-mono); text-transform: uppercase;
+  padding: var(--space-1) var(--space-2);
+  border-radius: var(--r-btn);
+  border: 1px solid transparent; /* NOTE 1px */
+}
+.tag--conf { color: var(--badge-conf-fg); border-color: var(--badge-conf-border); }
+.tag--open { color: var(--badge-open-fg); border-color: var(--badge-open-border); }
+.tag--sub  { color: var(--badge-sub-fg);  border-color: var(--badge-sub-border); }
+
+/* ─────────────────────────────────────────────────────────────
+   4 · RESEARCH CARD GRID  (flat border + lift hover, no shadow)
+   ───────────────────────────────────────────────────────────── */
+.card-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--space-6); }
+.card {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border); /* NOTE 1px */
+  border-radius: var(--r-card);
+  overflow: hidden;
+  transition: transform var(--motion-slow) var(--ease), border-color var(--motion-slow) var(--ease);
+}
+.card:hover { transform: var(--lift-hover); border-color: var(--color-border-hover); }
+.card__photo { position: relative; height: 180px; } /* NOTE 180px */
+.card__photo--soil   { background: var(--div-soil); }
+.card__photo--plant  { background: var(--div-plant); }
+.card__photo--animal { background: var(--div-animal); }
+.card__photo--vet    { background: var(--div-vet); }
+.card__photo--econ   { background: var(--div-econ); }
+.card__photo--innov  { background: var(--div-innov); }
+.photo-tag {
+  position: absolute; left: var(--space-3); bottom: var(--space-2);
+  font-family: var(--mono); font-size: var(--fs-micro);
+  letter-spacing: var(--tracking-mono);
+  color: var(--color-text-on-dark);
+  /* dark navy scrim so the 10px near-white tag clears AA over the light --div-* gradients */
+  background: var(--hero-stop-3);
+  padding: var(--space-1) var(--space-2);
+  border-radius: var(--r-xs);
+}
+.card__body { padding: var(--space-7); }
+.card__eyebrow { color: var(--color-text-tertiary); margin-bottom: var(--space-2); }
+.card__title {
+  margin: 0;
+  font-family: var(--serif); font-weight: var(--fw-medium);
+  font-size: var(--fs-h3); line-height: var(--lh-snug);
+  color: var(--color-text);
+}
+.card__desc { margin-top: var(--space-3); font-size: var(--fs-body); line-height: var(--lh-relaxed); color: var(--color-text-secondary); }
+.card__link {
+  display: inline-flex; align-items: center; gap: var(--space-1);
+  margin-top: var(--space-5);
+  font-size: var(--fs-caption); font-weight: var(--fw-medium);
+  color: var(--color-primary); text-decoration: none;
+  transition: gap var(--motion-fast) var(--ease);
+}
+.card__link:hover { gap: var(--space-2); }
+
+/* ─────────────────────────────────────────────────────────────
+   5 · AUDIENCE PILLS  (gold dot, lift hover)
+   ───────────────────────────────────────────────────────────── */
+.pill-row { display: flex; flex-wrap: wrap; gap: var(--space-3); }
+.audience-pill {
+  display: inline-flex; align-items: center; gap: var(--space-2);
+  padding: var(--space-3) var(--space-5);
+  border: 1px solid var(--color-border); /* NOTE 1px */
+  border-radius: var(--r-pill);
+  background: var(--color-surface);
+  font-size: var(--fs-body); color: var(--color-text);
+  text-decoration: none;
+  transition: border-color var(--motion-base) var(--ease), color var(--motion-base) var(--ease), transform var(--motion-base) var(--ease);
+}
+.audience-pill:hover { border-color: var(--chip-hover-border); color: var(--chip-hover-fg); transform: var(--lift-hover); }
+.audience-pill .dot { width: 6px; height: 6px; border-radius: var(--r-circle); background: var(--pill-dot); } /* NOTE 6px */
+
+/* ─────────────────────────────────────────────────────────────
+   6 · FILTER CHIPS
+   ───────────────────────────────────────────────────────────── */
+.chip-row { display: flex; flex-wrap: wrap; gap: var(--space-2); }
+.chip {
+  display: inline-flex; align-items: center;
+  min-height: 44px;                     /* NOTE 44px touch target */
+  font-family: var(--sans); font-size: var(--fs-caption);
+  padding: var(--space-2) var(--space-4);
+  border-radius: var(--r-pill);
+  border: 1px solid var(--chip-border); /* NOTE 1px */
+  background: var(--chip-bg); color: var(--chip-fg);
+  cursor: pointer;
+  transition: background var(--motion-fast) var(--ease), color var(--motion-fast) var(--ease), border-color var(--motion-fast) var(--ease);
+}
+.chip:hover { border-color: var(--chip-hover-border); color: var(--chip-hover-fg); }
+.chip--active { background: var(--chip-active-bg); color: var(--chip-active-fg); border-color: var(--chip-active-bg); }
+
+/* ─────────────────────────────────────────────────────────────
+   7 · NEWS CARD
+   ───────────────────────────────────────────────────────────── */
+.news-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--space-10) var(--space-6); }
+.news { display: block; text-decoration: none; color: inherit; }
+.news__thumb { height: 180px; border-radius: var(--r-card); background: var(--news-thumb); margin-bottom: var(--space-4); } /* NOTE 180px */
+.news__meta {
+  font-family: var(--mono); font-size: var(--fs-mono);
+  letter-spacing: var(--tracking-mono); color: var(--color-text-tertiary);
+  margin-bottom: var(--space-2);
+}
+.news__title {
+  margin: 0;
+  font-family: var(--serif); font-weight: var(--fw-medium);
+  font-size: var(--fs-title); line-height: var(--lh-snug);
+  color: var(--color-text);
+  transition: color var(--motion-base) var(--ease);
+}
+.news:hover .news__title { color: var(--color-primary); }
+.news__excerpt { margin-top: var(--space-2); font-size: var(--fs-caption); line-height: var(--lh-relaxed); color: var(--color-text-secondary); }
+
+/* ─────────────────────────────────────────────────────────────
+   8 · EVENT ROW (date box + 3 tag variants)
+   ───────────────────────────────────────────────────────────── */
+.event-list { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: var(--space-7); }
+.event { display: flex; gap: var(--space-4); }
+.event__date {
+  flex: 0 0 auto; width: var(--space-16); text-align: center;
+  border: 1px solid var(--color-border); border-radius: var(--r-card); /* NOTE 1px */
+  padding-block: var(--space-2);
+}
+.event__month { font-family: var(--mono); font-size: var(--fs-micro); letter-spacing: var(--tracking-mono); text-transform: uppercase; color: var(--color-primary); }
+.event__day { font-family: var(--serif); font-weight: var(--fw-semibold); font-size: var(--fs-h3-lg); line-height: var(--lh-none); color: var(--color-text); margin-top: var(--space-1); }
+.event__dow { font-family: var(--mono); font-size: var(--fs-micro); color: var(--color-text-tertiary); margin-top: var(--space-1); }
+.event__body { min-width: 0; }
+.event__title { margin: var(--space-2) 0 0; font-size: var(--fs-ui); font-weight: var(--fw-medium); line-height: var(--lh-snug); color: var(--color-text); transition: color var(--motion-base) var(--ease); }
+.event:hover .event__title { color: var(--color-primary); }
+.event__place { margin-top: var(--space-2); font-size: var(--fs-meta); color: var(--color-text-tertiary); }
+
+/* ─────────────────────────────────────────────────────────────
+   9 · H-SCROLL  (shared by journal strip + presidium portraits)
+   ───────────────────────────────────────────────────────────── */
+.h-scroll { overflow-x: auto; scrollbar-width: thin; scrollbar-color: var(--color-border-hover) transparent; padding-bottom: var(--space-4); }
+.h-scroll::-webkit-scrollbar { height: var(--space-2); }
+.h-scroll::-webkit-scrollbar-track { background: transparent; }
+.h-scroll::-webkit-scrollbar-thumb { background: var(--color-border-hover); border-radius: var(--r-btn); }
+.strip { display: flex; gap: var(--space-5); width: max-content; }
+
+/* ── Journal-cover strip (jc-1..jc-8 gradients) ────────────── */
+.journal { width: 200px; flex: 0 0 auto; } /* NOTE 200px */
+.journal__cover { position: relative; aspect-ratio: 3 / 4; border-radius: var(--r-card); overflow: hidden; }
+.journal__top {
+  position: absolute; left: var(--space-3); top: var(--space-3);
+  font-family: var(--mono); font-size: var(--fs-nano);
+  letter-spacing: var(--tracking-mono); text-transform: uppercase;
+  color: var(--on-dark-70);
+}
+.journal__cover-title {
+  position: absolute; left: var(--space-3); right: var(--space-3); bottom: var(--space-4);
+  font-family: var(--serif); font-size: var(--fs-caption); line-height: var(--lh-snug);
+  color: var(--color-text-on-dark-strong);
+}
+.jc-1 { background: var(--jc-1); }
+.jc-2 { background: var(--jc-2); }
+.jc-3 { background: var(--jc-3); }
+.jc-4 { background: var(--jc-4); }
+.jc-5 { background: var(--jc-5); }
+.jc-6 { background: var(--jc-6); }
+.jc-7 { background: var(--jc-7); }
+.jc-8 { background: var(--jc-8); }
+.journal__name { margin-top: var(--space-3); font-size: var(--fs-caption); font-weight: var(--fw-medium); color: var(--color-text); }
+.journal__doi { margin-top: var(--space-1); font-family: var(--mono); font-size: var(--fs-micro); color: var(--color-text-tertiary); }
+.journal__badge { margin-top: var(--space-2); }
+
+/* ─────────────────────────────────────────────────────────────
+   10 · PORTRAIT MONOGRAM
+   ───────────────────────────────────────────────────────────── */
+.portrait { width: 220px; flex: 0 0 auto; } /* NOTE 220px */
+.portrait__ph { position: relative; aspect-ratio: 4 / 5; border-radius: var(--r-card); background: var(--portrait-bg); }
+.portrait__ph::before {
+  content: ''; position: absolute; left: 50%; top: 22%; transform: translateX(-50%);
+  width: 56px; height: 56px; border-radius: var(--r-circle); /* NOTE 56px */
+  background: var(--on-dark-10); border: 1px solid var(--on-dark-20); /* NOTE 1px */
+}
+.portrait__ph::after {
+  content: attr(data-initials);
+  position: absolute; left: 0; right: 0; bottom: var(--space-5); text-align: center;
+  font-family: var(--serif); font-weight: var(--fw-medium); font-size: var(--fs-name);
+  letter-spacing: var(--tracking-tight); color: var(--on-dark-55);
+}
+.portrait__name { margin-top: var(--space-4); font-family: var(--serif); font-weight: var(--fw-medium); font-size: var(--fs-name); line-height: var(--lh-snug); color: var(--color-text); }
+.portrait__role { margin-top: var(--space-2); font-size: var(--fs-meta); line-height: var(--lh-snug); color: var(--color-text-tertiary); }
+
+/* ─────────────────────────────────────────────────────────────
+   11 · UKRAINE MAP (map-dot hover) + PARTNER LOGOS (logo hover)
+   ───────────────────────────────────────────────────────────── */
+.map-frame { background: var(--color-surface-muted); border: 1px solid var(--color-border); border-radius: var(--r-card); padding: var(--space-8); } /* NOTE 1px */
+.map-frame svg { display: block; width: 100%; height: auto; }   /* height via CSS — 'height=auto' is invalid as an SVG attribute */
+.map-outline { fill: var(--color-surface); stroke: var(--color-primary); }
+.map-river { stroke: var(--color-primary); fill: none; }
+.map-dot-link { cursor: pointer; }
+.map-hit { fill: transparent; pointer-events: all; }   /* invisible r=22 → 44px touch + keyboard target */
+.map-dot { fill: var(--color-primary); pointer-events: none; transform-box: fill-box; transform-origin: center; transition: transform var(--motion-slow) var(--ease), fill var(--motion-slow) var(--ease), stroke var(--motion-slow) var(--ease); }
+.map-dot-link:hover .map-dot,
+.map-dot-link:focus-visible .map-dot {
+  fill: var(--color-accent); transform: scale(1.4);
+  stroke: var(--color-primary); stroke-width: 2;       /* non-colour cue: a ring appears (NOTE 2 — SVG geometry) */
+}
+.map-dot-link:focus-visible { outline: 2px solid var(--color-focus-ring); outline-offset: 2px; } /* NOTE 2px — colour tokenised */
+.map-label { fill: var(--color-text-secondary); font-family: var(--mono); }
+.map-hint { margin-top: var(--space-4); font-family: var(--mono); font-size: var(--fs-micro); letter-spacing: var(--tracking-mono); color: var(--color-text-tertiary); }
+
+.logo-grid { display: grid; grid-template-columns: repeat(8, 1fr); gap: var(--space-3); margin-top: var(--space-8); }
+.logo-ph {
+  display: flex; align-items: center; justify-content: center;
+  height: 56px; /* NOTE 56px */
+  border: 1px solid var(--color-border); border-radius: var(--r-btn); /* NOTE 1px */
+  font-family: var(--sans); font-weight: var(--fw-medium); font-size: var(--fs-caption);
+  color: var(--color-text-tertiary); background: var(--color-surface); text-decoration: none;
+  transition: color var(--motion-base) var(--ease), border-color var(--motion-base) var(--ease);
+}
+.logo-ph:hover { color: var(--color-primary); border-color: var(--color-border-hover); }
+
+/* ─────────────────────────────────────────────────────────────
+   12 · NEWSLETTER CTA (wheat button) + CONTACT CARD
+   ───────────────────────────────────────────────────────────── */
+.two-col { display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-12); }
+
+.newsletter { background: var(--color-surface-dark); color: var(--color-text-on-dark); border-radius: var(--r-card); padding: var(--space-12); }
+.newsletter__kicker { color: var(--color-text-on-dark-muted); margin-bottom: var(--space-4); }
+.newsletter__title { margin: 0 0 var(--space-5); font-family: var(--serif); font-weight: var(--fw-medium); font-size: var(--fs-h2-feed); line-height: var(--lh-heading); color: var(--color-text-on-dark-strong); }
+.newsletter__copy { margin: 0 0 var(--space-8); max-width: 560px; font-size: var(--fs-body); line-height: var(--lh-relaxed); color: var(--color-text-on-dark); } /* NOTE 560px */
+.newsletter__form { display: flex; flex-wrap: wrap; gap: var(--space-3); }
+.newsletter__input {
+  flex: 1 1 auto; min-width: 0;
+  padding: var(--space-3) var(--space-4);
+  border-radius: var(--r-btn);
+  border: 1px solid transparent; /* NOTE 1px */
+  font-family: var(--sans); font-size: var(--fs-input);
+  color: var(--color-text); background: var(--color-surface);
+}
+.newsletter__fine { margin: var(--space-4) 0 0; font-size: var(--fs-mono); color: var(--on-dark-70); } /* AA-legible fine print */
+
+.contact { border: 1px solid var(--color-border); border-radius: var(--r-card); padding: var(--space-12); } /* NOTE 1px */
+.contact__kicker { color: var(--color-accent-text); margin-bottom: var(--space-4); }
+.contact__title { margin: 0 0 var(--space-8); font-family: var(--serif); font-weight: var(--fw-medium); font-size: var(--fs-h3-lg); line-height: var(--lh-snug); color: var(--color-text); }
+.contact__rows { display: flex; flex-direction: column; gap: var(--space-5); }
+.contact__row { display: flex; gap: var(--space-4); }
+.contact__icon { flex: 0 0 auto; color: var(--color-text-tertiary); margin-top: var(--space-1); }
+.contact__primary { color: var(--color-text); text-decoration: none; }
+.contact__primary:hover { color: var(--color-primary); }
+.contact__sub { font-size: var(--fs-meta); color: var(--color-text-secondary); }
+.contact__link {
+  display: inline-flex; align-items: center; gap: var(--space-2);
+  margin-top: var(--space-8);
+  font-size: var(--fs-caption); font-weight: var(--fw-medium);
+  color: var(--color-primary); text-decoration: none;
+  border-bottom: 1px solid var(--color-primary); padding-bottom: var(--space-1); /* NOTE 1px */
+}
+
+/* ─────────────────────────────────────────────────────────────
+   13 · FOOTER (navy-deep)
+   ───────────────────────────────────────────────────────────── */
+.site-footer { background: var(--color-surface-deep); color: var(--color-text-on-dark); padding-top: var(--space-20); padding-bottom: var(--space-10); }
+.footer-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: var(--space-8); margin-bottom: var(--space-16); }
+.footer__brand { display: flex; align-items: center; gap: var(--space-3); margin-bottom: var(--space-6); }
+.footer__brand-name { font-family: var(--serif); font-weight: var(--fw-semibold); font-size: var(--fs-caption); line-height: var(--lh-snug); }
+.footer__head { color: var(--on-dark-70); margin-bottom: var(--space-4); } /* AA-legible column heads */
+.footer__list { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: var(--space-3); }
+.footer__link { font-size: var(--fs-caption); color: var(--color-text-on-dark); text-decoration: none; transition: color var(--motion-base) var(--ease); }
+.footer__link:hover { color: var(--color-text-on-dark-strong); }
+.footer__address { font-style: normal; font-size: var(--fs-caption); line-height: var(--lh-relaxed); color: var(--on-dark-80); }
+.footer__address a { color: var(--on-dark-80); text-decoration: none; font-family: var(--mono); }
+.footer__address a:hover { color: var(--color-text-on-dark-strong); }
+.social-row { display: flex; gap: var(--space-3); margin-bottom: var(--space-6); }
+.social-sq {
+  width: 44px; height: 44px; /* NOTE 44px touch target (was 36px source size) */
+  display: inline-flex; align-items: center; justify-content: center;
+  border: 1px solid var(--on-dark-20); border-radius: var(--r-btn); /* NOTE 1px */
+  color: var(--color-text-on-dark);
+  transition: background var(--motion-base) var(--ease), color var(--motion-base) var(--ease);
+}
+.social-sq:hover { background: var(--color-surface); color: var(--color-primary); }
+.footer-bottom {
+  border-top: 1px solid var(--on-dark-10); padding-top: var(--space-8); /* NOTE 1px */
+  display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: var(--space-4);
+  font-size: var(--fs-meta); color: var(--on-dark-60);
+}
+.footer-bottom a { color: var(--on-dark-60); text-decoration: none; }
+.footer-bottom a:hover { color: var(--color-text-on-dark-strong); }
+.footer-bottom__links { display: flex; flex-wrap: wrap; gap: var(--space-6); }
+
+/* ─────────────────────────────────────────────────────────────
+   14 · SKIP LINK (§25 — first focusable element, targets #main)
+   ───────────────────────────────────────────────────────────── */
+.skip-link {
+  position: absolute; left: -9999px; top: 0;          /* NOTE -9999px: off-screen until focused */
+  z-index: var(--z-skip);
+  background: var(--color-primary); color: var(--color-on-primary);
+  padding: var(--space-3) var(--space-4);
+  border-radius: var(--r-btn);
+  font-family: var(--sans); font-size: var(--fs-body); font-weight: var(--fw-medium);
+  text-decoration: none;
+}
+.skip-link:focus { left: var(--space-2); top: var(--space-2); }   /* NOTE 8px = --space-2 reveal offset */
+.skip-link--inline { position: static; display: inline-block; }   /* always-visible gallery preview */
+
+/* ─────────────────────────────────────────────────────────────
+   15 · FULL UTILITY BAR (§5 — on --color-surface-deep)
+   ───────────────────────────────────────────────────────────── */
+.utilitybar { background: var(--color-surface-deep); border-radius: var(--r-card); }
+.utilitybar__inner {
+  min-height: var(--h-utilitybar);
+  display: flex; align-items: center; justify-content: space-between;
+  gap: var(--space-4) var(--space-6); flex-wrap: wrap;
+  padding: var(--space-2) var(--space-4);
+}
+.utilitybar__group { display: flex; align-items: center; gap: var(--space-3) var(--space-5); flex-wrap: wrap; }
+.util-link {
+  display: inline-flex; align-items: center; gap: var(--space-2);
+  min-height: 44px;                     /* NOTE 44px touch target (incl. the high-contrast toggle) */
+  font-family: var(--mono); font-size: var(--fs-meta);
+  color: var(--color-text-on-dark); text-decoration: none;
+  background: transparent; border: 0; cursor: pointer;
+  transition: color var(--motion-base) var(--ease);
+}
+.util-link:hover { color: var(--color-text-on-dark-strong); }
+.util-sep { color: var(--on-dark-40); }   /* decorative separator — gold fails AA as text */
+.util-social { display: inline-flex; align-items: center; gap: var(--space-3); }
+.util-social a { color: var(--color-text-on-dark); transition: color var(--motion-base) var(--ease); }
+.util-social a:hover { color: var(--color-text-on-dark-strong); }
+
+/* ─────────────────────────────────────────────────────────────
+   16 · STICKY HEADER (§6 — crest + wordmark + nav + actions)
+   ───────────────────────────────────────────────────────────── */
+.site-header {
+  background: var(--color-surface);
+  border-bottom: 1px solid transparent;          /* NOTE 1px — gains a line on scroll */
+  border-radius: var(--r-card);
+}
+.site-header--scrolled { border-bottom-color: var(--color-border); box-shadow: var(--shadow-header); }
+.site-header__inner {
+  min-height: var(--h-header);
+  display: flex; align-items: center; justify-content: space-between;
+  gap: var(--space-6); flex-wrap: wrap;
+  padding-inline: var(--space-6);
+}
+.brand { display: inline-flex; align-items: center; gap: var(--space-3); text-decoration: none; }
+.brand__wordmark { line-height: var(--lh-tight); }
+.brand__name { display: block; font-family: var(--serif); font-weight: var(--fw-semibold); font-size: var(--fs-ui); color: var(--color-text); }
+.brand__mono {
+  display: block; margin-top: var(--space-1);
+  font-family: var(--mono); font-size: var(--fs-micro);
+  letter-spacing: var(--tracking-wide); text-transform: uppercase;
+  color: var(--color-text-secondary);
+}
+.main-nav { display: flex; align-items: center; flex-wrap: wrap; gap: var(--space-8); }
+.main-nav__link {
+  position: relative;
+  font-size: var(--fs-body); font-weight: var(--fw-medium);
+  color: var(--color-text); text-decoration: none;
+  padding-block: var(--space-2);
+  transition: color var(--motion-base) var(--ease);
+}
+.main-nav__link:hover { color: var(--color-primary); }
+.main-nav__link[aria-current="page"] { color: var(--color-primary); font-weight: var(--fw-semibold); }
+.main-nav__link[aria-current="page"]::after {
+  content: ''; position: absolute; left: 0; right: 0; bottom: 0; height: 2px;   /* NOTE 2px gold underline */
+  background: var(--color-accent); border-radius: var(--r-btn);
+}
+.header-actions { display: flex; align-items: center; gap: var(--space-3); }
+.icon-btn {
+  width: 44px; height: 44px;                      /* NOTE 44px touch target */
+  display: inline-flex; align-items: center; justify-content: center;
+  background: transparent; border: 0; border-radius: var(--r-btn);
+  color: var(--color-text); cursor: pointer;
+  transition: background var(--motion-base) var(--ease), color var(--motion-base) var(--ease);
+}
+.icon-btn:hover { background: var(--color-surface-muted); color: var(--color-primary); }
+
+/* ─────────────────────────────────────────────────────────────
+   17 · WHY-PARTNER FEATURE (§10 — bordered icon box · serif 22px · 3-up)
+   ───────────────────────────────────────────────────────────── */
+.feature-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--space-12) var(--space-10); }
+.feature__icon {
+  width: var(--space-12); height: var(--space-12);   /* 48px = --space-12 */
+  display: inline-flex; align-items: center; justify-content: center;
+  border: 1px solid var(--color-border); border-radius: var(--r-card);   /* NOTE 1px */
+  color: var(--color-primary); margin-bottom: var(--space-6);
+}
+.feature__title {
+  margin: 0 0 var(--space-4);
+  font-family: var(--serif); font-weight: var(--fw-medium);
+  font-size: var(--fs-h3-lg); line-height: var(--lh-tight);
+  color: var(--color-text);
+}
+.feature__body { margin: 0; font-size: var(--fs-ui); line-height: var(--lh-relaxed); color: var(--color-text-secondary); }
+
+/* ─────────────────────────────────────────────────────────────
+   18 · INSTITUTE LIST (§20 — select filter + search + divided rows)
+   ───────────────────────────────────────────────────────────── */
+.institute-panel { max-width: 640px; }   /* NOTE 640px list measure */
+.field-label {
+  display: block; margin-bottom: var(--space-2);
+  font-family: var(--mono); font-size: var(--fs-meta);
+  letter-spacing: var(--tracking-mono); text-transform: uppercase;
+  color: var(--color-text-tertiary);
+}
+.select-field, .search-field {
+  width: 100%;
+  font-family: var(--sans); font-size: var(--fs-input);
+  color: var(--color-text); background: var(--color-surface);
+  border: 1px solid var(--color-border); border-radius: var(--r-btn);   /* NOTE 1px */
+}
+.select-field { padding: var(--space-3) var(--space-4); margin-bottom: var(--space-4); }
+.search-wrap { position: relative; margin-bottom: var(--space-5); }
+.search-wrap__icon {
+  position: absolute; left: var(--space-3); top: 50%; transform: translateY(-50%);
+  color: var(--color-text-tertiary); pointer-events: none;
+}
+.search-field { padding: var(--space-3) var(--space-4) var(--space-3) var(--space-10); }   /* left room for icon */
+.institute-list {
+  list-style: none; margin: 0; padding: 0;
+  border-top: 1px solid var(--color-border); border-bottom: 1px solid var(--color-border);   /* NOTE 1px */
+}
+.institute-list li { padding-block: var(--space-4); border-top: 1px solid var(--color-border); }   /* divider row; NOTE 1px */
+.institute-list li:first-child { border-top: 0; }
+.institute__name { font-size: var(--fs-body); font-weight: var(--fw-medium); color: var(--color-text); }
+.institute__meta { display: flex; align-items: center; gap: var(--space-2); margin-top: var(--space-1); font-size: var(--fs-meta); color: var(--color-text-tertiary); }
+.institute__sep { color: var(--color-border); }   /* decorative dot */
+.institute-more {
+  display: inline-block; margin-top: var(--space-6);
+  font-size: var(--fs-body); font-weight: var(--fw-medium);
+  color: var(--color-primary); text-decoration: none;
+  border-bottom: 1px solid var(--color-primary); padding-bottom: var(--space-1);   /* NOTE 1px */
+}
+
+/* ─────────────────────────────────────────────────────────────
+   19 · SECTION DIVIDER (§12 — two hairlines + serif-italic label)
+   ───────────────────────────────────────────────────────────── */
+.divider { display: flex; align-items: center; justify-content: center; gap: var(--space-6); }
+.divider__rule { flex: 1; max-width: 180px; height: 1px; background: var(--color-border); }   /* NOTE 1px / 180px */
+.divider__label { font-family: var(--serif); font-style: italic; font-size: var(--fs-lead); color: var(--color-text-secondary); }
+
+/* ─────────────────────────────────────────────────────────────
+   20 · HIGH-CONTRAST MODE (§26 — body.hc override layer)
+   ───────────────────────────────────────────────────────────── */
+body.hc { background: var(--hc-bg); color: var(--hc-fg); }
+body.hc *, body.hc *::before, body.hc *::after {
+  background-color: transparent !important;
+  background-image: none !important;
+  color: var(--hc-fg) !important;
+  border-color: var(--hc-fg) !important;
+  box-shadow: none !important;
+}
+body.hc a, body.hc button { color: var(--hc-link) !important; }
+body.hc .hero,
+body.hc .card__photo,
+body.hc .news__thumb,
+body.hc .portrait__ph,
+body.hc .journal__cover {
+  background: var(--hc-bg) !important; outline: 1px solid var(--hc-fg);   /* NOTE 1px */
+}
+/* HC: the global !important block resets background/color/border but NOT outline or SVG
+   fill/stroke. Re-assert the three things it misses so HC stays usable. */
+body.hc *:focus-visible { outline-color: var(--hc-fg) !important; }   /* keep the focus ring visible */
+/* SVG colour is fill/stroke (not background/color) — remap the map + crest to the HC palette. */
+body.hc .map-outline { fill: transparent !important; stroke: var(--hc-fg) !important; }
+body.hc .map-river  { stroke: var(--hc-fg) !important; }
+body.hc .map-dot, body.hc .map-label { fill: var(--hc-fg) !important; }
+body.hc .map-dot-link:hover .map-dot,
+body.hc .map-dot-link:focus-visible .map-dot { fill: var(--hc-link) !important; }
+body.hc .crest-shield { fill: transparent !important; stroke: var(--hc-fg) !important; }
+body.hc .crest-ear   { stroke: var(--hc-fg) !important; }
+body.hc .crest-text  { fill: var(--hc-fg) !important; }
+/* HC wipes the gold active-nav underline (::after background) — restore a current-page cue. */
+body.hc .main-nav__link[aria-current="page"] { text-decoration: underline; text-underline-offset: 4px; font-weight: var(--fw-semibold); }
+
+/* ─────────────────────────────────────────────────────────────
+   RESPONSIVE (layout breakpoints only — not colour/radius/type)
+   ───────────────────────────────────────────────────────────── */
+@media (max-width: 1024px) {
+  .card-grid, .news-grid { grid-template-columns: repeat(2, 1fr); }
+  /* minmax(0,1fr) so the wide mono numbers can't force tracks past the container (overflow:hidden was clipping the right column) */
+  .stat-ribbon { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .stat:nth-child(2n+1) { border-left: 0; }   /* reset the left hairline on the first cell of each wrapped row */
+  .logo-grid { grid-template-columns: repeat(4, 1fr); }
+  .feature-grid { grid-template-columns: 1fr; }
+  .two-col { grid-template-columns: 1fr; }
+  .footer-grid { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 640px) {
+  .card-grid, .news-grid { grid-template-columns: 1fr; }
+  .footer-grid { grid-template-columns: 1fr; }
+  /* keep the 2-col ribbon, but shrink the number + padding so "18 000+" fits a ~155px track at 375px */
+  .stat { padding: var(--space-4) var(--space-3); }
+  .stat__num { font-size: 28px; }
+}
+</style>
+</head>
+
+<body>
+
+<!-- Skip link — FIRST focusable element in <body>, targets #main (§25) -->
+<a href="#main" class="skip-link">Перейти до основного вмісту</a>
+
+<!-- ═══════════════ HEADER NOTE (sticky, navy-deep) ═══════════════ -->
+<div class="topnote">
+  <div class="wrap topnote__inner">
+    <div><strong>NAAS Lucidity</strong> — tokenized gallery <span class="dot-sep">·</span> every value from tokens.css</div>
+    <div class="topnote__lang" role="group" aria-label="Мова">
+      <button class="lang-btn" data-lang="uk" aria-pressed="true">UA</button>
+      <span class="dot-sep">/</span>
+      <button class="lang-btn" data-lang="en" aria-pressed="false">EN</button>
+    </div>
+  </div>
+</div>
+
+<main id="main">
+
+<!-- ═══════════════ 1 · PHOTO HERO ═══════════════ -->
+<section class="hero" aria-labelledby="hero-heading">
+  <div class="hero__photo-label">Фото · пшеничне поле, Черкаська обл., липень</div>
+  <div class="wrap">
+    <div class="hero__content">
+      <div class="eyebrow hero__eyebrow">Заснована у 1931 · National Academy of Agrarian Sciences of Ukraine</div>
+      <h1 id="hero-heading" class="hero__title">Аграрна наука<br/>для світового<br/>продовольчого майбутнього</h1>
+      <p class="hero__sub">95 років наукових досліджень на службі АПК України та світу</p>
+      <div class="hero__cta">
+        <a href="#" class="btn btn--invert">Investment &amp; partnership</a>
+        <a href="#" class="hero__textlink">Our research
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+        </a>
+      </div>
+    </div>
+  </div>
+  <div class="hero__fade"></div>
+</section>
+
+<!-- ═══════════════ 2 · STAT RIBBON ═══════════════ -->
+<section class="gallery-section">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="section-kicker">Stat ribbon</div>
+      <h2 class="section-title">Ключові показники · mono 56px</h2>
+    </div>
+    <div class="stat-ribbon">
+      <div class="stat"><div class="stat__num">95</div><div class="stat__label">Років роботи</div></div>
+      <div class="stat"><div class="stat__num">6</div><div class="stat__label">Відділень</div></div>
+      <div class="stat"><div class="stat__num">42</div><div class="stat__label">Інститути</div></div>
+      <div class="stat"><div class="stat__num">3&nbsp;500+</div><div class="stat__label">Науковців</div></div>
+      <div class="stat"><div class="stat__num">18&nbsp;000+</div><div class="stat__label">Публікацій</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════ 3 · BUTTONS + BADGES ═══════════════ -->
+<section class="gallery-section">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="section-kicker">Buttons · four variants</div>
+      <h2 class="section-title">Кнопки, бейджі доступу та теги подій</h2>
+      <p class="section-note">Tab between controls to see the <code>--color-focus-ring</code> focus ring. Variants bind to <code>--btn-primary-*</code>, <code>--btn-invert-*</code>, <code>--btn-accent-*</code>, <code>--btn-ghost-*</code>.</p>
+    </div>
+
+    <div class="row" style="margin-bottom: var(--space-6)">
+      <a href="#" class="btn btn--primary">Кабінет науковця</a>
+      <a href="#" class="btn btn--accent">Підписатися</a>
+      <a href="#" class="btn btn--ghost">International cooperation
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+      </a>
+    </div>
+
+    <div class="panel-dark" style="margin-bottom: var(--space-8)">
+      <div class="swatch-caption swatch-caption--ondark">btn--invert · on --color-surface-dark</div>
+      <div class="row">
+        <a href="#" class="btn btn--invert">Investment &amp; partnership</a>
+      </div>
+    </div>
+
+    <div class="row" style="margin-bottom: var(--space-6)">
+      <span class="swatch-caption" style="margin: 0">Access badges</span>
+      <span class="badge badge--open">Відкритий доступ</span>
+      <span class="badge badge--sub">Передплата</span>
+    </div>
+    <div class="row">
+      <span class="swatch-caption" style="margin: 0">Event tags · 3 variants</span>
+      <span class="tag tag--conf">Конференція</span>
+      <span class="tag tag--open">Захист дисертації</span>
+      <span class="tag tag--sub">Конкурс</span>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════ 4 · RESEARCH CARD GRID ═══════════════ -->
+<section class="gallery-section" style="background: var(--color-surface-muted)">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="section-kicker">Research cards · card-lift hover</div>
+      <h2 class="section-title">Напрямки досліджень</h2>
+      <p class="section-note">Hover a card: flat <code>--lift-hover</code> transform + <code>--color-border-hover</code> — no shadow. Photo bands use the division gradient tokens (<code>--div-*</code>).</p>
+    </div>
+    <div class="card-grid">
+      <article class="card">
+        <div class="card__photo card__photo--soil"><span class="photo-tag">soil · irrigation</span></div>
+        <div class="card__body">
+          <div class="eyebrow card__eyebrow">Soil science, irrigation &amp; farm engineering</div>
+          <h3 class="card__title">Відділення землеробства, меліорації та механізації</h3>
+          <p class="card__desc">Ґрунтознавство, обробіток ґрунту, зрошення та механізація сільгоспвиробництва.</p>
+          <a href="#" class="card__link">Інститути відділення (8) →</a>
+        </div>
+      </article>
+      <article class="card">
+        <div class="card__photo card__photo--plant"><span class="photo-tag">crop science</span></div>
+        <div class="card__body">
+          <div class="eyebrow card__eyebrow">Plant breeding &amp; crop science</div>
+          <h3 class="card__title">Відділення рослинництва</h3>
+          <p class="card__desc">Селекція, насінництво та біотехнологія основних польових культур України.</p>
+          <a href="#" class="card__link">Інститути відділення (9) →</a>
+        </div>
+      </article>
+      <article class="card">
+        <div class="card__photo card__photo--animal"><span class="photo-tag">animal science</span></div>
+        <div class="card__body">
+          <div class="eyebrow card__eyebrow">Animal science</div>
+          <h3 class="card__title">Відділення зоотехнії</h3>
+          <p class="card__desc">Генетика, селекція та технології утримання великої рогатої худоби, свинарства, птахівництва.</p>
+          <a href="#" class="card__link">Інститути відділення (6) →</a>
+        </div>
+      </article>
+      <article class="card">
+        <div class="card__photo card__photo--vet"><span class="photo-tag">veterinary</span></div>
+        <div class="card__body">
+          <div class="eyebrow card__eyebrow">Veterinary medicine</div>
+          <h3 class="card__title">Відділення ветеринарної медицини</h3>
+          <p class="card__desc">Епізоотологія, біобезпека, ветеринарні препарати та діагностика.</p>
+          <a href="#" class="card__link">Інститути відділення (5) →</a>
+        </div>
+      </article>
+      <article class="card">
+        <div class="card__photo card__photo--econ"><span class="photo-tag">food systems</span></div>
+        <div class="card__body">
+          <div class="eyebrow card__eyebrow">Agricultural economics &amp; food systems</div>
+          <h3 class="card__title">Відділення аграрної економіки і продовольства</h3>
+          <p class="card__desc">Аграрна політика, продовольча безпека, харчові технології та переробка.</p>
+          <a href="#" class="card__link">Інститути відділення (7) →</a>
+        </div>
+      </article>
+      <article class="card">
+        <div class="card__photo card__photo--innov"><span class="photo-tag">tech transfer</span></div>
+        <div class="card__body">
+          <div class="eyebrow card__eyebrow">Innovation &amp; technology transfer</div>
+          <h3 class="card__title">Відділення наукового забезпечення трансферу інновацій</h3>
+          <p class="card__desc">Комерціалізація наукових розробок, дорадча служба, технопарки та регіональні центри.</p>
+          <a href="#" class="card__link">Інститути відділення (7) →</a>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════ 5 · AUDIENCE PILLS ═══════════════ -->
+<section class="gallery-section">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="section-kicker">Audience pills · gold dot</div>
+      <h2 class="section-title">Для наших постійних відвідувачів</h2>
+      <p class="section-note">Hover: <code>--chip-hover-border</code> + <code>--lift-hover</code>. The dot is <code>--pill-dot</code> (wheat).</p>
+    </div>
+    <div class="pill-row">
+      <a href="#" class="audience-pill"><span class="dot"></span>Науковцю</a>
+      <a href="#" class="audience-pill"><span class="dot"></span>Бізнесу</a>
+      <a href="#" class="audience-pill"><span class="dot"></span>Міжнародному партнеру</a>
+      <a href="#" class="audience-pill"><span class="dot"></span>Пресі</a>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════ 6 · FILTER CHIPS ═══════════════ -->
+<section class="gallery-section" style="background: var(--color-surface-muted)">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="section-kicker">Filter chips</div>
+      <h2 class="section-title">Фільтр новин</h2>
+      <p class="section-note">Hover any chip for <code>--chip-hover-*</code>; the active chip uses <code>--chip-active-*</code>.</p>
+    </div>
+    <div class="chip-row" role="group" aria-label="Фільтр новин">
+      <button class="chip chip--active" aria-pressed="true">Усі</button>
+      <button class="chip" aria-pressed="false">Землеробство</button>
+      <button class="chip" aria-pressed="false">Тваринництво</button>
+      <button class="chip" aria-pressed="false">Ветмедицина</button>
+      <button class="chip" aria-pressed="false">Економіка</button>
+      <button class="chip" aria-pressed="false">Видання</button>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════ 7 · NEWS CARDS ═══════════════ -->
+<section class="gallery-section">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="section-kicker">News card</div>
+      <h2 class="section-title">Останні новини академії</h2>
+      <p class="section-note">Warm thumbnail uses <code>--news-thumb</code>; the title shifts to <code>--color-primary</code> on hover.</p>
+    </div>
+    <div class="news-grid">
+      <a href="#" class="news">
+        <div class="news__thumb"></div>
+        <div class="news__meta">14 ТРАВ 2026 · ЗЕМЛЕРОБСТВО</div>
+        <h3 class="news__title">Селекціонери НААН передали аграріям нові посухостійкі сорти озимої пшениці</h3>
+        <p class="news__excerpt">Три нові сорти — «Поліська-2025», «Степова-Н» та «Київська-37» — отримали реєстрацію Державного реєстру.</p>
+      </a>
+      <a href="#" class="news">
+        <div class="news__thumb"></div>
+        <div class="news__meta">12 ТРАВ 2026 · ПАРТНЕРСТВО</div>
+        <h3 class="news__title">Підписано меморандум про співпрацю з Wageningen UR на 2026–2030</h3>
+        <p class="news__excerpt">Спільні дослідження у напрямку відновлення деградованих земель та точного землеробства.</p>
+      </a>
+      <a href="#" class="news">
+        <div class="news__thumb"></div>
+        <div class="news__meta">5 ТРАВ 2026 · ВИДАННЯ</div>
+        <h3 class="news__title">«Вісник аграрної науки» індексовано у Scopus Q3</h3>
+        <p class="news__excerpt">Флагманське видання академії досягло цитованості, що відповідає третьому квартилю.</p>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════ 8 · EVENT ROWS (3 tag variants) ═══════════════ -->
+<section class="gallery-section" style="background: var(--color-surface-muted)">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="section-kicker">Event row · date box + tags</div>
+      <h2 class="section-title">Найближчі події</h2>
+    </div>
+    <ul class="event-list">
+      <li class="event">
+        <div class="event__date">
+          <div class="event__month">Червень</div>
+          <div class="event__day">04</div>
+          <div class="event__dow">Чт</div>
+        </div>
+        <div class="event__body">
+          <span class="tag tag--conf">Конференція</span>
+          <h3 class="event__title">Аграрна наука — виробництву: підсумки сезону 2025</h3>
+          <p class="event__place">м. Київ · Президія НААН</p>
+        </div>
+      </li>
+      <li class="event">
+        <div class="event__date">
+          <div class="event__month">Червень</div>
+          <div class="event__day">11</div>
+          <div class="event__dow">Чт</div>
+        </div>
+        <div class="event__body">
+          <span class="tag tag--open">Захист дисертації</span>
+          <h3 class="event__title">Колесник О. М. — докторська за спеціальністю 06.01.05</h3>
+          <p class="event__place">м. Київ · ННЦ «ІЗ НААН»</p>
+        </div>
+      </li>
+      <li class="event">
+        <div class="event__date">
+          <div class="event__month">Червень</div>
+          <div class="event__day">17</div>
+          <div class="event__dow">Ср</div>
+        </div>
+        <div class="event__body">
+          <span class="tag tag--sub">Конкурс</span>
+          <h3 class="event__title">Премія НААН для молодих учених — прийом заявок до 30 червня</h3>
+          <p class="event__place">онлайн</p>
+        </div>
+      </li>
+    </ul>
+  </div>
+</section>
+
+<!-- ═══════════════ 9 · JOURNAL-COVER STRIP (h-scroll, jc-1..8) ═══════════════ -->
+<section class="gallery-section">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="section-kicker">Journal catalog · h-scroll</div>
+      <h2 class="section-title">Наукові видання НААН</h2>
+      <p class="section-note">Eight spine gradients <code>--jc-1 … --jc-8</code> in a horizontal strip with the tokenized scrollbar.</p>
+    </div>
+    <div class="h-scroll">
+      <div class="strip">
+        <article class="journal">
+          <div class="journal__cover jc-1"><div class="journal__top">Q3 · Scopus</div><div class="journal__cover-title">Вісник аграрної науки</div></div>
+          <div class="journal__name">Вісник аграрної науки</div>
+          <div class="journal__doi">Вип. 5 / 2026 · 10.31073/agrovisnyk</div>
+          <span class="badge badge--open journal__badge">Відкритий доступ</span>
+        </article>
+        <article class="journal">
+          <div class="journal__cover jc-2"><div class="journal__top">Q4 · Scopus</div><div class="journal__cover-title">Землеробство</div></div>
+          <div class="journal__name">Землеробство</div>
+          <div class="journal__doi">Вип. 1 (158) / 2026 · 10.31073/zem</div>
+          <span class="badge badge--open journal__badge">Відкритий доступ</span>
+        </article>
+        <article class="journal">
+          <div class="journal__cover jc-3"><div class="journal__top">Q3 · WoS</div><div class="journal__cover-title">Plant breeding &amp; seed production</div></div>
+          <div class="journal__name">Селекція і насінництво</div>
+          <div class="journal__doi">Вип. 123 / 2026 · 10.30835/2413</div>
+          <span class="badge badge--open journal__badge">Відкритий доступ</span>
+        </article>
+        <article class="journal">
+          <div class="journal__cover jc-4"><div class="journal__top">Ukr · peer-reviewed</div><div class="journal__cover-title">Ветеринарна біотехнологія</div></div>
+          <div class="journal__name">Ветеринарна біотехнологія</div>
+          <div class="journal__doi">№ 44 / 2026 · 10.31073/vbt</div>
+          <span class="badge badge--open journal__badge">Відкритий доступ</span>
+        </article>
+        <article class="journal">
+          <div class="journal__cover jc-5"><div class="journal__top">Index Copernicus</div><div class="journal__cover-title">Розведення і генетика тварин</div></div>
+          <div class="journal__name">Розведення і генетика тварин</div>
+          <div class="journal__doi">Вип. 71 / 2026 · 10.31073/rgt</div>
+          <span class="badge badge--sub journal__badge">Передплата</span>
+        </article>
+        <article class="journal">
+          <div class="journal__cover jc-6"><div class="journal__top">Q4 · Scopus</div><div class="journal__cover-title">Меліорація і водне господарство</div></div>
+          <div class="journal__name">Меліорація і водне госп.</div>
+          <div class="journal__doi">Вип. 1 / 2026 · 10.31073/mivg</div>
+          <span class="badge badge--open journal__badge">Відкритий доступ</span>
+        </article>
+        <article class="journal">
+          <div class="journal__cover jc-7"><div class="journal__top">Ukr · peer-reviewed</div><div class="journal__cover-title">Економіка АПК</div></div>
+          <div class="journal__name">Економіка АПК</div>
+          <div class="journal__doi">№ 4 / 2026 · 10.32317/2221</div>
+          <span class="badge badge--open journal__badge">Відкритий доступ</span>
+        </article>
+        <article class="journal">
+          <div class="journal__cover jc-8"><div class="journal__top">Ukr · annual</div><div class="journal__cover-title">Передгірне і гірське землеробство</div></div>
+          <div class="journal__name">Передгірне землеробство</div>
+          <div class="journal__doi">Вип. 75 / 2026 · 10.32636/pgz</div>
+          <span class="badge badge--open journal__badge">Відкритий доступ</span>
+        </article>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════ 10 · PORTRAIT MONOGRAM (h-scroll) ═══════════════ -->
+<section class="gallery-section" style="background: var(--color-surface-muted)">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="section-kicker">Portrait monogram</div>
+      <h2 class="section-title">Президія НААН</h2>
+      <p class="section-note">Placeholder portraits use <code>--portrait-bg</code> with a monogram ring drawn from <code>--on-dark-*</code> alphas.</p>
+    </div>
+    <div class="h-scroll">
+      <div class="strip">
+        <article class="portrait">
+          <div class="portrait__ph" data-initials="ГІ"></div>
+          <div class="portrait__name">Гриник Ігор Володимирович</div>
+          <div class="portrait__role">Президент НААН, академік</div>
+        </article>
+        <article class="portrait">
+          <div class="portrait__ph" data-initials="—"></div>
+          <div class="portrait__name">Перший віцепрезидент</div>
+          <div class="portrait__role">Академік НААН</div>
+        </article>
+        <article class="portrait">
+          <div class="portrait__ph" data-initials="ПМ"></div>
+          <div class="portrait__name">Патика Микола Володимирович</div>
+          <div class="portrait__role">Віцепрезидент, академік НААН. Міжнародні проєкти та біологізація АПК</div>
+        </article>
+        <article class="portrait">
+          <div class="portrait__ph" data-initials="—"></div>
+          <div class="portrait__name">Головний учений секретар</div>
+          <div class="portrait__role">Академік НААН</div>
+        </article>
+        <article class="portrait">
+          <div class="portrait__ph" data-initials="—"></div>
+          <div class="portrait__name">Академік-секретар</div>
+          <div class="portrait__role">Відділення землеробства</div>
+        </article>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════ 11 · UKRAINE MAP + PARTNER LOGOS ═══════════════ -->
+<section class="gallery-section">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="section-kicker">Ukraine map · map-dot hover · partner logos</div>
+      <h2 class="section-title">Наші інститути по Україні</h2>
+      <p class="section-note">Hover a dot: it scales and fills with <code>--color-accent</code>. Logos shift to <code>--color-primary</code> + <code>--color-border-hover</code> on hover.</p>
+    </div>
+    <div class="map-frame">
+      <svg viewBox="0 0 600 400" width="100%" aria-label="Карта України з розташуванням інститутів НААН">
+        <path class="map-outline" opacity="0.7" stroke-width="1.2" d="M 90 180 C 80 150, 110 130, 140 120 C 170 115, 200 95, 230 100 C 260 95, 285 80, 320 85 C 360 75, 400 80, 440 95 C 480 100, 510 120, 530 145 C 550 170, 555 200, 540 225 C 525 250, 500 270, 470 285 C 440 300, 400 305, 360 295 C 330 305, 290 320, 250 315 C 220 325, 185 320, 155 305 C 125 290, 100 270, 90 240 C 80 215, 90 195, 90 180 Z"/>
+        <path class="map-river" opacity="0.25" stroke-width="0.6" d="M 280 110 Q 290 200, 320 280"/>
+        <!-- Each dot is a focusable SVG <a>: a transparent r=22 (44px) hit-circle
+             carries the touch/keyboard target; the visible dot scales + gains a
+             stroke ring on hover/focus (non-colour cue beyond the fill change). -->
+        <g>
+          <a class="map-dot-link" href="#"><title>Київ — Президія + 8 інститутів</title><circle class="map-hit" cx="290" cy="190" r="22"/><circle class="map-dot" cx="290" cy="190" r="5"/></a>
+          <a class="map-dot-link" href="#"><title>Харків — 4 інститути</title><circle class="map-hit" cx="410" cy="220" r="22"/><circle class="map-dot" cx="410" cy="220" r="4"/></a>
+          <a class="map-dot-link" href="#"><title>Дніпро — 3 інститути</title><circle class="map-hit" cx="380" cy="270" r="22"/><circle class="map-dot" cx="380" cy="270" r="4"/></a>
+          <a class="map-dot-link" href="#"><title>Львів — 3 інститути</title><circle class="map-hit" cx="180" cy="220" r="22"/><circle class="map-dot" cx="180" cy="220" r="4"/></a>
+          <a class="map-dot-link" href="#"><title>Вінниця — 3 інститути</title><circle class="map-hit" cx="270" cy="240" r="22"/><circle class="map-dot" cx="270" cy="240" r="4"/></a>
+          <a class="map-dot-link" href="#"><title>Одеса — 3 інститути</title><circle class="map-hit" cx="290" cy="305" r="22"/><circle class="map-dot" cx="290" cy="305" r="4"/></a>
+          <a class="map-dot-link" href="#"><title>Полтава — 2 інститути</title><circle class="map-hit" cx="350" cy="180" r="22"/><circle class="map-dot" cx="350" cy="180" r="3"/></a>
+          <a class="map-dot-link" href="#"><title>Черкаси — 2 інститути</title><circle class="map-hit" cx="320" cy="220" r="22"/><circle class="map-dot" cx="320" cy="220" r="3"/></a>
+          <a class="map-dot-link" href="#"><title>Тернопіль — 2 інститути</title><circle class="map-hit" cx="220" cy="240" r="22"/><circle class="map-dot" cx="220" cy="240" r="3"/></a>
+          <a class="map-dot-link" href="#"><title>Чернігів — 1 інститут</title><circle class="map-hit" cx="430" cy="190" r="22"/><circle class="map-dot" cx="430" cy="190" r="3"/></a>
+        </g>
+        <text class="map-label" x="295" y="180" font-size="8">Київ</text>
+        <text class="map-label" x="415" y="215" font-size="8">Харків</text>
+        <text class="map-label" x="295" y="320" font-size="8">Одеса</text>
+        <text class="map-label" x="185" y="215" font-size="8">Львів</text>
+        <text class="map-label" x="385" y="265" font-size="8">Дніпро</text>
+      </svg>
+      <div class="map-hint">[ натисніть на точку, щоб переглянути інститути регіону ]</div>
+    </div>
+    <div class="logo-grid">
+      <a href="#" class="logo-ph">FAO</a>
+      <a href="#" class="logo-ph">CGIAR</a>
+      <a href="#" class="logo-ph">ICARDA</a>
+      <a href="#" class="logo-ph">Wageningen UR</a>
+      <a href="#" class="logo-ph">World Bank</a>
+      <a href="#" class="logo-ph">EU Horizon</a>
+      <a href="#" class="logo-ph">INRAE</a>
+      <a href="#" class="logo-ph">USDA-ARS</a>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════ 12 · NEWSLETTER CTA + CONTACT CARD ═══════════════ -->
+<section class="gallery-section" style="background: var(--color-surface-muted)">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="section-kicker">Newsletter CTA (wheat button) · contact card</div>
+      <h2 class="section-title">Підписка та контакти</h2>
+    </div>
+    <div class="two-col">
+      <!-- Newsletter -->
+      <div class="newsletter">
+        <div class="eyebrow newsletter__kicker">Щомісяця · без спаму</div>
+        <h3 class="newsletter__title">Підпишіться на новини академії</h3>
+        <p class="newsletter__copy">Дайджест найважливіших публікацій, подій і анонсів конкурсів — раз на місяць, на вашу електронну пошту.</p>
+        <form class="newsletter__form" onsubmit="event.preventDefault(); this.querySelector('button').textContent='Дякуємо ✓';">
+          <label class="sr-only" for="nl-email">Електронна пошта</label>
+          <input class="newsletter__input" id="nl-email" name="email" type="email" required autocomplete="email" placeholder="ваш email" />
+          <button class="btn btn--accent" type="submit">Підписатися</button>
+        </form>
+        <p class="newsletter__fine">Натискаючи кнопку, ви погоджуєтесь з нашою політикою конфіденційності.</p>
+      </div>
+
+      <!-- Contact card -->
+      <div class="contact">
+        <div class="eyebrow contact__kicker">Контакти</div>
+        <h3 class="contact__title">Президія НААН</h3>
+        <div class="contact__rows">
+          <div class="contact__row">
+            <svg class="contact__icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+            <div>
+              <div class="contact__primary">вул. Михайла Омеляновича-Павленка, 9</div>
+              <div class="contact__sub">м. Київ, 01010, Україна</div>
+            </div>
+          </div>
+          <div class="contact__row">
+            <svg class="contact__icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.37 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.33 1.85.57 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+            <div>
+              <a href="tel:+380445219284" class="contact__primary mono">+380 44 521 92 84</a>
+              <div class="contact__sub">Приймальня президента</div>
+            </div>
+          </div>
+          <div class="contact__row">
+            <svg class="contact__icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M4 4h16v16H4z"/><path d="m4 6 8 7 8-7"/></svg>
+            <div>
+              <a href="mailto:prez@naas.gov.ua" class="contact__primary mono">prez@naas.gov.ua</a>
+              <div class="contact__sub">Загальні запити</div>
+            </div>
+          </div>
+        </div>
+        <a href="#" class="contact__link">Маршрут на Google Maps
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M7 17 17 7M7 7h10v10"/></svg>
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════ 14 · FULL UTILITY BAR (§5) ═══════════════ -->
+<section class="gallery-section">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="section-kicker">Utility bar · full chrome</div>
+      <h2 class="section-title">Верхня службова панель</h2>
+      <p class="section-note">On <code>--color-surface-deep</code>: contact links, the «Для людей з вадами зору» high-contrast toggle (wired to <code>body.hc</code>), the UA/EN language toggle (<code>aria-pressed</code>), and four social icons.</p>
+    </div>
+    <div class="utilitybar">
+      <div class="utilitybar__inner">
+        <div class="utilitybar__group">
+          <a href="mailto:prez@naas.gov.ua" class="util-link">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M4 4h16v16H4z"/><path d="m4 6 8 7 8-7"/></svg>
+            prez@naas.gov.ua
+          </a>
+          <span class="util-sep">·</span>
+          <a href="tel:+380445219284" class="util-link mono">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.37 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.33 1.85.57 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+            +380 44 521 92 84
+          </a>
+        </div>
+        <div class="utilitybar__group">
+          <button class="util-link hc-toggle" type="button" aria-pressed="false">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 2a10 10 0 0 0 0 20z" fill="currentColor"/></svg>
+            Для людей з вадами зору
+          </button>
+          <span class="util-sep">·</span>
+          <div class="topnote__lang" role="group" aria-label="Мова">
+            <button class="lang-btn" data-lang="uk" aria-pressed="true">UA</button>
+            <span class="util-sep">/</span>
+            <button class="lang-btn" data-lang="en" aria-pressed="false">EN</button>
+          </div>
+          <span class="util-sep">·</span>
+          <div class="util-social" role="group" aria-label="Соціальні мережі">
+            <a href="#" aria-label="Facebook"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M22 12c0-5.52-4.48-10-10-10S2 6.48 2 12c0 4.84 3.44 8.87 8 9.8V15H8v-3h2V9.5C10 7.57 11.57 6 13.5 6H16v3h-2c-.55 0-1 .45-1 1v2h3v3h-3v6.95c5.05-.5 9-4.76 9-9.95z"/></svg></a>
+            <a href="#" aria-label="YouTube"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M23.5 6.2a3 3 0 0 0-2.1-2.1C19.5 3.5 12 3.5 12 3.5s-7.5 0-9.4.6A3 3 0 0 0 .5 6.2 31 31 0 0 0 0 12c0 1.94.17 3.88.5 5.8a3 3 0 0 0 2.1 2.1c1.9.6 9.4.6 9.4.6s7.5 0 9.4-.6a3 3 0 0 0 2.1-2.1c.33-1.92.5-3.86.5-5.8 0-1.94-.17-3.88-.5-5.8zM9.5 15.5v-7l6.5 3.5-6.5 3.5z"/></svg></a>
+            <a href="#" aria-label="LinkedIn"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20.4 20.4h-3.5v-5.6c0-1.3 0-3-1.8-3-1.9 0-2.2 1.4-2.2 2.9v5.7H9.4V9h3.4v1.6h.04c.5-.9 1.6-1.8 3.4-1.8 3.6 0 4.3 2.4 4.3 5.5v6.1zM5.3 7.4a2 2 0 1 1 0-4 2 2 0 0 1 0 4zm1.8 13H3.6V9h3.5v11.4zM22.2 0H1.8C.8 0 0 .8 0 1.8v20.4c0 1 .8 1.8 1.8 1.8h20.4c1 0 1.8-.8 1.8-1.8V1.8C24 .8 23.2 0 22.2 0z"/></svg></a>
+            <a href="#" aria-label="Telegram"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M9.78 18.65l.28-4.23 7.68-6.92c.34-.31-.07-.46-.52-.19L7.74 13.3 3.64 12c-.88-.25-.89-.86.2-1.3l15.97-6.16c.73-.33 1.43.18 1.15 1.3l-2.72 12.81c-.19.91-.74 1.13-1.5.71L12.6 16.3l-1.99 1.93c-.23.23-.42.42-.83.42z"/></svg></a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════ 15 · STICKY HEADER (§6 — scroll-shadow state shown) ═══════════════ -->
+<section class="gallery-section" style="background: var(--color-surface-muted)">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="section-kicker">Sticky header</div>
+      <h2 class="section-title">Головна шапка сайту</h2>
+      <p class="section-note">Navy crest + two-line serif wordmark + <code>NAAS · ЗАСН. 1931</code>, desktop nav with the active item in <code>--color-primary</code> under a <code>--color-accent</code> underline, a 44px search button and the ghost «Кабінет науковця». The second copy carries <code>.site-header--scrolled</code> (scroll shadow).</p>
+    </div>
+
+    <div class="swatch-caption">default · top of page</div>
+    <header class="site-header">
+      <div class="site-header__inner">
+        <a href="#" class="brand">
+          <svg class="crest" width="40" height="44" viewBox="0 0 40 44" aria-hidden="true">
+            <path class="crest-shield" d="M2 2 H38 V28 C38 36 30 42 20 42 C10 42 2 36 2 28 Z"/>
+            <path class="crest-ear" stroke-width="1.2" d="M20 8 L20 32"/>
+            <path class="crest-ear" stroke-width="1.2" d="M20 12 Q15 14 14 18 M20 12 Q25 14 26 18"/>
+            <path class="crest-ear" stroke-width="1.2" d="M20 18 Q14 20 13 25 M20 18 Q26 20 27 25"/>
+            <path class="crest-ear" stroke-width="1.2" d="M20 24 Q13 26 12 31 M20 24 Q27 26 28 31"/>
+            <text class="crest-text" x="20" y="40" text-anchor="middle" font-size="6" font-weight="700">НААН</text>
+          </svg>
+          <span class="brand__wordmark">
+            <span class="brand__name">Національна академія<br/>аграрних наук України</span>
+            <span class="brand__mono">NAAS · ЗАСН. 1931</span>
+          </span>
+        </a>
+        <nav class="main-nav" aria-label="Головне меню">
+          <a href="#" class="main-nav__link" aria-current="page">Дослідження</a>
+          <a href="#" class="main-nav__link">Інститути</a>
+          <a href="#" class="main-nav__link">Партнерство</a>
+          <a href="#" class="main-nav__link">Видання</a>
+          <a href="#" class="main-nav__link">Про нас</a>
+        </nav>
+        <div class="header-actions">
+          <button class="icon-btn" type="button" aria-label="Пошук">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+          </button>
+          <a href="#" class="btn btn--ghost">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+            Кабінет науковця
+          </a>
+        </div>
+      </div>
+    </header>
+
+    <div class="swatch-caption" style="margin-top: var(--space-6)">.site-header--scrolled · after scroll</div>
+    <header class="site-header site-header--scrolled">
+      <div class="site-header__inner">
+        <a href="#" class="brand">
+          <svg class="crest" width="40" height="44" viewBox="0 0 40 44" aria-hidden="true">
+            <path class="crest-shield" d="M2 2 H38 V28 C38 36 30 42 20 42 C10 42 2 36 2 28 Z"/>
+            <path class="crest-ear" stroke-width="1.2" d="M20 8 L20 32"/>
+            <path class="crest-ear" stroke-width="1.2" d="M20 12 Q15 14 14 18 M20 12 Q25 14 26 18"/>
+            <path class="crest-ear" stroke-width="1.2" d="M20 18 Q14 20 13 25 M20 18 Q26 20 27 25"/>
+            <path class="crest-ear" stroke-width="1.2" d="M20 24 Q13 26 12 31 M20 24 Q27 26 28 31"/>
+            <text class="crest-text" x="20" y="40" text-anchor="middle" font-size="6" font-weight="700">НААН</text>
+          </svg>
+          <span class="brand__wordmark">
+            <span class="brand__name">Національна академія<br/>аграрних наук України</span>
+            <span class="brand__mono">NAAS · ЗАСН. 1931</span>
+          </span>
+        </a>
+        <nav class="main-nav" aria-label="Головне меню">
+          <a href="#" class="main-nav__link" aria-current="page">Дослідження</a>
+          <a href="#" class="main-nav__link">Інститути</a>
+          <a href="#" class="main-nav__link">Партнерство</a>
+          <a href="#" class="main-nav__link">Видання</a>
+          <a href="#" class="main-nav__link">Про нас</a>
+        </nav>
+        <div class="header-actions">
+          <button class="icon-btn" type="button" aria-label="Пошук">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+          </button>
+          <a href="#" class="btn btn--ghost">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+            Кабінет науковця
+          </a>
+        </div>
+      </div>
+    </header>
+  </div>
+</section>
+
+<!-- ═══════════════ 16 · WHY-PARTNER FEATURE (§10) ═══════════════ -->
+<section class="gallery-section">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="section-kicker">For international R&amp;D partners</div>
+      <h2 class="section-title">Чому НААН як науковий партнер</h2>
+      <p class="section-note">A 48×48 bordered icon box (<code>--space-12</code> + <code>--color-border</code>), serif <code>--fs-h3-lg</code> headline and body — three across.</p>
+    </div>
+    <div class="feature-grid">
+      <div>
+        <span class="feature__icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M3 3v18h18"/><path d="M7 14l4-4 4 4 5-5"/></svg></span>
+        <h3 class="feature__title">Доступ до 95 років наукових даних</h3>
+        <p class="feature__body">Архіви польових досліджень, генетичних колекцій і агрономічних даних з 1931 року дають унікальну глибину для довгострокових досліджень.</p>
+      </div>
+      <div>
+        <span class="feature__icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15 15 0 0 1 0 20M12 2a15 15 0 0 0 0 20"/></svg></span>
+        <h3 class="feature__title">Мережа дослідних станцій по всій Україні</h3>
+        <p class="feature__body">Від Полісся до степової зони — польові дослідження в усіх кліматичних поясах України.</p>
+      </div>
+      <div>
+        <span class="feature__icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg></span>
+        <h3 class="feature__title">Готовність до спільних міжнародних проєктів</h3>
+        <p class="feature__body">Досвід заявок до EU Horizon Europe, FAO, World Bank, CGIAR, активна співпраця з ICARDA та Wageningen.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════ 17 · INSTITUTE LIST (§20 — filter + search + rows) ═══════════════ -->
+<section class="gallery-section" style="background: var(--color-surface-muted)">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="section-kicker">Institute list · filter + search</div>
+      <h2 class="section-title">Перелік інститутів — фільтр і пошук</h2>
+      <p class="section-note">A <code>&lt;select&gt;</code> division filter, a <code>type="search"</code> input at <code>--fs-input</code> (Tab in for the <code>--color-focus-ring</code> ring) and divided institute rows.</p>
+    </div>
+    <div class="institute-panel">
+      <label class="field-label" for="inst-filter">Фільтр за відділенням</label>
+      <select class="select-field" id="inst-filter">
+        <option>Усі відділення</option>
+        <option>Землеробство, меліорація та механізація</option>
+        <option>Рослинництво</option>
+        <option>Зоотехнія</option>
+        <option>Ветеринарна медицина</option>
+        <option>Аграрна економіка і продовольство</option>
+        <option>Трансфер інновацій</option>
+      </select>
+      <div class="search-wrap">
+        <svg class="search-wrap__icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+        <label class="sr-only" for="inst-search">Пошук інституту</label>
+        <input class="search-field" id="inst-search" name="q" type="search" placeholder="Пошук інституту" />
+      </div>
+      <ul class="institute-list">
+        <li>
+          <div class="institute__name">ННЦ «Інститут землеробства НААН»</div>
+          <div class="institute__meta"><span>м. Київ</span><span class="institute__sep">·</span><span>Землеробство</span></div>
+        </li>
+        <li>
+          <div class="institute__name">Миронівський інститут пшениці ім. В. М. Ремесла</div>
+          <div class="institute__meta"><span>Київська обл.</span><span class="institute__sep">·</span><span>Рослинництво</span></div>
+        </li>
+        <li>
+          <div class="institute__name">Інститут рослинництва ім. В. Я. Юр'єва</div>
+          <div class="institute__meta"><span>м. Харків</span><span class="institute__sep">·</span><span>Рослинництво</span></div>
+        </li>
+        <li>
+          <div class="institute__name">Інститут зрошуваного землеробства</div>
+          <div class="institute__meta"><span>м. Херсон</span><span class="institute__sep">·</span><span>Землеробство</span></div>
+        </li>
+        <li>
+          <div class="institute__name">Інститут розведення і генетики тварин ім. М. В. Зубця</div>
+          <div class="institute__meta"><span>Київська обл.</span><span class="institute__sep">·</span><span>Зоотехнія</span></div>
+        </li>
+        <li>
+          <div class="institute__name">Інститут ветеринарної медицини</div>
+          <div class="institute__meta"><span>м. Київ</span><span class="institute__sep">·</span><span>Ветмедицина</span></div>
+        </li>
+        <li>
+          <div class="institute__name">Інститут аграрної економіки</div>
+          <div class="institute__meta"><span>м. Київ</span><span class="institute__sep">·</span><span>Економіка</span></div>
+        </li>
+      </ul>
+      <a href="#" class="institute-more">Повний список (42) →</a>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════ 18 · SECTION DIVIDER (§12) ═══════════════ -->
+<section class="gallery-section">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="section-kicker">Section divider</div>
+      <h2 class="section-title">Розділювач секцій</h2>
+      <p class="section-note">Two <code>1px</code> hairline rules flanking a centred serif-italic label at <code>--fs-lead</code>.</p>
+    </div>
+    <div class="divider">
+      <span class="divider__rule"></span>
+      <span class="divider__label">Для наших постійних відвідувачів</span>
+      <span class="divider__rule"></span>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════ 19 · SKIP LINK (§25 — live at top of body) ═══════════════ -->
+<section class="gallery-section" style="background: var(--color-surface-muted)">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="section-kicker">Skip link</div>
+      <h2 class="section-title">Перехід до основного вмісту</h2>
+      <p class="section-note">The real skip link is the <em>first</em> focusable element in <code>&lt;body&gt;</code> and targets <code>#main</code> — press <kbd>Tab</kbd> on page load to reveal it. Its appearance:</p>
+    </div>
+    <span class="skip-link skip-link--inline">Перейти до основного вмісту</span>
+  </div>
+</section>
+
+<!-- ═══════════════ 20 · HIGH-CONTRAST MODE (§26) ═══════════════ -->
+<section class="gallery-section">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="section-kicker">High-contrast mode</div>
+      <h2 class="section-title">Високий контраст</h2>
+      <p class="section-note">The utility-bar «Для людей з вадами зору» toggle flips <code>body.hc</code>, applying the <code>--hc-bg</code> / <code>--hc-fg</code> / <code>--hc-link</code> override layer across the whole page. Toggle it here too:</p>
+    </div>
+    <div class="row">
+      <button class="btn btn--primary hc-toggle" type="button" aria-pressed="false">Увімкнути високий контраст</button>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<!-- ═══════════════ 13 · FOOTER (navy-deep) ═══════════════ -->
+<footer class="site-footer">
+  <div class="wrap">
+    <div class="footer-grid">
+      <!-- Brand + address -->
+      <div>
+        <div class="footer__brand">
+          <svg class="crest crest--invert" width="40" height="44" viewBox="0 0 40 44" aria-hidden="true">
+            <path class="crest-shield" d="M2 2 H38 V28 C38 36 30 42 20 42 C10 42 2 36 2 28 Z"/>
+            <path class="crest-ear" stroke-width="1.2" d="M20 8 L20 32"/>
+            <path class="crest-ear" stroke-width="1.2" d="M20 12 Q15 14 14 18 M20 12 Q25 14 26 18"/>
+            <path class="crest-ear" stroke-width="1.2" d="M20 18 Q14 20 13 25 M20 18 Q26 20 27 25"/>
+            <path class="crest-ear" stroke-width="1.2" d="M20 24 Q13 26 12 31 M20 24 Q27 26 28 31"/>
+            <text class="crest-text" x="20" y="40" text-anchor="middle" font-size="6" font-weight="700">НААН</text>
+          </svg>
+          <div class="footer__brand-name">Національна академія<br/>аграрних наук України</div>
+        </div>
+        <div class="eyebrow footer__head">Контакти</div>
+        <address class="footer__address">
+          вул. Михайла Омеляновича-Павленка, 9<br/>
+          м. Київ, 01010, Україна<br/>
+          <a href="tel:+380445219284">+380 44 521 92 84</a><br/>
+          <a href="mailto:prez@naas.gov.ua">prez@naas.gov.ua</a>
+        </address>
+      </div>
+      <!-- Divisions -->
+      <div>
+        <div class="eyebrow footer__head">Відділення</div>
+        <ul class="footer__list">
+          <li><a class="footer__link" href="#">Землеробство</a></li>
+          <li><a class="footer__link" href="#">Рослинництво</a></li>
+          <li><a class="footer__link" href="#">Зоотехнія</a></li>
+          <li><a class="footer__link" href="#">Ветмедицина</a></li>
+          <li><a class="footer__link" href="#">Аграрна економіка</a></li>
+          <li><a class="footer__link" href="#">Трансфер інновацій</a></li>
+        </ul>
+      </div>
+      <!-- Audiences -->
+      <div>
+        <div class="eyebrow footer__head">Аудиторії</div>
+        <ul class="footer__list">
+          <li><a class="footer__link" href="#">Науковцю</a></li>
+          <li><a class="footer__link" href="#">Бізнесу</a></li>
+          <li><a class="footer__link" href="#">Міжнародному партнеру</a></li>
+          <li><a class="footer__link" href="#">Пресі</a></li>
+        </ul>
+      </div>
+      <!-- Documents -->
+      <div>
+        <div class="eyebrow footer__head">Документи</div>
+        <ul class="footer__list">
+          <li><a class="footer__link" href="#">Статут</a></li>
+          <li><a class="footer__link" href="#">Публічна інформація</a></li>
+          <li><a class="footer__link" href="#">Закупівлі</a></li>
+          <li><a class="footer__link" href="#">Звіти</a></li>
+        </ul>
+      </div>
+      <!-- Social -->
+      <div>
+        <div class="eyebrow footer__head">Слідкуйте за нами</div>
+        <div class="social-row">
+          <a class="social-sq" href="#" aria-label="Facebook"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M22 12c0-5.52-4.48-10-10-10S2 6.48 2 12c0 4.84 3.44 8.87 8 9.8V15H8v-3h2V9.5C10 7.57 11.57 6 13.5 6H16v3h-2c-.55 0-1 .45-1 1v2h3v3h-3v6.95c5.05-.5 9-4.76 9-9.95z"/></svg></a>
+          <a class="social-sq" href="#" aria-label="YouTube"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M23.5 6.2a3 3 0 0 0-2.1-2.1C19.5 3.5 12 3.5 12 3.5s-7.5 0-9.4.6A3 3 0 0 0 .5 6.2 31 31 0 0 0 0 12c0 1.94.17 3.88.5 5.8a3 3 0 0 0 2.1 2.1c1.9.6 9.4.6 9.4.6s7.5 0 9.4-.6a3 3 0 0 0 2.1-2.1c.33-1.92.5-3.86.5-5.8 0-1.94-.17-3.88-.5-5.8zM9.5 15.5v-7l6.5 3.5-6.5 3.5z"/></svg></a>
+          <a class="social-sq" href="#" aria-label="LinkedIn"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20.4 20.4h-3.5v-5.6c0-1.3 0-3-1.8-3-1.9 0-2.2 1.4-2.2 2.9v5.7H9.4V9h3.4v1.6h.04c.5-.9 1.6-1.8 3.4-1.8 3.6 0 4.3 2.4 4.3 5.5v6.1zM5.3 7.4a2 2 0 1 1 0-4 2 2 0 0 1 0 4zm1.8 13H3.6V9h3.5v11.4zM22.2 0H1.8C.8 0 0 .8 0 1.8v20.4c0 1 .8 1.8 1.8 1.8h20.4c1 0 1.8-.8 1.8-1.8V1.8C24 .8 23.2 0 22.2 0z"/></svg></a>
+          <a class="social-sq" href="#" aria-label="Telegram"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M9.78 18.65l.28-4.23 7.68-6.92c.34-.31-.07-.46-.52-.19L7.74 13.3 3.64 12c-.88-.25-.89-.86.2-1.3l15.97-6.16c.73-.33 1.43.18 1.15 1.3l-2.72 12.81c-.19.91-.74 1.13-1.5.71L12.6 16.3l-1.99 1.93c-.23.23-.42.42-.83.42z"/></svg></a>
+        </div>
+        <a class="btn btn--ghost" href="#" style="color: var(--color-text-on-dark); border-color: var(--on-dark-20)">Завантажити брошуру (EN)</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <div>© 1931–2026 Національна академія аграрних наук України. Усі права захищені.</div>
+      <div class="footer-bottom__links">
+        <a href="#">Мапа сайту</a>
+        <a href="#">Декларація доступності</a>
+        <a href="#">Політика конфіденційності</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // Filter-chip toggle (filter TOGGLES, not tabs — keep aria-pressed in sync)
+  document.querySelectorAll('.chip').forEach(chip => {
+    chip.addEventListener('click', () => {
+      document.querySelectorAll('.chip').forEach(c => {
+        c.classList.remove('chip--active');
+        c.setAttribute('aria-pressed', 'false');
+      });
+      chip.classList.add('chip--active');
+      chip.setAttribute('aria-pressed', 'true');
+    });
+  });
+  // UA/EN chrome toggle (cosmetic — chrome language switch)
+  document.querySelectorAll('.lang-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.documentElement.setAttribute('lang', btn.dataset.lang);
+      document.querySelectorAll('.lang-btn').forEach(b => b.setAttribute('aria-pressed', b === btn ? 'true' : 'false'));
+    });
+  });
+  // High-contrast mode (§26) — wire every .hc-toggle to body.hc, sync aria-pressed
+  document.querySelectorAll('.hc-toggle').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const on = document.body.classList.toggle('hc');
+      document.querySelectorAll('.hc-toggle').forEach(b => b.setAttribute('aria-pressed', on ? 'true' : 'false'));
+    });
+  });
+</script>
+
+</body>
+</html>

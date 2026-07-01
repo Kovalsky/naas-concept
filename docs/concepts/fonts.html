@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="uk">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>НААН — порівняння шрифтів заголовків</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Spectral:wght@400;500;600&family=Lora:wght@400;500;600&family=IBM+Plex+Serif:wght@400;500;600&family=Inter:wght@400;500&family=IBM+Plex+Mono:wght@500&display=swap" rel="stylesheet" />
+<style>
+  :root{
+    --ink:#0E1622;--ink2:#46505e;--ink3:#6b7480;--line:#E2E7EE;
+    --navy:#1E3A5F;--navy-deep:#0C1C30;--paper2:#F4F6F9;--gold:#B8860B;--gold-ink:#8A6508;
+    --mono:'IBM Plex Mono',monospace;--body:'Inter',sans-serif;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;font-family:var(--body);color:var(--ink);background:#fff;-webkit-font-smoothing:antialiased}
+  .top{background:var(--navy-deep);color:#fff;padding:22px 32px}
+  .top h1{margin:0;font-family:var(--body);font-weight:600;font-size:18px}
+  .top p{margin:6px 0 0;font-size:13px;color:rgba(255,255,255,.7)}
+  .wrap{max-width:1080px;margin:0 auto;padding:34px 32px 60px}
+  .panel{border:1px solid var(--line);border-radius:16px;overflow:hidden;margin-bottom:26px;background:#fff}
+  .plabel{display:flex;align-items:center;justify-content:space-between;gap:12px;background:var(--paper2);border-bottom:1px solid var(--line);padding:12px 22px}
+  .plabel .nm{font-family:var(--mono);font-size:12px;font-weight:500;letter-spacing:.04em;color:var(--navy)}
+  .plabel .meta{font-family:var(--mono);font-size:11px;color:var(--ink3)}
+  .pin{padding:30px 30px 34px}
+  .ey{font-family:var(--mono);font-size:11px;font-weight:500;letter-spacing:.14em;text-transform:uppercase;color:var(--navy);margin-bottom:14px}
+  .h1{font-weight:600;font-size:clamp(28px,3.8vw,44px);line-height:1.06;letter-spacing:-.02em;color:var(--ink)}
+  .lead{font-family:var(--body);font-size:17px;line-height:1.55;color:var(--ink2);margin-top:14px;max-width:52ch}
+  .row{display:flex;flex-wrap:wrap;gap:34px;margin-top:26px;padding-top:22px;border-top:1px solid var(--line)}
+  .col{flex:1;min-width:240px}
+  .h2{font-weight:500;font-size:26px;line-height:1.15;letter-spacing:-.02em;color:var(--ink)}
+  .h3{font-weight:500;font-size:18px;line-height:1.25;color:var(--ink);margin-top:14px}
+  .body{font-family:var(--body);font-size:14.5px;line-height:1.6;color:var(--ink2);margin-top:8px}
+  .stat{font-weight:600;font-size:40px;letter-spacing:-.02em;color:var(--navy);line-height:1}
+  .statl{font-family:var(--mono);font-size:11px;color:var(--ink3);margin-top:8px;letter-spacing:.05em}
+  /* font assignments */
+  .f-spectral .h1,.f-spectral .h2,.f-spectral .h3,.f-spectral .stat{font-family:'Spectral',serif}
+  .f-lora .h1,.f-lora .h2,.f-lora .h3,.f-lora .stat{font-family:'Lora',serif}
+  .f-plex .h1,.f-plex .h2,.f-plex .h3,.f-plex .stat{font-family:'IBM Plex Serif',serif}
+</style>
+</head>
+<body>
+<div class="top">
+  <h1>НААН — три варіанти шрифту заголовків</h1>
+  <p>Однаковий текст і верстка; змінюється лише шрифт заголовків. Тіло — Inter, мітки/цифри — IBM Plex Mono.</p>
+</div>
+<div class="wrap">
+
+  <!-- Spectral -->
+  <div class="panel f-spectral">
+    <div class="plabel"><span class="nm">1 · Spectral</span><span class="meta">оновлений серіф · трохи сучасніший за Lora · рекомендовано</span></div>
+    <div class="pin">
+      <div class="ey">Засн. 1931 · National Academy of Agrarian Sciences of Ukraine</div>
+      <div class="h1">Національна академія аграрних наук України</div>
+      <div class="lead">Науково-методичний і координаційний центр з наукових проблем розвитку АПК України.</div>
+      <div class="row">
+        <div class="col"><div class="h2">Наукові відділення</div><div class="h3">Землеробства, меліорації та механізації</div><div class="body">Академія об'єднує шість наукових відділень і мережу з 50 підпорядкованих наукових установ.</div></div>
+        <div class="col"><div class="stat">50</div><div class="statl">НАУКОВИХ УСТАНОВ</div><div class="stat" style="margin-top:18px">1931</div><div class="statl">РІК ЗАСНУВАННЯ</div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Lora -->
+  <div class="panel f-lora">
+    <div class="plabel"><span class="nm">2 · Lora (поточний)</span><span class="meta">без змін · уже погоджено стейкхолдерами</span></div>
+    <div class="pin">
+      <div class="ey">Засн. 1931 · National Academy of Agrarian Sciences of Ukraine</div>
+      <div class="h1">Національна академія аграрних наук України</div>
+      <div class="lead">Науково-методичний і координаційний центр з наукових проблем розвитку АПК України.</div>
+      <div class="row">
+        <div class="col"><div class="h2">Наукові відділення</div><div class="h3">Землеробства, меліорації та механізації</div><div class="body">Академія об'єднує шість наукових відділень і мережу з 50 підпорядкованих наукових установ.</div></div>
+        <div class="col"><div class="stat">50</div><div class="statl">НАУКОВИХ УСТАНОВ</div><div class="stat" style="margin-top:18px">1931</div><div class="statl">РІК ЗАСНУВАННЯ</div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- IBM Plex Serif -->
+  <div class="panel f-plex">
+    <div class="plabel"><span class="nm">3 · IBM Plex Serif</span><span class="meta">сучасна «дослідницька» система · серіф-орієнтована</span></div>
+    <div class="pin">
+      <div class="ey">Засн. 1931 · National Academy of Agrarian Sciences of Ukraine</div>
+      <div class="h1">Національна академія аграрних наук України</div>
+      <div class="lead">Науково-методичний і координаційний центр з наукових проблем розвитку АПК України.</div>
+      <div class="row">
+        <div class="col"><div class="h2">Наукові відділення</div><div class="h3">Землеробства, меліорації та механізації</div><div class="body">Академія об'єднує шість наукових відділень і мережу з 50 підпорядкованих наукових установ.</div></div>
+        <div class="col"><div class="stat">50</div><div class="statl">НАУКОВИХ УСТАНОВ</div><div class="stat" style="margin-top:18px">1931</div><div class="statl">РІК ЗАСНУВАННЯ</div></div>
+      </div>
+    </div>
+  </div>
+
+</div>
+</body>
+</html>

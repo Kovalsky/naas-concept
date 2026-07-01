@@ -1,0 +1,351 @@
+<!doctype html>
+<html lang="uk">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>НААН — головна (navy · фото · погоджені блоки)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Spectral:wght@400;500;600&family=Lora:wght@400;500;600&family=IBM+Plex+Serif:wght@400;500;600&family=Inter:wght@300;400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<style>
+  *,*::before,*::after{box-sizing:border-box}
+  :root{
+    --ink:#0E1622;--ink2:#46505e;--ink3:#6b7480;
+    --paper:#fff;--paper2:#F4F6F9;--line:#E2E7EE;
+    --navy:#1E3A5F;--navy-d:#142A45;--navy-deep:#0C1C30;--navy-soft:#EAF0F6;--navy-line:rgba(30,58,95,.22);
+    --gold:#B8860B;--gold-ink:#8A6508;--gold-light:#E7C879;
+    --disp:'Spectral',Georgia,serif;
+    --sans:'Inter',system-ui,sans-serif;--mono:'IBM Plex Mono',monospace;
+    --wrap:1280px;--g:28px;--r:14px;
+  }
+  html{scroll-behavior:smooth}
+  body{margin:0;font-family:var(--sans);color:var(--ink);background:var(--paper);-webkit-font-smoothing:antialiased;line-height:1.5}
+  a{color:inherit;text-decoration:none} img{max-width:100%;display:block} h1,h2,h3,p{margin:0}
+  .wrap{max-width:var(--wrap);margin:0 auto;padding:0 var(--g)}
+  .mono{font-family:var(--mono)} .serif{font-family:var(--disp)}
+  .ey{font-family:var(--mono);font-size:11px;font-weight:500;letter-spacing:.14em;text-transform:uppercase;color:var(--navy)}
+  .ey--m{color:var(--ink3)}
+  .h2{font-family:var(--disp);font-weight:500;font-size:clamp(23px,2.8vw,32px);letter-spacing:-.015em;line-height:1.12}
+  .btn{display:inline-flex;align-items:center;gap:9px;height:46px;padding:0 22px;border-radius:10px;background:var(--navy);color:#fff;font-weight:600;font-size:14px;border:0;cursor:pointer}
+  .btn:hover{background:var(--navy-d)}
+  .lnk{display:inline-flex;align-items:center;gap:7px;font-weight:600;font-size:13.5px;color:var(--navy);border-bottom:1px solid var(--navy-line);padding-bottom:2px}
+  .arrow{transition:transform .18s} a:hover .arrow,.lnk:hover .arrow{transform:translateX(3px)}
+  section.band{padding:60px 0} .band.alt{background:var(--paper2);border-block:1px solid var(--line)}
+  .head{display:flex;align-items:flex-end;justify-content:space-between;gap:20px;margin-bottom:28px}
+
+  /* chrome */
+  .util{background:var(--navy-deep);color:rgba(255,255,255,.74);font-size:12px}
+  .util .wrap{display:flex;align-items:center;gap:16px;min-height:36px}
+  .util .grow{margin-left:auto;display:flex;gap:14px;align-items:center} .util b{color:#fff}
+  .hd{position:sticky;top:0;z-index:30;background:rgba(255,255,255,.93);backdrop-filter:saturate(160%) blur(10px);border-bottom:1px solid var(--line)}
+  .hd .wrap{display:flex;align-items:center;gap:22px;min-height:74px}
+  .brand{display:flex;align-items:center;gap:12px}
+  .brand .mark{width:44px;height:44px;border-radius:11px;background:linear-gradient(150deg,var(--navy),var(--navy-deep));position:relative}
+  .brand .mark::after{content:"";position:absolute;inset:0;margin:auto;width:9px;height:9px;border-radius:50%;background:var(--gold-light)}
+  .brand .nm{font-family:var(--disp);font-weight:600;font-size:16px;letter-spacing:-.01em;line-height:1.05}
+  .brand .sub{font-family:var(--mono);font-size:10px;color:var(--ink3);letter-spacing:.04em}
+  .nav{display:flex;gap:22px;margin-left:6px;font-size:14px;font-weight:500;color:var(--ink2)}
+  .nav a:hover{color:var(--navy)} .nav a.on{color:var(--navy);font-weight:600}
+  .hd .tools{margin-left:auto;display:flex;gap:8px}
+  .ibtn{width:44px;height:44px;border-radius:10px;display:flex;align-items:center;justify-content:center;color:var(--ink2)}
+  .ibtn:hover{background:var(--paper2);color:var(--navy)} .ibtn.b{border:1px solid var(--line)}
+  @media(max-width:920px){.nav{display:none}}
+
+  /* hero */
+  .hero{border-bottom:1px solid var(--line);background:radial-gradient(120% 80% at 90% -10%,var(--navy-soft),transparent 56%)}
+  .hero .wrap{display:grid;grid-template-columns:1.04fr .96fr;gap:46px;padding:56px var(--g);align-items:center}
+  .hero h1{font-family:var(--disp);font-weight:600;font-size:clamp(30px,3.7vw,46px);line-height:1.06;letter-spacing:-.02em;margin:16px 0 0}
+  .hero .lead{font-size:17px;line-height:1.55;color:var(--ink2);margin-top:18px;max-width:44ch}
+  .hero .cta{display:flex;gap:24px;align-items:center;margin-top:28px;flex-wrap:wrap}
+  .shot{position:relative;border-radius:18px;overflow:hidden;aspect-ratio:4/3;border:1px solid var(--line)}
+  .shot .img{position:absolute;inset:0;background:url('img/hero.jpg') center/cover}
+  .shot .grad{position:absolute;inset:0;background:linear-gradient(180deg,transparent 55%,rgba(12,28,48,.4))}
+  .shot .badge{position:absolute;right:14px;top:14px;display:flex;align-items:center;gap:7px;font-family:var(--mono);font-size:11px;color:#fff;background:rgba(12,28,48,.55);border:1px solid rgba(255,255,255,.2);border-radius:999px;padding:6px 12px}
+  .shot .cap{position:absolute;left:16px;bottom:13px;font-family:var(--mono);font-size:10px;color:rgba(255,255,255,.85)}
+  .dot{width:7px;height:7px;border-radius:50%;background:var(--gold-light)}
+  @media(max-width:880px){.hero .wrap{grid-template-columns:1fr;gap:26px}.shot{order:-1}}
+
+  /* stats */
+  .stats{border-bottom:1px solid var(--line)} .stats .wrap{display:grid;grid-template-columns:repeat(4,1fr)}
+  .st{padding:24px 0 24px 28px} .st:first-child{padding-left:0} .st+.st{border-left:1px solid var(--line)}
+  .st .n{font-family:var(--disp);font-weight:600;font-size:40px;letter-spacing:-.02em;color:var(--navy)} .st .n.sm{font-size:24px;padding-top:12px}
+  .st .l{font-size:12.5px;color:var(--ink2);margin-top:8px}
+  @media(max-width:640px){.stats .wrap{grid-template-columns:1fr 1fr}.st:nth-child(odd){padding-left:0;border-left:0}.st:nth-child(n+3){border-top:1px solid var(--line)}}
+
+  /* about */
+  .about{display:grid;grid-template-columns:1.5fr 1fr;gap:46px;align-items:start}
+  .about .intro{font-family:var(--disp);font-size:clamp(19px,2vw,22px);line-height:1.5;color:var(--ink);font-weight:400}
+  .about .mis{border-left:2px solid var(--gold);padding-left:20px}
+  .about .mis p{font-size:14.5px;line-height:1.65;color:var(--ink2);margin-top:8px}
+  @media(max-width:880px){.about{grid-template-columns:1fr;gap:24px}}
+
+  /* divisions */
+  .g3{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+  .dc{border:1px solid var(--line);border-radius:var(--r);overflow:hidden;background:#fff;transition:transform .2s,border-color .2s}
+  .dc:hover{transform:translateY(-3px);border-color:var(--navy-line)}
+  .dc .ph{height:138px;background:#ccc center/cover;position:relative}
+  .dc .ph::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,transparent 55%,rgba(12,28,48,.25))}
+  .dc .b{padding:17px} .dc .no{font-family:var(--mono);font-size:10.5px;letter-spacing:.1em;color:var(--navy)}
+  .dc h3{font-family:var(--disp);font-weight:500;font-size:16px;line-height:1.25;margin-top:8px;min-height:2.5em}
+  .dc .c{display:flex;justify-content:space-between;margin-top:12px;font-family:var(--mono);font-size:12px;color:var(--ink2)} .dc .c .go{color:var(--navy)}
+  @media(max-width:860px){.g3{grid-template-columns:1fr 1fr}} @media(max-width:560px){.g3{grid-template-columns:1fr}}
+
+  /* news ribbons */
+  .news{display:grid;grid-template-columns:1.5fr 1fr;gap:44px}
+  .feat .ph{aspect-ratio:16/9;border-radius:var(--r);overflow:hidden;background:#ccc center/cover}
+  .meta{font-family:var(--mono);font-size:11px;color:var(--ink3);margin-top:13px;display:flex;gap:10px;align-items:center}
+  .tag{color:var(--gold-ink);border:1px solid rgba(184,134,11,.32);border-radius:999px;padding:2px 9px;font-size:10px;text-transform:uppercase;letter-spacing:.05em}
+  .feat h3{font-family:var(--disp);font-weight:500;font-size:22px;line-height:1.24;margin-top:9px;letter-spacing:-.01em}
+  .feat:hover h3{color:var(--navy)}
+  .nrow{display:flex;gap:13px;padding:13px 0;border-top:1px solid var(--line)} .nrow:first-child{border-top:0;padding-top:0}
+  .nthumb{width:66px;height:66px;flex:0 0 66px;border-radius:9px;background:#ccc center/cover}
+  .nrow .m{font-family:var(--mono);font-size:10px;color:var(--ink3);margin-bottom:5px}
+  .nrow .t{font-size:14px;font-weight:500;line-height:1.34} .nrow:hover .t{color:var(--navy)}
+  /* events */
+  .ev{display:flex;gap:13px;padding:13px 0;border-top:1px solid var(--line)} .evlist .ev:first-child{border-top:0;padding-top:0}
+  .evd{flex:0 0 54px;width:54px;text-align:center;border:1px solid var(--line);border-radius:10px;padding:7px 0}
+  .evd .mo{font-family:var(--mono);font-size:9.5px;letter-spacing:.06em;color:var(--navy)} .evd .dy{font-family:var(--disp);font-size:21px;font-weight:600;line-height:1;color:var(--ink);margin-top:2px}
+  .ev .t{font-size:14px;font-weight:500;line-height:1.36} .ev .w{font-family:var(--mono);font-size:10.5px;color:var(--ink3);margin-top:4px}
+  .ev:hover .t{color:var(--navy)}
+  .depts{margin-top:36px;border:1px solid var(--line);border-radius:var(--r);background:var(--paper2);padding:22px 24px;display:flex;justify-content:space-between;gap:16px;align-items:flex-start;flex-wrap:wrap}
+  .depts h3{font-family:var(--disp);font-weight:500;font-size:19px}
+  .depts p{font-size:13.5px;color:var(--ink3);margin-top:8px;max-width:64ch}
+  .demo{font-family:var(--mono);font-size:10px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--gold-ink);border:1px solid rgba(184,134,11,.4);border-radius:999px;padding:5px 11px;white-space:nowrap}
+  @media(max-width:820px){.news{grid-template-columns:1fr;gap:30px}}
+
+  /* attestation tiles */
+  .g2{display:grid;grid-template-columns:1fr 1fr;gap:15px}
+  .att{display:flex;gap:15px;background:#fff;border:1px solid var(--line);border-left:3px solid var(--navy);border-radius:var(--r);padding:20px 22px}
+  .att .no{font-family:var(--mono);font-size:17px;font-weight:600;color:var(--gold-ink)}
+  .att h3{font-family:var(--disp);font-weight:500;font-size:17px;line-height:1.25}
+  .att .sub{font-family:var(--mono);font-size:10px;letter-spacing:.05em;text-transform:uppercase;color:var(--ink3);margin-top:3px}
+  .att p{font-size:13px;color:var(--ink2);line-height:1.5;margin-top:9px}
+  @media(max-width:720px){.g2{grid-template-columns:1fr}}
+
+  /* presidium */
+  .pgrid{display:grid;grid-template-columns:repeat(6,1fr);gap:18px}
+  .pc .ph{width:100%;aspect-ratio:5/6;object-fit:cover;object-position:center top;border-radius:var(--r);border:1px solid var(--line);background:var(--navy-soft)}
+  .pc .nm{font-family:var(--disp);font-weight:500;font-size:14.5px;line-height:1.25;margin-top:11px} .pc:hover .nm{color:var(--navy)}
+  .pc .ro{font-size:12px;color:var(--ink3);margin-top:3px}
+  @media(max-width:900px){.pgrid{grid-template-columns:repeat(3,1fr)}} @media(max-width:520px){.pgrid{grid-template-columns:repeat(2,1fr)}}
+
+  /* doc rows */
+  .rows{border:1px solid var(--line);border-radius:var(--r);overflow:hidden;background:#fff}
+  .rows a{display:flex;gap:18px;align-items:flex-start;padding:19px 22px;border-top:1px solid var(--line)} .rows a:first-child{border-top:0}
+  .rows a:hover{background:var(--paper2)}
+  .rows .no{font-family:var(--mono);font-size:12px;color:var(--ink3);padding-top:3px}
+  .rows .t{font-family:var(--disp);font-weight:500;font-size:18px} .rows a:hover .t{color:var(--navy)}
+  .rows .d{font-size:13px;color:var(--ink2);margin-top:4px;line-height:1.5}
+
+  /* feature pair */
+  .fp{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+  .fc{border:1px solid var(--line);border-radius:var(--r);padding:30px 32px;background:#fff;transition:transform .2s,border-color .2s}
+  .fc:hover{transform:translateY(-3px);border-color:var(--navy-line)}
+  .fc h3{font-family:var(--disp);font-weight:500;font-size:clamp(20px,2.2vw,26px);letter-spacing:-.01em;margin-top:14px}
+  .fc p{font-size:14px;color:var(--ink2);line-height:1.6;margin-top:10px;max-width:46ch}
+  @media(max-width:720px){.fp{grid-template-columns:1fr}}
+
+  /* e-resources */
+  .er .ic{width:38px;height:38px;border-radius:10px;background:var(--navy-soft);display:flex;align-items:center;justify-content:center;color:var(--navy);margin-bottom:14px}
+  .er h3{font-family:var(--disp);font-weight:500;font-size:18px} .er p{font-size:13.5px;color:var(--ink2);line-height:1.55;margin-top:8px}
+  .er .foot{display:flex;justify-content:space-between;align-items:center;margin-top:16px;padding-top:13px;border-top:1px solid var(--line)}
+  .er .mt{font-family:var(--mono);font-size:10px;color:var(--ink3)} .er .op{font-size:12.5px;font-weight:600;color:var(--navy)}
+  .erc{border:1px solid var(--line);border-radius:var(--r);padding:24px;background:#fff;transition:transform .2s,border-color .2s} .erc:hover{transform:translateY(-3px);border-color:var(--navy-line)}
+
+  /* partners (4 links) */
+  .partners{border-top:1px solid var(--line);background:#fff}
+  .partners .wrap{display:flex;align-items:center;gap:26px;padding:22px 0;flex-wrap:wrap}
+  .pmark{display:inline-flex;align-items:center;gap:8px;padding:8px 22px;font-size:13px;font-weight:500;color:var(--ink2);border-left:1px solid var(--line)}
+  .pr .pmark:first-child{border-left:0;padding-left:0} .pmark:hover{color:var(--navy)}
+
+  /* footer */
+  footer{background:var(--navy-deep);color:rgba(255,255,255,.74);padding:52px 0 24px}
+  .fg{display:grid;grid-template-columns:1.6fr 1fr 1fr 1fr;gap:30px}
+  .fg h4{font-family:var(--mono);font-size:10px;letter-spacing:.13em;text-transform:uppercase;color:rgba(255,255,255,.5);margin:0 0 12px}
+  .fg a{display:block;color:rgba(255,255,255,.74);padding:5px 0;font-size:13px} .fg a:hover{color:#fff}
+  .fb .mark{width:42px;height:42px;border-radius:10px;background:linear-gradient(150deg,var(--navy),var(--navy-deep));border:1px solid rgba(255,255,255,.12);position:relative;margin-bottom:14px}
+  .fb .mark::after{content:"";position:absolute;inset:0;margin:auto;width:9px;height:9px;border-radius:50%;background:var(--gold-light)}
+  .fb p{font-size:12.5px;line-height:1.7;color:rgba(255,255,255,.64)}
+  .fbar{border-top:1px solid rgba(255,255,255,.1);margin-top:28px;padding-top:18px;font-size:12px;color:rgba(255,255,255,.52);display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px}
+  @media(max-width:820px){.fg{grid-template-columns:1fr 1fr}}
+  .note{font-family:var(--mono);font-size:11px;color:var(--ink3)}
+  .nrow .m,.nrow .t,.ev .t,.ev .w,.rows .t,.rows .d{display:block}
+  .nrow>span:last-child,.ev>span:last-child{min-width:0}
+  .g4{display:grid;grid-template-columns:repeat(3,1fr);gap:18px} @media(max-width:820px){.g4{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+
+<div class="util"><div class="wrap">
+  <span class="mono">Концепт · погоджені блоки ТЗ · navy + фото · шрифт заголовків: <b id="fontname">Spectral</b></span>
+  <span class="grow"><a href="#">Для людей з вадами зору</a><span>·</span><span><b>UA</b> / EN</span></span>
+</div></div>
+
+<header class="hd"><div class="wrap">
+  <a class="brand" href="#"><span class="mark"></span><span><span class="nm">НААН</span><br/><span class="sub">National Academy of Agrarian Sciences</span></span></a>
+  <nav class="nav"><a class="on" href="#">НААН сьогодні</a><a href="#">Структура</a><a href="#">Атестація та кадри</a><a href="#">Прозорість</a><a href="#">Новини</a><a href="#">Контакти</a></nav>
+  <div class="tools">
+    <span class="ibtn" title="Пошук"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="m21 21-4-4"/></svg></span>
+    <span class="ibtn b" title="Меню"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 6h18M3 12h18M3 18h18"/></svg></span>
+  </div>
+</div></header>
+
+<!-- HERO (logo+name+slogan, no search) -->
+<div class="hero"><div class="wrap">
+  <div>
+    <div class="ey">Засн. 1931 · National Academy of Agrarian Sciences of Ukraine</div>
+    <h1>Національна академія аграрних наук України</h1>
+    <p class="lead">Науково-методичний і координаційний центр з наукових проблем розвитку АПК України.</p>
+    <div class="cta"><a class="btn" href="#">НААН сьогодні <span class="arrow">→</span></a><a class="lnk" href="#">Структура Академії <span class="arrow">→</span></a></div>
+  </div>
+  <div class="shot"><div class="img"></div><div class="grad"></div>
+    <span class="badge"><span class="dot"></span>50 установ · 6 відділень</span>
+    <span class="cap">Пшеничне поле · збиральна кампанія</span>
+  </div>
+</div></div>
+
+<!-- STATS -->
+<div class="stats"><div class="wrap">
+  <div class="st"><div class="n">1931</div><div class="l">Рік заснування</div></div>
+  <div class="st"><div class="n">6</div><div class="l">Наукових відділень</div></div>
+  <div class="st"><div class="n">50</div><div class="l">Наукових установ</div></div>
+  <div class="st"><div class="n sm mono">00024360</div><div class="l">ЄДРПОУ</div></div>
+</div></div>
+
+<!-- НААН сьогодні -->
+<section class="band"><div class="wrap">
+  <div class="head"><div><div class="ey">НААН сьогодні</div><h2 class="h2" style="margin-top:8px">Вища галузева наукова установа держави</h2></div><a class="lnk" href="#">Докладніше про НААН <span class="arrow">→</span></a></div>
+  <div class="about">
+    <p class="intro">Національна академія аграрних наук України (НААН) — вища галузева наукова установа держави, головний науково-методичний і координаційний центр з наукових проблем розвитку агропромислового комплексу України. Академія об'єднує шість наукових відділень і мережу з 50 підпорядкованих наукових установ — інститутів, національних наукових центрів та дослідних станцій.</p>
+    <aside class="mis"><span class="ey ey--m">Місія</span><p>НААН здійснює наукове забезпечення розвитку агропромислового комплексу та продовольчої безпеки держави, координує фундаментальні й прикладні дослідження в аграрній сфері, забезпечує підготовку та атестацію наукових кадрів.</p></aside>
+  </div>
+</div></section>
+
+<!-- Структура Академії -->
+<section class="band alt"><div class="wrap">
+  <div class="head"><div><div class="ey">Структура · 6 відділень / 50 установ</div><h2 class="h2" style="margin-top:8px">Структура Академії</h2></div><a class="lnk" href="#">Уся структура <span class="arrow">→</span></a></div>
+  <div class="g3">
+    <a class="dc" href="#"><div class="ph" style="background-image:url('img/d1.jpg')"></div><div class="b"><div class="no">ВІДДІЛЕННЯ 01</div><h3>Землеробства, меліорації та механізації</h3><div class="c"><span>11 установ</span><span class="go">Інститути →</span></div></div></a>
+    <a class="dc" href="#"><div class="ph" style="background-image:url('img/d2.jpg')"></div><div class="b"><div class="no">ВІДДІЛЕННЯ 02</div><h3>Рослинництва</h3><div class="c"><span>13 установ</span><span class="go">Інститути →</span></div></div></a>
+    <a class="dc" href="#"><div class="ph" style="background-image:url('img/d3.jpg')"></div><div class="b"><div class="no">ВІДДІЛЕННЯ 03</div><h3>Зоотехнії</h3><div class="c"><span>9 установ</span><span class="go">Інститути →</span></div></div></a>
+    <a class="dc" href="#"><div class="ph" style="background-image:url('img/d4.jpg')"></div><div class="b"><div class="no">ВІДДІЛЕННЯ 04</div><h3>Ветеринарної медицини</h3><div class="c"><span>2 установи</span><span class="go">Інститути →</span></div></div></a>
+    <a class="dc" href="#"><div class="ph" style="background-image:url('img/d5.jpg')"></div><div class="b"><div class="no">ВІДДІЛЕННЯ 05</div><h3>Аграрної економіки і продовольства</h3><div class="c"><span>4 установи</span><span class="go">Інститути →</span></div></div></a>
+    <a class="dc" href="#"><div class="ph" style="background:linear-gradient(150deg,#274c78,#0E1F35)"></div><div class="b"><div class="no">ВІДДІЛЕННЯ 06</div><h3>Наукового забезпечення інноваційного розвитку</h3><div class="c"><span>11 установ</span><span class="go">Інститути →</span></div></div></a>
+  </div>
+</div></section>
+
+<!-- Новини / Анонси / Новини відділень -->
+<section class="band"><div class="wrap">
+  <div class="news">
+    <div>
+      <div class="head" style="margin-bottom:20px"><div><div class="ey">Новини</div><h2 class="h2" style="margin-top:8px">Новини</h2></div><a class="lnk" href="#">Усі новини <span class="arrow">→</span></a></div>
+      <a class="feat" href="#"><div class="ph" style="background-image:url('img/feat.jpg')"></div>
+        <div class="meta"><span class="tag">Президія</span><span>24 ЧЕР 2026</span></div>
+        <h3>Наука, що трансформує ринок: НААН переводить кормовиробництво на стандарти ЄС</h3></a>
+      <div style="margin-top:18px">
+        <a class="nrow" href="#"><span class="nthumb" style="background-image:url('img/d2.jpg')"></span><span><span class="m">23 ЧЕР · СЕЛЕКЦІЯ</span><span class="t">Золото Миронівки: на Київщині продемонстрували нові стандарти української селекції</span></span></a>
+        <a class="nrow" href="#"><span class="nthumb" style="background-image:url('img/d3.jpg')"></span><span><span class="m">22 ЧЕР · МОЛОДІ ВЧЕНІ</span><span class="t">Хто проєктуватиме агроінновації? У НААН створюють Раду молодих вчених</span></span></a>
+        <a class="nrow" href="#"><span class="nthumb" style="background-image:url('img/d1.jpg')"></span><span><span class="m">19 ЧЕР · ЗЕМЛЕРОБСТВО</span><span class="t">Агротехнології НААН: інноваційні рішення для жнив та систем землеробства</span></span></a>
+      </div>
+    </div>
+    <aside>
+      <div class="head" style="margin-bottom:16px"><div><div class="ey">Анонси</div><h2 class="h2" style="font-size:24px;margin-top:8px">Анонси</h2></div></div>
+      <div class="evlist">
+        <a class="ev" href="#"><span class="evd"><span class="mo">ЧЕР</span><span class="dy">30</span></span><span><span class="t">Науково-практичний семінар «Етика використання ChatGPT, Scite, Elicit, SciSpace…»</span><span class="w">30 червня 2026</span></span></a>
+        <a class="ev" href="#"><span class="evd"><span class="mo">ЛИП</span><span class="dy">21</span></span><span><span class="t">Семінар «Використання автоматизованої системи обліку кролів «АСПОК»</span><span class="w">21 липня 2026</span></span></a>
+        <a class="ev" href="#"><span class="evd"><span class="mo">КВІ</span><span class="dy">30</span></span><span><span class="t">Звіт про діяльність НААН / Reports on the activities of the NAAS</span><span class="w">30 квітня 2026</span></span></a>
+        <a class="ev" href="#"><span class="evd"><span class="mo">КВІ</span><span class="dy">30</span></span><span><span class="t">Каталог інноваційних розробок НААН 2019–2025</span><span class="w">30 квітня 2026</span></span></a>
+      </div>
+      <a class="lnk" style="margin-top:18px" href="#">Усі анонси <span class="arrow">→</span></a>
+    </aside>
+  </div>
+  <div class="depts">
+    <div><div class="ey">Новини відділень</div><h3 style="margin-top:6px">Новини відділень</h3><p>Стрічка формується автоматично з новин шести наукових відділень. Реалізацію передбачено в етапі з системою керування контентом (CMS).</p></div>
+    <span class="demo">Зразок · у наповненні</span>
+  </div>
+</div></section>
+
+<!-- Атестація та підготовка кадрів -->
+<section class="band alt"><div class="wrap">
+  <div class="head"><div><div class="ey">Атестація</div><h2 class="h2" style="margin-top:8px">Атестація та підготовка кадрів</h2></div><a class="lnk" href="#">Усі документи <span class="arrow">→</span></a></div>
+  <div class="g2">
+    <div class="att"><span class="no">01</span><div><h3>Підготовка наукових кадрів</h3><div class="sub">Аспірантура / Докторантура</div><p>Програми, ліцензії та правила прийому до аспірантури й докторантури.</p></div></div>
+    <div class="att"><span class="no">02</span><div><h3>Атестація наукових кадрів</h3><div class="sub">Спеціалізовані вчені ради</div><p>Спеціалізовані вчені ради та захисти дисертацій.</p></div></div>
+    <div class="att"><span class="no">03</span><div><h3>Наукові видання НААН</h3><div class="sub">Фахові журнали</div><p>Фахові наукові видання Академії та вимоги до публікацій.</p></div></div>
+    <div class="att"><span class="no">04</span><div><h3>Державна атестація та акредитація</h3><div class="sub">Кваліфікаційні групи</div><p>Державна атестація та акредитація наукових установ.</p></div></div>
+  </div>
+</div></section>
+
+<!-- Керівництво та Президія -->
+<section class="band"><div class="wrap">
+  <div class="head"><div><div class="ey">Керівництво</div><h2 class="h2" style="margin-top:8px">Керівництво та Президія</h2></div><a class="lnk" href="#">Уся Президія <span class="arrow">→</span></a></div>
+  <div class="pgrid">
+    <a class="pc" href="#"><img class="ph" src="img/persons/hrynyk-ihor-volodymyrovych.jpg" alt=""><div class="nm">Гриник Ігор Володимирович</div><div class="ro">президент</div></a>
+    <a class="pc" href="#"><img class="ph" src="img/persons/ivanyshyn-volodymyr-vasylovych.jpg" alt=""><div class="nm">Іванишин Володимир Васильович</div><div class="ro">перший віцепрезидент</div></a>
+    <a class="pc" href="#"><img class="ph" src="img/persons/adamchuk-valerii-vasylovych.jpg" alt=""><div class="nm">Адамчук Валерій Васильович</div><div class="ro">віцепрезидент</div></a>
+    <a class="pc" href="#"><img class="ph" src="img/persons/zhukorskyi-ostap-myroslavovych.jpg" alt=""><div class="nm">Жукорський Остап Мирославович</div><div class="ro">віцепрезидент</div></a>
+    <a class="pc" href="#"><img class="ph" src="img/persons/kaminskyi-viktor-frantsevych.jpg" alt=""><div class="nm">Камінський Віктор Францевич</div><div class="ro">віцепрезидент</div></a>
+    <a class="pc" href="#"><img class="ph" src="img/persons/patyka-mykola-volodymyrovych.jpg" alt=""><div class="nm">Патика Микола Володимирович</div><div class="ro">віцепрезидент</div></a>
+  </div>
+</div></section>
+
+<!-- Document blocks (5 TZ-named) -->
+<section class="band alt"><div class="wrap">
+  <div class="rows">
+    <a href="#"><span class="no mono">01</span><span><span class="t serif">Статут НААН</span><span class="d">Чинна редакція Статуту Академії — завантаження у форматі PDF.</span></span></a>
+    <a href="#"><span class="no mono">02</span><span><span class="t serif">Рішення та Постанови Президії</span><span class="d">Архів офіційних розпоряджень і постанов Президії Академії.</span></span></a>
+    <a href="#"><span class="no mono">03</span><span><span class="t serif">Звіти про діяльність</span><span class="d">Щорічні звіти про діяльність — ДВ «Аграрна наука».</span></span></a>
+    <a href="#"><span class="no mono">04</span><span><span class="t serif">Тендери та Прозорість</span><span class="d">Публічні закупівлі (Prozorro), майнові питання, запобігання корупції, доступ до інформації.</span></span></a>
+    <a href="#"><span class="no mono">05</span><span><span class="t serif">Публічна інформація</span><span class="d">Набори даних, бюджетні документи та публічна інформація розпорядника.</span></span></a>
+  </div>
+</div></section>
+
+<!-- Рада молодих вчених + Інтелектуальна власність -->
+<section class="band"><div class="wrap">
+  <div class="fp">
+    <a class="fc" href="#"><div class="ey">Спільнота</div><h3>Рада молодих вчених</h3><p>Центральна рада та ради установ, ініціативи й заходи молодих науковців Академії.</p><span class="lnk" style="margin-top:18px">Перейти до розділу <span class="arrow">→</span></span></a>
+    <a class="fc" href="#"><div class="ey">Розробки</div><h3>Інтелектуальна власність</h3><p>Об'єкти права інтелектуальної власності, нормативна база та віртуальна виставка розробок.</p><span class="lnk" style="margin-top:18px">Перейти до розділу <span class="arrow">→</span></span></a>
+  </div>
+</div></section>
+
+<!-- Е-ресурси -->
+<section class="band alt"><div class="wrap">
+  <div class="head"><div><div class="ey">Е-ресурси</div><h2 class="h2" style="margin-top:8px">Бібліотека, відео та видання</h2></div></div>
+  <div class="g4">
+    <a class="erc er" href="#"><span class="ic"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg></span><h3>Е-Бібліотека</h3><p>Електронний архів наукових публікацій, авторефератів та періодики у відкритому доступі.</p><span class="foot"><span class="mt">ВІДКРИТИЙ ДОСТУП</span><span class="op">Перейти →</span></span></a>
+    <a class="erc er" href="#"><span class="ic"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="m10 8 6 4-6 4V8z"/><rect x="2" y="4" width="20" height="16" rx="3"/></svg></span><h3>Відео</h3><p>Відеоматеріали, записи наукових заходів та лекцій Академії.</p><span class="foot"><span class="mt">ВІДЕО</span><span class="op">Перейти →</span></span></a>
+    <a class="erc er" href="#"><span class="ic"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M3 5h18v14H3zM3 9h18"/></svg></span><h3>AGROLECTURES</h3><p>Англомовні матеріали української аграрної науки.</p><span class="foot"><span class="mt">EN</span><span class="op">Перейти →</span></span></a>
+  </div>
+</div></section>
+
+<!-- 4 посилання -->
+<section class="partners"><div class="wrap">
+  <span class="ey ey--m">Партнерські та державні портали</span>
+  <span class="pr" style="display:flex;flex-wrap:wrap;flex:1">
+    <a class="pmark" href="#">Президент України ↗</a><a class="pmark" href="#">Урядовий портал ↗</a><a class="pmark" href="#">Верховна Рада України ↗</a><a class="pmark" href="#">Міністерство аграрної політики ↗</a>
+  </span>
+</div></section>
+
+<!-- footer (Контакти) -->
+<footer><div class="wrap">
+  <div class="fg">
+    <div class="fb"><div class="mark"></div><p><b style="color:#fff">Національна академія<br/>аграрних наук України</b></p>
+      <p style="margin-top:10px">01010, Київ, вул. Михайла Омеляновича-Павленка, 9<br/>+38 (044) 521 92 77 · prezid@naas.gov.ua<br/>ЄДРПОУ 00024360</p></div>
+    <div><h4>Розділи</h4><a href="#">НААН сьогодні</a><a href="#">Структура Академії</a><a href="#">Атестація та кадри</a><a href="#">Новини</a></div>
+    <div><h4>Документи</h4><a href="#">Статут НААН</a><a href="#">Публічна інформація</a><a href="#">Публічні закупівлі</a><a href="#">Звіти про діяльність</a></div>
+    <div><h4>Ресурси</h4><a href="#">Е-Бібліотека</a><a href="#">AGROLECTURES</a><a href="#">Рада молодих вчених</a><a href="#">Інтелектуальна власність</a></div>
+  </div>
+  <div class="fbar"><span>© 2026 НААН · Усі права захищено</span><span class="note">Концепт · контент реальний · фото: Wikimedia Commons (для продакшну — ліцензування)</span></div>
+</div></footer>
+
+<script>
+  (function(){
+    var f=new URLSearchParams(location.search).get('font');
+    var map={lora:["'Lora',Georgia,serif","Lora"], plex:["'IBM Plex Serif',Georgia,serif","IBM Plex Serif"], spectral:["'Spectral',Georgia,serif","Spectral"]};
+    var pick=map[f]||map.spectral;
+    document.documentElement.style.setProperty('--disp', pick[0]);
+    var el=document.getElementById('fontname'); if(el) el.textContent=pick[1];
+  })();
+</script>
+</body>
+</html>

@@ -1,0 +1,40 @@
+<!doctype html><html lang="uk"><head><meta charset="utf-8">
+<style>
+  *{box-sizing:border-box}
+  body{font-family:-apple-system,"Segoe UI",Roboto,Arial,sans-serif;margin:0;padding:28px;background:#f4f6f8;color:#1b2733;width:760px}
+  .card{background:#fff;border:1px solid #dfe6ec;border-radius:12px;padding:22px 26px;box-shadow:0 1px 3px rgba(0,0,0,.06)}
+  h1{font-size:19px;margin:0 0 2px}
+  .sub{color:#5b6b7b;font-size:13px;margin:0 0 18px}
+  .tariff{display:inline-block;background:#eef4ff;border:1px solid #cfe0ff;color:#1b4fa0;font-size:13px;padding:6px 12px;border-radius:8px;margin-bottom:18px}
+  table{border-collapse:collapse;width:100%;font-size:13.5px}
+  th,td{text-align:left;padding:9px 12px;border-bottom:1px solid #eceff2}
+  th{background:#f7f9fb;color:#46596b;font-weight:600;font-size:12px;text-transform:uppercase;letter-spacing:.03em}
+  td.num{text-align:right;font-variant-numeric:tabular-nums}
+  .over{color:#c0392b;font-weight:700}
+  .full{color:#d68910;font-weight:700}
+  .ok{color:#2e7d4f;font-weight:600}
+  .badge{font-size:11px;padding:2px 8px;border-radius:20px;white-space:nowrap}
+  .b-over{background:#fdecea;color:#c0392b}
+  .b-full{background:#fef6e7;color:#b9770e}
+  .b-ok{background:#eafaf1;color:#2e7d4f}
+  .foot{margin-top:16px;font-size:11.5px;color:#8190a0}
+</style></head>
+<body><div class="card">
+  <h1>НААН — хостинг Mirohost · пакет H-74503</h1>
+  <p class="sub">Джерело: панель control.mirohost.net → «Ресурси хостинг-пакету». Дані станом на 30.06.2026.</p>
+  <div class="tariff">Поточний тариф: <b>Portal</b> — 519 грн/міс (6&nbsp;228 грн/рік, оплачено до 07.12.2027)</div>
+  <table>
+    <thead><tr><th>Ресурс</th><th class="num">Використано</th><th class="num">Квота</th><th>Стан</th></tr></thead>
+    <tbody>
+      <tr><td>Дисковий простір (сайт + БД)</td><td class="num over">9&nbsp;933,6 МБ</td><td class="num">9&nbsp;000 МБ</td><td><span class="badge b-over">перевищено на ~0,9 ГБ</span></td></tr>
+      <tr><td>Розмір лог-файлів</td><td class="num">167,8 МБ</td><td class="num">—</td><td></td></tr>
+      <tr><td>Дисковий простір (пошта)</td><td class="num full">8&nbsp;968 МБ</td><td class="num">9&nbsp;000 МБ</td><td><span class="badge b-full">99,6% — майже повна</span></td></tr>
+      <tr><td>Бази даних MySQL</td><td class="num">3</td><td class="num">10</td><td><span class="badge b-ok">ОК</span></td></tr>
+      <tr><td>Субдомени</td><td class="num">52</td><td class="num">безліміт</td><td><span class="badge b-ok">ОК</span></td></tr>
+      <tr><td>Домени</td><td class="num">1</td><td class="num">5</td><td><span class="badge b-ok">ОК</span></td></tr>
+      <tr><td>FTP-акаунти</td><td class="num">1</td><td class="num">50</td><td><span class="badge b-ok">ОК</span></td></tr>
+      <tr><td>Поштові скриньки</td><td class="num">81</td><td class="num">безліміт</td><td><span class="badge b-ok">ОК</span></td></tr>
+    </tbody>
+  </table>
+  <p class="foot">⚠ Диск сайту вже перевищує квоту тарифу Portal (9 ГБ — максимальний серед shared-тарифів Mirohost). Розмістити ще один сайт на цьому ж пакеті без чищення або переходу на VPS неможливо.</p>
+</div></body></html>
