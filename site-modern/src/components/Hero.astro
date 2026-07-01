@@ -1,0 +1,32 @@
+---
+import { ROUTES } from '../lib/site';
+import T from './T.astro';
+interface Crumb { label: string; href?: string }
+interface Props {
+  kicker?: string;
+  title: string;
+  lead?: string;
+  crumbs?: Crumb[];
+}
+const { kicker, title, lead, crumbs = [] } = Astro.props;
+const trail: Crumb[] = [{ label: 'Головна', href: ROUTES.home }, ...crumbs, { label: title }];
+---
+<section class="hero">
+  <div class="wrap">
+    <nav class="crumbs" aria-label="Хлібні крихти">
+      {trail.map((c, i) => (
+        <>
+          {c.href && i < trail.length - 1
+            ? <a href={c.href}>{i === 0 ? <T k="ui.crumb.home" /> : c.label}</a>
+            : <span class="cur" aria-current={i === trail.length - 1 ? 'page' : undefined}>{c.label}</span>}
+          {i < trail.length - 1 && <span class="sep">/</span>}
+        </>
+      ))}
+    </nav>
+    {/* Render the kicker only when it adds information — skip it when it merely
+        repeats the H1 (several pages passed kicker === title). */}
+    {kicker && kicker !== title && <div class="kicker" style="margin-bottom:14px;">{kicker}</div>}
+    <h1>{title}</h1>
+    {lead && <p class="lead">{lead}</p>}
+  </div>
+</section>

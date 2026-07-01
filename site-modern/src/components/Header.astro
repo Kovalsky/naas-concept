@@ -1,0 +1,278 @@
+---
+import { getCollection } from 'astro:content';
+import { NAV, ROUTES, SEARCH_INDEX } from '../lib/site';
+import { BRAND } from '@content/site';
+import { STRINGS } from '../lib/i18n';
+import T from './T.astro';
+
+const path = Astro.url.pathname.replace(/\/$/, '') || '/';
+const isActive = (href: string) => {
+  const base = href.split('#')[0].replace(/\/$/, '') || '/';
+  if (base === '/') return path === '/';
+  return path === base || path.startsWith(base + '/');
+};
+
+const news = await getCollection('news');
+const searchIndex = [
+  ...SEARCH_INDEX,
+  ...news.map((n) => ({ title: n.data.title, href: `${ROUTES.news}/${n.data.slug}` })),
+];
+const searchPh = STRINGS['ui.search.ph'];
+---
+<!-- ACCENT LINE -->
+<div style="height:3px; background:var(--green);"></div>
+
+<!-- UTILITY BAR -->
+<div style="background:var(--bg2); border-bottom:1px solid var(--line);">
+  <div class="wrap" style="height:38px; display:flex; align-items:center; justify-content:space-between; font-family:var(--mono); font-size:11px; letter-spacing:.02em; color:var(--muted-ink);">
+    <button id="hc-toggle" class="uline" aria-pressed="false" aria-label="Контрастна версія для людей з вадами зору" style="display:inline-flex; align-items:center; gap:8px; color:var(--muted-ink);">
+      <span style="width:6px; height:6px; background:var(--green); display:inline-block;"></span>
+      <span class="util-label"><T k="ui.a11y" /></span>
+    </button>
+    <div style="display:flex; align-items:center; gap:16px;">
+      <div style="display:flex; align-items:center; gap:8px;" role="group" aria-label="Мова інтерфейсу / Interface language">
+        <button id="lang-ua" aria-pressed="true" style="font-family:var(--mono); font-size:11px; letter-spacing:.06em; color:var(--ink);">UA</button>
+        <span style="color:var(--line2);">/</span>
+        <button id="lang-en" aria-pressed="false" style="font-family:var(--mono); font-size:11px; letter-spacing:.06em; color:var(--faint);">EN</button>
+      </div>
+      <span style="width:1px; height:14px; background:var(--line2);"></span>
+      <button id="theme-toggle" aria-label="Перемкнути тему / Toggle theme" style="display:inline-flex; align-items:center; gap:7px; color:var(--muted-ink);">
+        <span class="ico-sun" style="line-height:0;"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M2 12h2M20 12h2M5 5l1.5 1.5M17.5 17.5 19 19M19 5l-1.5 1.5M6.5 17.5 5 19"/></svg></span>
+        <span class="ico-moon" style="line-height:0;"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8Z"/></svg></span>
+        <span class="util-label"><span class="t-uk">Тема</span><span class="t-en">Theme</span></span>
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- MAIN HEADER -->
+<header style="position:sticky; top:0; z-index:60; background:var(--surface); border-bottom:1px solid var(--line);">
+  <div class="wrap" style="height:74px; display:flex; align-items:center; justify-content:space-between; gap:28px;">
+    <a href={ROUTES.home} style="display:flex; align-items:center; gap:13px;" aria-label="НААН — головна">
+      <img class="hdr-emblem" src="/naas-emblem.png" alt="Емблема НААН" width="46" height="46" style="flex-shrink:0; width:46px; height:46px; object-fit:contain; display:block;" />
+      <span style="display:block; line-height:1.16;">
+        <span class="hdr-brand-name" style="display:block; font-family:var(--fd); font-weight:600; font-size:14.5px; letter-spacing:-0.01em; color:var(--ink); max-width:260px;">{BRAND.nameLines[0]}<br/>{BRAND.nameLines[1]}</span>
+        <span class="hdr-est" style="display:block; margin-top:3px; font-family:var(--mono); font-size:9px; letter-spacing:0.18em; color:var(--green);">EST. 1918 · NAAS</span>
+      </span>
+    </a>
+
+    <div style="display:flex; align-items:center; gap:22px;">
+      <nav aria-label="Головне меню" class="hdr-nav" style="align-items:center; gap:20px; font-family:var(--fb); font-size:13px; font-weight:500;">
+        {NAV.map((item) => (
+          <a class="uline hdr-link" href={item.href} style={`white-space:nowrap; padding:6px 0; color:${isActive(item.href) ? 'var(--green)' : 'var(--ink2)'}; font-weight:${isActive(item.href) ? 600 : 500};`}>
+            <T k={item.k} />
+          </a>
+        ))}
+      </nav>
+
+      <div style="display:flex; align-items:center; gap:10px;">
+        <button id="search-open" class="hdr-search" aria-label="Пошук / Search" style="display:inline-flex; align-items:center; gap:8px; border:1px solid var(--line2); border-radius:999px; padding:8px 14px; background:var(--surface2); color:var(--faint);">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg>
+          <span class="hdr-search-label mono" style="font-size:11px; letter-spacing:.04em;"><span class="t-uk">Пошук</span><span class="t-en">Search</span></span>
+        </button>
+        <button id="mnav-open" class="hdr-burger" aria-label="Меню / Menu" style="align-items:center; justify-content:center; width:42px; height:42px; border-radius:8px; color:var(--ink); border:1px solid var(--line2);">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
+        </button>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- SEARCH OVERLAY -->
+<div id="search" hidden>
+  <div id="search-scrim" style="position:fixed; inset:0; z-index:110; background:rgba(6,12,10,0.55); animation:naasFade 150ms ease;"></div>
+  <div role="dialog" aria-modal="true" aria-label="Пошук" style="position:fixed; top:0; left:0; right:0; z-index:111; background:var(--surface); box-shadow:0 14px 50px rgba(0,0,0,0.25); animation:naasDrop 200ms ease;">
+    <div style="max-width:860px; margin:0 auto; padding:28px 24px 34px;">
+      <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:14px;">
+        <span class="mono" style="font-size:11px; letter-spacing:0.14em; text-transform:uppercase; color:var(--green);"><T k="ui.search.title" /></span>
+        <button id="search-close" aria-label="Закрити / Close" class="mono" style="display:flex; align-items:center; gap:6px; font-size:11px; color:var(--muted-ink); padding:10px 8px; margin:-10px -8px;">ESC
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6 6 18M6 6l12 12"/></svg>
+        </button>
+      </div>
+      <div class="search-row" style="display:flex; align-items:center; gap:12px; padding-bottom:12px;">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--green)" stroke-width="1.8"><circle cx="11" cy="11" r="7.5"/><path d="m21 21-4.3-4.3"/></svg>
+        <input id="search-input" type="search" autocomplete="off" placeholder={searchPh.uk} data-ph-uk={searchPh.uk} data-ph-en={searchPh.en} aria-label="Пошук / Search" style="flex:1; border:none; outline:none; font-size:22px; font-family:var(--fd); font-weight:600; background:transparent; padding:2px 0; color:var(--ink);" />
+      </div>
+      <ul id="search-results" style="list-style:none; margin:18px 0 0; padding:0; max-height:50vh; overflow-y:auto;"></ul>
+      <div id="search-empty" style="margin-top:18px; font-size:12px; color:var(--muted-ink); display:none;"><span class="mono"><T k="ui.search.empty" /></span></div>
+    </div>
+  </div>
+</div>
+
+<!-- MOBILE DRAWER -->
+<div id="mnav" hidden>
+  <div id="mnav-scrim" style="position:fixed; inset:0; z-index:90; background:rgba(6,12,10,0.5); animation:naasFade 160ms ease;"></div>
+  <nav role="dialog" aria-modal="true" aria-label="Мобільне меню" style="position:fixed; top:0; right:0; bottom:0; z-index:100; width:min(340px,86vw); background:var(--surface); box-shadow:-12px 0 40px rgba(0,0,0,0.22); padding:22px; animation:naasDrop 200ms ease; overflow-y:auto;">
+    <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:22px;">
+      <span class="mono" style="font-size:11px; letter-spacing:0.14em; text-transform:uppercase; color:var(--muted-ink);"><T k="ui.menu" /></span>
+      <button id="mnav-close" aria-label="Закрити / Close" style="width:44px; height:44px; display:flex; align-items:center; justify-content:center; border-radius:8px; color:var(--ink2);">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6 6 18M6 6l12 12"/></svg>
+      </button>
+    </div>
+    {NAV.map((item) => (
+      <a href={item.href} style="display:flex; align-items:center; justify-content:space-between; width:100%; padding:15px 4px; border-bottom:1px solid var(--line); font-size:16px; font-weight:500; color:var(--ink);">
+        <T k={item.k} />
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" style="color:var(--faint);"><path d="m9 18 6-6-6-6"/></svg>
+      </a>
+    ))}
+  </nav>
+</div>
+
+<style>
+  /* Theme icon visibility (sun in light, moon in dark). */
+  :global(.ico-moon) { display: none; }
+  :global(html[data-theme="dark"] .ico-moon) { display: inline-flex; }
+  :global(html[data-theme="dark"] .ico-sun) { display: none; }
+
+  .search-row { border-bottom: 2px solid var(--green); transition: border-color 160ms; }
+  .search-row:focus-within { border-bottom-color: var(--green-soft); }
+
+  /* Desktop nav vs. drawer: the 6-item UA nav + two-line wordmark stop fitting
+     around ~1080px, so collapse to the drawer there. */
+  .hdr-nav { display: flex; }
+  .hdr-burger { display: none; }
+  @media (max-width: 1080px) {
+    .hdr-nav { display: none; }
+    .hdr-burger { display: flex; }
+  }
+  @media (max-width: 480px) {
+    .hdr-search-label { display: none; }
+    .hdr-search { padding: 9px !important; }
+    .hdr-emblem { width: 40px !important; height: 40px !important; }
+    .hdr-brand-name { font-size: 13px !important; }
+  }
+
+  .hdr-link:hover { color: var(--green) !important; }
+  #hc-toggle:hover, #theme-toggle:hover { color: var(--ink) !important; }
+  #search-open { transition: border-color 140ms, color 140ms, background 140ms; }
+  #search-open:hover { border-color: var(--green); color: var(--green); }
+  #mnav-open:hover { border-color: var(--green); color: var(--green); }
+</style>
+
+<script type="application/json" id="search-index" set:html={JSON.stringify(searchIndex)}></script>
+<script is:inline>
+  (function () {
+    var root = document.documentElement;
+    var FOCUSABLE = 'a[href], button:not([disabled]), input, [tabindex]:not([tabindex="-1"])';
+    var LK = 'naas-lang', TK = 'naas-theme';
+
+    // Bind a listener once per element instance — the header DOM is fresh after each
+    // view transition, so re-running setup() re-binds without duplicating handlers.
+    function bind(el, ev, fn) {
+      if (el && !el['__b_' + ev]) { el['__b_' + ev] = 1; el.addEventListener(ev, fn); }
+    }
+
+    // Language toggle (chrome only). Persisted in localStorage.
+    function applyLang(lang) {
+      var ua = document.getElementById('lang-ua');
+      var en = document.getElementById('lang-en');
+      var input = document.getElementById('search-input');
+      if (lang === 'en') root.setAttribute('data-lang', 'en'); else root.removeAttribute('data-lang');
+      root.lang = lang === 'en' ? 'en' : 'uk';
+      if (ua) { ua.style.color = lang === 'en' ? 'var(--faint)' : 'var(--ink)'; ua.setAttribute('aria-pressed', String(lang !== 'en')); }
+      if (en) { en.style.color = lang === 'en' ? 'var(--ink)' : 'var(--faint)'; en.setAttribute('aria-pressed', String(lang === 'en')); }
+      if (input) input.setAttribute('placeholder', lang === 'en' ? input.getAttribute('data-ph-en') : input.getAttribute('data-ph-uk'));
+    }
+    function savedLang() { try { return localStorage.getItem(LK) || 'uk'; } catch (e) { return 'uk'; } }
+    function setLang(l) { try { localStorage.setItem(LK, l); } catch (e) {} applyLang(l); }
+
+    // Theme toggle (light / dark). Persisted; applied via [data-theme] on <html>.
+    function savedTheme() { try { return localStorage.getItem(TK) === 'dark' ? 'dark' : 'light'; } catch (e) { return 'light'; } }
+    function applyTheme(t) { root.setAttribute('data-theme', t === 'dark' ? 'dark' : 'light'); }
+    function setTheme(t) { try { localStorage.setItem(TK, t); } catch (e) {} applyTheme(t); }
+
+    // Panels (mobile nav + search): open/close, focus trap, and focus return.
+    var lastFocus = {};
+    function anyPanelOpen() {
+      var s = document.getElementById('search'), m = document.getElementById('mnav');
+      return (s && !s.hidden) || (m && !m.hidden);
+    }
+    function setPanel(id, open) {
+      var el = document.getElementById(id);
+      if (!el) return;
+      if (open) {
+        lastFocus[id] = document.activeElement;
+        el.hidden = false;
+        var first = id === 'search' ? document.getElementById('search-input') : el.querySelector(FOCUSABLE);
+        if (first) first.focus();
+      } else if (!el.hidden) {
+        el.hidden = true;
+        if (lastFocus[id] && lastFocus[id].focus) lastFocus[id].focus();
+      }
+      document.documentElement.style.overflow = anyPanelOpen() ? 'hidden' : '';
+    }
+    function trap(id) {
+      var el = document.getElementById(id);
+      if (!el || el.__trap) return; el.__trap = 1;
+      el.addEventListener('keydown', function (e) {
+        if (e.key !== 'Tab' || el.hidden) return;
+        var f = Array.prototype.filter.call(el.querySelectorAll(FOCUSABLE), function (n) { return n.offsetParent !== null; });
+        if (!f.length) return;
+        var a = f[0], b = f[f.length - 1];
+        if (e.shiftKey && document.activeElement === a) { e.preventDefault(); b.focus(); }
+        else if (!e.shiftKey && document.activeElement === b) { e.preventDefault(); a.focus(); }
+      });
+    }
+
+    // Search filter — re-reads the per-page #search-index each call.
+    function render(q) {
+      var results = document.getElementById('search-results');
+      var empty = document.getElementById('search-empty');
+      var idxEl = document.getElementById('search-index');
+      if (!results) return;
+      var INDEX = idxEl ? JSON.parse(idxEl.textContent || '[]') : [];
+      results.innerHTML = '';
+      var query = (q || '').toLowerCase().trim();
+      var matches = query
+        ? INDEX.filter(function (it) { return (it.title || '').toLowerCase().indexOf(query) !== -1; }).slice(0, 12)
+        : INDEX.slice(0, 8);
+      if (empty) empty.style.display = matches.length ? 'none' : 'block';
+      matches.forEach(function (it) {
+        var li = document.createElement('li');
+        var a = document.createElement('a');
+        a.href = it.href; a.textContent = it.title;
+        a.style.cssText = 'display:block; padding:12px 6px; border-bottom:1px solid var(--line); font-size:15px; color:var(--ink);';
+        li.appendChild(a); results.appendChild(li);
+      });
+    }
+
+    // (Re-)initialise on initial load and after every view transition.
+    function setup() {
+      bind(document.getElementById('hc-toggle'), 'click', function () {
+        var on = root.getAttribute('data-hc') !== 'true';
+        root.setAttribute('data-hc', on ? 'true' : 'false');
+        this.setAttribute('aria-pressed', String(on));
+      });
+
+      applyTheme(savedTheme());
+      bind(document.getElementById('theme-toggle'), 'click', function () {
+        setTheme(savedTheme() === 'dark' ? 'light' : 'dark');
+      });
+
+      applyLang(savedLang());
+      bind(document.getElementById('lang-ua'), 'click', function () { setLang('uk'); });
+      bind(document.getElementById('lang-en'), 'click', function () { setLang('en'); });
+
+      bind(document.getElementById('search-open'), 'click', function () { setPanel('search', true); });
+      bind(document.getElementById('search-close'), 'click', function () { setPanel('search', false); });
+      bind(document.getElementById('search-scrim'), 'click', function () { setPanel('search', false); });
+      bind(document.getElementById('mnav-open'), 'click', function () { setPanel('mnav', true); });
+      bind(document.getElementById('mnav-close'), 'click', function () { setPanel('mnav', false); });
+      bind(document.getElementById('mnav-scrim'), 'click', function () { setPanel('mnav', false); });
+      trap('search'); trap('mnav');
+
+      var input = document.getElementById('search-input');
+      bind(input, 'input', function () { render(input.value); });
+      bind(input, 'focus', function () { if (input && !input.value) render(''); });
+    }
+
+    if (!window.__naasHdr) {
+      window.__naasHdr = true;
+      document.addEventListener('keydown', function (e) {
+        if (e.key === 'Escape') { setPanel('search', false); setPanel('mnav', false); }
+      });
+      document.addEventListener('astro:page-load', setup); // re-init after each view transition
+    }
+    setup(); // initial load
+  })();
+</script>

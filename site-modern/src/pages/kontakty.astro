@@ -1,0 +1,120 @@
+---
+import Base from '../layouts/Base.astro';
+import Hero from '../components/Hero.astro';
+import T from '../components/T.astro';
+import { contacts } from '../lib/data';
+import { page } from '@content/pageContent';
+const tel = (p: string) => 'tel:' + p.replace(/[^+\d]/g, '');
+const { meta, hero } = page('/kontakty');
+const TURNSTILE_SITEKEY = '1x00000000000000000000AA';
+---
+<Base title={meta.title} description={meta.description}>
+  <Hero kicker={hero!.kicker} title={hero!.title} lead={hero!.lead} />
+  <section class="section section--white">
+    <div class="wrap">
+      <div class="grid grid--auto">
+        <div style="border:1px solid var(--line); border-radius:12px; padding:26px; background:var(--surface);">
+          <div class="kicker kicker--muted" style="margin-bottom:14px;"><T k="contacts.address" /></div>
+          <p style="font-size:15.5px; line-height:1.6; color:var(--ink);">{contacts.address}</p>
+          <p class="mono" style="font-size:12.5px; color:var(--ink3); margin-top:14px;">{contacts.edrpou_label} {contacts.edrpou}</p>
+        </div>
+        <div style="border:1px solid var(--line); border-radius:12px; padding:26px; background:var(--surface);">
+          <div class="kicker kicker--muted" style="margin-bottom:10px;"><T k="contacts.presidium" /></div>
+          <div class="contact-links">
+            <a class="contact-link mono" href={tel(contacts.phone)}>{contacts.phone}</a>
+            <a class="contact-link mono" href={tel(contacts.phone2)}>{contacts.phone2}</a>
+            <a class="contact-link mono" href={`mailto:${contacts.email}`}>{contacts.email}</a>
+            <span class="contact-link mono" style="color:var(--ink3);">Факс: {contacts.fax}</span>
+          </div>
+        </div>
+        <div style="border:1px solid var(--line); border-radius:12px; padding:26px; background:var(--surface);">
+          <div class="kicker kicker--muted" style="margin-bottom:10px;"><T k="contacts.press" /></div>
+          <div class="contact-links">
+            <a class="contact-link mono" href={tel(contacts.press_phone)}>{contacts.press_phone}</a>
+            <a class="contact-link mono" href={`mailto:${contacts.press_email}`}>{contacts.press_email}</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Inquiry form — Turnstile-guarded; opens a pre-filled email to the official
+       address (server-side verification + delivery is the backend phase). ТЗ requires it. -->
+  <section class="section section--muted">
+    <div class="wrap">
+      <div class="kicker kicker--muted" style="margin-bottom:14px;">Звернення</div>
+      <h2 style="font-family:var(--serif); font-size:clamp(22px,2.6vw,28px); font-weight:600; color:var(--ink); margin-bottom:24px;">Надіслати звернення</h2>
+      <form id="inquiry" class="k-form" novalidate>
+        <div class="k-field">
+          <label for="f-name">Ім'я <span class="req" aria-hidden="true">*</span></label>
+          <input id="f-name" name="name" type="text" required autocomplete="name" />
+        </div>
+        <div class="k-field">
+          <label for="f-email">Ел. пошта <span class="req" aria-hidden="true">*</span></label>
+          <input id="f-email" name="email" type="email" required autocomplete="email" inputmode="email" />
+        </div>
+        <div class="k-field k-field--full">
+          <label for="f-msg">Повідомлення <span class="req" aria-hidden="true">*</span></label>
+          <textarea id="f-msg" name="message" rows="5" required></textarea>
+        </div>
+        <div class="k-field k-field--full">
+          <div class="cf-turnstile" data-sitekey={TURNSTILE_SITEKEY} data-theme="light"></div>
+        </div>
+        <div class="k-field--full k-submit-row">
+          <button type="submit" class="btn-navy">Надіслати звернення</button>
+          <p id="f-status" class="k-status" role="status" aria-live="polite"></p>
+        </div>
+      </form>
+      <p class="k-note">Захист від спаму — Cloudflare Turnstile. Звернення відкриється у вашій поштовій програмі для надсилання на <a href={`mailto:${contacts.email}`}>{contacts.email}</a>.</p>
+    </div>
+  </section>
+</Base>
+
+<script is:inline src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
+<script is:inline define:vars={{ to: contacts.email }}>
+  (function () {
+    var form = document.getElementById('inquiry');
+    var status = document.getElementById('f-status');
+    if (!form) return;
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
+      var name = form.name.value.trim();
+      var email = form.email.value.trim();
+      var msg = form.message.value.trim();
+      if (!name || !email || !msg) { status.textContent = 'Заповніть усі обовʼязкові поля.'; status.dataset.kind = 'err'; return; }
+      var token = (form.querySelector('[name="cf-turnstile-response"]') || {}).value;
+      if (!token) { status.textContent = 'Підтвердьте, що ви не робот.'; status.dataset.kind = 'err'; return; }
+      var subject = encodeURIComponent('Звернення з порталу НААН — ' + name);
+      var body = encodeURIComponent('Імʼя: ' + name + '\nЕл. пошта: ' + email + '\n\n' + msg);
+      status.textContent = 'Відкриваємо поштову програму…'; status.dataset.kind = 'ok';
+      window.location.href = 'mailto:' + to + '?subject=' + subject + '&body=' + body;
+    });
+  })();
+</script>
+<style>
+  /* Contact phone/email as comfortable 44px tap targets with a hover affordance
+     (was inline text only ~28px tall with no hover/focus cue). */
+  .contact-links { display: flex; flex-direction: column; }
+  .contact-link {
+    display: inline-flex; align-items: center; min-height: 44px;
+    font-size: 15px; color: var(--navy); width: max-content; max-width: 100%;
+    overflow-wrap: anywhere; border-bottom: 1px solid transparent; transition: border-color 140ms;
+  }
+  .contact-link:hover { border-bottom-color: var(--navy); }
+
+  .k-form { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; max-width: 720px; }
+  .k-field { display: flex; flex-direction: column; gap: 7px; }
+  .k-field--full { grid-column: 1 / -1; }
+  .k-field label { font-size: 13px; font-weight: 500; color: var(--ink2); }
+  .req { color: var(--gold-ink); }
+  .k-field input, .k-field textarea { font: inherit; font-size: 16px; color: var(--ink); background:var(--surface); border: 1px solid var(--line); border-radius: 6px; padding: 11px 13px; min-height: 46px; }
+  .k-field textarea { resize: vertical; }
+  .k-field input:focus-visible, .k-field textarea:focus-visible { outline: 2px solid var(--navy); outline-offset: 1px; border-color: var(--navy); }
+  .k-submit-row { display: flex; align-items: center; gap: 16px; flex-wrap: wrap; }
+  .k-status { font-size: 13px; margin: 0; }
+  .k-status[data-kind="err"] { color: #b3261e; }
+  .k-status[data-kind="ok"] { color: var(--navy); }
+  .k-note { margin-top: 18px; font-size: 12.5px; color: var(--ink3); max-width: 60ch; }
+  .k-note a { color: var(--navy); }
+  @media (max-width: 560px) { .k-form { grid-template-columns: 1fr; } }
+</style>

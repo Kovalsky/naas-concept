@@ -1,0 +1,48 @@
+---
+import Base from '../layouts/Base.astro';
+import Hero from '../components/Hero.astro';
+import raw from '@content/pages/intelektualna-vlasnist.md?raw';
+import { page } from '@content/pageContent';
+
+// Render only the intro bullet list (the named subsections), which sits
+// between the H1 and the first `##` block. Everything after that first
+// subheading is the detailed legal-acts body and must not appear as rows.
+const lines = raw.split('\n').map((l) => l.trim());
+const firstSubheadingIdx = lines.findIndex((l) => l.startsWith('##'));
+const intro = firstSubheadingIdx === -1 ? lines : lines.slice(0, firstSubheadingIdx);
+const subsections = intro
+  .filter((l) => l.startsWith('- '))
+  .map((l) => l.replace(/^-\s+/, '').trim());
+
+// Map subsection labels to now-populated registry routes; the rest stay pending.
+const hrefFor = (s: string): string | undefined => {
+  if (/норматив/i.test(s)) return '/intelektualna-vlasnist/normativna-baza';
+  if (/виставк/i.test(s)) return '/intelektualna-vlasnist/vystavka';
+  return undefined;
+};
+const { meta, hero } = page('/intelektualna-vlasnist');
+---
+<Base title={meta.title} description={meta.description}>
+  <Hero kicker={hero!.kicker} title={hero!.title} lead={hero!.lead} />
+  <section class="section section--white">
+    <div class="wrap">
+      <div class="kicker kicker--muted" style="margin-bottom:16px;">Розділи</div>
+      <div class="rows">
+        {subsections.map((s) => {
+          const href = hrefFor(s);
+          return href ? (
+            <a href={href}>
+              <span style="flex:1; min-width:0;"><span class="row-title">{s}</span></span>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--navy)" stroke-width="1.9" style="flex-shrink:0;"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+            </a>
+          ) : (
+            <div class="row">
+              <span style="flex:1; min-width:0;"><span class="row-title" style="color:var(--ink2);">{s}</span></span>
+              <span class="mono" style="font-size:11px; color:var(--ink3); white-space:nowrap;">матеріал готується</span>
+            </div>
+          );
+        })}
+      </div>
+    </div>
+  </section>
+</Base>

@@ -1,0 +1,53 @@
+---
+import Base from '../layouts/Base.astro';
+import Hero from '../components/Hero.astro';
+import raw from '@content/pages/rada-molodykh.md?raw';
+import { page } from '@content/pageContent';
+const { meta, hero } = page('/rada-molodykh');
+
+// Parse the markdown into: intro paragraph (shown once), central council list,
+// and institution council list — strictly by section heading.
+const lines = raw.split('\n').map((l) => l.trim());
+const intro = lines.find((l) => l && !l.startsWith('#') && !l.startsWith('-')) ?? '';
+const central: string[] = [];
+const units: string[] = [];
+let section: 'central' | 'units' | null = null;
+for (const l of lines) {
+  if (l.startsWith('## ')) {
+    section = /центральна/i.test(l) ? 'central' : /установ/i.test(l) ? 'units' : null;
+  } else if (l.startsWith('- ')) {
+    const item = l.slice(2).trim();
+    if (section === 'central') central.push(item);
+    else if (section === 'units') units.push(item);
+  }
+}
+---
+<Base title={meta.title} description={meta.description}>
+  <Hero kicker={hero!.kicker} title={hero!.title} lead={hero!.lead} />
+  <section class="section section--white">
+    <div class="wrap">
+      {central.length > 0 && (
+        <div style="margin-bottom:36px;">
+          <h2 class="kicker" style="margin-bottom:12px;">Центральна рада</h2>
+          <ul role="list" style="list-style:none; margin:0; padding:0; display:grid; gap:12px;">
+            {central.map((c) => (
+              <li style="border:1px solid var(--navy); border-radius:12px; background:rgba(30,58,95,0.04); padding:22px 24px;">
+                <span style="display:block; font-family:var(--serif); font-size:19px; font-weight:600; color:var(--ink);">{c}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
+      )}
+
+      <h2 class="kicker kicker--muted" style="margin-bottom:14px;">Ради молодих вчених установ ({units.length})</h2>
+      <ul class="grid grid--auto" role="list" style="gap:12px; list-style:none; margin:0; padding:0;">
+        {units.map((c) => (
+          <li style="border:1px solid var(--line); border-radius:10px; background:var(--surface); padding:16px 18px; display:flex; gap:13px; align-items:flex-start;">
+            <span style="flex-shrink:0; width:8px; height:8px; border-radius:50%; background:var(--gold); margin-top:7px;" aria-hidden="true"></span>
+            <span style="font-size:14px; line-height:1.45; color:var(--ink);">{c}</span>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </section>
+</Base>

@@ -1,0 +1,16 @@
+---
+import Base from '../layouts/Base.astro';
+import { ROUTES } from '../lib/site';
+import { page } from '@content/pageContent';
+const { meta } = page('/404');
+---
+<Base title={meta.title} description={meta.description}>
+  <section class="section section--white" style="min-height:60vh; display:grid; place-content:center;">
+    <div class="wrap" style="text-align:center;">
+      <div class="mono" style="font-size:13px; letter-spacing:0.14em; color:var(--gold-ink); margin-bottom:12px;">ПОМИЛКА 404</div>
+      <h1 style="font-family:var(--serif); font-size:clamp(28px,4vw,42px); font-weight:600; color:var(--ink); margin-bottom:14px;">Сторінку не знайдено</h1>
+      <p style="font-size:16px; color:var(--ink2); margin-bottom:28px;">Можливо, сторінку переміщено або вона ще наповнюється.</p>
+      <a class="btn-navy" href={ROUTES.home}>На головну</a>
+    </div>
+  </section>
+</Base>

@@ -1,0 +1,25 @@
+---
+import Base from '../../layouts/Base.astro';
+import Hero from '../../components/Hero.astro';
+import { page } from '@content/pageContent';
+import { PROZORIST_CARDS as cards } from '@content/prozoristCards';
+
+const arrow = `<svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9"><path d="M5 12h14M13 5l7 7-7 7"/></svg>`;
+const extArrow = `<svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="var(--navy)" stroke-width="1.9"><path d="M7 17 17 7M7 7h10v10"/></svg>`;
+const { meta, hero } = page('/prozorist');
+---
+<Base title={meta.title} description={meta.description}>
+  <Hero kicker={hero!.kicker} title={hero!.title} lead={hero!.lead} />
+  <section class="section section--white">
+    <div class="wrap">
+      <div class="grid grid--auto">
+        {cards.map((c) => (
+          <a class="scard" href={c.href} aria-label={c.external ? `${c.title} (відкриється у новій вкладці)` : undefined} {...(c.external ? { target: '_blank', rel: 'noopener' } : {})}>
+            <span class="title-row"><span class="t">{c.title}</span><Fragment set:html={c.external ? extArrow : arrow} /></span>
+            <span class="d">{c.desc}</span>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+</Base>

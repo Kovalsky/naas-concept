@@ -1,0 +1,15 @@
+---
+import Base from '../layouts/Base.astro';
+import Hero from '../components/Hero.astro';
+import { ROUTES, PLACEHOLDER_TEXT } from '../lib/site';
+import { page } from '@content/pageContent';
+const { meta, hero } = page('/mizhnarodna-diyalnist');
+---
+<Base title={meta.title} description={meta.description}>
+  <Hero kicker={hero!.kicker} title={hero!.title} crumbs={hero!.crumbs} lead={hero!.lead} />
+  <section class="section section--white">
+    <div class="wrap">
+      <div style="border:1px dashed var(--line); border-radius:12px; background:var(--surface); padding:40px; text-align:center; color:var(--ink3); font-size:15px; line-height:1.6;">{PLACEHOLDER_TEXT}</div>
+    </div>
+  </section>
+</Base>

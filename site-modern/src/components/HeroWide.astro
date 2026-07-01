@@ -1,0 +1,88 @@
+---
+// Hero (wide-banner variant): full-bleed engraved banner backdrop with a navy
+// scrim for legibility, white copy on the left, facts band on white below.
+// Same data/strings/routes as the other hero variants.
+import T from './T.astro';
+import { ROUTES } from '../lib/site';
+import { divisionCount } from '../lib/data';
+const arrow = `<svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9"><path d="M5 12h14M13 5l7 7-7 7"/></svg>`;
+const facts = [
+  { n: '1918', k: 'home.factFounded' },
+  { n: String(divisionCount), k: 'home.factDivisions' },
+  { n: '84', k: 'home.factInstitutions' },
+  { n: '176', k: 'home.factOrganizations' },
+];
+---
+<section class="hw-sec">
+  <div class="hw-scrim"></div>
+  <div class="wrap hw-wrap">
+    <div class="hw-copy">
+      <h1 class="hw-h1">Національна академія аграрних наук України</h1>
+      <p class="hw-sub">Державна самоврядна наукова організація — науково-методичний і координаційний центр з наукових проблем розвитку АПК України.</p>
+      <div class="hw-links">
+        <a class="hw-link" href={ROUTES.statute}><T k="home.statuteLink" /> <Fragment set:html={arrow} /></a>
+        <a class="hw-link" href={ROUTES.presidium}><T k="home.presidiumLink" /> <Fragment set:html={arrow} /></a>
+        <a class="hw-link" href={ROUTES.today}><T k="btn.more" /> <Fragment set:html={arrow} /></a>
+      </div>
+    </div>
+  </div>
+</section>
+<section class="hw-facts-sec">
+  <div class="wrap">
+    <div class="fact-cluster">
+      {facts.map((f, i) => (
+        <>
+          {i > 0 && <span class="fact-div" aria-hidden="true"></span>}
+          <div class="fact-col"><div class="fact-num">{f.n}</div><div class="fact-lbl mono"><T k={f.k} /></div></div>
+        </>
+      ))}
+    </div>
+  </div>
+</section>
+<style>
+  .hw-sec {
+    position: relative; isolation: isolate; min-height: 460px; display: flex; align-items: center;
+    background-color: #0E1F35; background-position: center; background-size: cover; background-repeat: no-repeat;
+    background-image: url('/img/hero/banner-wide.jpg');
+    background-image: image-set(url('/img/hero/banner-wide.webp') type('image/webp'), url('/img/hero/banner-wide.jpg') type('image/jpeg'));
+  }
+  /* navy scrim, strongest on the left (desktop: copy lives in the left ~45%) */
+  .hw-scrim {
+    position: absolute; inset: 0; z-index: 0;
+    background: linear-gradient(90deg, rgba(10,20,35,0.92) 0%, rgba(10,20,35,0.78) 38%, rgba(10,20,35,0.30) 72%, rgba(10,20,35,0.12) 100%);
+  }
+  .hw-wrap { position: relative; z-index: 1; width: 100%; padding-top: 56px; padding-bottom: 56px; }
+  .hw-copy { max-width: 600px; }
+  .hw-kicker { font-size: 11px; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: #E9C77B; margin-bottom: 16px; }
+  .hw-h1 { font-family: var(--serif); font-weight: 600; font-size: clamp(30px, 3.6vw, 46px); line-height: 1.12; letter-spacing: -0.018em; color: #fff; text-wrap: balance; }
+  .hw-sub { font-family: var(--serif); font-weight: 500; font-size: clamp(17px, 1.9vw, 20px); line-height: 1.45; color: rgba(255,255,255,0.88); margin-top: 16px; }
+  .hw-founded { display: flex; align-items: center; gap: 13px; margin-top: 20px; }
+  .hw-rule { width: 36px; height: 2px; background: var(--gold); }
+  .hw-founded span:last-child { font-family: var(--serif); font-style: italic; font-size: 15px; color: rgba(255,255,255,0.72); }
+  .hw-links { display: flex; flex-wrap: wrap; gap: 26px; margin-top: 26px; }
+  .hw-link { display: inline-flex; align-items: center; gap: 7px; font-size: 14px; font-weight: 600; color: #fff; border-bottom: 1px solid rgba(233,199,123,0.7); padding-bottom: 2px; transition: gap 160ms, border-color 160ms; }
+  .hw-link:hover { gap: 11px; border-bottom-color: #E9C77B; }
+  .hw-link:focus-visible { outline: 2px solid #E9C77B; outline-offset: 4px; border-radius: 2px; }
+
+  .hw-facts-sec { background:var(--surface); border-bottom: 1px solid var(--line); padding: 28px 0; }
+  .fact-cluster { display: flex; align-items: center; }
+  .fact-col { flex: 1 1 0; min-width: 0; text-align: center; }
+  .fact-num { font-family: var(--serif); font-size: clamp(32px, 3.2vw, 40px); font-weight: 600; color: var(--navy); line-height: 1; }
+  .fact-lbl { font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--ink3); margin-top: 10px; }
+  .fact-div { flex: 0 0 1px; width: 1px; height: 40px; align-self: flex-start; background: var(--line); margin: 0 24px; }
+  /* Mobile: the copy spans full width, so the left-weighted scrim no longer protects
+     line-ends. Switch to a strong vertical scrim, brighten text, serve a lighter
+     banner, and give the CTAs more tap height. */
+  @media (max-width: 768px) {
+    .hw-sec { background-image: url('/img/hero/banner-wide-mobile.webp'); }
+    .hw-scrim { background: linear-gradient(180deg, rgba(10,20,35,0.64) 0%, rgba(10,20,35,0.84) 56%, rgba(10,20,35,0.92) 100%); }
+    .hw-sub { color: #fff; }
+    .hw-founded span:last-child { color: rgba(255,255,255,0.86); }
+    .hw-link { padding-top: 8px; }
+  }
+  @media (max-width: 560px) {
+    .fact-cluster { flex-direction: column; align-items: flex-start; gap: 20px; }
+    .fact-col { text-align: left; }
+    .fact-div { display: none; }
+  }
+</style>

@@ -1,0 +1,263 @@
+/* ============================================================
+   NAAS Portal — "Modern" (steel-green) design tokens
+   Imported from Claude Design (NaaS Portal Redesign / NAAS Site.dc.html).
+   Golos Text + JetBrains Mono, green accent, cool grey-green neutrals,
+   with a first-class light / dark theme (data-theme on <html>).
+
+   The existing component library (cloned from Gravitas) references the
+   legacy token names (--navy, --canvas, --muted, --gold, --serif …).
+   Those are re-mapped onto the steel-green palette below so every
+   component recolours — and, because the mapping is var()-based, flips
+   automatically under [data-theme="dark"].
+   ============================================================ */
+*, *::before, *::after { box-sizing: border-box; }
+
+:root {
+  /* ---- steel-green palette (light) ---- */
+  --bg:#f1f3f1; --bg2:#e8ece9; --surface:#ffffff; --surface2:#f5f8f6;
+  --ink:#11181a; --ink2:#2a3336; --muted-ink:#5a6562; --faint:#8a948f;
+  --line:#e0e6e2; --line2:#d0d8d3;
+  --green:#1c7a4c; --green-d:#155737; --green-soft:#5ba07e; --accent:#1c7a4c;
+
+  /* ---- typography ---- */
+  --fd:'Golos Text',system-ui,-apple-system,'Segoe UI',sans-serif;
+  --fb:'Golos Text',system-ui,-apple-system,'Segoe UI',sans-serif;
+  --fm:'JetBrains Mono',ui-monospace,'SFMono-Regular',monospace;
+  --wrap:1200px;
+
+  /* ---- legacy aliases → steel-green (keep component library working) ---- */
+  --canvas: var(--surface);
+  --muted: var(--bg);
+  --muted2: var(--bg2);
+  --ink3: var(--muted-ink);
+  --navy: var(--green);
+  --navy-d: var(--green-d);
+  --navy-deep:#0c1413;             /* dark chrome (footer, skip link) — fixed both themes */
+  --gold: var(--green);            /* active-state accent → green */
+  --gold-soft: rgba(28,122,76,0.10);
+  --gold-ink: var(--green-d);      /* AA green for small text */
+  --serif: var(--fd);              /* headings render in Golos Text (weighted sans) */
+  --sans: var(--fb);
+  --mono: var(--fm);
+}
+
+:root[data-theme="dark"] {
+  --bg:#0a0e0f; --bg2:#0e1213; --surface:#12181a; --surface2:#161d1f;
+  --ink:#ecf3f0; --ink2:#ccd6d1; --muted-ink:#899490; --faint:#66716c;
+  --line:#202a27; --line2:#2a3531;
+  --green:#3cae73; --green-d:#2d9460; --green-soft:#4f8f72; --accent:#3cae73;
+  --gold-soft: rgba(60,174,115,0.12);
+  --navy-deep:#070b0a;
+}
+
+html { scroll-behavior: smooth; }
+
+/* Sticky footer: keep the footer at the bottom on short pages (Contacts, Statute). */
+body {
+  margin: 0;
+  min-height: 100dvh;
+  display: flex;
+  flex-direction: column;
+  font-family: var(--fb);
+  color: var(--ink);
+  background: var(--bg);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  transition: background 200ms ease, color 200ms ease;
+}
+main { flex: 1 0 auto; }
+
+/* Respect users who ask for less motion: disable smooth scroll and near-eliminate animation. */
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+a { color: inherit; text-decoration: none; }
+button { font: inherit; color: inherit; cursor: pointer; border: none; background: none; padding: 0; }
+input, textarea, select { font: inherit; color: inherit; }
+h1, h2, h3, h4, p { margin: 0; }
+img { max-width: 100%; }
+::selection { background: var(--green); color: #fff; }
+
+@keyframes naasFade { from { opacity: 0 } to { opacity: 1 } }
+@keyframes naasDrop { from { opacity: 0; transform: translateY(-10px) } to { opacity: 1; transform: none } }
+
+/* ---------- layout helpers ---------- */
+.wrap { max-width: var(--wrap); margin: 0 auto; padding: 0 40px; }
+.serif { font-family: var(--serif); }
+.mono { font-family: var(--mono); }
+
+/* interaction language from the steel-green handoff */
+.lift { transition: transform .25s ease, box-shadow .25s ease, border-color .25s ease, background .25s ease, color .2s ease, opacity .2s ease; }
+.uline { position: relative; }
+.uline::after { content:""; position:absolute; left:0; bottom:-2px; height:1px; width:0; background:currentColor; transition:width .3s ease; }
+.uline:hover::after { width:100%; }
+
+.kicker {
+  font-family: var(--mono);
+  font-size: 11px; font-weight: 500;
+  letter-spacing: 0.14em; text-transform: uppercase;
+  color: var(--green);
+}
+.kicker--muted { color: var(--muted-ink); }
+
+.section { padding: 72px 0; }
+.section--white { background: var(--surface); }
+.section--muted { background: var(--bg); border-top: 1px solid var(--line); }
+
+.sect-rule {
+  display: block; width: 100%; height: 20px; margin: 0 0 30px; opacity: 0.55;
+}
+
+.h2-serif {
+  font-family: var(--serif);
+  font-size: clamp(26px, 3vw, 34px); font-weight: 700;
+  color: var(--ink); letter-spacing: -0.02em; line-height: 1.14;
+}
+
+/* ---------- breadcrumb hero ---------- */
+.hero {
+  background: var(--bg2); border-bottom: 1px solid var(--line);
+  padding: 34px 0 42px;
+}
+.crumbs {
+  display: flex; align-items: center; gap: 9px; flex-wrap: wrap;
+  font-family: var(--mono); font-size: 11px; color: var(--muted-ink);
+  margin-bottom: 22px;
+}
+.crumbs a:hover { color: var(--green); }
+.crumbs span.sep { color: var(--line2); }
+.crumbs .cur { color: var(--ink2); }
+.hero h1 {
+  font-family: var(--serif); font-weight: 700;
+  font-size: clamp(30px, 3.8vw, 46px); line-height: 1.06;
+  letter-spacing: -0.025em; color: var(--ink);
+}
+.hero .lead {
+  font-size: 16px; line-height: 1.6; color: var(--muted-ink);
+  margin-top: 16px; max-width: 640px;
+}
+
+/* ---------- generic card grid ---------- */
+.grid { display: grid; gap: 16px; }
+.grid--auto { grid-template-columns: repeat(auto-fit, minmax(min(300px, 100%), 1fr)); }
+.grid--auto-sm { grid-template-columns: repeat(auto-fit, minmax(min(280px, 100%), 1fr)); }
+.grid--auto-lg { grid-template-columns: repeat(auto-fit, minmax(min(380px, 100%), 1fr)); }
+
+/* section showcase card */
+.scard {
+  text-align: left; display: flex; flex-direction: column; gap: 9px;
+  padding: 24px; border: 1px solid var(--line); border-radius: 6px;
+  background: var(--surface); transition: border-color 160ms, box-shadow 160ms, transform 160ms;
+}
+.scard:hover { border-color: var(--green); transform: translateY(-2px); }
+.scard .title-row { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+.scard .t {
+  font-family: var(--serif); font-size: 19px; font-weight: 600;
+  color: var(--ink); line-height: 1.25;
+}
+.scard .d { font-size: 13.5px; color: var(--muted-ink); line-height: 1.5; }
+.scard svg { color: var(--green); flex-shrink: 0; }
+
+.news-card:hover { border-color: var(--green); box-shadow: 0 8px 22px rgba(28,122,76,0.10); }
+
+/* primary button */
+.btn-navy {
+  display: inline-flex; align-items: center; gap: 9px;
+  padding: 13px 22px; background: var(--green); color: #fff;
+  border-radius: 4px; font-size: 14px; font-weight: 600;
+  transition: background 160ms, transform 160ms;
+}
+.btn-navy:hover { background: var(--green-d); transform: translateY(-1px); }
+
+.link-underline {
+  display: inline-flex; align-items: center; gap: 7px;
+  font-size: 14px; font-weight: 600; color: var(--green);
+  border-bottom: 1px solid var(--green); padding-bottom: 2px;
+  transition: gap 160ms;
+}
+.link-underline:hover { gap: 11px; }
+
+/* document / external link rows */
+.rows { border: 1px solid var(--line); border-radius: 6px; background: var(--surface); overflow: hidden; }
+.rows a, .rows .row {
+  display: flex; align-items: center; gap: 18px;
+  padding: 17px 22px; border-bottom: 1px solid var(--line);
+  transition: background 140ms;
+}
+.rows a:last-child, .rows .row:last-child { border-bottom: none; }
+.rows a:hover { background: var(--surface2); }
+.row-title { font-size: 15px; font-weight: 600; color: var(--ink); }
+.row-desc { font-size: 13px; color: var(--muted-ink); margin-top: 3px; }
+.row-url { font-family: var(--mono); font-size: 12px; color: var(--green); white-space: nowrap; }
+
+/* placeholder block for ТЗ sections without source content */
+.placeholder {
+  border: 1px dashed var(--line2); border-radius: 8px; background: var(--surface);
+  padding: 48px 32px; text-align: center; color: var(--muted-ink);
+  font-size: 15px; line-height: 1.6;
+}
+.placeholder strong { color: var(--ink2); font-weight: 600; }
+
+/* prose (markdown body pages) */
+.prose { max-width: 820px; font-size: 15.5px; line-height: 1.72; color: var(--ink2); }
+.prose h1, .prose h2, .prose h3 { font-family: var(--serif); color: var(--ink); line-height: 1.25; font-weight: 700; letter-spacing: -0.01em; }
+/* Hero already renders the page title; suppress the duplicate leading H1 in markdown bodies. */
+.prose > h1:first-child { display: none; }
+.prose h2 { font-size: 24px; margin: 32px 0 12px; }
+.prose h3 { font-size: 19px; margin: 26px 0 10px; }
+.prose p { margin: 0 0 14px; }
+.prose a { color: var(--green); border-bottom: 1px solid var(--green-soft); }
+.prose a:hover { border-color: var(--green); }
+.prose ul, .prose ol { margin: 0 0 16px; padding-left: 22px; }
+.prose li { margin-bottom: 6px; }
+.prose table { display: block; width: 100%; overflow-x: auto; border-collapse: collapse; font-size: 14px; margin: 0 0 16px; }
+.prose th, .prose td { border: 1px solid var(--line); padding: 8px 12px; text-align: left; vertical-align: top; }
+.prose thead th { background: var(--bg2); font-weight: 600; color: var(--ink); white-space: nowrap; }
+
+/* ---------- responsive ---------- */
+.only-desktop { display: flex; }
+.only-mobile { display: none; }
+@media (max-width: 900px) {
+  .only-desktop { display: none; }
+  .only-mobile { display: flex; }
+}
+
+html[data-hc="true"] { filter: saturate(0) contrast(1.22); }
+
+/* ---------- homepage hero variant switcher (legacy; single hero on modern) ---------- */
+.hero-variant { display: none; }
+html[data-hero="classic"] .hero-variant[data-hero="classic"],
+html[data-hero="emblem"]  .hero-variant[data-hero="emblem"],
+html[data-hero="wide"]    .hero-variant[data-hero="wide"] { display: block; }
+html:not([data-hero]) .hero-variant[data-hero="classic"] { display: block; }
+
+/* utility-bar labels collapse to icons on small screens (names kept via aria-label) */
+@media (max-width: 640px) {
+  .util-label { display: none; }
+}
+
+/* Document/external-link rows: long mono URLs drop to their own line on phones. */
+@media (max-width: 560px) {
+  .rows a, .rows .row { flex-wrap: wrap; gap: 4px 12px; }
+  .row-url { white-space: normal; word-break: break-word; flex-basis: 100%; order: 3; }
+}
+
+.wrap { padding-left: 40px; padding-right: 40px; }
+@media (max-width: 640px) { .wrap { padding-left: 20px; padding-right: 20px; } }
+
+/* ---------- keyboard focus ---------- */
+a:focus-visible, button:focus-visible { outline: 2px solid var(--green); outline-offset: 2px; border-radius: 2px; }
+.link-underline:focus-visible { outline: 2px solid var(--green); outline-offset: 4px; }
+@media (max-width: 640px) { .link-underline { padding-top: 12px; padding-bottom: 6px; } }
+
+/* ---------- language toggle (chrome only) ---------- */
+/* Default = Ukrainian. The <T> component renders both; CSS shows the active one. */
+.t-en { display: none; }
+html[data-lang="en"] .t-uk { display: none; }
+html[data-lang="en"] .t-en { display: inline; }

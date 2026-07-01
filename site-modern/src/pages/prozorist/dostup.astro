@@ -1,0 +1,12 @@
+---
+import Base from '../../layouts/Base.astro';
+import Hero from '../../components/Hero.astro';
+import Placeholder from '../../components/Placeholder.astro';
+import { ROUTES } from '../../lib/site';
+import { page } from '@content/pageContent';
+const { meta, hero } = page('/prozorist/dostup');
+---
+<Base title={meta.title} description={meta.description}>
+  <Hero kicker={hero!.kicker} title={hero!.title} crumbs={hero!.crumbs} lead={hero!.lead} />
+  <Placeholder note="Категорії та набори даних публічної інформації зібрано в окремому розділі." href={ROUTES.publicInfo} cta="Перейти до публічної інформації" />
+</Base>

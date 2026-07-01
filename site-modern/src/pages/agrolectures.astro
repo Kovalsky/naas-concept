@@ -1,0 +1,12 @@
+---
+import Base from '../layouts/Base.astro';
+import Hero from '../components/Hero.astro';
+import VideoGallery from '../components/VideoGallery.astro';
+import lectures from '@content/data/agrolectures.json';
+import { page } from '@content/pageContent';
+const { meta, hero } = page('/agrolectures');
+---
+<Base title={meta.title} description={meta.description}>
+  <Hero kicker={hero!.kicker} title={hero!.title} lead={hero!.lead} />
+  <VideoGallery items={lectures} />
+</Base>

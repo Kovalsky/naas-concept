@@ -1,0 +1,174 @@
+---
+import Base from '../layouts/Base.astro';
+import Hero from '../components/Hero.astro';
+import { divisions, divisionCount, instituteCount, initials } from '../lib/data';
+import { ROUTES } from '../lib/site';
+import { page } from '@content/pageContent';
+const { meta, hero } = page('/struktura');
+
+// One-line description per division (keyed by exact viddilennia name).
+const divDesc: Record<string, string> = {
+  'Відділення землеробства, меліорації та механізації': 'Ґрунтознавство, агрохімія, землеробство, водні ресурси, меліорація та механізація агропромислового виробництва.',
+  'Відділення рослинництва': 'Селекція, насінництво, захист рослин і технології вирощування сільськогосподарських культур.',
+  'Відділення зоотехнії': 'Розведення, генетика, годівля та біологія сільськогосподарських тварин, бджільництво й рибне господарство.',
+  'Відділення ветеринарної медицини': 'Діагностика, профілактика та лікування хвороб тварин і ветеринарно-санітарна безпека.',
+  'Відділення аграрної економіки і продовольства': 'Економіка АПК, продовольча безпека, облік, фінанси та аграрна політика.',
+  'Відділення наукового забезпечення інноваційного розвитку': 'Впровадження інновацій, регіональний розвиток, наукова інформація та трансфер технологій.',
+};
+
+const normalizeWeb = (w: string) => (w.startsWith('http') ? w : `http://${w}`);
+// Display the host only (drop path/query) so long URLs can't overflow the card;
+// the full URL is preserved in href via normalizeWeb().
+const stripProto = (w: string) => w.replace(/^https?:\/\//, '').replace(/\/.*$/, '');
+// Ukrainian plural for the per-division count (1 установа / 2-4 установи / 5+ установ).
+const plural = (n: number, one: string, few: string, many: string) => {
+  const m10 = n % 10, m100 = n % 100;
+  if (m10 === 1 && m100 !== 11) return one;
+  if (m10 >= 2 && m10 <= 4 && (m100 < 12 || m100 > 14)) return few;
+  return many;
+};
+---
+<Base title={meta.title} description={meta.description}>
+  <Hero
+    kicker={hero!.kicker}
+    title={hero!.title}
+    lead={hero!.lead}
+  />
+
+  <!-- Частина 1: керівний апарат -->
+  <section class="section section--muted" style="padding-top:46px; padding-bottom:46px;">
+    <div class="wrap">
+      <div style="border:1px solid var(--line); border-left:4px solid var(--navy); border-radius:12px; padding:26px 28px; background:var(--surface); max-width:760px;">
+        <h2 style="font-family:var(--serif); font-size:clamp(20px,2.4vw,26px); font-weight:600; color:var(--ink); margin-bottom:10px;">Структура апарату Президії НААН</h2>
+        <p style="font-size:15.5px; line-height:1.65; color:var(--ink2);">Вищим керівним органом Академії є Загальні збори. У період між ними діяльністю керує Президія на чолі з президентом, а поточну роботу забезпечує її апарат.</p>
+        <a class="link-underline" href={ROUTES.presidium} style="margin-top:16px; display:inline-flex; align-items:center; gap:7px; font-weight:600; color:var(--navy);">Склад Президії НААН
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Частина 2: наукові установи -->
+  <section class="section section--white">
+    <div class="wrap">
+      <h2 style="font-family:var(--serif); font-size:clamp(22px,2.6vw,30px); font-weight:600; color:var(--ink); margin-bottom:6px;">Наукові установи НААН</h2>
+      <p style="font-size:15px; color:var(--ink2); margin-bottom:40px; max-width:720px;">{divisionCount} наукових відділень та {instituteCount} підпорядкованих їм установ, підприємств і організацій. Оберіть установу, щоб перейти на її офіційний сайт.</p>
+      {divisions.map((d) => (
+        <div class="div-block">
+          <div class="div-head">
+            <h3 class="div-name">{d.viddilennia}</h3>
+            <span class="div-count mono">{d.ustanovy.length} {plural(d.ustanovy.length, 'установа', 'установи', 'установ')}</span>
+          </div>
+          {divDesc[d.viddilennia] && <p class="div-desc">{divDesc[d.viddilennia]}</p>}
+
+          <ul class="inst-grid grid grid--auto-sm" role="list">
+            {d.ustanovy.map((it) => (
+              <li>
+                <article class="inst">
+                  <div class="inst__top">
+                    <span class="inst__mono" aria-hidden="true">{initials(it.nazva)}</span>
+                    <h4 class="inst__name">{it.nazva}</h4>
+                  </div>
+                  {it.kerivnyk && <p class="inst__meta"><span class="inst__label mono">Керівник</span>{it.kerivnyk}</p>}
+                  {it.adresa && <p class="inst__meta">{it.adresa}</p>}
+                  {(it.tel || it.email) && (
+                    <dl class="inst__contacts">
+                      {it.tel && (
+                        <div><dt class="inst__label mono">Тел.</dt><dd class="mono">{it.tel}</dd></div>
+                      )}
+                      {it.email && (
+                        <div><dt class="inst__label mono">Email</dt><dd><a class="mono inst__email" href={`mailto:${it.email}`}>{it.email}</a></dd></div>
+                      )}
+                    </dl>
+                  )}
+                  {it.web && (
+                    <a class="inst__link mono" href={normalizeWeb(it.web)} target="_blank" rel="noopener" aria-label={`Сайт установи ${it.nazva} (відкриється в новій вкладці)`}>
+                      {stripProto(it.web)}
+                      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><path d="M7 17 17 7M7 7h10v10"/></svg>
+                    </a>
+                  )}
+                </article>
+              </li>
+            ))}
+          </ul>
+        </div>
+      ))}
+    </div>
+  </section>
+</Base>
+
+<style>
+  .div-block { margin-bottom: 44px; }
+  .div-block:last-child { margin-bottom: 0; }
+
+  .div-head {
+    display: flex; align-items: baseline; gap: 14px;
+    border-top: 3px solid var(--navy); padding-top: 14px; margin-bottom: 16px;
+  }
+  .div-name {
+    font-family: var(--serif); font-weight: 600; color: var(--ink);
+    font-size: clamp(19px, 2.2vw, 24px); line-height: 1.2;
+  }
+  .div-count {
+    flex-shrink: 0; font-size: 11px; font-weight: 600; color: var(--navy);
+    background: rgba(30, 58, 95, 0.07); padding: 5px 9px; border-radius: 5px;
+    white-space: nowrap;
+  }
+  .div-desc {
+    font-size: 14.5px; line-height: 1.6; color: var(--ink2);
+    margin: 0 0 22px; max-width: 780px;
+  }
+
+  /* institute directory cards: each item has only a name + website,
+     so the card is intentionally lean — monogram + name + link. */
+  .inst-grid { list-style: none; margin: 0; padding: 0; }
+
+  .inst {
+    height: 100%;
+    display: flex; flex-direction: column;
+    border: 1px solid var(--line); border-radius: 10px;
+    background:var(--surface); padding: 18px 20px;
+    transition: border-color 160ms ease, box-shadow 160ms ease;
+  }
+  .inst:hover { border-color: var(--navy); box-shadow: 0 6px 18px rgba(30, 58, 95, 0.08); }
+
+  .inst__top { display: flex; align-items: flex-start; gap: 13px; }
+  .inst__mono {
+    flex-shrink: 0; width: 42px; height: 42px; border-radius: 9px;
+    background: var(--navy); color: #fff;
+    display: flex; align-items: center; justify-content: center;
+    font-family: var(--serif); font-size: 14px; font-weight: 600;
+  }
+  .inst__name {
+    font-family: var(--serif); font-size: 16px; font-weight: 600;
+    color: var(--ink); line-height: 1.3; margin: 0;
+  }
+
+  .inst__meta {
+    font-size: 13px; line-height: 1.55; color: var(--ink2); margin: 11px 0 0;
+  }
+  .inst__contacts {
+    display: grid; gap: 10px 18px; margin: 14px 0 0;
+    padding-top: 14px; border-top: 1px solid var(--line);
+  }
+  .inst__contacts dd { margin: 0; font-size: 12.5px; color: var(--ink); }
+  .inst__label {
+    display: block; font-size: 9.5px; letter-spacing: 0.08em;
+    text-transform: uppercase; color: var(--ink3); margin-bottom: 3px;
+  }
+  .inst__email { color: var(--navy); }
+
+  .inst__link {
+    margin-top: auto; padding-top: 16px;
+    display: inline-flex; align-items: center; gap: 7px;
+    align-self: flex-start; max-width: 100%; min-width: 0;
+    font-size: 12.5px; font-weight: 600; color: var(--navy);
+    overflow-wrap: anywhere;
+    transition: gap 160ms ease;
+  }
+  .inst__link svg { flex-shrink: 0; }
+  .inst:hover .inst__link { gap: 11px; }
+  .inst__link:focus-visible {
+    outline: 2px solid var(--navy); outline-offset: 3px; border-radius: 3px;
+  }
+</style>

@@ -1,0 +1,28 @@
+---
+import Base from '../layouts/Base.astro';
+import RegistryList from '../components/RegistryList.astro';
+import Placeholder from '../components/Placeholder.astro';
+import T from '../components/T.astro';
+import { ROUTES } from '../lib/site';
+import { byRoute, LEADS } from '../lib/registries';
+const registry = byRoute('/atestatsiia');
+---
+<Base title="Атестація та підготовка кадрів">
+  <section class="hero">
+    <div class="wrap">
+      <nav class="crumbs" aria-label="Хлібні крихти">
+        <a href={ROUTES.home}><T k="ui.crumb.home" /></a>
+        <span class="sep">/</span>
+        <span class="cur"><T k="atest.title" /></span>
+      </nav>
+      <div class="kicker" style="margin-bottom:14px;"><T k="atest.kicker" /></div>
+      <h1><T k="atest.title" /></h1>
+      <p class="lead"><T k="atest.lead" /></p>
+    </div>
+  </section>
+  <section class="section section--white">
+    <div class="wrap">
+      {registry ? <RegistryList registry={registry} lead={LEADS[registry.route]} /> : <Placeholder />}
+    </div>
+  </section>
+</Base>

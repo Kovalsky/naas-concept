@@ -1,0 +1,19 @@
+{
+  "name": "naas-portal-modern",
+  "type": "module",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "check": "node ../scripts/check-facts.mjs",
+    "deploy": "npm run build && npm run check && wrangler pages deploy dist --project-name naas-portal-modern"
+  },
+  "dependencies": {
+    "astro": "^5.6.1"
+  },
+  "devDependencies": {
+    "wrangler": "^3.114.1"
+  }
+}

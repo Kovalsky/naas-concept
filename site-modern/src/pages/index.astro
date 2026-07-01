@@ -1,0 +1,325 @@
+---
+import Base from '../layouts/Base.astro';
+import T from '../components/T.astro';
+import { getCollection } from 'astro:content';
+import { ROUTES, EXTERNAL, SHOWCASE, PARTNERS, HOME_HERO } from '../lib/site';
+import { anonsy, divisionCount } from '../lib/data';
+import { formatDateUk } from '../lib/format';
+
+// News feed (real @content) — featured lead + short list.
+const newsItems = (await getCollection('news')).sort((a, b) => (a.data.date < b.data.date ? 1 : -1));
+const featured = newsItems[0];
+const anons = anonsy.slice(0, 3);
+
+// About intro + mission — pulled verbatim from the shared markdown (naan-sohodni.md).
+const pages = await getCollection('pages');
+const aboutEntry = pages.find((p) => p.id === 'naan-sohodni') as { body?: string } | undefined;
+const blocks = (aboutEntry?.body ?? '').split(/\n{2,}/).map((s) => s.trim()).filter(Boolean);
+const intro = blocks.find((b) => !b.startsWith('#')) ?? '';
+const misIdx = blocks.findIndex((b) => /^##\s*Місія/i.test(b));
+const mission = misIdx >= 0 ? (blocks[misIdx + 1] ?? '') : '';
+
+const stats = [
+  { n: '1918', uk: 'рік заснування', en: 'year founded' },
+  { n: String(divisionCount), uk: 'наукових відділень', en: 'research divisions' },
+  { n: '84', uk: 'наукових установ', en: 'research institutions' },
+];
+
+const resources = [
+  { href: ROUTES.eLibrary, tagUk: 'Відкритий доступ', tagEn: 'Open access', titleUk: 'Е-Бібліотека', titleEn: 'E-Library', descUk: 'Наукові періодичні видання установ академії — журнали, бюлетені та збірники у відкритому доступі.', descEn: "Scientific periodicals of the Academy's institutions — journals, bulletins and proceedings in open access." },
+  { href: ROUTES.videoPage, tagUk: 'Відеоканал', tagEn: 'Video channel', titleUk: 'Відео', titleEn: 'Video', descUk: 'Лекції, репортажі з полів, записи наукових заходів і захистів дисертацій НААН.', descEn: 'Lectures, field reports and recordings of scientific events and dissertation defences of NAAS.' },
+  { href: ROUTES.agrolectures, tagUk: 'Відеолекції', tagEn: 'Video lectures', titleUk: 'AGROLECTURES', titleEn: 'AGROLECTURES', descUk: 'Цикл відеолекцій про українську аграрну науку та продовольчу безпеку.', descEn: 'A series of video lectures on Ukrainian agrarian science and food security.' },
+];
+---
+<Base title="НААН" description="Національна академія аграрних наук України — державна самоврядна наукова організація, науково-методичний і координаційний центр з наукових проблем розвитку АПК.">
+  <!-- HERO -->
+  <section class="hm-hero">
+    <img class="hm-hero__bg" src="/img/news/art8965.png" alt="" aria-hidden="true" loading="eager" />
+    <div class="hm-hero__scrim"></div>
+    <div class="wrap hm-hero__inner">
+      <div class="hm-hero__eyebrow">
+        <span>01</span><span class="hm-hero__dash"></span>
+        <span class="t-uk">НААН сьогодні</span><span class="t-en">NAAS Today</span>
+      </div>
+      <h1 class="hm-hero__h1">
+        <span class="t-uk">{HOME_HERO.h1}</span><span class="t-en">National Academy of Agrarian Sciences of Ukraine</span>
+      </h1>
+      <p class="hm-hero__sub">
+        <span class="t-uk">{HOME_HERO.descriptor}</span><span class="t-en">A state self-governing scientific organization — the scientific-methodological and coordination centre for the scientific problems of Ukraine's agro-industrial complex.</span>
+      </p>
+      <p class="hm-hero__founded mono">
+        <span class="t-uk">{HOME_HERO.founded}</span><span class="t-en">Founded in 1918</span>
+      </p>
+      <div class="hm-hero__cta">
+        <a class="hm-btn lift" href={ROUTES.statute}><span class="t-uk">Статут НААН</span><span class="t-en">NAAS Statute</span> <span class="mono">→</span></a>
+        <a class="hm-btn hm-btn--ghost lift" href={ROUTES.presidium}><span class="t-uk">Президія НААН</span><span class="t-en">NAAS Presidium</span></a>
+        <a class="hm-hero__more uline" href={ROUTES.today}><span class="t-uk">Детальніше</span><span class="t-en">More</span> →</a>
+      </div>
+    </div>
+    <div class="hm-hero__stats">
+      <div class="wrap hm-hero__statsgrid">
+        {stats.map((s) => (
+          <div class="hm-stat">
+            <div class="hm-stat__n">{s.n}</div>
+            <div class="hm-stat__l mono"><span class="t-uk">{s.uk}</span><span class="t-en">{s.en}</span></div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- [02] ABOUT -->
+  <section class="section section--muted">
+    <div class="wrap">
+      <div class="kicker">[ 02 ] <span class="t-uk">Про Академію</span><span class="t-en">About the Academy</span></div>
+      <div class="hm-about">
+        <h2 class="h2-serif hm-about__h2"><span class="t-uk">Державна самоврядна наукова організація</span><span class="t-en">A State Self-Governing Scientific Organization</span></h2>
+        <div>
+          <p class="hm-about__intro">{intro}</p>
+          <div class="hm-mission">
+            <div class="kicker">// <span class="t-uk">Місія</span><span class="t-en">Mission</span></div>
+            <p class="hm-mission__text">{mission}</p>
+            <a class="link-underline hm-mission__link" href={ROUTES.today}><span class="t-uk">Докладніше про НААН</span><span class="t-en">More about NAAS</span> →</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- [03] SECTIONS -->
+  <section class="section section--white">
+    <div class="wrap">
+      <div class="kicker">[ 03 ] <span class="t-uk">Розділи порталу</span><span class="t-en">Portal sections</span></div>
+      <h2 class="h2-serif hm-h2"><span class="t-uk">Основні розділи</span><span class="t-en">Main Sections</span></h2>
+      <div class="hm-sections">
+        {SHOWCASE.map((c, i) => (
+          <a class="hm-sec lift" href={c.href}>
+            <div class="hm-sec__top mono">
+              <span>{String(i + 1).padStart(2, '0')} / {String(SHOWCASE.length).padStart(2, '0')}</span>
+              <span class="hm-sec__arrow">→</span>
+            </div>
+            <h3 class="hm-sec__title"><T k={c.k} /></h3>
+            <p class="hm-sec__desc">{c.desc}</p>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- [04] NEWS & ANNOUNCEMENTS -->
+  <section class="section section--muted">
+    <div class="wrap">
+      <div class="kicker">[ 04 ] <span class="t-uk">Стрічка</span><span class="t-en">Feed</span></div>
+      <div class="hm-feedhead">
+        <h2 class="h2-serif hm-h2"><span class="t-uk">Новини та анонси</span><span class="t-en">News &amp; Announcements</span></h2>
+        <a class="uline hm-allink mono" href={ROUTES.news}><span class="t-uk">Усі новини</span><span class="t-en">All news</span> →</a>
+      </div>
+      <div class="hm-feed">
+        <div>
+          {featured && (
+            <a class="hm-feat lift" href={`${ROUTES.news}/${featured.data.slug}`}>
+              <img class="hm-feat__img" src={featured.data.image} alt="" width="720" height="405" loading="lazy" />
+              <div class="hm-feat__meta mono">
+                <span>{formatDateUk(featured.data.date)}</span>
+                <span class="hm-tag">{featured.data.tag}</span>
+              </div>
+              <h4 class="hm-feat__title">{featured.data.title}</h4>
+              <p class="hm-feat__teaser">{featured.data.teaser}</p>
+            </a>
+          )}
+        </div>
+        <div>
+          <div class="hm-railhead">
+            <h3 class="hm-railtitle mono"><span class="t-uk">Анонси</span><span class="t-en">Announcements</span></h3>
+            <a class="uline hm-allink mono" href={ROUTES.anonsy}><span class="t-uk">Усі</span><span class="t-en">All</span> →</a>
+          </div>
+          <ul class="hm-anons">
+            {anons.map((a) => (
+              <li>
+                <a class="hm-anon lift" href={ROUTES.anonsy}>
+                  <img class="hm-anon__img" src={a.image} alt="" width="54" height="72" loading="lazy" />
+                  <div>
+                    <div class="hm-anon__date mono">{a.date}</div>
+                    <h4 class="hm-anon__title">{a.title}</h4>
+                  </div>
+                </a>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- [05] RESOURCES -->
+  <section class="section section--white">
+    <div class="wrap">
+      <div class="kicker">[ 05 ] <span class="t-uk">Ресурси</span><span class="t-en">Resources</span></div>
+      <h2 class="h2-serif hm-h2"><span class="t-uk">Бібліотека, відео та видання</span><span class="t-en">Library, Video &amp; Publications</span></h2>
+      <div class="hm-res">
+        {resources.map((r) => (
+          <a class="hm-rescard lift" href={r.href}>
+            <div class="hm-rescard__top">
+              <span class="mono hm-rescard__tag"><span class="t-uk">{r.tagUk}</span><span class="t-en">{r.tagEn}</span></span>
+              <span class="mono hm-rescard__arrow">→</span>
+            </div>
+            <h3 class="hm-rescard__title"><span class="t-uk">{r.titleUk}</span><span class="t-en">{r.titleEn}</span></h3>
+            <p class="hm-rescard__desc"><span class="t-uk">{r.descUk}</span><span class="t-en">{r.descEn}</span></p>
+            <span class="uline mono hm-rescard__go"><span class="t-uk">Перейти</span><span class="t-en">Open</span> →</span>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- [06] EXTERNAL -->
+  <section class="section section--muted">
+    <div class="wrap">
+      <div class="kicker">[ 06 ] <span class="t-uk">Зовнішні ресурси</span><span class="t-en">External resources</span></div>
+      <h2 class="h2-serif hm-h2"><span class="t-uk">Офіційні та партнерські ресурси</span><span class="t-en">Official &amp; Partner Resources</span></h2>
+      <div class="hm-ext">
+        <a class="hm-prozorro lift" href={EXTERNAL.prozorro} target="_blank" rel="noopener">
+          <div class="mono hm-prozorro__eyebrow">PROZORRO</div>
+          <h3 class="hm-prozorro__title"><span class="t-uk">Публічні закупівлі</span><span class="t-en">Public Procurement</span></h3>
+          <p class="hm-prozorro__desc"><span class="t-uk">Профіль розпорядника у системі Prozorro (ЄДРПОУ 00024360)</span><span class="t-en">The manager's profile in the Prozorro system (EDRPOU 00024360)</span></p>
+          <span class="uline mono hm-prozorro__url">prozorro.gov.ua ↗</span>
+        </a>
+        <div>
+          <div class="mono hm-ext__label"><span class="t-uk">Партнерські та державні портали</span><span class="t-en">Partner &amp; Government Portals</span></div>
+          <div class="rows hm-ext__rows">
+            {PARTNERS.map((p) => (
+              <a href={p.href} target="_blank" rel="noopener">
+                <span class="row-title" style="flex:1; min-width:0;">{p.label}</span>
+                <span class="row-url">{p.href.replace(/^https?:\/\/(www\.)?/, '').replace(/\/$/, '')}</span>
+                <span style="color:var(--green);">↗</span>
+              </a>
+            ))}
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</Base>
+
+<style>
+  /* ---------- HERO ---------- */
+  .hm-hero {
+    position: relative; min-height: 560px;
+    display: flex; flex-direction: column; justify-content: flex-end;
+    overflow: hidden; background: #0c1410;
+  }
+  .hm-hero__bg { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+  .hm-hero__scrim {
+    position: absolute; inset: 0;
+    background: linear-gradient(180deg, rgba(9,17,13,.66) 0%, rgba(9,17,13,.40) 38%, rgba(7,13,10,.90) 100%);
+  }
+  .hm-hero__inner { position: relative; width: 100%; padding-top: 92px; padding-bottom: 40px; }
+  .hm-hero__eyebrow {
+    display: flex; align-items: center; gap: 12px;
+    font-family: var(--mono); font-size: 11px; letter-spacing: .18em; text-transform: uppercase; color: #8fe0b0;
+  }
+  .hm-hero__dash { width: 26px; height: 1px; background: rgba(143,224,176,.6); }
+  .hm-hero__h1 {
+    margin-top: 20px; max-width: 780px;
+    font-family: var(--fd); font-weight: 700; font-size: clamp(34px, 5vw, 56px);
+    line-height: 1.04; letter-spacing: -.025em; color: #fff; text-wrap: balance;
+  }
+  .hm-hero__sub { margin-top: 22px; max-width: 660px; font-size: clamp(17px, 2vw, 20px); line-height: 1.5; color: rgba(255,255,255,.86); }
+  .hm-hero__founded { margin-top: 16px; font-size: 12px; letter-spacing: .04em; text-transform: uppercase; color: #8fe0b0; }
+  .hm-hero__cta { display: flex; flex-wrap: wrap; align-items: center; gap: 13px; margin-top: 28px; }
+  .hm-btn {
+    display: inline-flex; align-items: center; gap: 10px;
+    background: #1f9257; color: #fff; padding: 13px 22px; border-radius: 4px; font-weight: 600; font-size: 14px;
+  }
+  .hm-btn:hover { background: #23a663; transform: translateY(-1px); }
+  .hm-btn--ghost { background: rgba(255,255,255,.08); border: 1px solid rgba(255,255,255,.45); }
+  .hm-btn--ghost:hover { background: rgba(255,255,255,.16); }
+  .hm-hero__more { color: #fff; font-weight: 600; font-size: 14px; margin-left: 4px; }
+
+  .hm-hero__stats { position: relative; border-top: 1px solid rgba(255,255,255,.16); background: rgba(8,14,11,.42); backdrop-filter: blur(3px); }
+  .hm-hero__statsgrid { display: grid; grid-template-columns: repeat(3, 1fr); }
+  .hm-stat { padding: 24px 28px; border-right: 1px solid rgba(255,255,255,.14); }
+  .hm-stat:first-child { padding-left: 0; }
+  .hm-stat:last-child { border-right: none; padding-right: 0; }
+  .hm-stat__n { font-family: var(--fd); font-weight: 700; font-size: 38px; line-height: 1; color: #fff; }
+  .hm-stat__l { margin-top: 6px; font-size: 10.5px; letter-spacing: .1em; text-transform: uppercase; color: rgba(255,255,255,.62); }
+  @media (max-width: 620px) {
+    .hm-hero__statsgrid { grid-template-columns: 1fr; }
+    .hm-stat { padding: 16px 0; border-right: none; border-bottom: 1px solid rgba(255,255,255,.14); }
+    .hm-stat:last-child { border-bottom: none; }
+  }
+
+  /* ---------- shared section heading ---------- */
+  .hm-h2 { margin-top: 18px; }
+
+  /* ---------- [02] ABOUT ---------- */
+  .hm-about { display: grid; grid-template-columns: 1fr 1.25fr; gap: 56px; margin-top: 24px; align-items: start; }
+  .hm-about__h2 { margin-top: 0; }
+  .hm-about__intro { font-size: 16.5px; line-height: 1.75; color: var(--ink2); }
+  .hm-mission { margin-top: 24px; background: var(--surface); border: 1px solid var(--line); border-left: 3px solid var(--green); border-radius: 5px; padding: 24px; }
+  .hm-mission__text { margin-top: 12px; font-size: 15px; line-height: 1.65; color: var(--ink2); }
+  .hm-mission__link { margin-top: 16px; }
+  @media (max-width: 860px) { .hm-about { grid-template-columns: 1fr; gap: 22px; } }
+
+  /* ---------- [03] SECTIONS ---------- */
+  .hm-sections {
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; margin-top: 34px;
+    background: var(--line); border: 1px solid var(--line); border-radius: 6px; overflow: hidden;
+  }
+  .hm-sec { display: flex; flex-direction: column; background: var(--surface); padding: 26px; min-height: 182px; }
+  .hm-sec:hover { background: var(--surface2); }
+  .hm-sec__top { display: flex; align-items: center; justify-content: space-between; font-size: 11px; color: var(--faint); }
+  .hm-sec__arrow { color: var(--green); }
+  .hm-sec__title { margin: auto 0 0; font-family: var(--fd); font-weight: 600; font-size: 20px; line-height: 1.22; color: var(--ink); }
+  .hm-sec__desc { margin-top: 9px; font-size: 13px; line-height: 1.55; color: var(--muted-ink); }
+  @media (max-width: 860px) { .hm-sections { grid-template-columns: 1fr 1fr; } }
+  @media (max-width: 560px) { .hm-sections { grid-template-columns: 1fr; } }
+
+  /* ---------- [04] NEWS ---------- */
+  .hm-feedhead { display: flex; align-items: flex-end; justify-content: space-between; gap: 20px; flex-wrap: wrap; }
+  .hm-allink { font-size: 11px; letter-spacing: .06em; color: var(--green); }
+  .hm-feed { display: grid; grid-template-columns: 1.42fr 1fr; gap: 48px; margin-top: 30px; align-items: start; }
+  @media (max-width: 860px) { .hm-feed { grid-template-columns: 1fr; gap: 36px; } }
+
+  .hm-feat { display: block; }
+  .hm-feat__img { width: 100%; aspect-ratio: 16/9; object-fit: cover; border-radius: 5px; background: var(--surface2); display: block; }
+  .hm-feat:hover { opacity: .93; }
+  .hm-feat__meta { margin-top: 13px; display: flex; align-items: center; gap: 10px; font-size: 10.5px; letter-spacing: .04em; color: var(--muted-ink); }
+  .hm-tag { border: 1px solid var(--line2); border-radius: 3px; padding: 2px 7px; color: var(--green); }
+  .hm-feat__title { margin-top: 9px; font-family: var(--fd); font-weight: 600; font-size: 21px; line-height: 1.25; letter-spacing: -.01em; color: var(--ink); }
+  .hm-feat__teaser { margin-top: 8px; font-size: 14px; line-height: 1.6; color: var(--muted-ink); }
+
+  .hm-railhead { display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid var(--line2); padding-bottom: 11px; }
+  .hm-railtitle { font-size: 12px; font-weight: 500; letter-spacing: .12em; text-transform: uppercase; color: var(--ink2); }
+  .hm-anons { list-style: none; margin: 0; padding: 0; }
+  .hm-anon { display: flex; gap: 14px; padding: 15px 0; border-bottom: 1px solid var(--line); }
+  .hm-anon:hover { opacity: .9; }
+  .hm-anons li:last-child .hm-anon { border-bottom: none; }
+  .hm-anon__img { width: 54px; height: 72px; flex: none; object-fit: cover; border-radius: 3px; background: var(--surface2); }
+  .hm-anon__date { font-size: 10px; color: var(--muted-ink); }
+  .hm-anon__title { margin-top: 5px; font-size: 13.5px; font-weight: 600; line-height: 1.35; color: var(--ink); }
+
+  /* ---------- [05] RESOURCES ---------- */
+  .hm-res { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; margin-top: 34px; }
+  .hm-rescard { display: flex; flex-direction: column; background: var(--surface); border: 1px solid var(--line); border-radius: 6px; padding: 26px; min-height: 206px; }
+  .hm-rescard:hover { border-color: var(--green); transform: translateY(-3px); }
+  .hm-rescard__top { display: flex; align-items: center; justify-content: space-between; }
+  .hm-rescard__tag { font-size: 10px; letter-spacing: .08em; text-transform: uppercase; color: var(--green); }
+  .hm-rescard__arrow { color: var(--faint); }
+  .hm-rescard__title { margin-top: 18px; font-family: var(--fd); font-weight: 700; font-size: 23px; letter-spacing: -.01em; color: var(--ink); }
+  .hm-rescard__desc { margin-top: 10px; flex: 1; font-size: 13.5px; line-height: 1.6; color: var(--muted-ink); }
+  .hm-rescard__go { margin-top: 14px; font-size: 12px; color: var(--green); }
+  @media (max-width: 860px) { .hm-res { grid-template-columns: 1fr; } }
+
+  /* ---------- [06] EXTERNAL ---------- */
+  .hm-ext { display: grid; grid-template-columns: 1fr 1.1fr; gap: 40px; margin-top: 34px; align-items: start; }
+  @media (max-width: 860px) { .hm-ext { grid-template-columns: 1fr; gap: 26px; } }
+  .hm-prozorro { display: block; background: var(--surface); border: 1px solid var(--line); border-radius: 6px; padding: 28px; }
+  .hm-prozorro:hover { border-color: var(--green); transform: translateY(-3px); }
+  .hm-prozorro__eyebrow { font-size: 10.5px; letter-spacing: .14em; text-transform: uppercase; color: var(--green); }
+  .hm-prozorro__title { margin-top: 12px; font-family: var(--fd); font-weight: 700; font-size: 22px; letter-spacing: -.01em; color: var(--ink); }
+  .hm-prozorro__desc { margin-top: 9px; font-size: 13.5px; line-height: 1.6; color: var(--muted-ink); }
+  .hm-prozorro__url { display: inline-block; margin-top: 14px; font-size: 12.5px; color: var(--green); }
+  .hm-ext__label { font-size: 10.5px; letter-spacing: .1em; text-transform: uppercase; color: var(--muted-ink); margin-bottom: 14px; }
+  .hm-ext__rows .row-url { color: var(--faint); }
+</style>

@@ -1,0 +1,220 @@
+---
+// Everything on the homepage BELOW the hero — shared by the hero A/B/C variants
+// so they are identical to the live homepage except for the hero layout.
+import { getCollection } from 'astro:content';
+import FieldRule from './FieldRule.astro';
+import T from './T.astro';
+import { ROUTES, EXTERNAL, SHOWCASE } from '../lib/site';
+import { anonsy } from '../lib/data';
+import { formatDateUk } from '../lib/format';
+
+const newsItems = (await getCollection('news')).sort((a, b) => (a.data.date < b.data.date ? 1 : -1));
+const featured = newsItems[0];
+const restNews = newsItems.slice(1, 4);
+const arrow = `<svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9"><path d="M5 12h14M13 5l7 7-7 7"/></svg>`;
+
+const resourceCards = [
+  { name: 'Е-Бібліотека', href: ROUTES.eLibrary, desc: 'Наукові періодичні видання установ академії — журнали, бюлетені та збірники у відкритому доступі.', meta: 'Відкритий доступ' },
+  { name: 'Відео', href: ROUTES.videoPage, desc: 'Лекції, репортажі з полів, записи наукових заходів і захистів дисертацій НААН.', meta: 'Відеоканал' },
+  { name: 'AGROLECTURES', href: ROUTES.agrolectures, desc: 'Цикл відеолекцій про українську аграрну науку та продовольчу безпеку.', meta: 'Відеолекції' },
+];
+const externalLinks = [
+  { name: 'Публічні закупівлі', desc: 'Профіль розпорядника у системі Prozorro (ЄДРПОУ 00024360)', url: 'prozorro.gov.ua', href: EXTERNAL.prozorro },
+];
+---
+<!-- PORTAL SECTIONS -->
+<section class="section section--muted">
+  <div class="wrap">
+    <FieldRule />
+    <div class="kicker" style="margin-bottom:8px;"><T k="home.sectionsKicker" /></div>
+    <h2 class="h2-serif" style="margin-bottom:28px;"><T k="home.sectionsTitle" /></h2>
+    <div class="grid grid--auto">
+      {SHOWCASE.map((c) => (
+        <a class="scard" href={c.href}>
+          <span class="title-row"><span class="t"><T k={c.k} /></span><Fragment set:html={arrow} /></span>
+          <span class="d">{c.desc}</span>
+        </a>
+      ))}
+    </div>
+  </div>
+</section>
+
+<!-- NEWS & ANNOUNCEMENTS -->
+<section class="section section--muted" style="border-top:1px solid var(--line);">
+  <div class="wrap">
+    <FieldRule />
+    <div class="kicker" style="margin-bottom:8px;"><T k="home.feedKicker" /></div>
+    <h2 class="h2-serif" style="margin-bottom:30px;"><T k="home.feedTitle" /></h2>
+
+    <div class="nf-grid">
+      <!-- Новини: featured lead + compact list -->
+      <div class="nf-col">
+        <div class="nf-head nf-head--news">
+          <h3 class="nf-title"><T k="home.newsTitle" /></h3>
+          <a class="nf-all" href={ROUTES.news}><T k="btn.all" /> <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 12h14M13 5l7 7-7 7"/></svg></a>
+        </div>
+        {featured && (
+          <a class="nf-feat" href={`${ROUTES.news}/${featured.data.slug}`}>
+            <span class="nf-feat__imgwrap"><img class="nf-feat__img" src={featured.data.image} alt="" width="720" height="405" loading="lazy" /></span>
+            <span class="nf-meta mono">{formatDateUk(featured.data.date)} · {featured.data.tag}</span>
+            <span class="nf-feat__title">{featured.data.title}</span>
+            <span class="nf-feat__teaser">{featured.data.teaser}</span>
+          </a>
+        )}
+        <ul class="nf-list">
+          {restNews.map((n) => (
+            <li>
+              <a class="nf-item" href={`${ROUTES.news}/${n.data.slug}`}>
+                <img class="nf-thumb" src={n.data.image} alt="" width="62" height="62" loading="lazy" />
+                <span class="nf-item__body">
+                  <span class="nf-meta mono">{formatDateUk(n.data.date)} · {n.data.tag}</span>
+                  <span class="nf-item__title">{n.data.title}</span>
+                </span>
+              </a>
+            </li>
+          ))}
+        </ul>
+      </div>
+
+      <!-- Right rail: Анонси + Новини відділень -->
+      <div class="nf-rail">
+        <div class="nf-col">
+          <div class="nf-head nf-head--anons">
+            <h3 class="nf-title"><T k="home.announceTitle" /></h3>
+            <a class="nf-all" href={ROUTES.anonsy}><T k="btn.all" /> <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 12h14M13 5l7 7-7 7"/></svg></a>
+          </div>
+          <ul class="nf-list">
+            {anonsy.map((a) => (
+              <li>
+                <a class="nf-item" href={ROUTES.anonsy}>
+                  <img class="nf-thumb" src={a.image} alt="" width="62" height="62" loading="lazy" />
+                  <span class="nf-item__body">
+                    <span class="nf-meta nf-meta--gold mono">{a.date}</span>
+                    <span class="nf-item__title">{a.title}</span>
+                  </span>
+                </a>
+              </li>
+            ))}
+          </ul>
+        </div>
+
+        <div class="nf-col">
+          <div class="nf-head nf-head--depts">
+            <h3 class="nf-title"><T k="home.deptsTitle" /></h3>
+          </div>
+          <div class="nf-empty">
+            <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 2 2 7l10 5 10-5-10-5Z"/><path d="m2 17 10 5 10-5"/><path d="m2 12 10 5 10-5"/></svg>
+            <span><T k="home.deptsFeed" /></span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- RESOURCES -->
+<section class="section section--white">
+  <div class="wrap">
+    <FieldRule />
+    <div class="kicker" style="margin-bottom:8px;"><T k="home.resourcesKicker" /></div>
+    <h2 class="h2-serif" style="margin-bottom:30px;"><T k="home.resourcesTitle" /></h2>
+    <div class="grid grid--auto-sm">
+      {resourceCards.map((r) => (
+        <a href={r.href} style="display:flex; flex-direction:column; gap:12px; padding:24px; border:1px solid var(--line); border-radius:3px; background:var(--surface);" class="scard">
+          <span style="display:flex; align-items:center; gap:12px;">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--navy)" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
+            <span style="font-family:var(--serif); font-size:20px; font-weight:600; color:var(--ink);">{r.name}</span>
+          </span>
+          <span style="font-size:14px; line-height:1.55; color:var(--ink2);">{r.desc}</span>
+          <span style="display:flex; align-items:center; justify-content:space-between; margin-top:4px; padding-top:13px; border-top:1px solid var(--line);">
+            <span class="mono" style="font-size:10.5px; letter-spacing:0.04em; color:var(--ink3);">{r.meta}</span>
+            <span style="display:inline-flex; align-items:center; gap:6px; font-size:12.5px; font-weight:600; color:var(--navy);"><T k="btn.open" /> <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9"><path d="M5 12h14M13 5l7 7-7 7"/></svg></span>
+          </span>
+        </a>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  /* news + announcements feed */
+  .nf-grid { display: grid; grid-template-columns: 1.7fr 1fr; gap: 30px; align-items: start; }
+  .nf-rail { display: flex; flex-direction: column; gap: 32px; }
+  @media (max-width: 900px) { .nf-grid { grid-template-columns: 1fr; gap: 36px; } }
+
+  .nf-head {
+    display: flex; align-items: center; justify-content: space-between; gap: 12px;
+    border-top: 3px solid var(--navy); padding-top: 13px; margin-bottom: 16px;
+  }
+  .nf-head--anons { border-top-color: var(--gold); }
+  .nf-head--depts { border-top-color: var(--line); }
+  .nf-title { font-family: var(--serif); font-size: 21px; font-weight: 600; color: var(--ink); line-height: 1.2; }
+
+  .nf-all {
+    display: inline-flex; align-items: center; gap: 5px; flex-shrink: 0;
+    font-size: 12.5px; font-weight: 600; color: var(--navy); transition: gap 160ms ease;
+  }
+  .nf-all:hover { gap: 9px; }
+  .nf-all svg { flex-shrink: 0; }
+  .nf-all:focus-visible { outline: 2px solid var(--navy); outline-offset: 3px; border-radius: 3px; }
+
+  .nf-meta { display: block; font-size: 10.5px; letter-spacing: 0.04em; color: var(--ink3); }
+  .nf-meta--gold { color: var(--gold-ink); }
+
+  /* featured lead story */
+  .nf-feat { display: flex; flex-direction: column; gap: 9px; margin-bottom: 4px; }
+  .nf-feat__imgwrap {
+    display: block; border-radius: 10px; overflow: hidden;
+    border: 1px solid var(--line); background: var(--muted); aspect-ratio: 16 / 9;
+  }
+  .nf-feat__img { display: block; width: 100%; height: 100%; object-fit: cover; transition: transform 420ms ease; }
+  .nf-feat:hover .nf-feat__img { transform: scale(1.04); }
+  .nf-feat .nf-meta { margin-top: 4px; }
+  .nf-feat__title { font-family: var(--serif); font-size: 22px; font-weight: 600; color: var(--ink); line-height: 1.28; transition: color 160ms ease; }
+  .nf-feat:hover .nf-feat__title { color: var(--navy); }
+  .nf-feat__teaser { font-size: 14px; line-height: 1.55; color: var(--ink2); }
+  .nf-feat:focus-visible { outline: 2px solid var(--navy); outline-offset: 4px; border-radius: 12px; }
+
+  /* compact list rows */
+  .nf-list { list-style: none; margin: 0; padding: 0; }
+  .nf-item { display: flex; gap: 13px; align-items: flex-start; padding: 13px 0; border-top: 1px solid var(--line); }
+  .nf-thumb {
+    flex-shrink: 0; width: 62px; height: 62px; object-fit: cover;
+    border-radius: 7px; border: 1px solid var(--line); background: var(--muted);
+  }
+  .nf-item__body { min-width: 0; display: flex; flex-direction: column; gap: 5px; }
+  .nf-item__title { font-size: 14px; line-height: 1.4; color: var(--ink); font-weight: 500; transition: color 160ms ease; }
+  .nf-item:hover .nf-item__title { color: var(--navy); }
+  .nf-item:focus-visible { outline: 2px solid var(--navy); outline-offset: 3px; border-radius: 6px; }
+
+  /* "in preparation" empty state */
+  .nf-empty {
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    text-align: center; gap: 12px; min-height: 150px; height: 100%;
+    padding: 28px 22px; border: 1px solid var(--line); border-radius: 10px; background:var(--surface);
+    color: var(--ink3);
+  }
+  .nf-empty svg { color: var(--ink3); opacity: 0.75; }
+  .nf-empty span { font-size: 13px; line-height: 1.55; max-width: 250px; }
+</style>
+
+<!-- EXTERNAL LINKS -->
+<section class="section section--muted">
+  <div class="wrap">
+    <FieldRule />
+    <div class="kicker" style="margin-bottom:8px;"><T k="home.externalKicker" /></div>
+    <h2 class="h2-serif" style="font-size:clamp(24px,2.6vw,30px); margin-bottom:26px;"><T k="home.externalTitle" /></h2>
+    <div class="rows">
+      {externalLinks.map((x) => (
+        <a href={x.href} target="_blank" rel="noopener">
+          <span style="flex:1; min-width:0;">
+            <span class="row-title">{x.name}</span>
+            <span class="row-desc">{x.desc}</span>
+          </span>
+          <span class="row-url">{x.url}</span>
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="var(--ink3)" stroke-width="1.7" style="flex-shrink:0;"><path d="M7 17 17 7M7 7h10v10"/></svg>
+        </a>
+      ))}
+    </div>
+  </div>
+</section>

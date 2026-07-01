@@ -1,0 +1,60 @@
+---
+import Base from '../layouts/Base.astro';
+import Hero from '../components/Hero.astro';
+import raw from '@content/pages/publichna-informatsiia.md?raw';
+import { page } from '@content/pageContent';
+
+// Parse the bundle's directory list (markdown bullets) into rows. Linked where a
+// route exists; «матеріал готується» where flagged. No invented entries.
+interface Row { label: string; href?: string; note?: string }
+const rows: Row[] = [];
+for (const line of raw.split('\n')) {
+  const m = line.match(/^\s*-\s+(.*)$/);
+  if (!m) continue;
+  const body = m[1];
+  const link = body.match(/\[([^\]]+)\]\(([^)]+)\)/);
+  const bold = body.match(/\*\*([^*]+)\*\*/);
+  const pending = /матеріал готується/.test(body);
+  let label: string;
+  let href: string | undefined;
+  let note: string | undefined;
+  if (bold) {
+    label = bold[1];
+    href = link?.[2];
+    // Keep the descriptive remainder after the em-dash (markdown stripped to text).
+    const after = body.split('—').slice(1).join('—').trim();
+    if (after) note = after.replace(/\[([^\]]+)\]\([^)]+\)/g, '$1').replace(/[*_]/g, '').trim();
+  } else if (link && body.trimStart().startsWith('[')) {
+    label = link[1];
+    href = link[2];
+  } else {
+    label = body.split('—')[0].replace(/[*_]/g, '').trim();
+  }
+  if (pending) href = undefined;
+  rows.push({ label, href, note });
+}
+const lead = raw.split('\n').find((l) => l && !l.startsWith('#') && !l.startsWith('-'))?.trim();
+const { meta, hero } = page('/publichna-informatsiia');
+---
+<Base title={meta.title} description={meta.description}>
+  <Hero kicker={hero!.kicker} title={hero!.title} lead={hero!.lead} />
+  <section class="section section--white">
+    <div class="wrap">
+      <div class="rows">
+        {rows.map((it) => (
+          it.href ? (
+            <a href={it.href}>
+              <span style="flex:1; min-width:0;"><span class="row-title">{it.label}</span>{it.note && <span class="row-desc">{it.note}</span>}</span>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--navy)" stroke-width="1.9" style="flex-shrink:0;"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+            </a>
+          ) : (
+            <div class="row">
+              <span style="flex:1; min-width:0;"><span class="row-title" style="color:var(--ink2);">{it.label}</span></span>
+              <span class="mono" style="font-size:11px; color:var(--ink3); white-space:nowrap;">матеріал готується</span>
+            </div>
+          )
+        ))}
+      </div>
+    </div>
+  </section>
+</Base>

@@ -1,0 +1,21 @@
+---
+import { PLACEHOLDER_TEXT } from '../lib/site';
+interface Props { note?: string; href?: string; cta?: string }
+const { note, href, cta } = Astro.props;
+---
+<section class="section section--white">
+  <div class="wrap">
+    <div class="placeholder">
+      <svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="var(--navy)" stroke-width="1.5" style="margin-bottom:14px;" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="9"/><path d="M12 8v5M12 16h.01"/></svg>
+      <p><strong>{PLACEHOLDER_TEXT}</strong></p>
+      {note && <p style="margin-top:8px; font-size:13.5px;">{note}</p>}
+      {href && cta && (
+        <p style="margin-top:18px;">
+          <a class="link-underline" href={href}>{cta}
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" aria-hidden="true"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+          </a>
+        </p>
+      )}
+    </div>
+  </div>
+</section>

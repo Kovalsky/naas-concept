@@ -1,0 +1,25 @@
+---
+import { getCollection, render } from 'astro:content';
+import Base from '../layouts/Base.astro';
+import Hero from '../components/Hero.astro';
+import T from '../components/T.astro';
+import { EXTERNAL } from '../lib/site';
+import { page } from '@content/pageContent';
+
+const pages = await getCollection('pages');
+const entry = pages.find((p) => p.id === 'statut');
+const { Content } = entry ? await render(entry) : { Content: null };
+const { meta, hero } = page('/statut');
+---
+<Base title={meta.title} description={meta.description}>
+  <Hero kicker={hero!.kicker} title={hero!.title} crumbs={hero!.crumbs} lead={hero!.lead} />
+  <section class="section section--white">
+    <div class="wrap">
+      <a class="btn-navy" href={EXTERNAL.statutePdf} target="_blank" rel="noopener" style="margin-bottom:28px;">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3"/></svg>
+        <T k="btn.downloadStatute" />
+      </a>
+      <div class="prose">{Content && <Content />}</div>
+    </div>
+  </section>
+</Base>
