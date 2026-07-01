@@ -1,21 +1,22 @@
-# NAAS — верхньорівнева карта треків проєкту
+# NAAS — top-level track map of the project
 
-Єдине місце правди про послідовність треків «новий портал naas.gov.ua». Кожен трек має власний план у власній сесії; **редагувати чужі плани заборонено** (правило власності документів, 2026-07-02) — крос-трекові рішення фіксуються тут. Сесія-виконавець читає цей файл перед виконанням свого плану.
+Single source of truth for the sequencing of the "new naas.gov.ua portal" tracks. Each track has its own plan owned by its own session; **editing another session's plans is forbidden** (document-ownership rule, 2026-07-02) — cross-track decisions are recorded here. An executing session reads this file before executing its plan.
 
-Створено 2026-07-02 як вхідна документація для GSD (Get Shit Done) framework, який користувач встановлює поверх Superpowers.
+Created 2026-07-02 as onboarding input for the GSD (Get Shit Done) framework, which the user is installing on top of Superpowers.
 
-## Таблиця треків
+## Tracks table
 
-| Трек | Назва | План / документ | Статус (2026-07-02) | Залежить від |
+| Track | Name | Plan / document | Status (2026-07-02) | Depends on |
 |---|---|---|---|---|
-| **0** | Правки дизайну showcase (`site-modern`) за аудитом `docs/design-review-site-modern-2026-07-01.md` | пише паралельна сесія; файл ще не зафіксований у `docs/superpowers/plans/` | план у роботі | — |
-| **1** | Деплой showcase «сайт як є, з правками» на `new.naas.gov.ua` (Mirohost, статичний, FTP) + перенаправлення банера в Bitrix | `docs/superpowers/plans/2026-07-02-modern-static-mirohost.md` | план готовий, виконання не починалось | Track 0 (деплоїмо вже з правками дизайну — рішення користувача) |
-| **2A** | Сетап нової архітектури, фаза A: скелет Next.js-порталу (`portal/`) + розгортання порожнього каркаса на eVPS (systemd через support Mirohost, nginx-proxy, піддомен; пропозиція `portal.naas.gov.ua`) | плану ще нема; самодостатній промпт для нової сесії — у користувача (чат 2026-07-02) | не почато | — (технічно незалежний від Track 0/1) |
-| **2B** | Сетап нової архітектури, фаза B: MySQL-схема (проєктується з реального перепису контенту), Directus поверх неї, load-скрипт JSON→MySQL, API-драйвер для content-store порталу | плану ще нема | не почато | інвентаризаційна фаза Track 3 (Tasks 1–6: краул → inventory → звіт типів контенту) — вона дає матеріал для схеми |
-| **3** | 1:1 SEO-міграція контенту старого `naas.gov.ua` на портал: краул/екстракція, точні старі URL, sitemap/JSON-LD, verify-parity, стейджинг з noindex, runbook свапу домену | `docs/superpowers/plans/2026-07-02-legacy-migration-portal.md` (гілка `feat/legacy-migration-portal`, worktree `naas_migration_wt`) | план готовий, виконання не починалось | Tasks 1–6 — ні від чого; віддача контенту (Tasks 7+) — Track 2A; **свап домену — тільки після Track 2B** (до перемикання `naas.gov.ua` мусить працювати публікація через Directus, контент завантажений у MySQL, verify-parity повторно пройдений в API-режимі) |
+| **0** | Design fixes for the showcase (`site-modern`) per the audit `docs/design-review-site-modern-2026-07-01.md` | being written by a parallel session; file not yet present in `docs/superpowers/plans/` | plan in progress | — |
+| **1** | Deploy the showcase "site as is, with fixes" to `new.naas.gov.ua` (Mirohost, static, FTP) + repoint the banner in Bitrix | `docs/superpowers/plans/2026-07-02-modern-static-mirohost.md` | plan ready, execution not started | Track 0 (deploy with design fixes included — user decision) |
+| **2A** | New-architecture setup, phase A: Next.js portal skeleton (`portal/`) + deploy of the empty scaffold to the eVPS (systemd via Mirohost support, nginx proxy, subdomain; proposal: `portal.naas.gov.ua`) | no plan yet; a self-contained prompt for a fresh session is with the user (chat, 2026-07-02) | not started | — (technically independent of Tracks 0/1) |
+| **2B** | New-architecture setup, phase B: MySQL schema (designed from the real content census), Directus on top of it, JSON→MySQL load script, API driver for the portal content-store | no plan yet | not started | the inventory phase of Track 3 (Tasks 1–6: crawl → inventory → content-type report) — it provides the material for the schema |
+| **3** | 1:1 SEO migration of the old `naas.gov.ua` content onto the portal: crawl/extraction, exact old URLs, sitemap/JSON-LD, verify-parity, noindex staging, domain-swap runbook | `docs/superpowers/plans/2026-07-02-legacy-migration-portal.md` (branch `feat/legacy-migration-portal`, worktree `naas_migration_wt`) | plan ready, execution not started | Tasks 1–6 — nothing; content serving (Tasks 7+) — Track 2A; **domain swap — only after Track 2B** (before switching `naas.gov.ua`, publishing via Directus must work, content must be loaded into MySQL, and verify-parity must pass again in API mode) |
 
-## Примітки
+## Notes
 
-- Track 0/1 (showcase) і Track 2/3 (портал) — технічно незалежні гілки робіт: різні піддомени, різні процеси; showcase не блокує архітектуру.
-- Directus — передумова **свапу домену**, а не міграції (рішення 2026-07-02): найдовша частина міграції (краул+екстракція) від схеми/CMS не залежить і виконується паралельно з Track 2.
-- Виконання планів Track 2/3: нова сесія + superpowers:subagent-driven-development.
+- Tracks 0/1 (showcase) and Tracks 2/3 (portal) are technically independent lines of work: different subdomains, different processes; the showcase does not block the architecture.
+- Directus is a precondition of the **domain swap**, not of the migration (decision 2026-07-02): the longest part of the migration (crawl+extraction) does not depend on the schema/CMS and runs in parallel with Track 2.
+- Execution of Track 2/3 plans: fresh session + superpowers:subagent-driven-development.
+- All project documentation is written in English (user rule, 2026-07-02); chat language remains Ukrainian.
