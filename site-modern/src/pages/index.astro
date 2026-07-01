@@ -77,20 +77,13 @@ const resources = [
       <div class="hm-about">
         <div class="hm-about__lead">
           <h2 class="h2-serif hm-about__h2"><span class="t-uk">Державна самоврядна наукова організація</span><span class="t-en">A State Self-Governing Scientific Organization</span></h2>
-          <div class="hm-about__rule">
-            <span class="hm-about__bar" aria-hidden="true"></span>
-            <p class="hm-about__rule-text">
-              <span class="hm-about__rule-lbl mono"><span class="t-uk">Аграрна наука України</span><span class="t-en">Ukraine's agrarian science</span></span>
-              <span class="t-uk">Провідний центр наукового забезпечення розвитку АПК та продовольчої безпеки держави — з 1918 року.</span><span class="t-en">The leading centre for the scientific support of the agro-industrial complex and the state's food security — since 1918.</span>
-            </p>
-          </div>
+          <a class="link-underline hm-about__cta" href={ROUTES.today}><span class="t-uk">Докладніше про НААН</span><span class="t-en">More about NAAS</span> →</a>
         </div>
         <div>
           <p class="hm-about__intro">{intro}</p>
           <div class="hm-mission">
             <div class="kicker">// <span class="t-uk">Місія</span><span class="t-en">Mission</span></div>
             <p class="hm-mission__text">{mission}</p>
-            <a class="link-underline hm-mission__link" href={ROUTES.today}><span class="t-uk">Докладніше про НААН</span><span class="t-en">More about NAAS</span> →</a>
           </div>
         </div>
       </div>
@@ -273,10 +266,7 @@ const resources = [
   /* ---------- [02] ABOUT ---------- */
   .hm-about { display: grid; grid-template-columns: 1fr 1.25fr; gap: 56px; margin-top: 24px; align-items: start; }
   .hm-about__h2 { margin-top: 0; }
-  .hm-about__rule { margin-top: 22px; display: flex; gap: 18px; align-items: stretch; }
-  .hm-about__bar { flex: none; width: 3px; border-radius: 2px; background: var(--green); }
-  .hm-about__rule-text { font-size: 15.5px; line-height: 1.6; color: var(--muted-ink); }
-  .hm-about__rule-lbl { display: block; margin-bottom: 6px; font-size: 10.5px; letter-spacing: .12em; text-transform: uppercase; color: var(--green); }
+  .hm-about__cta { margin-top: 22px; }
   .hm-about__intro { font-size: 16.5px; line-height: 1.75; color: var(--ink2); }
   .hm-mission { margin-top: 24px; background: var(--surface); border: 1px solid var(--line); border-left: 3px solid var(--green); border-radius: 5px; padding: 24px; }
   .hm-mission__text { margin-top: 12px; font-size: 15px; line-height: 1.65; color: var(--ink2); }
