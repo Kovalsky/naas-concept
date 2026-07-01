@@ -1,12 +1,24 @@
 # Міграція контенту старого naas.gov.ua 1:1 (SEO-збереження) + портал Next.js — план імплементації
 
-> **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development (recommended) or superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (`- [ ]`) syntax for tracking.
+> **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development to implement this plan task-by-task (рішення користувача 2026-07-02: виконання — у **НОВІЙ сесії**, свіжий сабагент на задачу, рев'ю між задачами). Steps use checkbox (`- [ ]`) syntax for tracking.
+>
+> **НЕ ПОЧИНАТИ, поки не виконана передумова:** засетаплена нова архітектура з Next.js (див. розділ «Передумови й послідовність треків» нижче).
 
 **Goal:** перенести ВЕСЬ публічний контент старого сайту `naas.gov.ua` (Bitrix) на новий портал (Next.js) один-до-одного — з тими самими URL, тими самими title/контентом, server-side рендером, sitemap.xml та JSON-LD — і викотити на неіндексований піддомен `naas.gov.ua` так, щоб у момент перемикання домену SEO-вага збереглась 1:1 (нуль редіректів для мігрованих сторінок).
 
 **Architecture:** два нові пакети в репо. (1) `migration/` — Node-пайплайн: ввічливий BFS-краулер старого сайту (cp1251→UTF-8) → інвентар URL (`inventory.jsonl`) → класифікація (`url-map.json`) → екстракція контенту в JSON (`out/content/`) → верифікатор паритету. (2) `portal/` — Next.js (App Router, SSG + ISR-готовність), який віддає мігрований контент за **точними старими URL** (включно з query-string URL типу `?ELEMENT_ID=`), з env-перемикачем `INDEXING` (noindex на піддомені → повна індексація після свапу). Сховище контенту зараз — JSON-файли (за рішенням: «JSON now, database later»); інтерфейс `content-store` ізолює це рішення, щоб пізніше підмінити на Directus API без зміни сторінок.
 
 **Tech Stack:** Node ≥20 (на сервері 20.20.2 — це стеля сумісності), cheerio (парсинг HTML), vitest (тести обох пакетів), Next.js App Router (`output: 'standalone'`, `trailingSlash: true`), rsync+SSH (деплой на Mirohost eVPS), nginx-proxy + systemd через панель/support Mirohost.
+
+## Передумови й послідовність треків (КОЛИ виконувати цей план)
+
+Цей план — **третій** трек у послідовності. Не починати, поки не закриті перші два:
+
+0. **Showcase «сайт як є» (паралельний трек, вже спланований):** статичний `site-modern` на `new.naas.gov.ua` — план `2026-07-02-modern-static-mirohost.md`. Незалежний від цього плану; займає піддомен `new.`.
+1. **Сетап нової архітектури — ПЕРЕДУМОВА цього плану:** за `docs/architecture/portal-architecture.md` (роадмап §10–11) має бути розгорнутий Next.js-портал: ініціалізований застосунок `portal/`, Node-процес на сервері (systemd-сервіс через support Mirohost), nginx-proxy на піддомен порталу. Це окремий план в окремій сесії. Directus+MySQL для ЦЬОГО плану **не обов'язкові** (сховище контенту тут — JSON за рішенням «JSON now, database later»); якщо вони вже стоять — не заважають.
+2. **Цей план (1:1 міграція):** виконується ПІСЛЯ п.1 — наповнює вже розгорнутий Next.js-портал мігрованим контентом за старими URL і готує перемикання домену.
+
+Як план поводиться з уже зробленим у п.1: **Task 7** (каркас `portal/`) і **Task 13** (systemd/nginx/піддомен) при вже наявних артефактах НЕ створюють їх заново — лише **звіряють** відповідність контракту цього плану (`trailingSlash`, умовний `standalone`, env `INDEXING/SITE_ORIGIN/LEGACY_CONTENT_DIR`, порт) і **доповнюють** те, чого бракує. Тести цих тасків — контракт, який має пройти незалежно від того, хто створив застосунок.
 
 ## Global Constraints
 
@@ -1049,10 +1061,12 @@ git push
 - Produces: Next-застосунок, що збирається (`npm run build`) і віддає: `/robots.txt` (Disallow при `INDEXING!=on`), заголовок `X-Robots-Tag: noindex, nofollow` на всіх відповідях при `INDEXING!=on`. Env-контракт (споживають Task 8–13): `INDEXING=on|off` (default off), `SITE_ORIGIN` (напр. `http://portal.naas.gov.ua`), `LEGACY_CONTENT_DIR` (default `../migration/out/content`).
 - Тест-хелпер `startPortal(env): Promise<{origin, stop}>` — збирає/стартує prod-сервер на вільному порту (споживають тести Task 8–11).
 
-- [ ] **Step 1: Bootstrap**
+- [ ] **Step 1: Bootstrap (або звірка вже створеного архітектурним треком)**
+
+**Якщо `portal/` ВЖЕ існує** (створений треком «сетап архітектури» — див. «Передумови»): НЕ створювати заново. Пропустити create-next-app; виконати лише перевірку engines (команда нижче) і далі Step 2–5 як ЗВІРКУ/ДОПОВНЕННЯ наявного конфігу (додати `trailingSlash`/умовний `standalone`/robots/middleware/vitest, якщо їх нема; існуючі маршрути не чіпати). Якщо `portal/` нема:
 
 ```bash
-cd /Users/falco/dev/naas_github_pages   # (worktree!)
+cd /Users/falco/dev/naas_migration_wt   # worktree цього плану
 npx create-next-app@latest portal --ts --app --src-dir --no-tailwind --eslint --import-alias "@/*" --use-npm
 node -e "console.log(require('./portal/node_modules/next/package.json').engines)"
 ```
@@ -2128,6 +2142,8 @@ git push
 - Produces: живий портал на `http(s)://<піддомен>.naas.gov.ua` з `X-Robots-Tag: noindex`; асети скопійовані на сервері; systemd-заявка для Mirohost.
 
 **ГЕЙТИ (перед кожним — явне питання користувачу):** (G1) перший SSH-огляд; (G2) rsync аплоад; (G3) запуск copy-assets на сервері; (G4) вибір імені піддомена + дії в панелі; (G5) надсилання systemd-заявки support-у.
+
+**Якщо трек «сетап архітектури» вже створив systemd-сервіс / nginx-proxy / піддомен** — G4/G5 стають ЗВІРКОЮ, а не створенням: перевірити, що проксі вказує на порт порталу, сервіс активний (`systemctl status`), env-файл містить контракт цього плану (`INDEXING=off` на стейджингу!) — і рухатися далі зі Step 8.
 
 - [ ] **Step 1: Артефакти деплою**
 
