@@ -100,13 +100,16 @@ migration/out/
 
 - [ ] **Step 1: Гілка/worktree**
 
-Виконавець працює у worktree (скіл using-git-worktrees). Створення:
+Worktree **вже створено** 2026-07-02 (разом із комітом цього плану): `/Users/falco/dev/naas_migration_wt`, гілка `feat/legacy-migration-portal` (запушена в origin). Увійти; якщо worktree прибрали — відтворити з наявної гілки:
 
 ```bash
-cd /Users/falco/dev/naas_github_pages
-git worktree add ../naas_migration_wt -b feat/legacy-migration-portal
-cd ../naas_migration_wt
+cd /Users/falco/dev/naas_migration_wt 2>/dev/null || {
+  cd /Users/falco/dev/naas_github_pages
+  git worktree add ../naas_migration_wt feat/legacy-migration-portal
+  cd ../naas_migration_wt
+}
 git branch --show-current   # очікувано: feat/legacy-migration-portal
+git pull --ff-only origin feat/legacy-migration-portal
 ```
 
 - [ ] **Step 2: Каркас пакета**
