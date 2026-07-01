@@ -1,86 +1,88 @@
-# Міграція контенту старого naas.gov.ua 1:1 (SEO-збереження) + портал Next.js — план імплементації
+# 1:1 content migration of the old naas.gov.ua (SEO preservation) + Next.js portal — implementation plan
 
-> **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development to implement this plan task-by-task (рішення користувача 2026-07-02: виконання — у **НОВІЙ сесії**, свіжий сабагент на задачу, рев'ю між задачами). Steps use checkbox (`- [ ]`) syntax for tracking.
+> **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development to implement this plan task-by-task (user decision 2026-07-02: execution happens in a **NEW session**, fresh subagent per task, review between tasks). Steps use checkbox (`- [ ]`) syntax for tracking.
 >
-> **НЕ ПОЧИНАТИ, поки не виконана передумова:** засетаплена нова архітектура з Next.js (Track 2; див. розділ «Передумови й послідовність треків» нижче).
+> **DO NOT START until the prerequisite is met:** the new Next.js architecture is set up (Track 2; see the "Prerequisites and track sequencing" section below).
+>
+> **Language note:** documentation is in English (project rule, 2026-07-02). Ukrainian strings inside code blocks are FUNCTIONAL data — old-site fixtures, expected titles, month names for date parsing, UI text of the Ukrainian-language site — and must remain Ukrainian. Reply to the user in Ukrainian.
 
-**Goal:** перенести ВЕСЬ публічний контент старого сайту `naas.gov.ua` (Bitrix) на новий портал (Next.js) один-до-одного — з тими самими URL, тими самими title/контентом, server-side рендером, sitemap.xml та JSON-LD — і викотити на неіндексований піддомен `naas.gov.ua` так, щоб у момент перемикання домену SEO-вага збереглась 1:1 (нуль редіректів для мігрованих сторінок).
+**Goal:** move ALL public content of the old `naas.gov.ua` site (Bitrix) onto the new portal (Next.js) one-to-one — same URLs, same titles/content, server-side rendering, sitemap.xml and JSON-LD — and deploy it to a non-indexed `naas.gov.ua` subdomain so that at the moment of the domain switch the SEO weight is preserved 1:1 (zero redirects for migrated pages).
 
-**Architecture:** два нові пакети в репо. (1) `migration/` — Node-пайплайн: ввічливий BFS-краулер старого сайту (cp1251→UTF-8) → інвентар URL (`inventory.jsonl`) → класифікація (`url-map.json`) → екстракція контенту в JSON (`out/content/`) → верифікатор паритету. (2) `portal/` — Next.js (App Router, SSG + ISR-готовність), який віддає мігрований контент за **точними старими URL** (включно з query-string URL типу `?ELEMENT_ID=`), з env-перемикачем `INDEXING` (noindex на піддомені → повна індексація після свапу). Сховище контенту зараз — JSON-файли (за рішенням: «JSON now, database later»); інтерфейс `content-store` ізолює це рішення, щоб пізніше підмінити на Directus API без зміни сторінок.
+**Architecture:** two new packages in the repo. (1) `migration/` — a Node pipeline: polite BFS crawler of the old site (cp1251→UTF-8) → URL inventory (`inventory.jsonl`) → classification (`url-map.json`) → content extraction into JSON (`out/content/`) → parity verifier. (2) `portal/` — Next.js (App Router, SSG + ISR-ready) that serves the migrated content at the **exact old URLs** (including query-string URLs like `?ELEMENT_ID=`), with an `INDEXING` env toggle (noindex on the subdomain → full indexing after the swap). Content storage for now is JSON files (per the decision "JSON now, database later"); the `content-store` interface isolates that decision so it can later be swapped for the Directus API without touching the pages.
 
-**Tech Stack:** Node ≥20 (на сервері 20.20.2 — це стеля сумісності), cheerio (парсинг HTML), vitest (тести обох пакетів), Next.js App Router (`output: 'standalone'`, `trailingSlash: true`), rsync+SSH (деплой на Mirohost eVPS), nginx-proxy + systemd через панель/support Mirohost.
+**Tech Stack:** Node ≥20 (20.20.2 on the server — that is the compatibility ceiling), cheerio (HTML parsing), vitest (tests for both packages), Next.js App Router (`output: 'standalone'`, `trailingSlash: true`), rsync+SSH (deploy to the Mirohost eVPS), nginx proxy + systemd via the Mirohost panel/support.
 
-## Передумови й послідовність треків (КОЛИ виконувати цей план)
+## Prerequisites and track sequencing (WHEN to execute this plan)
 
-Послідовність проєкту (зафіксовано користувачем 2026-07-02). Цей план — **Track 3**, останній:
+Project sequence (fixed by the user 2026-07-02). This plan is **Track 3**, the last one:
 
-- **Track 0 — правки дизайну showcase:** implementation-план правок по дизайну `site-modern` (за аудитом `docs/design-review-site-modern-2026-07-01.md`) готує ПАРАЛЕЛЬНА сесія. Для цього плану `site-modern/` — чужа тека.
-- **Track 1 — деплой showcase «сайт як є» (уже з правками Track 0):** статичний `site-modern` на `new.naas.gov.ua` — план `2026-07-02-modern-static-mirohost.md`. Займає піддомен `new.`.
-- **Track 2 — сетап нової архітектури — ЖОРСТКА ПЕРЕДУМОВА цього плану:** за `docs/architecture/portal-architecture.md` (роадмап §10–11) розгорнутий Next.js-портал: ініціалізований застосунок `portal/`, Node-процес на сервері (systemd-сервіс через support Mirohost), nginx-proxy на піддомен порталу. Окремий план в окремій сесії (промпт для неї передано користувачу 2026-07-02). Directus+MySQL для Track 3 **не обов'язкові** (сховище контенту тут — JSON за рішенням «JSON now, database later»); якщо вже стоять — не заважають.
-- **Track 3 — ЦЕЙ план (1:1 міграція):** виконується ПІСЛЯ Track 2 — наповнює вже розгорнутий Next.js-портал мігрованим контентом за старими URL і готує перемикання домену.
+- **Track 0 — showcase design fixes:** the implementation plan for `site-modern` design fixes (per the audit `docs/design-review-site-modern-2026-07-01.md`) is being prepared by a PARALLEL session. For this plan, `site-modern/` is foreign territory.
+- **Track 1 — deploy the showcase "site as is" (already with Track 0 fixes):** static `site-modern` on `new.naas.gov.ua` — plan `2026-07-02-modern-static-mirohost.md`. Occupies the `new.` subdomain.
+- **Track 2 — new-architecture setup — HARD PREREQUISITE of this plan:** per `docs/architecture/portal-architecture.md` (roadmap §10–11) a deployed Next.js portal: initialized `portal/` app, Node process on the server (systemd service via Mirohost support), nginx proxy to the portal subdomain. A separate plan in a separate session (the prompt for it was handed to the user 2026-07-02). Directus+MySQL are **not required** for Track 3 (content storage here is JSON per the "JSON now, database later" decision); if they are already in place — they don't interfere.
+- **Track 3 — THIS plan (1:1 migration):** executed AFTER Track 2 — fills the already-deployed Next.js portal with migrated content at the old URLs and prepares the domain switch.
 
-Технічна залежність Track 3 — лише Track 2. Track 0–1 (showcase) — сусідній трек, який технічно міграцію не блокує, але за рішенням користувача виконується раніше.
+Track 3's technical dependency is Track 2 only. Tracks 0–1 (showcase) are a neighboring line of work that does not technically block the migration, but by user decision runs earlier.
 
-Як план поводиться з уже зробленим у Track 2: **Task 7** (каркас `portal/`) і **Task 13** (systemd/nginx/піддомен) при вже наявних артефактах НЕ створюють їх заново — лише **звіряють** відповідність контракту цього плану (`trailingSlash`, умовний `standalone`, env `INDEXING/SITE_ORIGIN/LEGACY_CONTENT_DIR`, порт) і **доповнюють** те, чого бракує. Тести цих тасків — контракт, який має пройти незалежно від того, хто створив застосунок.
+How this plan behaves with things already done in Track 2: **Task 7** (the `portal/` skeleton) and **Task 13** (systemd/nginx/subdomain) do NOT recreate already-existing artifacts — they only **verify** conformance to this plan's contract (`trailingSlash`, conditional `standalone`, env `INDEXING/SITE_ORIGIN/LEGACY_CONTENT_DIR`, port) and **add** whatever is missing. The tests of those tasks are the contract that must pass regardless of who created the app.
 
 ## Global Constraints
 
-- **Закон:** `*.naas.gov.ua` хоститься ТІЛЬКИ в Україні (Mirohost). Жодних Cloudflare/закордонних CDN для gov.ua.
-- **Перед КОЖНИМ підключенням до сервера (SSH/rsync/scp) — явно спитати користувача.** Жорстке правило проєкту. FTP-питання цього плану не стосуються (транспорт — rsync по SSH).
-- **Старий сайт недоторканний:** на сервері писати тільки у `~/portal-app/` (нова тека). Файли Bitrix читати можна (read-only: `ls`, `cat`, `cp` З них), змінювати/видаляти — ніколи. Ніяких запитів до MySQL старого сайту в цьому плані.
-- **Краулінг прод-сайту — ввічливий:** concurrency 2, пауза ≥500 мс між запитами, тільки `GET`/`HEAD`, User-Agent `NAAS-migration/1.0`. Ніколи не чіпати `/bitrix/` (адмінка/ядро) — виняток нижче не передбачений.
-- **Паралельні сесії в репо:** `content/`, `site/`, `site-light/`, `site-modern/`, `site-lucidity/`, `scripts/check-facts.mjs` — чужі, НЕ редагувати. Цей план створює лише нові теки `migration/`, `portal/`, `docs/runbooks/` + рядки в кореневому `.gitignore`. Чужі untracked-файли (`CLAUDE.md`, `docs/architecture/`, `docs/infrastructure/`, `docs/design-review-*.md`) у коміти не включати.
-- **Гілка:** уся робота на `feat/legacy-migration-portal` (worktree створюється при виконанні — скіл using-git-worktrees). Кожен коміт — push у `origin` тієї ж гілки. Перед комітом: `git branch --show-current` + `git status --short`.
-- Креденшели тільки з `~/.naas_hosting.env` через `source`; значення ніколи не друкувати (у вивід, логи, коміти).
-- **Node-стеля:** на сервері Node **20.20.2** без можливості оновити самим. Усі залежності (`next`, `cheerio`, `vitest`) при встановленні перевіряти на `engines`-сумісність із Node 20 і за потреби пінити старішу мажорну версію.
-- Відповідати користувачу українською.
+- **Law:** `*.naas.gov.ua` is hosted ONLY in Ukraine (Mirohost). No Cloudflare / foreign CDNs for gov.ua.
+- **Before EVERY connection to the server (SSH/rsync/scp) — explicitly ask the user.** Hard project rule. FTP is not used by this plan (transport is rsync over SSH).
+- **The old site is untouchable:** on the server write only into `~/portal-app/` (a new directory). Bitrix files may be read (read-only: `ls`, `cat`, `cp` FROM them), never modified/deleted. No queries against the old site's MySQL in this plan.
+- **Crawling the production site is polite:** concurrency 2, ≥500 ms pause between requests, `GET`/`HEAD` only, User-Agent `NAAS-migration/1.0`. Never touch `/bitrix/` (admin/core) — no exception exists below.
+- **Parallel sessions in this repo:** `content/`, `site/`, `site-light/`, `site-modern/`, `site-lucidity/`, `scripts/check-facts.mjs` are foreign — do NOT edit. This plan only creates the new directories `migration/`, `portal/`, `docs/runbooks/` + lines in the root `.gitignore`. Do not include other sessions' untracked files (`CLAUDE.md`, `docs/design-review-*.md`) in commits.
+- **Branch:** all work on `feat/legacy-migration-portal` (worktree created at execution time — using-git-worktrees skill). Every commit is pushed to `origin` on that branch. Before committing: `git branch --show-current` + `git status --short`.
+- Credentials only from `~/.naas_hosting.env` via `source`; never print the values (to output, logs, commits).
+- **Node ceiling:** the server runs Node **20.20.2** with no way to upgrade it ourselves. When installing any dependency (`next`, `cheerio`, `vitest`), check its `engines` compatibility with Node 20 and pin an older major if needed.
+- Reply to the user in Ukrainian. All documentation in English.
 
-## Довідка: перевірені факти (сесія 2026-07-02, curl/read)
+## Reference: verified facts (session 2026-07-02, curl/read)
 
-- Старий сайт: `http://naas.gov.ua` — **тільки http** (https зламаний, self-signed), сторінки **windows-1251**. Головна віддає 200. `www.naas.gov.ua` теж віддає 200 без редіректу (дубль-хост).
-- `robots.txt` старого сайту — друпалівський релікт: `Crawl-delay: 10` + Disallow лише друпалівських шляхів (`/includes/`, `/misc/`, …, `/?q=…`) — **жоден не блокує контент Bitrix**. `sitemap.xml` — 404.
-- **Патерни URL** (з головної + admin-probe):
-  - path-новини: `/newsall/newsnaan/8984/` → 200; **без trailing slash теж 200 без редіректу** (дублі).
-  - query-новини: `/newsukraine/?ELEMENT_ID=8959` → 200 (валідний, індексований патерн!).
-  - `/2/detail.php?ID=8516` → **404** (битий лінк прямо на старій головній; стилізована 404 ≈57 КБ).
-  - контент-сторінки: `/content/<розділ>/<підрозділ>/` — змішаний регістр (`/content/Intelekt_vlasnist/`), бувають **без trailing slash** (`/content/publichna-informaciya/FAO`) і навіть **з пробілом** (`/content/publichna-informaciya/pasport budget/`).
-  - інші кореневі теки (з файл-менеджера Bitrix): `Agrolectures`, `Viddilennya_instituty`, `academi`, `contacts`, `en` (англ. версія 2017 р.), `news`, `newsall`, `newsukraine`, `newsworld`, `preview`, `content`, `images`, `img`, `slide`, `video`.
-- **Шаблон Bitrix s1:** основний контент у `<main class="content">`; `<h1>` всередині; `<title>` без суфікса сайту (напр. «Про НААН»); `meta description/keywords` присутні, але **порожні**. Хлібних крихт у шаблоні нема.
-- **Обсяг (оцінки admin-probe 2026-06):** 38 контент-iblock-ів; `/upload/iblock/` ≈ 3 826 шардів, ~10 900 файлів (~9 200 зображень); `/upload/medialibrary/` ≈ 846 файлів; `/content/` — 92 підтеки. Новинні ID сягають ~8985.
-- Попередні витяги в корені репо (`naas_extract*`, `naas_content_bundle_extracted`, `naas_news_slice`, `naas_persons`) — **куровані зрізи для дизайн-прототипів, НЕ повна міграція** (9 новин, 28 персон). Використовуємо їх лише як тест-фікстури та довідку. `naas_news_slice/raw/` містить збережені HTML новинних сторінок; у корені лежать `naas_about.html`, `naas_home.html` тощо (сирі cp1251) — готові фікстури.
-- Локальний Node: v25.9.0; `new TextDecoder('windows-1251')` працює (перевірено). На сервері Node 20.20.2 (TextDecoder там теж є, full-icu — перевірено в сесії 2026-07-01).
-- Сервер (деталі: `docs/infrastructure/mirohost-server.md`): eVPS-8 Debian 12, SSH `vs581.mirohost.net:22`, user `bbnaasnew`, пароль з env; root НЕМА, crontab заблоковано; systemd-сервіси створює support Mirohost за нашими даними; nginx-proxy на внутрішній порт вмикаємо самі в панелі `control.mirohost.net` (пакет H-74503); HOME `/var/www/naasZ4` спільний зі старим сайтом. Диск: df показує ~242 ГБ вільно (номінал тарифу 49 ГБ — квоту звірити перед копіюванням асетів).
-- **Невизначеність (перевіряється в Task 12):** чи той самий фізичний сервер віддає live `naas.gov.ua` (A-запис 77.87.193.125). Якщо так — асети копіюються локальним `cp`; якщо ні — дзеркалимо по HTTP сервер-до-сервера.
-- Паралельний план `docs/superpowers/plans/2026-07-02-modern-static-mirohost.md` займає піддомен **`new.naas.gov.ua`** (статичний showcase site-modern, FTP). Наш портал деплоїться на **інший** піддомен (пропозиція за замовчуванням: `portal.naas.gov.ua`; фінальне ім'я підтверджує користувач у Task 12). Showcase не чіпаємо.
+- Old site: `http://naas.gov.ua` — **http only** (https is broken, self-signed), pages are **windows-1251**. The home page returns 200. `www.naas.gov.ua` also returns 200 without a redirect (duplicate host).
+- The old site's `robots.txt` is a Drupal-era relic: `Crawl-delay: 10` + Disallow only for Drupal paths (`/includes/`, `/misc/`, …, `/?q=…`) — **none of them block Bitrix content**. `sitemap.xml` — 404.
+- **URL patterns** (from the home page + admin probe):
+  - path-based news: `/newsall/newsnaan/8984/` → 200; **also 200 without the trailing slash, no redirect** (duplicates).
+  - query-based news: `/newsukraine/?ELEMENT_ID=8959` → 200 (a valid, indexed pattern!).
+  - `/2/detail.php?ID=8516` → **404** (a broken link right on the old home page; styled 404 ≈57 KB).
+  - content pages: `/content/<section>/<subsection>/` — mixed case (`/content/Intelekt_vlasnist/`), sometimes **without a trailing slash** (`/content/publichna-informaciya/FAO`) and even **with a space** (`/content/publichna-informaciya/pasport budget/`).
+  - other root directories (from the Bitrix file manager): `Agrolectures`, `Viddilennya_instituty`, `academi`, `contacts`, `en` (2017-era English version), `news`, `newsall`, `newsukraine`, `newsworld`, `preview`, `content`, `images`, `img`, `slide`, `video`.
+- **Bitrix template s1:** main content lives in `<main class="content">`; `<h1>` is inside it; `<title>` has no site suffix (e.g. «Про НААН»); `meta description/keywords` are present but **empty**. The template has no breadcrumbs.
+- **Volume (admin-probe estimates, 2026-06):** 38 content iblocks; `/upload/iblock/` ≈ 3,826 shards, ~10,900 files (~9,200 images); `/upload/medialibrary/` ≈ 846 files; `/content/` — 92 subdirectories. News IDs reach ~8985.
+- Prior extractions at the repo root (`naas_extract*`, `naas_content_bundle_extracted`, `naas_news_slice`, `naas_persons`) are **curated slices for the design prototypes, NOT a full migration** (9 news items, 28 persons). Use them only as test fixtures and reference. `naas_news_slice/raw/` holds saved news-page HTML; the root has `naas_about.html`, `naas_home.html` etc. (raw cp1251) — ready-made fixtures.
+- Local Node: v25.9.0; `new TextDecoder('windows-1251')` works (verified). Server has Node 20.20.2 (TextDecoder present there too, full-icu — verified in the 2026-07-01 session).
+- Server (details: `docs/infrastructure/mirohost-server.md`): eVPS-8 Debian 12, SSH `vs581.mirohost.net:22`, user `bbnaasnew`, password from env; NO root, crontab blocked; systemd services are created by Mirohost support from data we provide; the nginx proxy to an internal port is enabled by us in the `control.mirohost.net` panel (package H-74503); HOME `/var/www/naasZ4` is shared with the old site. Disk: df shows ~242 GB free (the plan's nominal quota is 49 GB — re-check the quota before copying assets).
+- **Uncertainty (checked in Task 13):** whether the same physical server serves the live `naas.gov.ua` (A record 77.87.193.125). If yes — assets are copied with a local `cp`; if not — mirror them over HTTP server-to-server.
+- The parallel plan `docs/superpowers/plans/2026-07-02-modern-static-mirohost.md` occupies the **`new.naas.gov.ua`** subdomain (static site-modern showcase, FTP). Our portal deploys to a **different** subdomain (default proposal: `portal.naas.gov.ua`; the final name is confirmed by the user in Task 13). Do not touch the showcase.
 
-## Політика URL (доктрина цього плану)
+## URL policy (the doctrine of this plan)
 
-1. **Кожна мігрована сторінка живе за своїм СТАРИМ URL** — байт-у-байт той самий path (+query для query-URL). Нуль редіректів для канонічних старих URL.
-2. Нові розділи (яких на старому сайті нема — «Міжнародна діяльність» тощо) — за новими URL; це поза цим планом.
-3. Дублі старого сайту (та сама сторінка з/без trailing slash; `www.`-хост) нормалізуються: канонічна форма — **зі слешем, apex-хост**; неканонічна форма віддає 308 → канонічну (Next `trailingSlash: true`). Це єдине контрольоване відхилення від старої поведінки (старий віддавав 200 на обидві) — редірект на канонікал безпечний і кращий за дубль.
-4. Асети (`/upload/…`, `/content/**/*.pdf|doc…`, `/images/…`, `/img/…`, `/video/…`, `/slide/…`) зберігають **точні шляхи й імена файлів** (без перекодування/переіменування — байт-ідентичні шляхи).
-5. Биті на старому сайті URL (404, як `/2/detail.php?ID=8516`) лишаються 404 і на новому (їх НЕ «чинимо»).
-6. `/bitrix/**` (шаблонні css/js/адмінка) на новий сайт **не переносяться** — у нового порталу власний фронтенд-шар.
-7. Внутрішні службові маршрути нового порталу, яких не було на старому (`/newsukraine/el/<id>` — ціль rewrite), самі емітують `canonical` на стару query-форму.
+1. **Every migrated page lives at its OLD URL** — byte-for-byte the same path (+query for query URLs). Zero redirects for canonical old URLs.
+2. New sections (absent from the old site — "International activity" etc.) get new URLs; out of scope for this plan.
+3. Old-site duplicates (the same page with/without a trailing slash; the `www.` host) are normalized: the canonical form is **with the slash, apex host**; the non-canonical form returns 308 → canonical (Next `trailingSlash: true`). This is the only controlled deviation from the old behavior (the old site returned 200 for both) — a redirect to the canonical is safe and better than a duplicate.
+4. Assets (`/upload/…`, `/content/**/*.pdf|doc…`, `/images/…`, `/img/…`, `/video/…`, `/slide/…`) keep their **exact paths and file names** (no re-encoding/renaming — byte-identical paths).
+5. URLs broken on the old site (404, like `/2/detail.php?ID=8516`) remain 404 on the new one (we do NOT "fix" them).
+6. `/bitrix/**` (template css/js/admin) is **not migrated** — the new portal has its own frontend layer.
+7. Internal service routes of the new portal that did not exist on the old site (`/newsukraine/el/<id>` — the rewrite target) emit a `canonical` pointing to the old query form themselves.
 
-## Схема даних (контракт між `migration/` і `portal/`)
+## Data schema (the contract between `migration/` and `portal/`)
 
 ```
 migration/out/
-  inventory.jsonl          # 1 рядок = 1 URL (комітиться в git — це SEO-контракт)
-  url-map.json             # класифікація: key → {type, feed?, id?, page?}   (комітиться)
-  assets-manifest.tsv      # asset_path <TAB> referrer <TAB> status <TAB> bytes (комітиться)
-  reports/                 # звіти краулінгу/паритету (комітяться)
-  raw/                     # сирі байти сторінок <sha1(key)>.html (gitignored)
-  content/                 # видобутий контент (gitignored; деплоїться rsync-ом)
+  inventory.jsonl          # 1 line = 1 URL (committed to git — this is the SEO contract)
+  url-map.json             # classification: key → {type, feed?, id?, page?}   (committed)
+  assets-manifest.tsv      # asset_path <TAB> referrer <TAB> status <TAB> bytes (committed)
+  reports/                 # crawl/parity reports (committed)
+  raw/                     # raw page bytes <sha1(key)>.html (gitignored)
+  content/                 # extracted content (gitignored; deployed via rsync)
     index.json             # { "<key>": {file,type,title,feed?,id?,date?} }
-    pages/<sha1(key)>.json # LegacyPage (схема нижче)
+    pages/<sha1(key)>.json # LegacyPage (schema below)
 ```
 
-Запис `inventory.jsonl`: `{"key","path","query":{},"fetchUrl","status","contentType","title","sha1","bytes","location"?,"referrer","fetchedAt","rawFile"?}`.
-`key` — канонічний ідентифікатор: **декодований** UTF-8 path + відсортований whitelist-query (`?ELEMENT_ID=8959`). Слеш у кінці — **сира виявлена форма** (як лінкує старий сайт: `/newsall/newsnaan/8984/` зі слешем, але `/content/publichna-informaciya/FAO` — без; НЕ «канонізувати» слеш до фетчу — слеш-твіни дедуплікуються, а узгодження на боці порталу робить `content-store` фолбеком). `fetchUrl` зберігає **оригінальне** відсоткове кодування (для повторних фетчів зі старого сервера).
+`inventory.jsonl` record: `{"key","path","query":{},"fetchUrl","status","contentType","title","sha1","bytes","location"?,"referrer","fetchedAt","rawFile"?}`.
+`key` is the canonical identifier: the **decoded** UTF-8 path + the sorted whitelisted query (`?ELEMENT_ID=8959`). The trailing slash is the **raw discovered form** (as the old site links it: `/newsall/newsnaan/8984/` with a slash, but `/content/publichna-informaciya/FAO` without; do NOT "canonicalize" the slash before fetching — slash twins are deduplicated, and reconciliation on the portal side is a `content-store` fallback). `fetchUrl` keeps the **original** percent-encoding (for re-fetching from the old server).
 
-`LegacyPage` (JSON у `content/pages/`):
+`LegacyPage` (JSON in `content/pages/`):
 
 ```json
 {
@@ -91,7 +93,7 @@ migration/out/
   "metaDescription": null,
   "h1": "Статут НААН",
   "dateISO": "2026-06-24",
-  "bodyHtml": "<p>…оригінальні href/src, без <script>…</p>",
+  "bodyHtml": "<p>…original href/src, no <script>…</p>",
   "images": ["/upload/iblock/29b/ФОТО.jpg"],
   "files": [{"href": "/upload/podani.pdf", "text": "Звіт"}],
   "sourceUrl": "http://naas.gov.ua/content/statut-naan/",
@@ -100,22 +102,22 @@ migration/out/
 }
 ```
 
-Поля `feed/id/viaQuery/dateISO` — тільки для новин; `metaDescription` майже завжди `null` (на старому сайті порожньо — фіксуємо факт, НЕ вигадуємо описи в цьому плані).
+The `feed/id/viaQuery/dateISO` fields are news-only; `metaDescription` is almost always `null` (empty on the old site — we record the fact, we do NOT invent descriptions in this plan).
 
 ---
 
-### Task 1: Робоча гілка + каркас `migration/`
+### Task 1: Working branch + `migration/` scaffold
 
 **Files:**
 - Create: `migration/package.json`, `migration/.gitignore`, `migration/README.md`
-- Modify: `/.gitignore` (корінь — 3 рядки)
+- Modify: `/.gitignore` (root — 3 lines)
 
 **Interfaces:**
-- Produces: npm-пакет `naas-migration` з робочим `npm test` (vitest), теки `lib/ bin/ test/ out/`.
+- Produces: npm package `naas-migration` with a working `npm test` (vitest), directories `lib/ bin/ test/ out/`.
 
-- [ ] **Step 1: Гілка/worktree**
+- [ ] **Step 1: Branch/worktree**
 
-Worktree **вже створено** 2026-07-02 (разом із комітом цього плану): `/Users/falco/dev/naas_migration_wt`, гілка `feat/legacy-migration-portal` (запушена в origin). Увійти; якщо worktree прибрали — відтворити з наявної гілки:
+The worktree was **already created** on 2026-07-02 (together with the commit of this plan): `/Users/falco/dev/naas_migration_wt`, branch `feat/legacy-migration-portal` (pushed to origin). Enter it; if the worktree was removed — recreate it from the existing branch:
 
 ```bash
 cd /Users/falco/dev/naas_migration_wt 2>/dev/null || {
@@ -123,11 +125,11 @@ cd /Users/falco/dev/naas_migration_wt 2>/dev/null || {
   git worktree add ../naas_migration_wt feat/legacy-migration-portal
   cd ../naas_migration_wt
 }
-git branch --show-current   # очікувано: feat/legacy-migration-portal
+git branch --show-current   # expected: feat/legacy-migration-portal
 git pull --ff-only origin feat/legacy-migration-portal
 ```
 
-- [ ] **Step 2: Каркас пакета**
+- [ ] **Step 2: Package scaffold**
 
 `migration/package.json`:
 
@@ -155,9 +157,9 @@ out/crawl-state.json
 node_modules/
 ```
 
-`migration/README.md` — 10 рядків: призначення пайплайна, порядок команд (`crawl → extract → verify`), посилання на цей план і `docs/architecture/portal-architecture.md`.
+`migration/README.md` — 10 lines: the pipeline's purpose, command order (`crawl → extract → verify`), links to this plan and `docs/architecture/portal-architecture.md`.
 
-- [ ] **Step 3: Залежності з перевіркою engines**
+- [ ] **Step 3: Dependencies with an engines check**
 
 ```bash
 cd migration
@@ -165,34 +167,34 @@ npm i cheerio && npm i -D vitest
 node -e "for (const p of ['cheerio','vitest']) console.log(p, require('./node_modules/'+p+'/package.json').engines ?? 'no engines field')"
 ```
 
-Очікувано: engines відсутні або сумісні з `>=20`. Якщо якийсь пакет вимагає Node >20 — пінити попередню мажорну (`npm i vitest@2`) і зафіксувати в README.
+Expected: engines absent or compatible with `>=20`. If any package requires Node >20 — pin the previous major (`npm i vitest@2`) and record that in the README.
 
-- [ ] **Step 4: Кореневий `.gitignore`**
+- [ ] **Step 4: Root `.gitignore`**
 
-Додати в кінець кореневого `.gitignore`:
+Append to the root `.gitignore`:
 
 ```
-# ── Legacy-migration pipeline: сирі дзеркала й видобутий контент (регенеруються) ──
+# ── Legacy-migration pipeline: raw mirrors and extracted content (regenerable) ──
 /migration/out/raw/
 /migration/out/content/
 /migration/out/crawl-state.json
 ```
 
-- [ ] **Step 5: Смок-тест vitest**
+- [ ] **Step 5: vitest smoke test**
 
 `migration/test/smoke.test.js`:
 
 ```js
 import { describe, it, expect } from 'vitest';
 describe('toolchain', () => {
-  it('декодує windows-1251 нативним TextDecoder', () => {
+  it('decodes windows-1251 with the native TextDecoder', () => {
     const buf = Uint8Array.from([0xEF, 0xF0, 0xE8, 0xE2, 0xB3, 0xF2]);
     expect(new TextDecoder('windows-1251').decode(buf)).toBe('привіт');
   });
 });
 ```
 
-Run: `npm test` → очікувано `1 passed`.
+Run: `npm test` → expected `1 passed`.
 
 - [ ] **Step 6: Commit + push**
 
@@ -204,19 +206,19 @@ git push -u origin feat/legacy-migration-portal
 
 ---
 
-### Task 2: Декодування cp1251 + нормалізація URL (`lib/decode.js`)
+### Task 2: cp1251 decoding + URL normalization (`lib/decode.js`)
 
 **Files:**
 - Create: `migration/lib/decode.js`, `migration/test/decode.test.js`
 
 **Interfaces:**
-- Produces (споживають Task 3–5, 12):
+- Produces (consumed by Tasks 3–5, 12):
   - `decodeBody(buf: Uint8Array, contentTypeHeader: string): string`
-  - `smartDecodeURIComponent(s: string): string` — %-послідовності: UTF-8, а якщо невалідні — cp1251
+  - `smartDecodeURIComponent(s: string): string` — %-sequences: UTF-8, falling back to cp1251 when invalid
   - `normalizeUrl(raw: string, base?: string): null | {external:true, href} | {external:false, key, path, query, droppedParams, fetchUrl}`
-  - `politeFetch(url, {method?, timeoutMs?, retries?}): Promise<{status, headers, buf, location?}>` — redirect:'manual', backoff 1с/4с/10с, UA `NAAS-migration/1.0`
+  - `politeFetch(url, {method?, timeoutMs?, retries?}): Promise<{status, headers, buf, location?}>` — redirect:'manual', backoff 1s/4s/10s, UA `NAAS-migration/1.0`
 
-- [ ] **Step 1: Тести (падають)**
+- [ ] **Step 1: Tests (failing)**
 
 `migration/test/decode.test.js`:
 
@@ -227,51 +229,51 @@ import { decodeBody, smartDecodeURIComponent, normalizeUrl } from '../lib/decode
 const CP1251_PRYVIT = Uint8Array.from([0xEF, 0xF0, 0xE8, 0xE2, 0xB3, 0xF2]);
 
 describe('decodeBody', () => {
-  it('поважає charset із заголовка', () => {
+  it('honors the charset from the header', () => {
     expect(decodeBody(CP1251_PRYVIT, 'text/html; charset=windows-1251')).toBe('привіт');
   });
-  it('без charset: пробує utf-8, при невалідності падає на cp1251', () => {
+  it('no charset: tries utf-8, falls back to cp1251 when invalid', () => {
     expect(decodeBody(new TextEncoder().encode('démo'), 'text/html')).toBe('démo');
     expect(decodeBody(CP1251_PRYVIT, 'text/html')).toBe('привіт');
   });
 });
 
 describe('smartDecodeURIComponent', () => {
-  it('utf-8 відсотки', () => {
+  it('utf-8 percent escapes', () => {
     expect(smartDecodeURIComponent('%D1%81%D1%82%D0%B0%D1%82%D1%83%D1%82')).toBe('статут');
   });
-  it('cp1251 відсотки (легасі-лінки Bitrix)', () => {
+  it('cp1251 percent escapes (legacy Bitrix links)', () => {
     expect(smartDecodeURIComponent('%F1%F2%E0%F2%F3%F2')).toBe('статут');
   });
-  it('пробіли й звичайні символи', () => {
+  it('spaces and plain characters', () => {
     expect(smartDecodeURIComponent('/content/pasport%20budget/')).toBe('/content/pasport budget/');
   });
 });
 
 describe('normalizeUrl', () => {
-  it('відносний → key з хоста naas.gov.ua', () => {
+  it('relative → key on the naas.gov.ua host', () => {
     const r = normalizeUrl('/newsall/newsnaan/8984/', 'http://naas.gov.ua/');
     expect(r).toMatchObject({ external: false, key: '/newsall/newsnaan/8984/', query: {} });
   });
-  it('www + https нормалізуються в http apex', () => {
+  it('www + https normalize to http apex', () => {
     const r = normalizeUrl('https://www.naas.gov.ua/content/statut-naan/');
     expect(r.external).toBe(false);
     expect(r.fetchUrl).toBe('http://naas.gov.ua/content/statut-naan/');
   });
-  it('whitelist-query лишається і сортується, сміття відкидається', () => {
+  it('whitelisted query is kept and sorted, junk is dropped', () => {
     const r = normalizeUrl('/newsukraine/?utm_source=x&ELEMENT_ID=8959');
     expect(r.key).toBe('/newsukraine/?ELEMENT_ID=8959');
     expect(r.droppedParams).toEqual(['utm_source']);
   });
-  it('PAGEN_* у whitelist', () => {
+  it('PAGEN_* is whitelisted', () => {
     expect(normalizeUrl('/news/?PAGEN_1=3').key).toBe('/news/?PAGEN_1=3');
   });
-  it('фрагмент зрізається; зовнішні позначаються; javascript: → null', () => {
+  it('fragment is stripped; externals are flagged; javascript: → null', () => {
     expect(normalizeUrl('/content/kontakti/#map').key).toBe('/content/kontakti/');
     expect(normalizeUrl('https://prozorro.gov.ua/x').external).toBe(true);
     expect(normalizeUrl('javascript:void(0)')).toBe(null);
   });
-  it('декодований шлях у key, оригінальне кодування у fetchUrl', () => {
+  it('decoded path in key, original encoding in fetchUrl', () => {
     const r = normalizeUrl('/upload/%F1%F2%E0%F2%F3%F2.pdf');
     expect(r.key).toBe('/upload/статут.pdf');
     expect(r.fetchUrl).toBe('http://naas.gov.ua/upload/%F1%F2%E0%F2%F3%F2.pdf');
@@ -279,11 +281,11 @@ describe('normalizeUrl', () => {
 });
 ```
 
-- [ ] **Step 2: Переконатися, що тести падають**
+- [ ] **Step 2: Confirm the tests fail**
 
-Run: `npx vitest run test/decode.test.js` → очікувано: FAIL (`Cannot find module '../lib/decode.js'`).
+Run: `npx vitest run test/decode.test.js` → expected: FAIL (`Cannot find module '../lib/decode.js'`).
 
-- [ ] **Step 3: Імплементація**
+- [ ] **Step 3: Implementation**
 
 `migration/lib/decode.js`:
 
@@ -296,7 +298,7 @@ export function decodeBody(buf, contentTypeHeader = '') {
   const cs = (m?.[1] || '').toLowerCase();
   if (cs === 'utf-8' || cs === 'utf8') return new TextDecoder('utf-8').decode(buf);
   if (cs === 'windows-1251' || cs === 'cp1251') return D1251.decode(buf);
-  if (cs) { try { return new TextDecoder(cs).decode(buf); } catch { /* невідомий charset */ } }
+  if (cs) { try { return new TextDecoder(cs).decode(buf); } catch { /* unknown charset */ } }
   try { return DUTF8_STRICT.decode(buf); } catch { return D1251.decode(buf); }
 }
 
@@ -375,9 +377,9 @@ export async function politeFetch(url, { method = 'GET', timeoutMs = 30000, retr
 }
 ```
 
-- [ ] **Step 4: Тести зелені**
+- [ ] **Step 4: Tests green**
 
-Run: `npx vitest run test/decode.test.js` → очікувано: усі PASS.
+Run: `npx vitest run test/decode.test.js` → expected: all PASS.
 
 - [ ] **Step 5: Commit + push**
 
@@ -389,30 +391,30 @@ git push
 
 ---
 
-### Task 3: BFS-краулер (`lib/crawl.js`)
+### Task 3: BFS crawler (`lib/crawl.js`)
 
 **Files:**
 - Create: `migration/lib/crawl.js`, `migration/test/crawl.test.js`
 
 **Interfaces:**
 - Consumes: `normalizeUrl`, `decodeBody`, `politeFetch` (Task 2).
-- Produces (споживають Task 4–6):
-  - `crawl({seeds, fetchFn, delayMs, maxPages, state, onPage, onCheckpoint, saveRaw}): Promise<{inventory: Map<key,Rec>, assets: Map<path,AssetRec>, state}>` — `onCheckpoint(stateSnapshot)` викликається кожні 50 сторінок (для резюмовності живого краулу)
-  - `Rec = {key,path,query,fetchUrl,status,contentType,title,sha1,bytes,location?,referrer,fetchedAt,rawFile?}` (схема `inventory.jsonl`)
-  - `AssetRec = {path, fetchUrl, referrer}` (статуси/розміри добиває Task 6)
+- Produces (consumed by Tasks 4–6):
+  - `crawl({seeds, fetchFn, delayMs, maxPages, state, onPage, onCheckpoint, saveRaw}): Promise<{inventory: Map<key,Rec>, assets: Map<path,AssetRec>, state}>` — `onCheckpoint(stateSnapshot)` fires every 50 pages (resumability of the live crawl)
+  - `Rec = {key,path,query,fetchUrl,status,contentType,title,sha1,bytes,location?,referrer,fetchedAt,rawFile?}` (the `inventory.jsonl` schema)
+  - `AssetRec = {path, fetchUrl, referrer}` (statuses/sizes are filled in by Task 6)
   - `extractLinks(html: string, baseUrl: string): {pages: string[], assets: string[]}`
-  - Асетом вважається: path-префікс `/upload/|/images/|/img/|/video/|/slide/` АБО розширення `pdf|docx?|xlsx?|pptx?|zip|rar|jpe?g|png|gif|webp|bmp|mp[34]|avi|rtf|txt`; `/bitrix/**` ігнорується повністю.
+  - An asset is: path prefix `/upload/|/images/|/img/|/video/|/slide/` OR extension `pdf|docx?|xlsx?|pptx?|zip|rar|jpe?g|png|gif|webp|bmp|mp[34]|avi|rtf|txt`; `/bitrix/**` is ignored entirely.
 
-- [ ] **Step 1: Тести (падають)**
+- [ ] **Step 1: Tests (failing)**
 
-`migration/test/crawl.test.js` — мінісайт як мапа URL→відповідь, `fetchFn` — стаб:
+`migration/test/crawl.test.js` — a mini-site as a URL→response map, `fetchFn` is a stub:
 
 ```js
 import { describe, it, expect } from 'vitest';
 import { crawl, extractLinks } from '../lib/crawl.js';
 
 const enc1251 = (s) => {
-  // кодуємо українську в cp1251 для реалістичних байтів: тільки ASCII в цьому стабі + літера "і" (0xB3)
+  // encode Ukrainian into cp1251 for realistic bytes: ASCII only in this stub + the letter "і" (0xB3)
   return Uint8Array.from([...s].map((ch) => (ch === 'і' ? 0xb3 : ch.charCodeAt(0))));
 };
 
@@ -441,7 +443,7 @@ const fetchFn = async (url) => {
 };
 
 describe('extractLinks', () => {
-  it('розділяє сторінки/асети, ріже /bitrix/ і зовнішні', () => {
+  it('splits pages/assets, drops /bitrix/ and externals', () => {
     const html = '<a href="/content/a/">a</a><img src="/upload/x/у.jpg"><a href="/bitrix/js/x.js">b</a><a href="/doc.pdf">d</a>';
     const { pages, assets } = extractLinks(html, 'http://naas.gov.ua/');
     expect(pages).toEqual(['/content/a/']);
@@ -450,7 +452,7 @@ describe('extractLinks', () => {
 });
 
 describe('crawl', () => {
-  it('BFS обходить усе досяжне, пише інвентар з титулами і статусами', async () => {
+  it('BFS visits everything reachable, writes an inventory with titles and statuses', async () => {
     const { inventory, assets } = await crawl({ seeds: ['/'], fetchFn, delayMs: 0 });
     expect(inventory.get('/')).toMatchObject({ status: 200, title: 'NAAS' });
     expect(inventory.get('/content/a/')).toMatchObject({ status: 200, title: 'A' });
@@ -460,22 +462,22 @@ describe('crawl', () => {
     expect(inventory.has('/bitrix/admin/')).toBe(false);
     expect([...assets.keys()].sort()).toEqual(['/upload/iblock/x/фото.jpg', '/upload/podani.pdf'].sort());
   });
-  it('резюмується зі state (уже пройдені не перефетчуються)', async () => {
+  it('resumes from state (already-visited pages are not re-fetched)', async () => {
     let calls = 0;
     const counting = async (u) => { calls++; return fetchFn(u); };
     const first = await crawl({ seeds: ['/'], fetchFn: counting, delayMs: 0 });
     const callsAfterFirst = calls;
     await crawl({ seeds: ['/'], fetchFn: counting, delayMs: 0, state: first.state });
-    expect(calls).toBe(callsAfterFirst); // нічого не перекачувалось
+    expect(calls).toBe(callsAfterFirst); // nothing was re-downloaded
   });
 });
 ```
 
-- [ ] **Step 2: Тести падають**
+- [ ] **Step 2: Tests fail**
 
 Run: `npx vitest run test/crawl.test.js` → FAIL (`Cannot find module '../lib/crawl.js'`).
 
-- [ ] **Step 3: Імплементація**
+- [ ] **Step 3: Implementation**
 
 `migration/lib/crawl.js`:
 
@@ -512,8 +514,8 @@ export function extractLinks(html, baseUrl) {
   return { pages: [...pages], assets: [...assets] };
 }
 
-// слеш-твін: /a/ ↔ /a (query не чіпається). Ключі зберігаємо СИРИМИ (як лінкує старий
-// сайт), а твін використовуємо лише для дедуплікації — щоб не качати обидві форми.
+// slash twin: /a/ ↔ /a (query untouched). Keys are stored RAW (as the old site
+// links them); the twin is used only for deduplication — to avoid fetching both forms.
 export function slashTwin(key) {
   const [p, q] = key.split('?');
   if (isAssetPath(p) || p === '/') return null;
@@ -581,9 +583,9 @@ export async function crawl({
 }
 ```
 
-- [ ] **Step 4: Тести зелені**
+- [ ] **Step 4: Tests green**
 
-Run: `npx vitest run test/crawl.test.js` → PASS. Якщо `canonicalPageKey` ламає кейс `/newsukraine/?ELEMENT_ID=8959` — шлях `/newsukraine/` вже зі слешем, query зберігається (тест це ловить).
+Run: `npx vitest run test/crawl.test.js` → PASS. Watch the `/newsukraine/?ELEMENT_ID=8959` case: the `/newsukraine/` path already has the slash and the query is preserved (the test catches it).
 
 - [ ] **Step 5: Commit + push**
 
@@ -595,16 +597,16 @@ git push
 
 ---
 
-### Task 4: Класифікація URL (`lib/classify.js`)
+### Task 4: URL classification (`lib/classify.js`)
 
 **Files:**
 - Create: `migration/lib/classify.js`, `migration/test/classify.test.js`
 
 **Interfaces:**
-- Consumes: записи `Rec` (Task 3).
-- Produces (споживають Task 5, 6, 9–12): `classify(rec) → {type, feed?, id?, viaQuery?, page?}`; типи: `home | news-article | listing | page | redirect | gone | error | unclassified`. `buildUrlMap(inventoryIterable) → {map: Object<key,cls>, report: {counts, unclassified: string[]}}`.
+- Consumes: `Rec` records (Task 3).
+- Produces (consumed by Tasks 5, 6, 9–12): `classify(rec) → {type, feed?, id?, viaQuery?, page?}`; types: `home | news-article | listing | page | redirect | gone | error | unclassified`. `buildUrlMap(inventoryIterable) → {map: Object<key,cls>, report: {counts, unclassified: string[]}}`.
 
-- [ ] **Step 1: Тести (падають)**
+- [ ] **Step 1: Tests (failing)**
 
 `migration/test/classify.test.js`:
 
@@ -619,22 +621,22 @@ const rec = (key, status = 200, extra = {}) => {
 };
 
 describe('classify', () => {
-  it('головна', () => expect(classify(rec('/')).type).toBe('home'));
-  it('path-новина', () =>
+  it('home page', () => expect(classify(rec('/')).type).toBe('home'));
+  it('path-based news', () =>
     expect(classify(rec('/newsall/newsnaan/8984/'))).toMatchObject({ type: 'news-article', feed: 'newsnaan', id: 8984 }));
-  it('query-новина', () =>
+  it('query-based news', () =>
     expect(classify(rec('/newsukraine/?ELEMENT_ID=8959'))).toMatchObject({ type: 'news-article', feed: 'newsukraine', id: 8959, viaQuery: true }));
-  it('стрічки та пагінація', () => {
+  it('feeds and pagination', () => {
     expect(classify(rec('/news/'))).toMatchObject({ type: 'listing', feed: 'news', page: 1 });
     expect(classify(rec('/newsall/?PAGEN_1=3'))).toMatchObject({ type: 'listing', feed: 'newsall', page: 3 });
   });
-  it('контент-сторінки (включно з пробілами й регістром)', () => {
+  it('content pages (including spaces and mixed case)', () => {
     expect(classify(rec('/content/publichna-informaciya/pasport budget/')).type).toBe('page');
     expect(classify(rec('/content/Intelekt_vlasnist/')).type).toBe('page');
     expect(classify(rec('/preview/katalog-x/')).type).toBe('page');
     expect(classify(rec('/Agrolectures/')).type).toBe('page');
   });
-  it('статуси перекривають', () => {
+  it('statuses take precedence', () => {
     expect(classify(rec('/2/detail.php?ID=8516', 404)).type).toBe('gone');
     expect(classify(rec('/x/', 301, { location: '/y/' }))).toMatchObject({ type: 'redirect', to: '/y/' });
     expect(classify(rec('/x/', 0)).type).toBe('error');
@@ -642,11 +644,11 @@ describe('classify', () => {
 });
 ```
 
-- [ ] **Step 2: Тести падають**
+- [ ] **Step 2: Tests fail**
 
 Run: `npx vitest run test/classify.test.js` → FAIL.
 
-- [ ] **Step 3: Імплементація**
+- [ ] **Step 3: Implementation**
 
 `migration/lib/classify.js`:
 
@@ -688,7 +690,7 @@ export function buildUrlMap(inventory) {
 }
 ```
 
-- [ ] **Step 4: Тести зелені**
+- [ ] **Step 4: Tests green**
 
 Run: `npx vitest run test/classify.test.js` → PASS.
 
@@ -702,16 +704,16 @@ git push
 
 ---
 
-### Task 5: Екстрактор контенту (`lib/extract.js`) — на реальних фікстурах
+### Task 5: Content extractor (`lib/extract.js`) — on real fixtures
 
 **Files:**
-- Create: `migration/lib/extract.js`, `migration/test/extract.test.js`, `migration/test/fixtures/` (реальні cp1251-сторінки)
+- Create: `migration/lib/extract.js`, `migration/test/extract.test.js`, `migration/test/fixtures/` (real cp1251 pages)
 
 **Interfaces:**
 - Consumes: `decodeBody` (Task 2), `classify` (Task 4).
-- Produces (споживають Task 6, 8): `extractPage(rawBuf, rec, cls) → LegacyPage` (схема — див. «Схема даних»). Гарантії: `bodyHtml` без `<script>/<style>/<form>/on*-атрибутів/javascript:-href`, оригінальні `href/src` НЕ переписуються; перший `<h1>` винесений у поле `h1` і видалений із `bodyHtml`; `title` — точний текст `<title>`; `metaDescription: null`, якщо атрибут порожній.
+- Produces (consumed by Tasks 6, 8): `extractPage(rawBuf, rec, cls) → LegacyPage` (schema — see "Data schema"). Guarantees: `bodyHtml` has no `<script>/<style>/<form>/on* attributes/javascript: hrefs`, original `href/src` are NOT rewritten; the first `<h1>` is lifted into the `h1` field and removed from `bodyHtml`; `title` is the exact `<title>` text; `metaDescription: null` when the attribute is empty.
 
-- [ ] **Step 1: Фікстури з реальних збережених сторінок**
+- [ ] **Step 1: Fixtures from real saved pages**
 
 ```bash
 mkdir -p migration/test/fixtures
@@ -720,13 +722,13 @@ cp /Users/falco/dev/naas_github_pages/naas_struktura.html migration/test/fixture
 ls /Users/falco/dev/naas_github_pages/naas_news_slice/raw | head -5
 ```
 
-Очікувано: у `naas_news_slice/raw` — збережені HTML новин; скопіювати ОДИН файл як `migration/test/fixtures/news-article.cp1251.html`. Якщо тека порожня/інша структура — витягнути живу сторінку:
+Expected: `naas_news_slice/raw` contains saved news-page HTML; copy ONE file as `migration/test/fixtures/news-article.cp1251.html`. If the directory is empty/different — fetch a live page:
 
 ```bash
 curl -s --max-time 20 "http://naas.gov.ua/newsall/newsnaan/8984/" -o migration/test/fixtures/news-article.cp1251.html
 ```
 
-Потім подивитися очима структуру дати в новині (для селектора в Step 2):
+Then eyeball the date markup in the news page (for the selector in Step 2):
 
 ```bash
 python3 -c "
@@ -736,9 +738,9 @@ m = re.search(r'<main class=\"content\">(.{0,800})', raw, re.S)
 print(m.group(1) if m else 'NO MAIN')"
 ```
 
-Записати в тест фактичний блок дати (Bitrix зазвичай рендерить дату текстом на початку detail-блоку — точний селектор/regex взяти з побаченого HTML; тест нижче містить місце `DATE_ASSERT`, яке треба заповнити реальним значенням із фікстури).
+Record the actual date block in the test (Bitrix usually renders the date as text at the top of the detail block — take the exact selector/regex from the HTML you see; the test below has a `DATE_ASSERT` placeholder to fill with the real value from the fixture).
 
-- [ ] **Step 2: Тести (падають)**
+- [ ] **Step 2: Tests (failing)**
 
 `migration/test/extract.test.js`:
 
@@ -750,48 +752,48 @@ import { extractPage } from '../lib/extract.js';
 const load = (f) => new Uint8Array(readFileSync(new URL('./fixtures/' + f, import.meta.url)));
 const CT = 'text/html; charset=windows-1251';
 
-describe('extractPage: контент-сторінка (about)', () => {
+describe('extractPage: content page (about)', () => {
   const page = extractPage(load('about.cp1251.html'),
     { key: '/content/about_naan/', path: '/content/about_naan/', contentType: CT, fetchUrl: 'http://naas.gov.ua/content/about_naan/' },
     { type: 'page' });
-  it('точний title і h1', () => {
+  it('exact title and h1', () => {
     expect(page.title).toBe('Про НААН');
     expect(page.h1).toBe('Про НААН');
   });
-  it('порожній meta description → null', () => expect(page.metaDescription).toBe(null));
-  it('bodyHtml: без script, без першого h1, з текстом', () => {
+  it('empty meta description → null', () => expect(page.metaDescription).toBe(null));
+  it('bodyHtml: no scripts, no first h1, has text', () => {
     expect(page.bodyHtml).not.toMatch(/<script/i);
     expect(page.bodyHtml).not.toMatch(/<h1/i);
     expect(page.bodyHtml.length).toBeGreaterThan(500);
   });
-  it('href/src не переписані (лишаються відносними)', () => {
+  it('href/src are not rewritten (stay relative)', () => {
     expect(page.bodyHtml).not.toMatch(/https?:\/\/naas\.gov\.ua\/upload/);
   });
 });
 
-describe('extractPage: новина', () => {
+describe('extractPage: news article', () => {
   const page = extractPage(load('news-article.cp1251.html'),
     { key: '/newsall/newsnaan/8984/', path: '/newsall/newsnaan/8984/', contentType: CT, fetchUrl: 'http://naas.gov.ua/newsall/newsnaan/8984/' },
     { type: 'news-article', feed: 'newsnaan', id: 8984 });
-  it('має title, h1, тіло', () => {
+  it('has title, h1, body', () => {
     expect(page.title.length).toBeGreaterThan(5);
     expect(page.h1.length).toBeGreaterThan(5);
     expect(page.bodyHtml.length).toBeGreaterThan(200);
   });
-  it('дата новини розпізнана (DATE_ASSERT: підставити точну дату з фікстури)', () => {
+  it('news date is recognized (DATE_ASSERT: fill in the exact date from the fixture)', () => {
     expect(page.dateISO).toMatch(/^\d{4}-\d{2}-\d{2}$/);
   });
-  it('зображення з тіла потрапляють у images', () => {
+  it('images from the body land in images[]', () => {
     for (const src of page.images) expect(src).toMatch(/^\//);
   });
 });
 ```
 
-- [ ] **Step 3: Тести падають**
+- [ ] **Step 3: Tests fail**
 
 Run: `npx vitest run test/extract.test.js` → FAIL (`Cannot find module '../lib/extract.js'`).
 
-- [ ] **Step 4: Імплементація**
+- [ ] **Step 4: Implementation**
 
 `migration/lib/extract.js`:
 
@@ -826,7 +828,7 @@ export function extractPage(rawBuf, rec, cls) {
   if (!$main.length) $main = $('main').first();
   if (!$main.length) $main = $('body');
 
-  // чистка: скрипти/стилі/форми/події
+  // cleanup: scripts/styles/forms/event handlers
   $main.find('script, style, noscript, form, iframe[src*="bitrix"]').remove();
   $main.find('*').each((_, el) => {
     for (const name of Object.keys(el.attribs ?? {})) {
@@ -838,7 +840,7 @@ export function extractPage(rawBuf, rec, cls) {
   const h1 = $main.find('h1').first().text().trim();
   $main.find('h1').first().remove();
 
-  // дата (для новин): шукаємо в перших текстових вузлах main
+  // date (news only): look in the first text nodes of main
   let dateISO = null;
   if (cls.type === 'news-article') {
     const headText = $main.text().slice(0, 400);
@@ -870,9 +872,9 @@ export function extractPage(rawBuf, rec, cls) {
 }
 ```
 
-- [ ] **Step 5: Тести зелені; DATE_ASSERT заповнено**
+- [ ] **Step 5: Tests green; DATE_ASSERT filled in**
 
-Run: `npx vitest run test/extract.test.js` → PASS. Якщо дата новини не парситься — подивитися реальний формат у фікстурі (Step 1) і розширити `parseUkrDate` під нього (додати відповідний regex + окремий unit-тест на цей формат). Тест `DATE_ASSERT` доповнити точним значенням (напр. `expect(page.dateISO).toBe('2026-06-24')`).
+Run: `npx vitest run test/extract.test.js` → PASS. If the news date does not parse — inspect the real format in the fixture (Step 1) and extend `parseUkrDate` for it (add the matching regex + a dedicated unit test for that format). Complete the `DATE_ASSERT` test with the exact value (e.g. `expect(page.dateISO).toBe('2026-06-24')`).
 
 - [ ] **Step 6: Commit + push**
 
@@ -884,7 +886,7 @@ git push
 
 ---
 
-### Task 6: CLI-раннери + ПОВНИЙ живий краул і екстракція
+### Task 6: CLI runners + the FULL live crawl and extraction
 
 **Files:**
 - Create: `migration/bin/crawl-live.js`, `migration/bin/extract-all.js`, `migration/bin/report.js`
@@ -892,7 +894,7 @@ git push
 
 **Interfaces:**
 - Consumes: `crawl`, `classify/buildUrlMap`, `extractPage` (Tasks 3–5).
-- Produces: файли за «Схемою даних» — контракт для Tasks 8–12. `index.json`: `{"<key>": {"file":"pages/<sha1>.json","type","title","feed"?,"id"?,"date"?}}`.
+- Produces: files per the "Data schema" — the contract for Tasks 8–12. `index.json`: `{"<key>": {"file":"pages/<sha1>.json","type","title","feed"?,"id"?,"date"?}}`.
 
 - [ ] **Step 1: `bin/crawl-live.js`**
 
@@ -956,7 +958,7 @@ const { map, report } = buildUrlMap(inventory);
 writeFileSync(OUT + 'url-map.json', JSON.stringify(map, null, 1));
 console.log('classification:', JSON.stringify(report.counts));
 if (report.unclassified.length) {
-  console.log('UNCLASSIFIED (перші 30):', report.unclassified.slice(0, 30));
+  console.log('UNCLASSIFIED (first 30):', report.unclassified.slice(0, 30));
 }
 
 mkdirSync(OUT + 'content/pages', { recursive: true });
@@ -980,7 +982,7 @@ writeFileSync(OUT + 'content/index.json', JSON.stringify(index, null, 1));
 console.log(`extracted ${extracted}, skipped ${skipped}`);
 ```
 
-`bin/report.js` — markdown-звіт у `out/reports/crawl-report.md`: кількість URL за типом і статусом, топ-20 найбільших сторінок, усі `error`-URL, усі `unclassified`, кількість асетів за префіксом (`/upload/iblock/`, `/upload/medialibrary/`, `/content/`, інші), дропнуті query-параметри з частотами (зібрати з `droppedParams` — додати їх запис у `Rec` при краулі, якщо ще нема):
+`bin/report.js` — a markdown report in `out/reports/crawl-report.md`: URL counts by type and status, top-20 largest pages, all `error` URLs, all `unclassified`, asset counts by prefix (`/upload/iblock/`, `/upload/medialibrary/`, `/content/`, other), dropped query params with frequencies (collect from `droppedParams` — add that field to `Rec` during the crawl if it is not recorded yet):
 
 ```js
 import { readFileSync, writeFileSync } from 'node:fs';
@@ -991,43 +993,43 @@ const assets = readFileSync(OUT + 'assets-manifest.tsv', 'utf8').trim().split('\
 const by = (arr, f) => arr.reduce((m, x) => (m[f(x)] = (m[f(x)] ?? 0) + 1, m), {});
 const lines = [
   '# Crawl report ' + new Date().toISOString().slice(0, 10),
-  '## Статуси', JSON.stringify(by(inv, (r) => r.status)),
-  '## Типи', JSON.stringify(by(Object.values(map), (c) => c.type)),
-  '## Асети за префіксом', JSON.stringify(by(assets, (l) => l.split('\t')[0].split('/').slice(0, 3).join('/'))),
-  '## Помилки (status 0)', ...inv.filter((r) => r.status === 0).map((r) => '- ' + r.key),
+  '## Statuses', JSON.stringify(by(inv, (r) => r.status)),
+  '## Types', JSON.stringify(by(Object.values(map), (c) => c.type)),
+  '## Assets by prefix', JSON.stringify(by(assets, (l) => l.split('\t')[0].split('/').slice(0, 3).join('/'))),
+  '## Errors (status 0)', ...inv.filter((r) => r.status === 0).map((r) => '- ' + r.key),
   '## Unclassified', ...Object.entries(map).filter(([, c]) => c.type === 'unclassified').map(([k]) => '- ' + k),
 ];
 writeFileSync(OUT + 'reports/crawl-report.md', lines.join('\n') + '\n');
 console.log('report written');
 ```
 
-- [ ] **Step 3: Пробний обмежений краул (смок на живому сайті)**
+- [ ] **Step 3: Limited trial crawl (smoke against the live site)**
 
 ```bash
 cd migration && node bin/crawl-live.js 40
 ```
 
-Очікувано: ~40 сторінок в `out/inventory.jsonl`, без крашів, у логу видно 200-ки, `DONE: 40 pages, N assets` (N > 20). Перевірити очима 3 записи: `head -3 out/inventory.jsonl`.
+Expected: ~40 pages in `out/inventory.jsonl`, no crashes, 200s visible in the log, `DONE: 40 pages, N assets` (N > 20). Eyeball 3 records: `head -3 out/inventory.jsonl`.
 
-- [ ] **Step 4: ПОВНИЙ краул (довгий — година-дві, резюмовний)**
+- [ ] **Step 4: FULL crawl (long — an hour or two, resumable)**
 
 ```bash
 node bin/crawl-live.js 2>&1 | tee out/reports/crawl-log.txt
 ```
 
-Це ~тисячі сторінок з delay 500 мс. Якщо обірвалось — просто перезапустити (state-файл продовжить). Watchdog-очікування: розмір інвентаря має вийти на плато; новинні ID у діапазоні до ~9000.
+This is ~thousands of pages at a 500 ms delay. If it gets interrupted — just restart (the state file resumes). Watchdog expectations: the inventory size must plateau; news IDs range up to ~9000.
 
-- [ ] **Step 5: Класифікація + екстракція + звіт**
+- [ ] **Step 5: Classification + extraction + report**
 
 ```bash
 node bin/extract-all.js && node bin/report.js
 ```
 
-Очікувано: `unclassified` — нуль або поодинокі URL. ЯКЩО є `unclassified`-патерни — розширити правила `classify.js` (спершу тест на новий патерн у `test/classify.test.js`, потім правило), перезапустити `extract-all`. Повторювати до 0 unclassified.
+Expected: `unclassified` — zero or isolated URLs. IF there are `unclassified` patterns — extend the rules in `classify.js` (first a test for the new pattern in `test/classify.test.js`, then the rule), re-run `extract-all`. Repeat until 0 unclassified.
 
-- [ ] **Step 6: Санітарна звірка повноти (checkpoint для людини)**
+- [ ] **Step 6: Completeness sanity check (human checkpoint)**
 
-Порівняти зі звісними опорними цифрами (Довідка):
+Compare against the known reference numbers (see Reference):
 
 ```bash
 python3 - <<'EOF'
@@ -1041,9 +1043,9 @@ EOF
 wc -l out/assets-manifest.tsv
 ```
 
-Очікування (порядок величин): news-articles — сотні-тисячі, max id ≈ 8990+; асетів — тисячі (admin-probe оцінював ~10 900 файлів в /upload, з них частина не злінкована зі сторінок — менше число в манфесті НОРМАЛЬНЕ; НЕзлінковане не індексується і не мігрується). **Показати цей звіт користувачу і дочекатись «ок» перед Task 7+** (це головний контроль обсягу).
+Expectations (order of magnitude): news-articles — hundreds to thousands, max id ≈ 8990+; assets — thousands (the admin probe estimated ~10,900 files in /upload, part of which is not linked from pages — a smaller number in the manifest is NORMAL; unlinked content is not indexed and not migrated). **Show this report to the user and wait for an "ok" before Task 7+** (this is the main volume checkpoint).
 
-- [ ] **Step 7: Commit + push (інвентар — у git)**
+- [ ] **Step 7: Commit + push (the inventory goes into git)**
 
 ```bash
 git add migration/bin migration/out/inventory.jsonl migration/out/url-map.json \
@@ -1054,29 +1056,29 @@ git push
 
 ---
 
-### Task 7: Каркас порталу `portal/` (Next.js, standalone, robots off)
+### Task 7: Portal skeleton `portal/` (Next.js, standalone, robots off)
 
 **Files:**
-- Create: `portal/` (create-next-app), `portal/next.config.ts` (правки), `portal/src/middleware.ts`, `portal/src/app/robots.txt/route.ts`, `portal/vitest.config.ts`, `portal/test/helpers/server.ts`, `portal/test/robots.test.ts`
-- Modify: `/.gitignore` (додати `portal/.next/`)
+- Create: `portal/` (create-next-app), `portal/next.config.ts` (edits), `portal/src/middleware.ts`, `portal/src/app/robots.txt/route.ts`, `portal/vitest.config.ts`, `portal/test/helpers/server.ts`, `portal/test/robots.test.ts`
+- Modify: `/.gitignore` (add `portal/.next/`)
 
 **Interfaces:**
-- Produces: Next-застосунок, що збирається (`npm run build`) і віддає: `/robots.txt` (Disallow при `INDEXING!=on`), заголовок `X-Robots-Tag: noindex, nofollow` на всіх відповідях при `INDEXING!=on`. Env-контракт (споживають Task 8–13): `INDEXING=on|off` (default off), `SITE_ORIGIN` (напр. `http://portal.naas.gov.ua`), `LEGACY_CONTENT_DIR` (default `../migration/out/content`).
-- Тест-хелпер `startPortal(env): Promise<{origin, stop}>` — збирає/стартує prod-сервер на вільному порту (споживають тести Task 8–11).
+- Produces: a Next.js app that builds (`npm run build`) and serves: `/robots.txt` (Disallow when `INDEXING!=on`), the `X-Robots-Tag: noindex, nofollow` header on all responses when `INDEXING!=on`. Env contract (consumed by Tasks 8–13): `INDEXING=on|off` (default off), `SITE_ORIGIN` (e.g. `http://portal.naas.gov.ua`), `LEGACY_CONTENT_DIR` (default `../migration/out/content`).
+- Test helper `startPortal(env): Promise<{origin, stop}>` — builds/starts the prod server on a free port (consumed by tests of Tasks 8–11).
 
-- [ ] **Step 1: Bootstrap (або звірка вже створеного архітектурним треком)**
+- [ ] **Step 1: Bootstrap (or verification of what the architecture track already created)**
 
-**Якщо `portal/` ВЖЕ існує** (створений треком «сетап архітектури» — див. «Передумови»): НЕ створювати заново. Пропустити create-next-app; виконати лише перевірку engines (команда нижче) і далі Step 2–5 як ЗВІРКУ/ДОПОВНЕННЯ наявного конфігу (додати `trailingSlash`/умовний `standalone`/robots/middleware/vitest, якщо їх нема; існуючі маршрути не чіпати). Якщо `portal/` нема:
+**If `portal/` ALREADY exists** (created by the "architecture setup" track — see "Prerequisites"): do NOT recreate it. Skip create-next-app; run only the engines check (command below) and treat Steps 2–5 as VERIFICATION/ADDITION of the existing config (add `trailingSlash`/conditional `standalone`/robots/middleware/vitest if missing; do not touch existing routes). If `portal/` does not exist:
 
 ```bash
-cd /Users/falco/dev/naas_migration_wt   # worktree цього плану
+cd /Users/falco/dev/naas_migration_wt   # this plan's worktree
 npx create-next-app@latest portal --ts --app --src-dir --no-tailwind --eslint --import-alias "@/*" --use-npm
 node -e "console.log(require('./portal/node_modules/next/package.json').engines)"
 ```
 
-Очікувано: engines сумісні з Node **20.9+** (сервер = 20.20.2). Якщо latest Next вимагає Node >20 — поставити останню мажорну, що підтримує 20: `cd portal && npm i next@<остання-з-node20>` (звірити по engines у npm registry: `npm view next@15 engines`, `npm view next@16 engines` — обрати найновішу сумісну) і зафіксувати вибір у `portal/README.md`.
+Expected: engines compatible with Node **20.9+** (the server = 20.20.2). If the latest Next requires Node >20 — install the newest major that supports 20: `cd portal && npm i next@<latest-supporting-node20>` (check engines in the npm registry: `npm view next@15 engines`, `npm view next@16 engines` — pick the newest compatible) and record the choice in `portal/README.md`.
 
-- [ ] **Step 2: Конфіг**
+- [ ] **Step 2: Config**
 
 `portal/next.config.ts`:
 
@@ -1084,9 +1086,9 @@ node -e "console.log(require('./portal/node_modules/next/package.json').engines)
 import type { NextConfig } from 'next';
 
 const nextConfig: NextConfig = {
-  trailingSlash: true,          // канонічна форма URL порталу — зі слешем (слеш-твіни → 308)
-  // standalone тільки для прод-збірки (deploy.sh ставить STANDALONE=1):
-  // локально `next start` зі standalone-режимом не працює — тести використовують звичайний білд
+  trailingSlash: true,          // the portal's canonical URL form ends with a slash (slash twins → 308)
+  // standalone only for the production build (deploy.sh sets STANDALONE=1):
+  // locally `next start` does not work with standalone output — tests use a regular build
   ...(process.env.STANDALONE === '1' ? { output: 'standalone' as const } : {}),
   poweredByHeader: false,
 };
@@ -1125,7 +1127,7 @@ export function GET() {
 }
 ```
 
-- [ ] **Step 4: vitest + серверний тест-хелпер**
+- [ ] **Step 4: vitest + the server test helper**
 
 ```bash
 cd portal && npm i -D vitest
@@ -1139,7 +1141,7 @@ export default defineConfig({
   test: {
     testTimeout: 180_000,
     hookTimeout: 180_000,
-    fileParallelism: false, // сюїти перебудовують спільний .next з різним env — тільки послідовно
+    fileParallelism: false, // suites rebuild the shared .next with different env — sequential only
   },
 });
 ```
@@ -1154,8 +1156,8 @@ import path from 'node:path';
 const ROOT = path.resolve(__dirname, '..', '..');
 let built = false;
 
-// metadata/canonical запікаються ПРИ БІЛДІ (SSG) → сюїти з іншим env передають rebuild:'1'.
-// robots.txt — force-dynamic (читає env на запит), для нього rebuild не потрібен.
+// metadata/canonical are baked in AT BUILD TIME (SSG) → suites with different env pass rebuild:'1'.
+// robots.txt is force-dynamic (reads env per request) and needs no rebuild.
 export async function startPortal(env: Record<string, string> = {}) {
   const { rebuild, ...rest } = env;
   const runEnv = { ...process.env, INDEXING: 'off', ...rest };
@@ -1187,25 +1189,25 @@ describe('robots/noindex (staging default)', async () => {
   const { origin, stop } = await startPortal({ INDEXING: 'off', SITE_ORIGIN: 'http://x.local' });
   afterAll(() => stop());
 
-  it('robots.txt забороняє все', async () => {
+  it('robots.txt disallows everything', async () => {
     const t = await (await fetch(origin + '/robots.txt')).text();
     expect(t).toContain('Disallow: /');
     expect(t).not.toContain('Sitemap:');
   });
-  it('X-Robots-Tag: noindex на сторінках', async () => {
+  it('X-Robots-Tag: noindex on pages', async () => {
     const r = await fetch(origin + '/');
     expect(r.headers.get('x-robots-tag')).toBe('noindex, nofollow');
   });
 });
 ```
 
-- [ ] **Step 5: Тести зелені**
+- [ ] **Step 5: Tests green**
 
-Run: `cd portal && npx vitest run test/robots.test.ts` → PASS (перший запуск збирає білд, ~1–2 хв).
+Run: `cd portal && npx vitest run test/robots.test.ts` → PASS (the first run builds, ~1–2 min).
 
 - [ ] **Step 6: gitignore + Commit + push**
 
-Додати в кореневий `.gitignore` рядок `/portal/.next/`. Потім:
+Add the line `/portal/.next/` to the root `.gitignore`. Then:
 
 ```bash
 git add portal .gitignore
@@ -1213,24 +1215,26 @@ git commit -m "portal: Next.js skeleton (standalone, trailingSlash) with INDEXIN
 git push
 ```
 
----### Task 8: Content-store + catch-all маршрут легасі-сторінок
+---
+
+### Task 8: Content-store + the catch-all legacy-page route
 
 **Files:**
-- Create: `portal/src/lib/content-store.ts`, `portal/src/app/[...slug]/page.tsx`, `portal/src/app/page.tsx` (заміна дефолтної), `portal/src/app/legacy-body.css`, `portal/test/fixtures/content/**` (маленький фікстурний контент-набір), `portal/test/legacy-routes.test.ts`
+- Create: `portal/src/lib/content-store.ts`, `portal/src/app/[...slug]/page.tsx`, `portal/src/app/page.tsx` (replaces the default), `portal/src/app/legacy-body.css`, `portal/test/fixtures/content/**` (a small fixture content set), `portal/test/legacy-routes.test.ts`
 - Modify: `portal/src/app/layout.tsx`
 
 **Interfaces:**
-- Consumes: `migration/out/content/index.json` + `pages/*.json` (Task 6); формат `LegacyPage`.
-- Produces (споживають Task 9–11):
+- Consumes: `migration/out/content/index.json` + `pages/*.json` (Task 6); the `LegacyPage` format.
+- Produces (consumed by Tasks 9–11):
   - `contentIndex(): Map<string, IndexEntry>`; `getByKey(key: string): LegacyPage | null`
   - `newsIndex(): Map<string /*feed*/, Map<number /*id*/, string /*key*/>>`
-  - `listNews(feed: string, page: number, perPage: number): {items: IndexEntryWithKey[], total: number}` (сортування: date desc, потім id desc)
-  - компонент `<LegacyArticle page={LegacyPage} />` — `<h1>` + тіло через `dangerouslySetInnerHTML`
-  - Правило ключа: шлях декодований, для сторінок — trailing slash.
+  - `listNews(feed: string, page: number, perPage: number): {items: IndexEntryWithKey[], total: number}` (sorted date desc, then id desc)
+  - the `<LegacyArticle page={LegacyPage} />` component — `<h1>` + body via `dangerouslySetInnerHTML`
+  - Key rule: the path is decoded; pages carry a trailing slash.
 
-- [ ] **Step 1: Фікстурний контент для тестів**
+- [ ] **Step 1: Fixture content for the tests**
 
-Створити `portal/test/fixtures/content/index.json` + `pages/…` вручну (5 записів — ключі точно як у продовому індексі):
+Create `portal/test/fixtures/content/index.json` + `pages/…` by hand (5 records — keys exactly as in the production index):
 
 ```json
 {
@@ -1242,9 +1246,9 @@ git push
 }
 ```
 
-Кожен `pages/*.json` — валідний `LegacyPage` (скопіювати структуру зі «Схеми даних», тіло типу `"<p>Тестовий контент …</p>"`, у n8984 додати `"images": []`, `"h1": "Заголовок новини 8984"`).
+Each `pages/*.json` is a valid `LegacyPage` (copy the structure from "Data schema", body like `"<p>Тестовий контент …</p>"`; add `"images": []` and `"h1": "Заголовок новини 8984"` to n8984).
 
-- [ ] **Step 2: Тести (падають)**
+- [ ] **Step 2: Tests (failing)**
 
 `portal/test/legacy-routes.test.ts`:
 
@@ -1255,33 +1259,33 @@ import { startPortal } from './helpers/server';
 
 const FIXTURES = path.resolve(__dirname, 'fixtures', 'content');
 
-describe('легасі-маршрути 1:1', async () => {
+describe('1:1 legacy routes', async () => {
   const { origin, stop } = await startPortal({
     LEGACY_CONTENT_DIR: FIXTURES, INDEXING: 'off', SITE_ORIGIN: 'http://x.local', rebuild: '1',
   });
   afterAll(() => stop());
 
-  it('простий шлях: 200, точний <title>, тіло в HTML', async () => {
+  it('plain path: 200, exact <title>, body in the HTML', async () => {
     const r = await fetch(origin + '/content/statut-naan/');
     expect(r.status).toBe(200);
     const html = await r.text();
     expect(html).toContain('<title>Статут НААН</title>');
     expect(html).toContain('Тестовий контент');
   });
-  it('шлях із пробілом (енкодиться браузером) — 200', async () => {
+  it('path with a space (browser-encoded) — 200', async () => {
     const r = await fetch(origin + '/content/publichna-informaciya/pasport%20budget/');
     expect(r.status).toBe(200);
     expect(await r.text()).toContain('Паспорт бюджетної програми');
   });
-  it('path-новина — 200 + h1', async () => {
+  it('path-based news — 200 + h1', async () => {
     const html = await (await fetch(origin + '/newsall/newsnaan/8984/')).text();
     expect(html).toContain('Заголовок новини 8984');
   });
-  it('невідомий шлях — СПРАВЖНІЙ 404-статус', async () => {
+  it('unknown path — a REAL 404 status', async () => {
     const r = await fetch(origin + '/no/such/page/');
     expect(r.status).toBe(404);
   });
-  it('варіант без слеша → 308 на канонічний', async () => {
+  it('slashless variant → 308 to the canonical', async () => {
     const r = await fetch(origin + '/content/statut-naan', { redirect: 'manual' });
     expect([301, 308]).toContain(r.status);
     expect(r.headers.get('location')).toContain('/content/statut-naan/');
@@ -1289,11 +1293,11 @@ describe('легасі-маршрути 1:1', async () => {
 });
 ```
 
-- [ ] **Step 3: Тести падають**
+- [ ] **Step 3: Tests fail**
 
-Run: `npx vitest run test/legacy-routes.test.ts` → FAIL (роутів ще нема; дефолтна головна віддає boilerplate).
+Run: `npx vitest run test/legacy-routes.test.ts` → FAIL (no routes yet; the default home serves boilerplate).
 
-- [ ] **Step 4: Імплементація store**
+- [ ] **Step 4: Store implementation**
 
 `portal/src/lib/content-store.ts`:
 
@@ -1323,9 +1327,9 @@ export function contentIndex(): Map<string, IndexEntry> {
   return idx;
 }
 
-// слеш-твін: інвентар зберігає СИРУ форму старого сайту (буває без слеша, напр.
-// "/content/publichna-informaciya/FAO"), а Next із trailingSlash:true завжди приводить
-// запит до форми зі слешем → шукаємо обидві.
+// slash twin: the inventory stores the old site's RAW form (sometimes slashless, e.g.
+// "/content/publichna-informaciya/FAO"), while Next with trailingSlash:true always
+// normalizes the request to the slashed form → look up both.
 const slashTwin = (key: string): string | null => {
   const [p, q = ''] = key.split('?');
   if (p === '/') return null;
@@ -1369,9 +1373,9 @@ export function legacyKeyFromSlug(slug: string[] | undefined): string {
 }
 ```
 
-- [ ] **Step 5: Маршрути й рендер**
+- [ ] **Step 5: Routes and rendering**
 
-`portal/src/app/legacy-body.css` (мінімальна типографіка легасі-тіла):
+`portal/src/app/legacy-body.css` (minimal typography for the legacy body):
 
 ```css
 .legacy-body { max-width: 60rem; margin: 0 auto; padding: 1rem; line-height: 1.6; font-family: system-ui, sans-serif; }
@@ -1389,10 +1393,10 @@ import { contentIndex, getByKey, legacyKeyFromSlug } from '@/lib/content-store';
 import { LegacyArticle } from '@/lib/legacy-article';
 import { pageMetadata } from '@/lib/seo';
 
-export const dynamicParams = false; // повний перелік відомий на білді
+export const dynamicParams = false; // the full list is known at build time
 
-// Шляхи, які мають ВЛАСНІ статичні маршрути (Task 10) — виключити з catch-all,
-// інакше Next згенерує той самий шлях із двох роутів (конфлікт на білді).
+// Paths that have their OWN static routes (Task 10) — exclude from the catch-all,
+// otherwise Next generates the same path from two routes (build conflict).
 const EXPLICIT = new Set(['/news/', '/newsall/', '/newsukraine/', '/newsworld/']);
 const withSlash = (k: string) => (k.endsWith('/') ? k : k + '/');
 
@@ -1435,14 +1439,14 @@ export function LegacyArticle({ page }: { page: LegacyPage }) {
 }
 ```
 
-`portal/src/lib/seo.ts(x)` — мінімальна версія для цього таска (повна — Task 11):
+`portal/src/lib/seo.ts(x)` — a minimal version for this task (the full one lands in Task 11):
 
 ```tsx
 import type { Metadata } from 'next';
 import type { LegacyPage } from '@/lib/content-store';
 
-// Форма URL, яку портал реально віддає з кодом 200: query-ключі — точна стара
-// query-форма (path у них уже зі слешем); path-ключі — зі слешем (trailingSlash:true).
+// The URL form the portal actually serves with a 200: query keys — the exact old
+// query form (their path already has the slash); path keys — with a slash (trailingSlash:true).
 export function servedKey(key: string): string {
   if (key.includes('?')) return key;
   return key.endsWith('/') ? key : key + '/';
@@ -1464,11 +1468,11 @@ export function JsonLd({ data }: { data: object }) {
 }
 
 export function jsonLdFor(page: LegacyPage): object {
-  return { '@context': 'https://schema.org', '@type': 'WebPage', name: page.title }; // розширюється в Task 11
+  return { '@context': 'https://schema.org', '@type': 'WebPage', name: page.title }; // extended in Task 11
 }
 ```
 
-`portal/src/app/page.tsx` (головна = мігрована стара головна; тимчасово, до дизайн-порту):
+`portal/src/app/page.tsx` (home = the migrated old home; temporary, until the design port):
 
 ```tsx
 import { getByKey } from '@/lib/content-store';
@@ -1487,13 +1491,13 @@ export default function Home() {
 }
 ```
 
-`layout.tsx`: імпортувати `./legacy-body.css`, `<html lang="uk">`, прибрати boilerplate-стилі create-next-app (лишити мінімальний `<body>{children}</body>` з простим хедером «НААН — портал (тестовий режим)» і футером).
+`layout.tsx`: import `./legacy-body.css`, set `<html lang="uk">`, remove the create-next-app boilerplate styles (keep a minimal `<body>{children}</body>` with a simple header «НААН — портал (тестовий режим)» and a footer).
 
-- [ ] **Step 6: Тести зелені**
+- [ ] **Step 6: Tests green**
 
-Run: `npx vitest run test/legacy-routes.test.ts` → PASS. Особлива увага: тест шляху з пробілом. Якщо `generateStaticParams` спотикається на кириличних/пробільних сегментах — перевірити, що сегменти передаються ДЕкодованими (Next сам енкодить у маніфесті маршрутів); `legacyKeyFromSlug` декодує обидва випадки.
+Run: `npx vitest run test/legacy-routes.test.ts` → PASS. Pay special attention to the space-in-path test. If `generateStaticParams` trips over Cyrillic/space segments — verify that segments are passed DECODED (Next encodes them itself in the route manifest); `legacyKeyFromSlug` decodes both cases.
 
-Масштаб білда: на реальному контенті це тисячі SSG-сторінок. Якщо повний `npm run build` стане неприйнятно довгим (>30 хв), дозволений фолбек: `dynamicParams = true` + `generateStaticParams` повертає лише топ-500 ключів — решта рендериться на першому запиті й кешується (ISR-поведінка). 404-семантика зберігається: `getByKey` поверне `null` → `notFound()`; тести не змінюються.
+Build scale: on real content this is thousands of SSG pages. If a full `npm run build` becomes unacceptably long (>30 min), the allowed fallback is `dynamicParams = true` + `generateStaticParams` returning only the top-500 keys — the rest render on first request and get cached (ISR behavior). The 404 semantics survive: `getByKey` returns `null` → `notFound()`; the tests do not change.
 
 - [ ] **Step 7: Commit + push**
 
@@ -1505,17 +1509,17 @@ git push
 
 ---
 
-### Task 9: Query-string URL (`?ELEMENT_ID=`) через rewrites + канонікали
+### Task 9: Query-string URLs (`?ELEMENT_ID=`) via rewrites + canonicals
 
 **Files:**
-- Create: `portal/src/app/newsukraine/el/[id]/page.tsx` (+ аналогічні для інших feed-ів, ЯКЩО у `url-map.json` є query-новини цих feed-ів), `portal/test/query-urls.test.ts`
-- Modify: `portal/next.config.ts` (rewrites), `portal/src/lib/seo.ts` (канонікал query-форми)
+- Create: `portal/src/app/newsukraine/el/[id]/page.tsx` (+ analogous routes for other feeds IF `url-map.json` has query news for those feeds), `portal/test/query-urls.test.ts`
+- Modify: `portal/next.config.ts` (rewrites), `portal/src/lib/seo.ts` (query-form canonical)
 
 **Interfaces:**
-- Consumes: `newsIndex()`, `getByKey` (Task 8); `url-map.json` (Task 6) — ЯКІ саме feed-и мають query-форму, дивитися там: `python3 -c "import json; m=json.load(open('../migration/out/url-map.json')); print(sorted({v['feed'] for v in m.values() if v.get('viaQuery')}))"`.
-- Produces: URL виду `/newsukraine/?ELEMENT_ID=8959` віддає 200 з контентом статті; `<link rel="canonical">` (при INDEXING=on) вказує на **точну query-форму** — і на зовнішній query-URL, і на внутрішній `/newsukraine/el/8959/`.
+- Consumes: `newsIndex()`, `getByKey` (Task 8); `url-map.json` (Task 6) — WHICH feeds have the query form, check there: `python3 -c "import json; m=json.load(open('../migration/out/url-map.json')); print(sorted({v['feed'] for v in m.values() if v.get('viaQuery')}))"`.
+- Produces: a URL like `/newsukraine/?ELEMENT_ID=8959` returns 200 with the article content; `<link rel="canonical">` (when INDEXING=on) points to the **exact query form** — both on the external query URL and on the internal `/newsukraine/el/8959/`.
 
-- [ ] **Step 1: Тести (падають)**
+- [ ] **Step 1: Tests (failing)**
 
 `portal/test/query-urls.test.ts`:
 
@@ -1526,41 +1530,41 @@ import { startPortal } from './helpers/server';
 
 const FIXTURES = path.resolve(__dirname, 'fixtures', 'content');
 
-describe('query-string легасі-URL', async () => {
+describe('query-string legacy URLs', async () => {
   const { origin, stop } = await startPortal({
     LEGACY_CONTENT_DIR: FIXTURES, INDEXING: 'on',
     SITE_ORIGIN: 'http://x.local', CANONICAL_ORIGIN: 'http://naas.gov.ua', rebuild: '1',
   });
   afterAll(() => stop());
 
-  it('?ELEMENT_ID= віддає статтю (через rewrite)', async () => {
+  it('?ELEMENT_ID= serves the article (via rewrite)', async () => {
     const r = await fetch(origin + '/newsukraine/?ELEMENT_ID=8959');
     expect(r.status).toBe(200);
     expect(await r.text()).toContain('Новина 8959');
   });
-  it('canonical = точна стара query-форма', async () => {
+  it('canonical = the exact old query form', async () => {
     const html = await (await fetch(origin + '/newsukraine/?ELEMENT_ID=8959')).text();
     expect(html).toContain('rel="canonical"');
     expect(html).toContain('http://naas.gov.ua/newsukraine/?ELEMENT_ID=8959');
   });
-  it('внутрішній шлях /newsukraine/el/8959/ теж канонізується на query-форму', async () => {
+  it('the internal path /newsukraine/el/8959/ also canonicalizes to the query form', async () => {
     const html = await (await fetch(origin + '/newsukraine/el/8959/')).text();
     expect(html).toContain('http://naas.gov.ua/newsukraine/?ELEMENT_ID=8959');
   });
-  it('невідомий ELEMENT_ID → 404', async () => {
+  it('unknown ELEMENT_ID → 404', async () => {
     const r = await fetch(origin + '/newsukraine/?ELEMENT_ID=999999');
     expect(r.status).toBe(404);
   });
 });
 ```
 
-- [ ] **Step 2: Тести падають**
+- [ ] **Step 2: Tests fail**
 
 Run: `npx vitest run test/query-urls.test.ts` → FAIL.
 
 - [ ] **Step 3: Rewrites**
 
-У `portal/next.config.ts` додати:
+Add to `portal/next.config.ts`:
 
 ```ts
 async rewrites() {
@@ -1571,15 +1575,15 @@ async rewrites() {
         has: [{ type: 'query', key: 'ELEMENT_ID', value: '(?<eid>\\d+)' }],
         destination: '/newsukraine/el/:eid/',
       },
-      // + по одному блоку на кожен feed із viaQuery у url-map.json (див. Interfaces)
+      // + one block per feed with viaQuery in url-map.json (see Interfaces)
     ],
   };
 },
 ```
 
-Якщо named-capture у `has.value` не спрацює на обраній версії Next (перевіряється тестом!) — запасний варіант: зробити `/newsukraine/` сторінку динамічною (`export const dynamic = 'force-dynamic'`) і читати `searchParams.ELEMENT_ID` прямо в сторінці листингу, рендерячи статтю замість списку. Тест не змінюється — він перевіряє поведінку, не механізм.
+If the named capture in `has.value` does not work on the chosen Next version (the test checks this!) — fallback: make the `/newsukraine/` page dynamic (`export const dynamic = 'force-dynamic'`) and read `searchParams.ELEMENT_ID` right in the listing page, rendering the article instead of the list. The test does not change — it checks behavior, not mechanism.
 
-- [ ] **Step 4: Сторінка елемента**
+- [ ] **Step 4: The element page**
 
 `portal/src/app/newsukraine/el/[id]/page.tsx`:
 
@@ -1616,13 +1620,13 @@ export default async function NewsElement({ params }: Props) {
 }
 ```
 
-У `pageMetadata` (seo.ts) канонікал уже будується з `page.key` — для query-новини `key` = `/newsukraine/?ELEMENT_ID=8959`, тож канонікал автоматично «точна стара query-форма». Перевірити, що це так, і нічого не «нормалізує» ключ.
+In `pageMetadata` (seo.ts) the canonical is already built from `page.key` — for query news the `key` is `/newsukraine/?ELEMENT_ID=8959`, so the canonical is automatically "the exact old query form". Verify that this holds and nothing "normalizes" the key.
 
-Невідомий ELEMENT_ID: rewrite веде на `/newsukraine/el/999999/`; при `dynamicParams=false` Next віддасть 404 сам.
+Unknown ELEMENT_ID: the rewrite lands on `/newsukraine/el/999999/`; with `dynamicParams=false` Next returns 404 by itself.
 
-- [ ] **Step 5: Тести зелені**
+- [ ] **Step 5: Tests green**
 
-Run: `npx vitest run test/query-urls.test.ts` → PASS. Якщо канонікал не з'являється — пам'ятати: `alternates.canonical` рендериться лише коли заданий (INDEXING=on у цьому тесті — саме для цього).
+Run: `npx vitest run test/query-urls.test.ts` → PASS. If the canonical does not appear — remember: `alternates.canonical` renders only when set (INDEXING=on in this suite — exactly for that).
 
 - [ ] **Step 6: Commit + push**
 
@@ -1634,18 +1638,18 @@ git push
 
 ---
 
-### Task 10: Стрічки новин + пагінація PAGEN_1
+### Task 10: News feeds + PAGEN_1 pagination
 
 **Files:**
-- Create: `portal/src/app/news/page.tsx`, `portal/src/app/news/page/[n]/page.tsx` (+ те саме для `newsall`, `newsukraine`, `newsworld`), `portal/src/lib/news-list.tsx`, `portal/test/listings.test.ts`
-- Modify: `portal/next.config.ts` (rewrite PAGEN_1)
+- Create: `portal/src/app/news/page.tsx`, `portal/src/app/news/page/[n]/page.tsx` (+ the same for `newsall`, `newsukraine`, `newsworld`), `portal/src/lib/news-list.tsx`, `portal/test/listings.test.ts`
+- Modify: `portal/next.config.ts` (PAGEN_1 rewrite)
 
 **Interfaces:**
-- Consumes: `listNews` (Task 8); реальний perPage — звірити з crawl-даними: відкрити будь-який `/news/?PAGEN_1=2` у `out/raw/` і порахувати кількість тизерів на сторінці старого сайту; це значення зафіксувати в `PER_PAGE`.
-- Produces: `/news/` (сторінка 1), `/news/?PAGEN_1=k` → той самий набір статей, що мав старий сайт на сторінці k (порядок date desc). Канонікал сторінки k = `/news/?PAGEN_1=k` (k>1), сторінки 1 = `/news/`.
-- Обов'язкова звірка: `python3 -c "import json; m=json.load(open('../migration/out/url-map.json')); print(sorted({v['feed'] for v in m.values() if v['type']=='listing'}))"` — якщо у списку є listing-фіди ПОЗА четвіркою новинних (пагіновані розділи `/content/...` тощо), для кожного додати ідентичну пару «rewrite + сторінки» (той самий шаблон, інший FEED/базовий шлях) — інакше ці URL проваляться у verify-parity (Task 12).
+- Consumes: `listNews` (Task 8); the real perPage — verify against crawl data: open any `/news/?PAGEN_1=2` from `out/raw/` and count the teasers on the old site's page; record that value in `PER_PAGE`.
+- Produces: `/news/` (page 1), `/news/?PAGEN_1=k` → the same article set the old site had on page k (date desc order). Canonical of page k = `/news/?PAGEN_1=k` (k>1), of page 1 = `/news/`.
+- Mandatory check: `python3 -c "import json; m=json.load(open('../migration/out/url-map.json')); print(sorted({v['feed'] for v in m.values() if v['type']=='listing'}))"` — if the list contains listing feeds OUTSIDE the four news ones (paginated `/content/...` sections etc.), add an identical "rewrite + pages" pair for each (same template, different FEED/base path) — otherwise those URLs will fail verify-parity (Task 12).
 
-- [ ] **Step 1: Тести (падають)**
+- [ ] **Step 1: Tests (failing)**
 
 `portal/test/listings.test.ts`:
 
@@ -1656,31 +1660,31 @@ import { startPortal } from './helpers/server';
 
 const FIXTURES = path.resolve(__dirname, 'fixtures', 'content');
 
-describe('стрічки', async () => {
+describe('feeds', async () => {
   const { origin, stop } = await startPortal({
     LEGACY_CONTENT_DIR: FIXTURES, INDEXING: 'on',
     SITE_ORIGIN: 'http://x.local', CANONICAL_ORIGIN: 'http://naas.gov.ua', rebuild: '1',
   });
   afterAll(() => stop());
 
-  it('/newsall/ 200 і містить лінк на статтю', async () => {
+  it('/newsall/ is 200 and links to an article', async () => {
     const html = await (await fetch(origin + '/newsall/')).text();
     expect(html).toContain('/newsall/newsnaan/8984/');
   });
-  it('/newsall/?PAGEN_1=1 віддає 200 (rewrite)', async () => {
+  it('/newsall/?PAGEN_1=1 returns 200 (rewrite)', async () => {
     const r = await fetch(origin + '/newsall/?PAGEN_1=1');
     expect(r.status).toBe(200);
   });
-  it('порожня сторінка за межею → 404', async () => {
+  it('an out-of-range empty page → 404', async () => {
     const r = await fetch(origin + '/newsall/?PAGEN_1=99');
     expect(r.status).toBe(404);
   });
 });
 ```
 
-- [ ] **Step 2: Тести падають** — Run: `npx vitest run test/listings.test.ts` → FAIL.
+- [ ] **Step 2: Tests fail** — Run: `npx vitest run test/listings.test.ts` → FAIL.
 
-- [ ] **Step 3: Імплементація**
+- [ ] **Step 3: Implementation**
 
 `portal/src/lib/news-list.tsx`:
 
@@ -1688,7 +1692,7 @@ describe('стрічки', async () => {
 import { listNews } from '@/lib/content-store';
 import { notFound } from 'next/navigation';
 
-export const PER_PAGE = 20; // ЗВІРИТИ з реальною сторінкою старого сайту (див. Interfaces) і виправити
+export const PER_PAGE = 20; // VERIFY against a real old-site page (see Interfaces) and fix
 
 export function NewsList({ feed, page }: { feed: string; page: number }) {
   const { items, total } = listNews(feed, page, PER_PAGE);
@@ -1714,9 +1718,9 @@ export function NewsList({ feed, page }: { feed: string; page: number }) {
 }
 ```
 
-Лінк на статтю: `it.key` для query-новин уже містить `?ELEMENT_ID=…` — саме так і треба (посилаємось на канонічну стару форму).
+Article links: for query news `it.key` already contains `?ELEMENT_ID=…` — exactly right (we link to the canonical old form).
 
-`portal/src/app/newsall/page.tsx` (клони для news/newsukraine/newsworld — ідентичні, інший FEED):
+`portal/src/app/newsall/page.tsx` (clones for news/newsukraine/newsworld — identical, different FEED):
 
 ```tsx
 import type { Metadata } from 'next';
@@ -1764,7 +1768,7 @@ export default async function Page({ params }: { params: Promise<{ n: string }> 
 }
 ```
 
-`next.config.ts` — до `beforeFiles` додати для КОЖНОГО feed:
+`next.config.ts` — add to `beforeFiles` for EACH feed:
 
 ```ts
 {
@@ -1774,24 +1778,24 @@ export default async function Page({ params }: { params: Promise<{ n: string }> 
 },
 ```
 
-(Порядок: PAGEN-правила ПІСЛЯ ELEMENT_ID-правил того ж feed.) `?PAGEN_1=99` (за межею) → `/newsall/page/99/` → dynamicParams=false → 404 — тест це перевіряє.
+(Order: PAGEN rules come AFTER the ELEMENT_ID rules of the same feed.) `?PAGEN_1=99` (out of range) → `/newsall/page/99/` → dynamicParams=false → 404 — the test checks this.
 
-- [ ] **Step 4: Тести зелені** — Run: `npx vitest run test/listings.test.ts` → PASS.
+- [ ] **Step 4: Tests green** — Run: `npx vitest run test/listings.test.ts` → PASS.
 
-- [ ] **Step 5: Звірити PER_PAGE з реальністю**
+- [ ] **Step 5: Verify PER_PAGE against reality**
 
 ```bash
 python3 - <<'EOF'
 import re, json, hashlib
-# порахувати тизери на збереженій сторінці /newsall/ (див. rawFile в inventory.jsonl)
+# count teasers on the saved /newsall/ page (see rawFile in inventory.jsonl)
 inv = [json.loads(l) for l in open('../migration/out/inventory.jsonl')]
 page = next(r for r in inv if r['key'] == '/newsall/')
 raw = open('../migration/out/' + page['rawFile'], 'rb').read().decode('cp1251', 'replace')
-print('лінків на новини на сторінці:', len(set(re.findall(r'/newsall/newsnaan/(\d+)/', raw))))
+print('news links on the page:', len(set(re.findall(r'/newsall/newsnaan/(\d+)/', raw))))
 EOF
 ```
 
-Виправити `PER_PAGE` на це число, якщо ≠20. Це утримує відповідність «сторінка k у старого == сторінка k у нового».
+Fix `PER_PAGE` to that number if ≠20. This keeps "page k on the old site == page k on the new one".
 
 - [ ] **Step 6: Commit + push**
 
@@ -1803,17 +1807,17 @@ git push
 
 ---
 
-### Task 11: sitemap.xml + повний JSON-LD
+### Task 11: sitemap.xml + full JSON-LD
 
 **Files:**
 - Create: `portal/src/app/sitemap.xml/route.ts`, `portal/test/seo.test.ts`
-- Modify: `portal/src/lib/seo.ts` (повні JSON-LD-білдери), `portal/src/app/layout.tsx` (Organization JSON-LD)
+- Modify: `portal/src/lib/seo.ts` (full JSON-LD builders), `portal/src/app/layout.tsx` (Organization JSON-LD)
 
 **Interfaces:**
-- Consumes: `contentIndex()` (Task 8), env-контракт (Task 7).
-- Produces: `/sitemap.xml` — валідний XML усіх канонічних мігрованих URL (`loc` = `CANONICAL_ORIGIN`+key, включно з query-URL; `lastmod` = date, якщо є) при INDEXING=on; **404 при off**. JSON-LD: `GovernmentOrganization` у layout; `NewsArticle` (headline/datePublished/image/mainEntityOfPage/inLanguage uk) для новин; `WebPage` + `BreadcrumbList` (з сегментів шляху) для сторінок.
+- Consumes: `contentIndex()` (Task 8), the env contract (Task 7).
+- Produces: `/sitemap.xml` — valid XML of all canonical migrated URLs (`loc` = `CANONICAL_ORIGIN`+key, including query URLs; `lastmod` = date when present) when INDEXING=on; **404 when off**. JSON-LD: `GovernmentOrganization` in the layout; `NewsArticle` (headline/datePublished/image/mainEntityOfPage/inLanguage uk) for news; `WebPage` + `BreadcrumbList` (from path segments) for pages.
 
-- [ ] **Step 1: Тести (падають)**
+- [ ] **Step 1: Tests (failing)**
 
 `portal/test/seo.test.ts`:
 
@@ -1831,13 +1835,13 @@ describe('sitemap + JSON-LD (INDEXING=on)', async () => {
   });
   afterAll(() => stop());
 
-  it('sitemap містить прості й query-URL', async () => {
+  it('sitemap contains plain and query URLs', async () => {
     const xml = await (await fetch(origin + '/sitemap.xml')).text();
     expect(xml).toContain('<loc>http://naas.gov.ua/content/statut-naan/</loc>');
     expect(xml).toContain('<loc>http://naas.gov.ua/newsukraine/?ELEMENT_ID=8959</loc>'.replace('&', '&amp;'));
     expect(xml).toContain('<lastmod>2026-06-24</lastmod>');
   });
-  it('новина має NewsArticle JSON-LD', async () => {
+  it('a news page carries NewsArticle JSON-LD', async () => {
     const html = await (await fetch(origin + '/newsall/newsnaan/8984/')).text();
     const m = html.match(/<script type="application\/ld\+json">(.+?)<\/script>/gs)!;
     const blobs = m.map((s) => JSON.parse(s.replace(/<\/?script[^>]*>/g, '')));
@@ -1846,30 +1850,29 @@ describe('sitemap + JSON-LD (INDEXING=on)', async () => {
     expect(art.datePublished).toBe('2026-06-24');
     expect(art.headline.length).toBeGreaterThan(3);
   });
-  it('layout має GovernmentOrganization', async () => {
+  it('the layout carries GovernmentOrganization', async () => {
     const html = await (await fetch(origin + '/')).text();
     expect(html).toContain('"GovernmentOrganization"');
   });
 });
 
-describe('sitemap вимкнений на стейджингу', async () => {
+describe('sitemap disabled on staging', async () => {
   const { origin, stop } = await startPortal({ LEGACY_CONTENT_DIR: FIXTURES, INDEXING: 'off', rebuild: '1' });
   afterAll(() => stop());
-  it('404 при INDEXING=off', async () => {
+  it('404 when INDEXING=off', async () => {
     expect((await fetch(origin + '/sitemap.xml')).status).toBe(404);
   });
 });
 ```
 
-- [ ] **Step 2: Тести падають** — Run: `npx vitest run test/seo.test.ts` → FAIL.
+- [ ] **Step 2: Tests fail** — Run: `npx vitest run test/seo.test.ts` → FAIL.
 
-- [ ] **Step 3: Імплементація**
+- [ ] **Step 3: Implementation**
 
 `portal/src/app/sitemap.xml/route.ts`:
 
 ```ts
 import { contentIndex } from '@/lib/content-store';
-
 import { servedKey } from '@/lib/seo';
 
 export const dynamic = 'force-dynamic';
@@ -1888,9 +1891,9 @@ export function GET() {
 }
 ```
 
-(Обсяг < 50 000 URL і < 50 МБ — один файл; якщо звіт Task 6 покаже більше — розбити на sitemap-index + чанки по 40 000, аналогічним route-хендлером `sitemap-<n>.xml`.)
+(Volume < 50,000 URLs and < 50 MB — a single file; if the Task 6 report shows more — split into a sitemap index + chunks of 40,000 via an analogous `sitemap-<n>.xml` route handler.)
 
-`portal/src/lib/seo.ts` — доповнити:
+`portal/src/lib/seo.ts` — extend:
 
 ```ts
 export function jsonLdFor(page: LegacyPage): object {
@@ -1933,13 +1936,13 @@ export function organizationLd(): object {
 }
 ```
 
-У `layout.tsx` — `<JsonLd data={organizationLd()} />` в `<body>`.
+In `layout.tsx` — `<JsonLd data={organizationLd()} />` inside `<body>`.
 
-- [ ] **Step 4: Тести зелені** — Run: `npx vitest run test/seo.test.ts` → PASS.
+- [ ] **Step 4: Tests green** — Run: `npx vitest run test/seo.test.ts` → PASS.
 
-- [ ] **Step 5: Повний тестовий прогін порталу**
+- [ ] **Step 5: Full portal test run**
 
-Run: `cd portal && npm test` (усі сюїти) → PASS.
+Run: `cd portal && npm test` (all suites) → PASS.
 
 - [ ] **Step 6: Commit + push**
 
@@ -1951,21 +1954,21 @@ git push
 
 ---
 
-### Task 12: Верифікатор паритету + повний локальний прогін
+### Task 12: Parity verifier + a full local run
 
 **Files:**
 - Create: `migration/bin/verify-parity.js`, `migration/lib/parity.js`, `migration/test/parity.test.js`
 - Output: `migration/out/reports/parity-report.tsv`, `migration/out/reports/parity-summary.md`
 
 **Interfaces:**
-- Consumes: `inventory.jsonl`, `url-map.json`, `content/` (Task 6); запущений портал (`--base http://127.0.0.1:3000`).
-- Produces: `checkParity(rec, cls, page, res, htmlText) → {ok, fails: string[]}`; CLI `node bin/verify-parity.js --base <origin> [--live] [--sample N]`. Exit code 1, якщо є провали. Перевірки за типом:
-  - `page|news-article|home`: новий статус 200; `<title>` НОВОГО == `rec.title` СТАРОГО (точно, після схлопування пробілів); текст видобутого `bodyHtml` міститься в новому HTML (нормалізовано; Jaccard по словах ≥ 0.9); усі `images[]` віддають 200 на новому origin (HEAD).
-  - `gone`: новий статус 404. `redirect`: 301/308 і Location == `cls.to`.
-  - `listing`: статус 200 (контентна еквівалентність листингів не вимагається — состав елементів гарантує store).
-  - `--live`: додатково перефетчити старий URL і звірити його СВІЖИЙ title з `rec.title` (дрейф контенту з моменту краулу).
+- Consumes: `inventory.jsonl`, `url-map.json`, `content/` (Task 6); a running portal (`--base http://127.0.0.1:3000`).
+- Produces: `checkParity(rec, cls, page, res, htmlText) → {ok, fails: string[]}`; CLI `node bin/verify-parity.js --base <origin> [--live] [--sample N]`. Exit code 1 when there are failures. Checks by type:
+  - `page|news-article|home`: new status 200; the NEW `<title>` == the OLD `rec.title` (exact, after whitespace collapsing); the extracted `bodyHtml` text is contained in the new HTML (normalized; word-level Jaccard ≥ 0.9); every `images[]` entry returns 200 on the new origin (HEAD).
+  - `gone`: new status 404. `redirect`: 301/308 and Location == `cls.to`.
+  - `listing`: status 200 (content equivalence of listings is not required — the item set is guaranteed by the store).
+  - `--live`: additionally re-fetch the old URL and compare its FRESH title with `rec.title` (content drift since the crawl).
 
-- [ ] **Step 1: Тести (падають)**
+- [ ] **Step 1: Tests (failing)**
 
 `migration/test/parity.test.js`:
 
@@ -1974,10 +1977,10 @@ import { describe, it, expect } from 'vitest';
 import { normText, jaccardWords, checkParity } from '../lib/parity.js';
 
 describe('normText/jaccard', () => {
-  it('нормалізує теги і пробіли', () => {
+  it('normalizes tags and whitespace', () => {
     expect(normText('<p>Привіт  <b>світ</b>!</p>')).toBe('привіт світ!');
   });
-  it('jaccard 1.0 на ідентичних, <1 на різних', () => {
+  it('jaccard is 1.0 on identical input, <1 on different', () => {
     expect(jaccardWords('а б в г', 'а б в г')).toBe(1);
     expect(jaccardWords('а б в г', 'а б х у')).toBeLessThan(0.6);
   });
@@ -1986,26 +1989,26 @@ describe('normText/jaccard', () => {
 describe('checkParity', () => {
   const rec = { key: '/content/x/', title: 'Сторінка X', status: 200 };
   const page = { bodyHtml: '<p>Це тіло сторінки X з фактами.</p>', images: [] };
-  it('ok коли title збігається і тіло входить', () => {
+  it('ok when the title matches and the body is contained', () => {
     const html = '<html><head><title>Сторінка X</title></head><body><main>Це тіло сторінки X з фактами.</main></body></html>';
     expect(checkParity(rec, { type: 'page' }, page, { status: 200 }, html).ok).toBe(true);
   });
-  it('фейл на різному title', () => {
+  it('fails on a different title', () => {
     const html = '<html><head><title>Інша</title></head><body>Це тіло сторінки X з фактами.</body></html>';
     const r = checkParity(rec, { type: 'page' }, page, { status: 200 }, html);
     expect(r.ok).toBe(false);
     expect(r.fails.join()).toContain('title');
   });
-  it('gone має бути 404', () => {
+  it('gone must be 404', () => {
     expect(checkParity({ key: '/dead/' }, { type: 'gone' }, null, { status: 404 }, '').ok).toBe(true);
     expect(checkParity({ key: '/dead/' }, { type: 'gone' }, null, { status: 200 }, '').ok).toBe(false);
   });
 });
 ```
 
-- [ ] **Step 2: Тести падають** — Run: `npx vitest run test/parity.test.js` → FAIL.
+- [ ] **Step 2: Tests fail** — Run: `npx vitest run test/parity.test.js` → FAIL.
 
-- [ ] **Step 3: Імплементація**
+- [ ] **Step 3: Implementation**
 
 `migration/lib/parity.js`:
 
@@ -2042,7 +2045,7 @@ export function checkParity(rec, cls, page, res, htmlText) {
       if (page) {
         const body = normText(page.bodyHtml);
         const full = normText(htmlText);
-        const sim = jaccardWords(body, full); // тіло — підмножина повної сторінки; Jaccard занижений хромом
+        const sim = jaccardWords(body, full); // the body is a subset of the full page; chrome depresses Jaccard
         const contained = body.length < 40 ? full.includes(body) : sim >= 0.5 || full.includes(body.slice(0, 300));
         if (!contained) fails.push(`body similarity too low (${sim.toFixed(2)})`);
       }
@@ -2081,7 +2084,7 @@ for (const rec of inv.slice(0, sample)) {
   let res = await politeFetch(base + rec.key, { retries: 1, timeoutMs: 20000 });
   if ([301, 308].includes(res.status) && res.location
       && ['page', 'news-article', 'home', 'listing'].includes(cls.type)) {
-    // trailingSlash-нормалізація порталу (слеш-твін → канонічна форма) — йдемо за редіректом раз
+    // the portal's trailingSlash normalization (slash twin → canonical form) — follow the redirect once
     res = await politeFetch(new URL(res.location, base + rec.key).href, { retries: 1, timeoutMs: 20000 });
   }
   const html = res.buf.length ? new TextDecoder().decode(res.buf) : '';
@@ -2096,7 +2099,7 @@ for (const rec of inv.slice(0, sample)) {
   if (!ok) bad++;
   if (++checked % 100 === 0) console.log(`${checked} checked, ${bad} failures`);
 }
-// перевірка асетів: усі зображення з контенту
+// asset check: every image referenced by the content
 const imgSet = new Set();
 for (const e of Object.values(index)) {
   const p = JSON.parse(readFileSync(OUT + 'content/' + e.file, 'utf8'));
@@ -2114,16 +2117,16 @@ console.log(`pages: ${checked}, failures: ${bad}; images: ${imgSet.size}, img fa
 process.exit(bad + imgBad ? 1 : 0);
 ```
 
-- [ ] **Step 4: Тести зелені** — Run: `npx vitest run test/parity.test.js` → PASS.
+- [ ] **Step 4: Tests green** — Run: `npx vitest run test/parity.test.js` → PASS.
 
-- [ ] **Step 5: Повний локальний прогін (реальний контент)**
+- [ ] **Step 5: Full local run (real content)**
 
 ```bash
-cd portal && npm run build && npx next start -p 3000 &   # з дефолтним LEGACY_CONTENT_DIR
+cd portal && npm run build && npx next start -p 3000 &   # with the default LEGACY_CONTENT_DIR
 cd ../migration && node bin/verify-parity.js --base http://127.0.0.1:3000 2>&1 | tail -5
 ```
 
-Очікувано: `failures: 0` для сторінок. Провали по зображеннях НОРМАЛЬНІ локально (асети ще не скопійовані — вони з'являться на сервері в Task 13): порахувати їх і переконатися, що ВСІ провали — тип `asset`, жоден — сторінковий. Якщо є сторінкові провали — розібрати кожен (це або пропуск екстракції, або незамічений патерн URL), виправити відповідний Task-компонент, повторити. **Показати `parity-summary.md` користувачу.**
+Expected: `failures: 0` for pages. Image failures are NORMAL locally (assets are not copied yet — they appear on the server in Task 13): count them and make sure ALL failures are of type `asset`, none page-level. If there are page-level failures — investigate each one (either an extraction gap or an unnoticed URL pattern), fix the corresponding task's component, repeat. **Show `parity-summary.md` to the user.**
 
 - [ ] **Step 6: Commit + push**
 
@@ -2135,27 +2138,27 @@ git push
 
 ---
 
-### Task 13: Деплой на неіндексований піддомен (SSH-гейти!)
+### Task 13: Deploy to the non-indexed subdomain (SSH gates!)
 
 **Files:**
-- Create: `migration/bin/copy-assets.sh` (виконується НА СЕРВЕРІ), `portal/deploy/deploy.sh`, `portal/deploy/systemd-request.txt`, `portal/deploy/env.production.example`
+- Create: `migration/bin/copy-assets.sh` (runs ON THE SERVER), `portal/deploy/deploy.sh`, `portal/deploy/systemd-request.txt`, `portal/deploy/env.production.example`
 
 **Interfaces:**
-- Consumes: standalone-білд порталу (Task 7–11), `migration/out/content` (Task 6), `assets-manifest.tsv` (Task 6).
-- Produces: живий портал на `http(s)://<піддомен>.naas.gov.ua` з `X-Robots-Tag: noindex`; асети скопійовані на сервері; systemd-заявка для Mirohost.
+- Consumes: the portal's standalone build (Tasks 7–11), `migration/out/content` (Task 6), `assets-manifest.tsv` (Task 6).
+- Produces: a live portal at `http(s)://<subdomain>.naas.gov.ua` with `X-Robots-Tag: noindex`; assets copied on the server; a systemd request for Mirohost.
 
-**ГЕЙТИ (перед кожним — явне питання користувачу):** (G1) перший SSH-огляд; (G2) rsync аплоад; (G3) запуск copy-assets на сервері; (G4) вибір імені піддомена + дії в панелі; (G5) надсилання systemd-заявки support-у.
+**GATES (before each one — explicitly ask the user):** (G1) first SSH inspection; (G2) rsync upload; (G3) running copy-assets on the server; (G4) subdomain name choice + panel actions; (G5) sending the systemd request to support.
 
-**Якщо трек «сетап архітектури» вже створив systemd-сервіс / nginx-proxy / піддомен** — G4/G5 стають ЗВІРКОЮ, а не створенням: перевірити, що проксі вказує на порт порталу, сервіс активний (`systemctl status`), env-файл містить контракт цього плану (`INDEXING=off` на стейджингу!) — і рухатися далі зі Step 8.
+**If the "architecture setup" track already created the systemd service / nginx proxy / subdomain** — G4/G5 become VERIFICATION rather than creation: check that the proxy points to the portal's port, the service is active (`systemctl status`), the env file carries this plan's contract (`INDEXING=off` on staging!) — then continue from Step 8.
 
-- [ ] **Step 1: Артефакти деплою**
+- [ ] **Step 1: Deploy artifacts**
 
 `portal/deploy/env.production.example`:
 
 ```
 INDEXING=off
 SITE_ORIGIN=http://portal.naas.gov.ua
-# CANONICAL_ORIGIN задається ЛИШЕ при перемиканні основного домену (див. runbook)
+# CANONICAL_ORIGIN is set ONLY at the main-domain switch (see the runbook)
 LEGACY_CONTENT_DIR=/var/www/naasZ4/portal-app/content
 PORT=3300
 HOSTNAME=127.0.0.1
@@ -2165,7 +2168,7 @@ HOSTNAME=127.0.0.1
 
 ```bash
 #!/usr/bin/env bash
-# Аплоад порталу на Mirohost eVPS. Перед запуском СПИТАТИ користувача (SSH-гейт G2).
+# Upload the portal to the Mirohost eVPS. ASK the user before running (SSH gate G2).
 set -euo pipefail
 source ~/.naas_hosting.env
 DEST="${NAAS_SSH_USER}@${NAAS_HOST}"
@@ -2174,7 +2177,7 @@ APP=/var/www/naasZ4/portal-app
 
 cd "$(dirname "$0")/.."
 STANDALONE=1 npm run build
-# standalone: server.js + мінімальний node_modules; static і public докладаються поруч
+# standalone: server.js + minimal node_modules; static and public are added alongside
 rsync -az -e "ssh -p $P" .next/standalone/ "$DEST:$APP/app/"
 rsync -az -e "ssh -p $P" .next/static/ "$DEST:$APP/app/.next/static/"
 rsync -az -e "ssh -p $P" public/ "$DEST:$APP/app/public/"
@@ -2183,11 +2186,11 @@ rsync -az -e "ssh -p $P" ../migration/out/assets-manifest.tsv ../migration/bin/c
 echo "uploaded to $APP"
 ```
 
-`migration/bin/copy-assets.sh` (іде на сервер; читає манфест, копіює файли зі старого docroot у `public/` порталу — БЕЗ перейменувань):
+`migration/bin/copy-assets.sh` (goes to the server; reads the manifest, copies files from the old docroot into the portal's `public/` — NO renames):
 
 ```bash
 #!/usr/bin/env bash
-# ЗАПУСКАЄТЬСЯ НА СЕРВЕРІ. Read-only до старого сайту: тільки cp З нього.
+# RUNS ON THE SERVER. Read-only towards the old site: only cp FROM it.
 # usage: ./copy-assets.sh <old_docroot> <portal_public>
 set -euo pipefail
 OLD="$1"; PUB="$2"
@@ -2204,10 +2207,10 @@ while IFS=$'\t' read -r path _referrer _status _bytes; do
     echo "MISSING: $path" >> copy-assets-missing.log; missing=$((missing+1))
   fi
 done < assets-manifest.tsv
-echo "copied=$copied missing=$missing (див. copy-assets-missing.log)"
+echo "copied=$copied missing=$missing (see copy-assets-missing.log)"
 ```
 
-`portal/deploy/systemd-request.txt` (текст заявки для support Mirohost — заповнюється фактами з G1):
+`portal/deploy/systemd-request.txt` (the support-ticket template for Mirohost — filled in with facts from G1; deliberately in Ukrainian, it is a message to Ukrainian-speaking support, not documentation):
 
 ```
 Прохання створити systemd-сервіс:
@@ -2221,39 +2224,39 @@ echo "copied=$copied missing=$missing (див. copy-assets-missing.log)"
   Доступ нам:       start / restart / status
 ```
 
-- [ ] **Step 2 (G1): SSH-огляд** — СПИТАТИ КОРИСТУВАЧА, потім:
+- [ ] **Step 2 (G1): SSH inspection** — ASK THE USER, then:
 
 ```bash
 source ~/.naas_hosting.env
 ssh -p "${NAAS_SSH_PORT:-22}" "${NAAS_SSH_USER}@${NAAS_HOST}" '
   echo "--- HOME:"; ls ~ | head -30
-  echo "--- який docroot старого сайту (шукаємо bitrix + upload):";
+  echo "--- old-site docroot (looking for bitrix + upload):";
   for d in ~ ~/www ~/naas.gov.ua ~/httpdocs; do [ -d "$d/bitrix" ] && echo "DOCROOT=$d"; done
-  echo "--- вільні порти:"; (command -v ss >/dev/null && ss -ltn | awk "{print \$4}" | grep -oE "[0-9]+$" | sort -n | uniq | tail -20) || netstat -ltn 2>/dev/null | tail -20
-  echo "--- диск/квота:"; df -h ~ | tail -1; quota -s 2>/dev/null || true
-  echo "--- чи цей сервер віддає live naas.gov.ua:";
+  echo "--- listening ports:"; (command -v ss >/dev/null && ss -ltn | awk "{print \$4}" | grep -oE "[0-9]+$" | sort -n | uniq | tail -20) || netstat -ltn 2>/dev/null | tail -20
+  echo "--- disk/quota:"; df -h ~ | tail -1; quota -s 2>/dev/null || true
+  echo "--- does this server serve the live naas.gov.ua:";
   curl -s -o /dev/null -w "local-vhost:%{http_code}\n" -H "Host: naas.gov.ua" http://127.0.0.1/ || true
-  echo "--- IP сервера vs DNS:"; hostname -I 2>/dev/null; getent hosts naas.gov.ua || true
+  echo "--- server IP vs DNS:"; hostname -I 2>/dev/null; getent hosts naas.gov.ua || true
 '
 ```
 
-Записати: `OLD_DOCROOT` (тека з `bitrix/` і `upload/`), вільний порт (3300 чи інший), і ВИСНОВОК: чи live-сайт на цьому сервері. **Якщо local-vhost ≠ 200 або IP не збігається** — асети НЕ можна взяти локальним cp; замінити Step 4 на server-side дзеркалення (на сервері: `while read path …; do curl -s --create-dirs -o "$PUB$path" "http://naas.gov.ua$path"; sleep 0.2; done < assets-manifest.tsv` — той самий скрипт-контракт: копія байт-у-байт у `public/`).
+Record: `OLD_DOCROOT` (the directory containing `bitrix/` and `upload/`), a free port (3300 or another), and the CONCLUSION: whether the live site runs on this server. **If local-vhost ≠ 200 or the IPs do not match** — assets can NOT be taken with a local cp; replace Step 4 with server-side mirroring (on the server: `while read path …; do curl -s --create-dirs -o "$PUB$path" "http://naas.gov.ua$path"; sleep 0.2; done < assets-manifest.tsv` — the same script contract: a byte-for-byte copy into `public/`).
 
-- [ ] **Step 3 (G2): Аплоад** — СПИТАТИ, потім `bash portal/deploy/deploy.sh`. Очікувано: `uploaded to /var/www/naasZ4/portal-app`. Слідом закинути env: скопіювати `env.production.example` → на сервер як `portal-app/env.production` (виправивши SITE_ORIGIN на обраний піддомен, PORT на обраний порт).
+- [ ] **Step 3 (G2): Upload** — ASK, then `bash portal/deploy/deploy.sh`. Expected: `uploaded to /var/www/naasZ4/portal-app`. Right after, ship the env: copy `env.production.example` → to the server as `portal-app/env.production` (fixing SITE_ORIGIN to the chosen subdomain and PORT to the chosen port).
 
-- [ ] **Step 4 (G3): Асети на сервері** — СПИТАТИ, потім:
+- [ ] **Step 4 (G3): Assets on the server** — ASK, then:
 
 ```bash
 ssh -p "${NAAS_SSH_PORT:-22}" "${NAAS_SSH_USER}@${NAAS_HOST}" '
   cd /var/www/naasZ4/portal-app &&
   chmod +x copy-assets.sh &&
-  ./copy-assets.sh <OLD_DOCROOT з G1> /var/www/naasZ4/portal-app/app/public 2>&1 | tail -3
+  ./copy-assets.sh <OLD_DOCROOT from G1> /var/www/naasZ4/portal-app/app/public 2>&1 | tail -3
 '
 ```
 
-Очікувано: `copied=<тисячі> missing=<мало>`. Переглянути `copy-assets-missing.log` (перші 20): нормальні пропуски — файли, що вже були 404 на старому сайті.
+Expected: `copied=<thousands> missing=<few>`. Review `copy-assets-missing.log` (first 20): normal misses are files that were already 404 on the old site.
 
-- [ ] **Step 5: Тестовий запуск на сервері (без systemd, тимчасово)** — у тому ж SSH-сеансі:
+- [ ] **Step 5: Trial start on the server (no systemd, temporary)** — in the same SSH session:
 
 ```bash
 ssh -p "${NAAS_SSH_PORT:-22}" "${NAAS_SSH_USER}@${NAAS_HOST}" '
@@ -2267,9 +2270,9 @@ ssh -p "${NAAS_SSH_PORT:-22}" "${NAAS_SSH_USER}@${NAAS_HOST}" '
 '
 ```
 
-Очікувано: три `…:200` і `X-Robots-Tag: noindex, nofollow`. (Пам'ятати: без systemd процес умре після ребута — це тимчасово до G5.)
+Expected: three `…:200` and `X-Robots-Tag: noindex, nofollow`. (Remember: without systemd the process dies after a reboot — temporary until G5.)
 
-- [ ] **Step 6 (G4): Піддомен + nginx-proxy у панелі** — СПИТАТИ користувача: **яке ім'я піддомена?** (пропозиція: `portal.naas.gov.ua`; `new.naas.gov.ua` зайнятий showcase-планом). Далі користувач (або агент через claude-in-chrome, read-only навігація + користувач клікає «створити») у `control.mirohost.net`, пакет H-74503: створити піддомен + увімкнути «Nginx → проксування запитів до специфічного сервісу» на `127.0.0.1:<порт>`. Після цього:
+- [ ] **Step 6 (G4): Subdomain + nginx proxy in the panel** — ASK the user: **which subdomain name?** (proposal: `portal.naas.gov.ua`; `new.naas.gov.ua` is taken by the showcase plan). Then the user (or the agent via claude-in-chrome, read-only navigation with the user clicking "create") in `control.mirohost.net`, package H-74503: create the subdomain + enable "Nginx → proxy requests to a specific service" to `127.0.0.1:<port>`. Afterwards:
 
 ```bash
 curl -sI --max-time 20 http://portal.naas.gov.ua/ | head -5
@@ -2277,17 +2280,17 @@ curl -s -o /dev/null -w "%{http_code}\n" "http://portal.naas.gov.ua/newsukraine/
 curl -s http://portal.naas.gov.ua/robots.txt
 ```
 
-Очікувано: 200 + `X-Robots-Tag: noindex, nofollow`; 200 на query-URL; robots `Disallow: /`. Якщо панель дає SSL для піддомена (Let's Encrypt) — увімкнути й перевірити https; якщо ні — http достатньо для стейджингу (noindex все одно стоїть).
+Expected: 200 + `X-Robots-Tag: noindex, nofollow`; 200 on the query URL; robots `Disallow: /`. If the panel offers SSL for the subdomain (Let's Encrypt) — enable it and verify https; if not — http is enough for staging (noindex is in place anyway).
 
-- [ ] **Step 7 (G5): systemd-заявка** — показати користувачу `portal/deploy/systemd-request.txt` (з фактичними портом/шляхами), він надсилає в support Mirohost. Після відповіді support: `systemctl status naas-portal` (через ssh) → active; прибити nohup-процес зі Step 5 (`pkill -f "node server.js"` ТІЛЬКИ свій процес — перевірити `pgrep -af "portal-app"` перед kill).
+- [ ] **Step 7 (G5): systemd request** — show the user `portal/deploy/systemd-request.txt` (with the actual port/paths); the user sends it to Mirohost support. After support replies: `systemctl status naas-portal` (over ssh) → active; kill the nohup process from Step 5 (`pkill -f "node server.js"` ONLY our own process — check `pgrep -af "portal-app"` before killing).
 
-- [ ] **Step 8: Повний паритет проти стейджингу**
+- [ ] **Step 8: Full parity against staging**
 
 ```bash
 cd migration && node bin/verify-parity.js --base http://portal.naas.gov.ua --live 2>&1 | tail -5
 ```
 
-Очікувано: `failures: 0` (включно з зображеннями тепер!). DRIFT-рядки (контент змінився на старому сайті з моменту краулу) — це сигнал повторити Task 6 Step 4–5 (докраул дельти: state-файл підхопить нове) і передеплоїти контент (Step 3 цього таска). Звіт закомітити:
+Expected: `failures: 0` (now including images!). DRIFT rows (content changed on the old site since the crawl) are a signal to repeat Task 6 Steps 4–5 (delta re-crawl: the state file picks up what is new) and redeploy the content (Step 3 of this task). Commit the report:
 
 ```bash
 git add migration/out/reports && git commit -m "migration: staging parity report (0 failures)" && git push
@@ -2295,60 +2298,60 @@ git add migration/out/reports && git commit -m "migration: staging parity report
 
 ---
 
-### Task 14: Runbook перемикання домену (документ, БЕЗ виконання)
+### Task 14: Domain-swap runbook (a document; NOT executed)
 
 **Files:**
 - Create: `docs/runbooks/naas-domain-swap.md`
 
 **Interfaces:**
-- Consumes: усе попереднє. Виконується ЦЕЙ runbook у майбутній сесії за окремою командою користувача.
+- Consumes: everything above. THIS runbook is executed in a future session on a separate user command.
 
-- [ ] **Step 1: Написати runbook** — `docs/runbooks/naas-domain-swap.md` з розділами (кожен пункт — конкретна команда або дія в панелі, без «і т.д.»):
+- [ ] **Step 1: Write the runbook** — `docs/runbooks/naas-domain-swap.md` with these sections (every item is a concrete command or panel action, no "etc."):
 
 ```markdown
-# Runbook: перемикання naas.gov.ua на новий портал
+# Runbook: switching naas.gov.ua to the new portal
 
-## Передумови (усі мають бути виконані)
-- [ ] Паритет: verify-parity --live проти стейджингу = 0 failures (звіт свіжий, ≤ 3 днів)
-- [ ] Стейкхолдери підтвердили запуск письмово
-- [ ] Доступ до Google Search Console на naas.gov.ua Є (якщо нема — завести ЗАЗДАЛЕГІДЬ, підтвердити через DNS TXT у панелі Mirohost)
-- [ ] systemd-сервіс naas-portal активний ≥ 1 тиждень без падінь (status + uptime)
-- [ ] SSL-сертифікат для апекса naas.gov.ua ГОТОВИЙ (панель Mirohost / тікет support; старий сайт мав битий self-signed — це треба полагодити ДО свапу)
+## Preconditions (all must hold)
+- [ ] Parity: verify-parity --live against staging = 0 failures (report fresh, ≤ 3 days old)
+- [ ] Stakeholders confirmed the launch in writing
+- [ ] Google Search Console access for naas.gov.ua EXISTS (if not — set it up IN ADVANCE, verify via DNS TXT in the Mirohost panel)
+- [ ] The naas-portal systemd service has been active ≥ 1 week without crashes (status + uptime)
+- [ ] The SSL certificate for the naas.gov.ua apex is READY (Mirohost panel / support ticket; the old site had a broken self-signed one — this must be fixed BEFORE the swap)
 
-## Фриз і фінальна дельта (день X-1)
-- [ ] Оголосити контент-фриз старого сайту (домовленість з редакторами)
-- [ ] cd migration && node bin/crawl-live.js   # state-файл докачає лише нове
+## Freeze and the final delta (day X-1)
+- [ ] Announce a content freeze on the old site (agreement with the editors)
+- [ ] cd migration && node bin/crawl-live.js   # the state file fetches only what is new
 - [ ] node bin/extract-all.js && node bin/report.js
-- [ ] локальний verify (Task 12 Step 5) → 0 сторінкових провалів
-- [ ] деплой контенту: bash portal/deploy/deploy.sh (гейт SSH) + copy-assets.sh для нових асетів
+- [ ] local verify (Task 12 Step 5) → 0 page-level failures
+- [ ] content deploy: bash portal/deploy/deploy.sh (SSH gate) + copy-assets.sh for new assets
 - [ ] node bin/verify-parity.js --base http://portal.naas.gov.ua --live → 0 failures
 
-## Перемикання (день X; вікно ~15 хв; кожен крок відкотний)
-- [ ] Панель Mirohost: nginx для host naas.gov.ua (і www.naas.gov.ua) → proxy на 127.0.0.1:<порт порталу>
-      (старий сайт ЛИШАЄТЬСЯ на диску й у MySQL — це і є rollback)
-- [ ] env.production порталу: INDEXING=on, SITE_ORIGIN=https://naas.gov.ua, CANONICAL_ORIGIN=https://naas.gov.ua
-- [ ] systemctl restart naas-portal (через доступ, наданий support)
-- [ ] Увімкнути 301 http→https і www→apex (панель nginx; якщо панель не вміє — тікет support ЗАЗДАЛЕГІДЬ)
-- [ ] Смок: curl -sI https://naas.gov.ua/ (200, БЕЗ X-Robots-Tag noindex); /robots.txt (Allow + Sitemap);
-      /sitemap.xml (200, валідний XML); 5 вибіркових старих URL (зі списку нижче) — 200 і правильний title
-      - http://naas.gov.ua/content/statut-naan/  → 301 на https → 200
+## The switch (day X; ~15-minute window; every step reversible)
+- [ ] Mirohost panel: nginx for host naas.gov.ua (and www.naas.gov.ua) → proxy to 127.0.0.1:<portal port>
+      (the old site STAYS on disk and in MySQL — that is the rollback)
+- [ ] The portal's env.production: INDEXING=on, SITE_ORIGIN=https://naas.gov.ua, CANONICAL_ORIGIN=https://naas.gov.ua
+- [ ] systemctl restart naas-portal (via the access support granted)
+- [ ] Enable 301 http→https and www→apex (nginx panel; if the panel cannot — a support ticket IN ADVANCE)
+- [ ] Smoke: curl -sI https://naas.gov.ua/ (200, WITHOUT the X-Robots-Tag noindex); /robots.txt (Allow + Sitemap);
+      /sitemap.xml (200, valid XML); 5 sampled old URLs (list below) — 200 with the correct title
+      - http://naas.gov.ua/content/statut-naan/  → 301 to https → 200
       - https://naas.gov.ua/newsall/newsnaan/8984/
       - https://naas.gov.ua/newsukraine/?ELEMENT_ID=8959
       - https://naas.gov.ua/content/publichna-informaciya/pasport%20budget/
-      - https://naas.gov.ua/upload/podani.pdf (асет)
-- [ ] Стейджинговий піддомен портала: вимкнути або закрити (nginx off / noindex лишити) — щоб не плодити дублі
+      - https://naas.gov.ua/upload/podani.pdf (asset)
+- [ ] The portal's staging subdomain: disable or close it (nginx off / keep noindex) — to avoid duplicates
 
-## Після (день X .. X+14)
-- [ ] GSC: додати https://naas.gov.ua (URL-prefix), сабмітнути /sitemap.xml
-- [ ] Bing Webmaster: те саме
-- [ ] Щодня: GSC Coverage (Indexed/Excluded), логи порталу на 404 (grep " 404 " через ssh-гейт) — будь-який 404 на URL з inventory.jsonl = регресія, лагодити негайно
-- [ ] Банер «НОВИЙ САЙТ НААН» на старій головній більше не існує (стара головна вимкнена) — переконатися, що showcase new.naas.gov.ua має noindex і не конкурує
-- [ ] Через 14 днів: parity --live фінальний прогін + звіт стейкхолдерам
+## Afterwards (day X .. X+14)
+- [ ] GSC: add https://naas.gov.ua (URL prefix), submit /sitemap.xml
+- [ ] Bing Webmaster: same
+- [ ] Daily: GSC Coverage (Indexed/Excluded), portal logs for 404s (grep " 404 " via the SSH gate) — any 404 on a URL from inventory.jsonl = a regression, fix immediately
+- [ ] The «НОВИЙ САЙТ НААН» banner on the old home no longer exists (the old home is off) — make sure the showcase new.naas.gov.ua is noindex and does not compete
+- [ ] After 14 days: a final parity --live run + a report to the stakeholders
 
-## Rollback (якщо критична регресія в перші години)
-- [ ] Панель: nginx naas.gov.ua → назад на старий Bitrix (PHP) — старий сайт не чіпали, він живий
-- [ ] env: INDEXING=off на порталі, restart
-- [ ] Зафіксувати причину в docs/runbooks/ (post-mortem), виправити, повторити свап
+## Rollback (on a critical regression in the first hours)
+- [ ] Panel: nginx naas.gov.ua → back to the old Bitrix (PHP) — the old site was never touched, it is alive
+- [ ] env: INDEXING=off on the portal, restart
+- [ ] Record the cause in docs/runbooks/ (post-mortem), fix, repeat the swap
 ```
 
 - [ ] **Step 2: Commit + push**
@@ -2361,19 +2364,19 @@ git push
 
 ---
 
-## Поза скоупом цього плану (наступні плани)
+## Out of scope for this plan (follow-up plans)
 
-1. **Дизайн-порт** — перенесення обраної дизайн-системи (Astro-прототипи) у React-компоненти порталу; мігровані сторінки отримують повноцінний вигляд (URL і контент НЕ змінюються — тільки обгортка/стилі).
-2. **Directus + MySQL (Фаза 1 архітектури)** — контент із JSON переїжджає в БД; `content-store.ts` перемикається з fs-читання на API-клієнт (інтерфейс уже ізольований).
-3. **Нові розділи за ТЗ** (Міжнародна/Виставкова/Інноваційна діяльність тощо) — нові URL, контент від академії.
-4. **EN-локаль як повноцінна** — стара `/en/` мігрується as-is цим планом; новий двомовний UX — окремо.
-5. Косметика: гарні описи (meta description) для топ-сторінок — ДОДАВАННЯ, безпечне для SEO, але робиться свідомо окремо.
+1. **Design port** — porting the chosen design system (Astro prototypes) into the portal's React components; migrated pages get their full look (URLs and content do NOT change — only the wrapper/styles).
+2. **Directus + MySQL (architecture Phase 1)** — content moves from JSON into the DB; `content-store.ts` switches from fs reads to an API client (the interface is already isolated).
+3. **New sections per the requirements doc** (International/Exhibition/Innovation activity etc.) — new URLs, content supplied by the academy.
+4. **A full EN locale** — the old `/en/` is migrated as-is by this plan; a new bilingual UX is separate.
+5. Cosmetics: good meta descriptions for top pages — an ADDITION, SEO-safe, but done deliberately and separately.
 
-## Критерії приймання плану в цілому
+## Acceptance criteria for the plan as a whole
 
-1. `migration/out/inventory.jsonl` покриває все досяжне з сідів (плато BFS), 0 unclassified.
-2. `verify-parity --base <staging> --live` → **0 failures**: кожен старий 200-URL віддає 200 з тим самим `<title>` і тілом; кожен старий 404 — 404; асети — 200.
-3. Стейджинг: `X-Robots-Tag: noindex, nofollow` на кожній відповіді + robots.txt `Disallow: /` + sitemap 404. Перемикання на індексацію — ОДНА env-змінна.
-4. `INDEXING=on`-режим (перевірено тестами): canonical на кожній сторінці, валідний sitemap.xml з усіма канонічними URL (включно з query-формами), JSON-LD трьох типів.
-5. Рендеринг повністю server-side: увесь контент присутній у сирому HTML відповіді (перевіряється парсером verify-parity без виконання JS).
-6. Runbook свапу існує і самодостатній.
+1. `migration/out/inventory.jsonl` covers everything reachable from the seeds (BFS plateau), 0 unclassified.
+2. `verify-parity --base <staging> --live` → **0 failures**: every old 200 URL returns 200 with the same `<title>` and body; every old 404 is a 404; assets return 200.
+3. Staging: `X-Robots-Tag: noindex, nofollow` on every response + robots.txt `Disallow: /` + sitemap 404. Switching indexing on is ONE env variable.
+4. `INDEXING=on` mode (test-verified): a canonical on every page, a valid sitemap.xml with all canonical URLs (including query forms), JSON-LD of three types.
+5. Rendering is fully server-side: all content is present in the raw HTML response (checked by the verify-parity parser without executing JS).
+6. The swap runbook exists and is self-contained.
