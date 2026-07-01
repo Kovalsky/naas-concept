@@ -11,3 +11,27 @@ dist/
 # They live on the deployed site and regenerate from the content bundle.
 site/public/docs/
 site-modern/public/docs/
+
+# ── Working scratch: scraped old-site content dumps (regenerable; not the site) ──
+/naas_*.html
+/naas_*.txt
+/naas_*.zip
+
+# ── Working scratch: content-bundle archives + their extractions ──
+# Bulky build INPUTS for build_registries.py (naas_extract2/, *_extracted/).
+# Kept out of git like site/public/docs — outputs regenerate from these.
+/naas_admin_probe/
+/naas_content_bundle/
+/naas_content_bundle_extracted/
+/naas_extract/
+/naas_extract2/
+/naas_news_slice/
+/naas_persons/
+
+# ── Working scratch: hero-exploration prototype site (~1.7 GB) ──
+# Throwaway sandbox that produced the home-hero redesign; the shipped hero
+# lives in site/. public/ alone is 700 MB+ of mirrored PDFs — never commit.
+/site-navy/
+
+# ── Agent tooling session data (brainstorm/SDD scratch) ──
+/.superpowers/
