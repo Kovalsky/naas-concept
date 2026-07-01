@@ -1,124 +1,124 @@
-# Портал НААН — архітектура нового бекенду/фронтенду
+# NAAS Portal — architecture of the new backend/frontend
 
-**Статус:** узгоджено (рішення прийнято 2026-07-01), готово до початку імплементації.
-**Аудиторія:** розробник, що починатиме реалізацію в наступній сесії.
-**Пов'язані документи:** [`../infrastructure/mirohost-server.md`](../infrastructure/mirohost-server.md) (можливості сервера), [`../infrastructure/runtime-install-reference.md`](../infrastructure/runtime-install-reference.md) (встановлення рантаймів).
+**Status:** agreed (decision made 2026-07-01), ready to begin implementation.
+**Audience:** the developer who will begin implementation in the next session.
+**Related documents:** [`../infrastructure/mirohost-server.md`](../infrastructure/mirohost-server.md) (server capabilities), [`../infrastructure/runtime-install-reference.md`](../infrastructure/runtime-install-reference.md) (runtime installation).
 
 ---
 
-## 1. Мета й межі
+## 1. Purpose and scope
 
-Новий портал `naas.gov.ua` заміняє стару CMS (1С-Bitrix). Нинішні збірки на Astro (`site/`, `site-modern/`, …) — це **дизайн-прототипи**, а не фінальна система. Цей документ описує цільову архітектуру повноцінного порталу: React-фронтенд + власний бекенд + MySQL, з якісним SEO та зручною кастомною адмінкою для контент-менеджерів.
+The new `naas.gov.ua` portal replaces the old CMS (1C-Bitrix). The current Astro builds (`site/`, `site-modern/`, …) are **design prototypes**, not the final system. This document describes the target architecture of the full-fledged portal: a React frontend + a custom backend + MySQL, with quality SEO and a convenient custom admin panel for content managers.
 
-**Головні вимоги (від замовника/розробника):**
-- Якісне SEO (сайт із великою кількістю документів/публікацій, усі мають індексуватися).
-- Зручна **кастомна** адмінка для контент-менеджерів (біль зі старим Bitrix: незрозуміло, що з'явиться на сайті після редагування).
-- Розділи додаються за ТЗ, адмінку під них проєктуємо самі.
-- У майбутньому — база знань, завантаження статей, сабпортали для підрозділів/установ академії (кожна вантажить свої публікації).
-- Бюджет зафіксований (хостинг уже оплачено), старий сайт має жити паралельно.
+**Key requirements (from the client/developer):**
+- Quality SEO (a site with a large number of documents/publications, all of which must be indexed).
+- A convenient **custom** admin panel for content managers (pain point with the old Bitrix: unclear what will appear on the site after editing).
+- Sections are added according to the TZ (requirements spec), and we design the admin panel for them ourselves.
+- In the future — a knowledge base, article uploads, sub-portals for the academy's departments/institutions (each one publishing its own content).
+- Budget is fixed (hosting already paid for), the old site must keep running in parallel.
 
-## 2. Ключове рішення: decoupled (headless), у дві фази
+## 2. Key decision: decoupled (headless), in two phases
 
-**Архітектура — розділений фронт і бекенд (headless):**
-- **Фронтенд — назавжди на Next.js (React).** Він володіє рендерингом, SEO, кешем.
-- **Бекенд — тільки API + адмінка**, за стабільним API-контрактом. Спочатку готова headless CMS, згодом — власний Phoenix.
+**Architecture — a decoupled frontend and backend (headless):**
+- **Frontend — permanently on Next.js (React).** It owns rendering, SEO, and caching.
+- **Backend — API + admin panel only**, behind a stable API contract. Initially a ready-made headless CMS, later a custom Phoenix.
 
-**Фазність:**
-- **Фаза 1 (швидкий старт):** бекенд = **Directus** (Node headless CMS) над **власною чистою MySQL-схемою**. Дає адмінку, API, авторизацію/ролі, медіа, i18n, чернетки/прев'ю, вебхуки — «з коробки».
-- **Фаза 2 (коли будуть складніші задачі):** бекенд → **Elixir Phoenix** (власний API + кастомна LiveView-адмінка), на **тій самій MySQL-схемі**. Directus виводиться з гри, фронт не змінюється.
+**Phasing:**
+- **Phase 1 (fast start):** backend = **Directus** (Node headless CMS) on top of **our own clean MySQL schema**. Provides an admin panel, API, authorization/roles, media, i18n, drafts/preview, webhooks — "out of the box".
+- **Phase 2 (once more complex tasks arise):** backend → **Elixir Phoenix** (custom API + custom LiveView admin panel), on **the same MySQL schema**. Directus is retired, the frontend doesn't change.
 
-**Чому так:** бекенд контентного сайту тонкий (CRUD + віддати контент), тож у фазі 1 готова CMS дає майже весь цей шар безкоштовно → швидкий запуск. Фаза 2 на Phoenix дає повний контроль над адмінкою і нішевий стек (свідоме рішення розробника). Розділення фронт/бек робить заміну бекенду непомітною для фронту.
+**Why this way:** the backend of a content site is thin (CRUD + serving content), so in phase 1 a ready-made CMS provides almost this entire layer for free → a fast launch. Phase 2 on Phoenix gives full control over the admin panel and a niche stack (a deliberate choice by the developer). Decoupling the frontend/backend makes replacing the backend invisible to the frontend.
 
-## 3. Стек (підсумок)
+## 3. Stack (summary)
 
-| Шар | Фаза 1 | Фаза 2 | Нотатки |
+| Layer | Phase 1 | Phase 2 | Notes |
 |---|---|---|---|
-| Фронтенд | **Next.js (React)** | те саме | SSR + ISR, SEO, кеш; постійний |
-| Бекенд/адмінка | **Directus** (Node) | **Elixir Phoenix** | за стабільним API-контрактом |
-| Адмінка | Directus UI (+ прев'ю) | кастомна **LiveView** (старт від Backpex) | |
-| БД | **MySQL** (власна схема) | та сама MySQL-схема | Postgres недоступний без root |
-| Кеш | Next.js **ISR** (файловий) | те саме | **Redis не потрібен** (один сервер) |
-| Рендер | SSR + on-demand + статика | те саме | див. розділ 6 |
+| Frontend | **Next.js (React)** | same | SSR + ISR, SEO, cache; permanent |
+| Backend/admin | **Directus** (Node) | **Elixir Phoenix** | behind a stable API contract |
+| Admin panel | Directus UI (+ preview) | custom **LiveView** (starting from Backpex) | |
+| DB | **MySQL** (custom schema) | the same MySQL schema | Postgres unavailable without root |
+| Cache | Next.js **ISR** (file-based) | same | **Redis not needed** (single server) |
+| Render | SSR + on-demand + static | same | see section 6 |
 
-## 4. Фронтенд (Next.js)
+## 4. Frontend (Next.js)
 
-- **React, залишається назавжди** (навіть після переходу бекенду на Phoenix). Дизайн переноситься з наявних Astro-прототипів (HTML/CSS портуються; Astro-компоненти → React вручну).
-- **Рендеринг:** SSR + **ISR** (Incremental Static Regeneration). Стабільні сторінки (головна, про академію, розділи) — статичні/ISR; «довгий хвіст» документів — рендер на запит + кеш. Усе віддає повний HTML → повноцінне SEO.
-- **Кеш:** ISR за замовчуванням кешує на **файловій системі**; для одного сервера цього достатньо, **Redis не потрібен** (він знадобився б лише за кількох інстансів). [verified: Next.js docs]
-- **Двомовність:** UA/EN (як у прототипах).
-- **Живлення даними:** через API бекенду (Directus зараз, Phoenix потім).
+- **React, stays forever** (even after the backend moves to Phoenix). The design is carried over from the existing Astro prototypes (HTML/CSS are ported; Astro components → React manually).
+- **Rendering:** SSR + **ISR** (Incremental Static Regeneration). Stable pages (homepage, about the academy, sections) — static/ISR; the "long tail" of documents — render on request + cache. Everything serves full HTML → full-fledged SEO.
+- **Cache:** ISR by default caches on the **file system**; for a single server this is sufficient, **Redis is not needed** (it would only be needed with multiple instances). [verified: Next.js docs]
+- **Bilingual support:** UA/EN (as in the prototypes).
+- **Data feed:** via the backend API (Directus now, Phoenix later).
 
-> Альтернатива, яку відхилили: лишитись на Astro (він теж уміє SSR+кеш і повторно використав би готовий дизайн). Обрано Next.js свідомо — щоб фронт назавжди був у React.
+> Rejected alternative: staying on Astro (it can also do SSR+cache and would reuse the existing design). Next.js was chosen deliberately — so the frontend would permanently be in React.
 
-## 5. Бекенд
+## 5. Backend
 
-### Фаза 1 — Directus (headless CMS, Node)
-- **Database-first:** ми проєктуємо власну чисту MySQL-схему, Directus «обгортає» її адмінкою. [verified: Directus підтримує MySQL нативно]
-- Дає **з коробки:** REST + GraphQL API, авторизацію + ролі/права (RBAC — критично для сабпорталів установ), медіа/завантаження файлів, типи полів і зв'язки, **draft/publish + прев'ю** (лікує біль Bitrix), i18n, **вебхуки** (тригер перегенерації).
-- Запускається як Node-процес на локальному порту.
+### Phase 1 — Directus (headless CMS, Node)
+- **Database-first:** we design our own clean MySQL schema, and Directus "wraps" it with an admin panel. [verified: Directus supports MySQL natively]
+- Provides **out of the box:** REST + GraphQL API, authorization + roles/permissions (RBAC — critical for institution sub-portals), media/file uploads, field types and relations, **draft/publish + preview** (cures the Bitrix pain point), i18n, **webhooks** (regeneration trigger).
+- Runs as a Node process on a local port.
 
-> **Не Strapi.** Strapi сам володіє схемою БД → міграція на Phoenix болісна. Directus не чіпає нашу схему → Phoenix потім просто підхоплює її. Це критично для фази 2.
+> **Not Strapi.** Strapi owns the DB schema itself → migrating to Phoenix would be painful. Directus doesn't touch our schema → Phoenix can later simply pick it up. This is critical for phase 2.
 
-### Фаза 2 — Elixir Phoenix (майбутнє)
-- Власний **API** + **кастомна адмінка на LiveView** (старт від бібліотеки **Backpex** — скафолд CRUD, далі кастомізація під редакторів).
-- Працює на **тій самій MySQL-схемі** через Ecto.
-- Причини: повний контроль над UX адмінки + нішевий стек (job-security розробника). Real-time (LiveView) — бонус, не критично.
+### Phase 2 — Elixir Phoenix (future)
+- A custom **API** + **custom admin panel on LiveView** (starting from the **Backpex** library — CRUD scaffolding, then customization for editors).
+- Runs on **the same MySQL schema** via Ecto.
+- Reasons: full control over the admin UX + a niche stack (developer job security). Real-time (LiveView) — a bonus, not critical.
 
-## 6. Рендеринг і кеш (важливо для «багато документів + SEO»)
+## 6. Rendering and caching (important for "many documents + SEO")
 
-**Не «повна перезбірка статики»** (не масштабується на тисячі документів). Замість цього:
-- **SSR + кеш + інвалідація при зміні контенту** (по суті ISR): сторінка рендериться раз, далі віддається з кешу; при зміні контенту перегенерується лише вона.
-- Стабільні сторінки — статичні/ISR; сторінки документів — on-demand + кеш → новий документ живий одразу, без перебудови всього сайту.
+**Not a "full static rebuild"** (doesn't scale to thousands of documents). Instead:
+- **SSR + cache + invalidation on content change** (essentially ISR): a page is rendered once, then served from cache; when content changes, only that page is regenerated.
+- Stable pages — static/ISR; document pages — on-demand + cache → a new document goes live immediately, without rebuilding the entire site.
 
-**Інвалідація:** CMS при збереженні контенту б'є **вебхук** → Next.js робить on-demand revalidation саме зміненої сторінки.
+**Invalidation:** when content is saved, the CMS fires a **webhook** → Next.js performs on-demand revalidation of exactly the changed page.
 
-**Чому кеш обов'язковий:** сервер 2 vCPU / 4 ГБ. Голий SSR під краулерами (Google повзе по тисячах документів) може не витягти рендер на кожен хіт. Кеш знімає цю проблему. Кеш кладемо в застосунок (ISR), бо повний контроль над nginx не гарантований.
+**Why caching is mandatory:** the server is 2 vCPU / 4 GB. Bare SSR under crawlers (Google crawling through thousands of documents) might not be able to handle rendering on every hit. Caching removes this problem. We put the cache in the application (ISR), because full control over nginx is not guaranteed.
 
-## 7. API-контракт (лінчпін архітектури)
+## 7. API contract (the linchpin of the architecture)
 
-**Найважливіше для безболісної фази 2:** з першого дня зафіксувати стабільний контракт API між фронтом і бекендом. Тоді заміна Directus → Phoenix — прозора для фронту (він не знає, хто відповідає). Якщо форма даних Directus не влаштує напряму — прокласти тонкий адаптер/BFF.
+**The most important thing for a painless phase 2:** lock in a stable API contract between the frontend and backend from day one. Then the Directus → Phoenix swap is transparent to the frontend (it doesn't know who's responding). If Directus's data shape doesn't suit us directly — lay down a thin adapter/BFF.
 
-## 8. Топологія розгортання (сервер Mirohost eVPS-8)
+## 8. Deployment topology (Mirohost eVPS-8 server)
 
-Деталі й обмеження сервера: [`../infrastructure/mirohost-server.md`](../infrastructure/mirohost-server.md).
+Server details and constraints: [`../infrastructure/mirohost-server.md`](../infrastructure/mirohost-server.md).
 
-- **Процеси (Node), кожен на власному внутрішньому порту:**
-  - Next.js (фронтенд-рендер)
-  - Directus (CMS/API/адмінка)
-- **Персистентність/автозапуск:** systemd-сервіси **створює Mirohost** (ми надаємо команду запуску, робочу теку, користувача, порт, env); нам видають доступ на start/restart/status. (crontab для нашого користувача заблоковано, тому `@reboot` не варіант.)
-- **Публічний доступ:** nginx reverse-proxy на внутрішні порти — **налаштовуємо самі** в контрольній панелі Mirohost.
-- **БД:** MySQL (уже є на сервері).
-- **Кеш:** файловий (ISR) у застосунку. Redis не потрібен і в панелі не пропонується.
-- **Старий сайт (Bitrix) живе на цьому ж сервері — не чіпати.** HOME = `/var/www/naasZ4` спільний зі старим сайтом.
+- **Processes (Node), each on its own internal port:**
+  - Next.js (frontend rendering)
+  - Directus (CMS/API/admin panel)
+- **Persistence/autostart:** systemd services **are created by Mirohost** (we provide the start command, working directory, user, port, env); we are given access to start/restart/status. (crontab for our user is blocked, so `@reboot` is not an option.)
+- **Public access:** nginx reverse proxy to the internal ports — **we configure this ourselves** in the Mirohost control panel.
+- **DB:** MySQL (already present on the server).
+- **Cache:** file-based (ISR) in the application. Redis is not needed and is not offered in the panel.
+- **The old site (Bitrix) lives on this same server — do not touch it.** HOME = `/var/www/naasZ4` is shared with the old site.
 
-## 9. Сабпортали установ (майбутнє)
+## 9. Institution sub-portals (future)
 
-RBAC/мультитенантність Directus (а згодом ролі в Phoenix) дозволяє кожній установі/підрозділу мати власний доступ і вантажити свої публікації. Закласти в схему сутність «організація/установа» та прив'язку контенту й користувачів до неї заздалегідь.
+Directus's RBAC/multi-tenancy (and later, roles in Phoenix) lets each institution/department have its own access and publish its own content. Build an "organization/institution" entity into the schema, along with the binding of content and users to it, in advance.
 
-## 10. Дорожня карта
+## 10. Roadmap
 
-- **Фаза 0 — схема БД.** Спроєктувати чисту нормалізовану MySQL-схему під розділи з ТЗ (новини, документи/публікації, установи/підрозділи, сторінки, персони, події, медіа). Це довговічний актив, не віддавати на відкуп CMS.
-- **Фаза 1 — запуск (ціль ~тижні):**
-  1. Підняти Directus на цій схемі (Node, локальний порт), налаштувати колекції, ролі, медіа, i18n.
-  2. Зафіксувати API-контракт.
-  3. Next.js-фронт, що споживає API: SSR/ISR, перенесення дизайну з Astro, SEO, UA/EN.
-  4. Вебхук Directus → revalidate у Next.js.
-  5. Узгодити з Mirohost systemd-сервіси для обох процесів; налаштувати nginx-проксі в панелі.
-  6. Викотити (піддомен), старий сайт не чіпати.
-- **Фаза 2 — Phoenix (коли складніші задачі):** Phoenix + Ecto на тій самій схемі; кастомна LiveView-адмінка (від Backpex); вивести Directus. Рантайм Erlang/Elixir просимо в Mirohost заздалегідь (див. install-reference).
+- **Phase 0 — DB schema.** Design a clean, normalized MySQL schema for the sections from the TZ (news, documents/publications, institutions/departments, pages, persons, events, media). This is a long-lived asset — don't outsource it to the CMS.
+- **Phase 1 — launch (target ~weeks):**
+  1. Stand up Directus on this schema (Node, local port), configure collections, roles, media, i18n.
+  2. Lock in the API contract.
+  3. Next.js frontend consuming the API: SSR/ISR, porting the design from Astro, SEO, UA/EN.
+  4. Directus webhook → revalidate in Next.js.
+  5. Coordinate with Mirohost on systemd services for both processes; configure the nginx proxy in the panel.
+  6. Roll out (subdomain), without touching the old site.
+- **Phase 2 — Phoenix (once more complex tasks arise):** Phoenix + Ecto on the same schema; a custom LiveView admin panel (from Backpex); retire Directus. Request the Erlang/Elixir runtime from Mirohost in advance (see install-reference).
 
-## 11. Перші кроки для наступної сесії
+## 11. First steps for the next session
 
-1. Зібрати/уточнити ТЗ розділів сайту → скласти **MySQL-схему** (Фаза 0).
-2. Prototype Directus локально на цій схемі; перевірити ролі й прев'ю.
-3. Описати **API-контракт** (ендпоінти/поля, що споживає фронт).
-4. Ініціалізувати Next.js-проєкт, перенести дизайн з `site/` (Astro), налаштувати ISR + i18n.
-5. Реалізувати revalidation-вебхук.
-6. Підготувати дані для systemd-сервісів і надіслати Mirohost; налаштувати проксі.
+1. Gather/clarify the TZ for the site's sections → build the **MySQL schema** (Phase 0).
+2. Prototype Directus locally on this schema; verify roles and preview.
+3. Document the **API contract** (endpoints/fields consumed by the frontend).
+4. Initialize the Next.js project, port the design from `site/` (Astro), configure ISR + i18n.
+5. Implement the revalidation webhook.
+6. Prepare the data for the systemd services and send it to Mirohost; configure the proxy.
 
-## 12. Відкриті питання
+## 12. Open questions
 
-- Точна контент-модель/схема — залежить від ТЗ розділів.
-- Піддомен для нового порталу (який саме) і стратегія співіснування зі старим сайтом.
-- Чи лишати частину маркетингових сторінок на Astro-статиці (можлива економія на портуванні) — за замовчуванням усе на Next.js.
-- Деталі мультитенантності сабпорталів (Фаза 2+).
+- Exact content model/schema — depends on the TZ for the sections.
+- The subdomain for the new portal (which one exactly) and the coexistence strategy with the old site.
+- Whether to leave some marketing pages on Astro static (possible savings on porting) — by default, everything goes on Next.js.
+- Details of sub-portal multi-tenancy (Phase 2+).

@@ -1,71 +1,71 @@
-# Хостинг Mirohost eVPS-8 — перевірені можливості та обмеження
+# Mirohost eVPS-8 Hosting — Verified Capabilities and Limitations
 
-**Що це:** емпіричні факти про сервер, куди виїжджатиме новий портал. Зібрано в сесії 2026-07-01 через прямий SSH-доступ і читання контрольної панелі (read-only). Використовувати як джерело правди для інфраструктурних рішень.
+**What this is:** empirical facts about the server that the new portal will be deployed to. Collected in the 2026-07-01 session via direct SSH access and reading the control panel (read-only). Use as the source of truth for infrastructure decisions.
 
-**Пов'язане:** [`../architecture/portal-architecture.md`](../architecture/portal-architecture.md), [`runtime-install-reference.md`](runtime-install-reference.md).
+**Related:** [`../architecture/portal-architecture.md`](../architecture/portal-architecture.md), [`runtime-install-reference.md`](runtime-install-reference.md).
 
 ---
 
-## Доступ
+## Access
 
-- **SSH:** `vs581.mirohost.net`, порт `22`, користувач `bbnaasnew` (`uid=1001(naasZ4)`, група `apache`), автентифікація **паролем** (креди в `~/.naas_hosting.env`, поза репо). [verified: SSH-логін]
-- Доступ по IP може бути обмежений («Обмеження доступу» в панелі); наш Mac уже проходить.
-- **Панель:** `https://control.mirohost.net`, пакет **H-74503**.
-- **Правило:** перед КОЖНИМ SSH-підключенням питати користувача (жорстке правило). Ключем не заходимо — панель не дає завантажити публічний ключ, авторизація парольна.
+- **SSH:** `vs581.mirohost.net`, port `22`, user `bbnaasnew` (`uid=1001(naasZ4)`, group `apache`), **password** authentication (credentials in `~/.naas_hosting.env`, outside the repo). [verified: SSH login]
+- IP-based access may be restricted ("Access Restriction" in the panel); our Mac already passes.
+- **Panel:** `https://control.mirohost.net`, package **H-74503**.
+- **Rule:** ask the user before EVERY SSH connection (strict rule). We don't log in with a key — the panel doesn't allow uploading a public key, authentication is password-based.
 
-## Система
+## System
 
-- **ОС:** Debian 12 (bookworm), контейнер на Ubuntu-ядрі 6.14. [verified: `/etc/os-release`, `uname`]
-- **Shell:** `/bin/bash` — повноцінний інтерактивний. [verified]
-- **root:** НЕМАЄ. `sudo` вимагає пароль (безпарольного root нема). [verified]
-- **HOME:** `/var/www/naasZ4` — **спільний зі старим сайтом Bitrix** (там лежать його файли й піддомени установ). **Старий сайт не чіпати.** [verified: `ls ~`]
-- **Диск:** `df` показує `/dev/sda3` 256 ГБ, ~242 ГБ вільно (6%). [verified: `df`] Номінал тарифу eVPS-8 у панелі — 49 ГБ. Для планування безпечно орієнтуватись на 49 ГБ, реальну квоту звірити перед великим використанням.
-- **CPU/RAM:** тариф eVPS-8 = **2 vCPU / 4 ГБ**. [verified: панель] Важливо для рішень про кеш (див. архітектуру).
-- **Вихідна мережа:** працює (HTTP 200 до nodejs.org). [verified]
-- **Веб-сервер:** `nginx` запущений. [verified: `ps`]
+- **OS:** Debian 12 (bookworm), container on Ubuntu kernel 6.14. [verified: `/etc/os-release`, `uname`]
+- **Shell:** `/bin/bash` — full interactive shell. [verified]
+- **root:** NOT AVAILABLE. `sudo` requires a password (there is no passwordless root). [verified]
+- **HOME:** `/var/www/naasZ4` — **shared with the old Bitrix site** (its files and institute subdomains live there). **Do not touch the old site.** [verified: `ls ~`]
+- **Disk:** `df` shows `/dev/sda3` 256 GB, ~242 GB free (6%). [verified: `df`] The eVPS-8 plan's nominal figure in the panel is 49 GB. For planning purposes it's safe to plan around 49 GB; verify the actual quota before any large-scale usage.
+- **CPU/RAM:** eVPS-8 plan = **2 vCPU / 4 GB**. [verified: panel] Important for caching decisions (see architecture).
+- **Outbound network:** works (HTTP 200 to nodejs.org). [verified]
+- **Web server:** `nginx` is running. [verified: `ps`]
 
-## Що вже встановлено
+## What's Already Installed
 
-[verified: SSH-probe]
+[verified: SSH probe]
 - **Node.js v20.20.2**, npm 10.8.2, npx
-- **Python 3.11.2**, pip 23.0.1, `python3 -m venv` доступний
-- **PHP 5.6.40** (старий; для старого сайту)
+- **Python 3.11.2**, pip 23.0.1, `python3 -m venv` available
+- **PHP 5.6.40** (old; for the old site)
 - git 2.39.5, curl, wget, tar, xz
-- 1262 dpkg-пакети загалом
+- 1262 dpkg packages total
 
-## Чого НЕМАЄ (і без root самі не поставимо)
+## What's Missing (and We Can't Install Ourselves Without root)
 
-[verified: SSH-probe]
-- **Компілятора:** `gcc`, `cc`, `clang`, `g++`, `make`, `cmake` — відсутні. Наслідок: нативні розширення з сирців не збираються; покладатись на **готові бінарники** (npm/pip wheels їх тягнуть).
-- **Ruby / gem**, будь-які менеджери версій Ruby — нема.
-- **Elixir / Erlang** — нема (Debian-пакет Elixir застарий, 1.14; потрібен свіжий — див. install-reference).
-- **Redis / Memcached** — нема, і в панелі як послуга **не пропонується** (перевірено: 0 згадок у каталозі замовлення 161 КБ, у `vs_management/daemons`, `/services`). [verified: read панелі]
-- Go, Deno, Bun, Java, .NET, screen, tmux, rustc — нема.
+[verified: SSH probe]
+- **Compiler:** `gcc`, `cc`, `clang`, `g++`, `make`, `cmake` — missing. Consequence: native extensions can't be built from source; rely on **prebuilt binaries** (npm/pip wheels pull those in).
+- **Ruby / gem**, any Ruby version managers — none.
+- **Elixir / Erlang** — none (the Debian Elixir package is outdated, 1.14; a fresh one is needed — see install-reference).
+- **Redis / Memcached** — none, and **not offered** as a service in the panel (verified: 0 mentions in the 161 KB order catalog, in `vs_management/daemons`, `/services`). [verified: panel read]
+- Go, Deno, Bun, Java, .NET, screen, tmux, rustc — none.
 
-## Що працює без root (перевірено емпірично)
+## What Works Without root (Verified Empirically)
 
-- **Userland `npm install`** пакетів (чистий JS + готові бінарники) — так. [verified: `npm install express` + `require` OK]
-- **Node-сервер на порту** (`127.0.0.1:PORT`), слухає, віддає HTTP. [verified: тест на :38080]
-- **Python venv + pip** — так.
-- Тобто чисті стеки (Next.js, Directus, Django+gunicorn+PyMySQL) стартують **як є**.
+- **Userland `npm install`** of packages (pure JS + prebuilt binaries) — yes. [verified: `npm install express` + `require` OK]
+- **Node server on a port** (`127.0.0.1:PORT`), listens, serves HTTP. [verified: test on :38080]
+- **Python venv + pip** — yes.
+- I.e., pure stacks (Next.js, Directus, Django+gunicorn+PyMySQL) start **as-is**.
 
-## Обмеження виконання
+## Execution Limitations
 
-- **`crontab` заблоковано** для нашого користувача (`/usr/bin/crontab: Permission denied`). [verified] → `@reboot`-автозапуск недоступний.
-- Тому персистентність процесів — **через systemd, який налаштовує Mirohost** (див. нижче).
+- **`crontab` is blocked** for our user (`/usr/bin/crontab: Permission denied`). [verified] → `@reboot` auto-start is unavailable.
+- Therefore, process persistence is **via systemd, which Mirohost configures** (see below).
 
-## Що підтвердив support Mirohost (умови)
+## What Mirohost Support Confirmed (Terms)
 
-*(зі слів support у листуванні — не перевірялось інструментом)*
-- **root/sudo не видають.**
-- **systemd:** ми надаємо дані сервісу (команда запуску, робоча тека, користувач, порт, env) → вони створюють unit; нам дають доступ на **start / restart / status**. Так вирішується постійний фоновий процес + автозапуск після ребута.
-- **nginx reverse-proxy** на будь-який внутрішній порт — вмикаємо **самі** в контрольній панелі («Nginx → проксування запитів до специфічного сервісу»).
-- Готові **встановити системно** один рантайм на вибір: **Ruby 4.0.5 + toolchain** АБО **Erlang/OTP + Elixir + inotify-tools** (пакети — в install-reference).
+*(from support's word in correspondence — not verified by tooling)*
+- **root/sudo are not granted.**
+- **systemd:** we provide the service details (start command, working directory, user, port, env) → they create the unit; we're given access to **start / restart / status**. This is how persistent background processes + restart-after-reboot are handled.
+- **nginx reverse proxy** to any internal port — we enable it **ourselves** in the control panel ("Nginx → proxying requests to a specific service").
+- They're willing to **install system-wide** one runtime of our choice: **Ruby 4.0.5 + toolchain** OR **Erlang/OTP + Elixir + inotify-tools** (packages — in install-reference).
 
-## База даних
+## Database
 
-- **Тільки MySQL/MariaDB** (phpMyAdmin у панелі). PostgreSQL без root не поставимо → в архітектурі закладено MySQL.
+- **MySQL/MariaDB only** (phpMyAdmin in the panel). We can't install PostgreSQL without root → MySQL is assumed in the architecture.
 
-## БД/панель — навігація (для read-only рекогносцирування)
+## DB/Panel — Navigation (for Read-Only Reconnaissance)
 
-Панель — SPA (Metro 4). Ключові шляхи: `/order/H-74503` (послуга), `/order/H-74503/vs_management/daemons` (сервіси/демони), `/order/H-74503/vs_management/php_version`, `/order/H-74503/change_tariff`, `/billing_managment/create_order` (каталог замовлення), `/services`. Читати через in-page `fetch` (несе авторизацію), повертати лише знеособлені агрегати — MCP маскує cookie/query-string як `[BLOCKED: …]` (очікувано).
+The panel is an SPA (Metro 4). Key paths: `/order/H-74503` (service), `/order/H-74503/vs_management/daemons` (services/daemons), `/order/H-74503/vs_management/php_version`, `/order/H-74503/change_tariff`, `/billing_managment/create_order` (order catalog), `/services`. Read via in-page `fetch` (carries authorization), return only anonymized aggregates — MCP masks cookies/query-strings as `[BLOCKED: …]` (expected).

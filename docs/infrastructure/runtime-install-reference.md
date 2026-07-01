@@ -1,35 +1,35 @@
-# Встановлення рантаймів на сервері (Debian 12 bookworm) — довідник
+# Installing Runtimes on the Server (Debian 12 bookworm) — Reference
 
-**Що це:** перевірені переліки системних пакетів для встановлення рантаймів на нашому сервері (Debian 12). Ставить **Mirohost support** (root у нас нема). Назви пакетів звірені саме для bookworm.
+**What this is:** verified lists of system packages for installing runtimes on our server (Debian 12). Installed by **Mirohost support** (we don't have root). Package names are verified specifically for bookworm.
 
-**Пов'язане:** [`mirohost-server.md`](mirohost-server.md), [`../architecture/portal-architecture.md`](../architecture/portal-architecture.md).
+**Related:** [`mirohost-server.md`](mirohost-server.md), [`../architecture/portal-architecture.md`](../architecture/portal-architecture.md).
 
-**Що вже є, ставити не треба:** Node.js v20 + npm, Python 3.11 + pip + venv, git. Тобто **фаза 1 (Next.js + Directus) не потребує жодних встановлень.** Цей довідник — для рантаймів, яких нема (Elixir для фази 2; Ruby — як відхилена альтернатива, лишено для повноти).
+**Already present, no need to install:** Node.js v20 + npm, Python 3.11 + pip + venv, git. In other words, **Phase 1 (Next.js + Directus) requires no installations at all.** This reference covers the runtimes we don't have (Elixir for Phase 2; Ruby — as a rejected alternative, kept here for completeness).
 
 ---
 
-## Elixir / Phoenix (фаза 2 — цільовий бекенд)
+## Elixir / Phoenix (Phase 2 — target backend)
 
-Актуальний **Phoenix v1.8.8** потребує **Elixir 1.15+** і **Erlang/OTP 24+**. Node для Phoenix не потрібен (вбудований esbuild). Сам Phoenix ставимо ми через `mix archive.install hex phx_new`. Драйвери БД (`myxql`) — чистий Elixir, системних бібліотек не треба. [verified: phoenix.hexdocs.pm/installation]
+The current **Phoenix v1.8.8** requires **Elixir 1.15+** and **Erlang/OTP 24+**. Node is not required for Phoenix (esbuild is built in). We install Phoenix itself via `mix archive.install hex phx_new`. The DB driver (`myxql`) is pure Elixir, no system libraries needed. [verified: phoenix.hexdocs.pm/installation]
 
-**Важливо:** Debian-пакет `elixir` у bookworm — **1.14** (застарий для Phoenix 1.8). [verified: packages.debian.org] Тобто штатний `apt install elixir` **не годиться**.
+**Important:** the Debian package `elixir` in bookworm is **1.14** (too old for Phoenix 1.8). [verified: packages.debian.org] So the standard `apt install elixir` **will not work**.
 
-**Що просити в Mirohost (найпростіший шлях):**
-- свіжий **Erlang/OTP** (24+, напр. `esl-erlang` з репозиторію Erlang Solutions)
-- актуальний **Elixir** (1.15+)
-- `inotify-tools` (для live-reload)
+**What to request from Mirohost (the simplest route):**
+- a recent **Erlang/OTP** (24+, e.g. `esl-erlang` from the Erlang Solutions repository)
+- a current **Elixir** (1.15+)
+- `inotify-tools` (for live-reload)
 
-**Додатково — build-toolchain, щоб ми самі оновлювали версії через asdf/mise без нового тікета:**
+**Additionally — a build toolchain, so we can update versions ourselves via asdf/mise without a new ticket:**
 ```
 build-essential autoconf m4 libncurses-dev libssl-dev
 ```
-Ці назви звірені для bookworm. `inotify-tools` у bookworm = 3.22. [verified: packages.debian.org]
+These names are verified for bookworm. `inotify-tools` in bookworm = 3.22. [verified: packages.debian.org]
 
 ---
 
-## Ruby 4.0.5 + Rails (відхилена альтернатива — для повноти)
+## Ruby 4.0.5 + Rails (rejected alternative — for completeness)
 
-Актуальний стабільний — **Ruby 4.0.5** (реліз 2026-05-20). [verified: ruby-lang.org] Одна команда (виконує root):
+The current stable release is **Ruby 4.0.5** (released 2026-05-20). [verified: ruby-lang.org] One command (run by root):
 
 ```
 apt-get install -y build-essential autoconf patch \
@@ -38,18 +38,18 @@ apt-get install -y build-essential autoconf patch \
   rustc default-libmysqlclient-dev
 ```
 
-- `build-essential autoconf patch` — компіляція Ruby та нативних gem-ів. [verified: ruby-build wiki]
-- `libssl-dev libyaml-dev zlib1g-dev libffi-dev libgmp-dev` — обов'язковий мінімум для збірки Ruby. [verified: ruby-build «Suggested build environment»]
-- `libreadline-dev` (8.2), `libncurses-dev` (6.4), `libgdbm6` (1.23) + `libgdbm-dev`, `libdb-dev` (5.3) — повна стандартна бібліотека. [verified: packages.debian.org, кожен]
-- `default-libmysqlclient-dev` (1.1.0) — для gem `mysql2`. [verified: packages.debian.org]
-- `rustc` — bookworm дає **1.63**. Достатньо для **YJIT** (робочий JIT). Для нового **ZJIT** треба Rust **1.85+**, якого в apt нема — але ZJIT експериментальний і не для продакшену; за потреби новіший Rust ставиться userland через `rustup` без root. [verified: ruby-lang release notes; packages.debian.org rustc 1.63]
+- `build-essential autoconf patch` — for compiling Ruby and native gems. [verified: ruby-build wiki]
+- `libssl-dev libyaml-dev zlib1g-dev libffi-dev libgmp-dev` — the mandatory minimum for building Ruby. [verified: ruby-build "Suggested build environment"]
+- `libreadline-dev` (8.2), `libncurses-dev` (6.4), `libgdbm6` (1.23) + `libgdbm-dev`, `libdb-dev` (5.3) — the full standard library. [verified: packages.debian.org, each]
+- `default-libmysqlclient-dev` (1.1.0) — for the `mysql2` gem. [verified: packages.debian.org]
+- `rustc` — bookworm provides **1.63**. Sufficient for **YJIT** (the production JIT). The newer **ZJIT** needs Rust **1.85+**, which isn't in apt — but ZJIT is experimental and not for production; if needed, a newer Rust can be installed userland via `rustup` without root. [verified: ruby-lang release notes; packages.debian.org rustc 1.63]
 
-Після встановлення рантайму ми самі: rbenv/ruby-build → Ruby в домашню теку → bundler → Rails → Puma.
+After the runtime is installed, we handle the rest ourselves: rbenv/ruby-build → Ruby into the home directory → bundler → Rails → Puma.
 
 ---
 
-## Що встановлювати не треба
+## What doesn't need to be installed
 
-- **Redis** — не потрібен (Next.js ISR кешує на файловій системі; один сервер). У панелі Mirohost як послуга не пропонується; за потреби — окремий запит до support. [verified: Next.js docs; read панелі]
-- **Node / Python** — уже стоять.
-- **PostgreSQL** — недоступний без root; архітектура на MySQL.
+- **Redis** — not needed (Next.js ISR caches on the filesystem; single server). Not offered as a service in the Mirohost panel; if needed, a separate request to support. [verified: Next.js docs; panel read]
+- **Node / Python** — already installed.
+- **PostgreSQL** — unavailable without root; the architecture is on MySQL.
