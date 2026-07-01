@@ -19,10 +19,12 @@ const intro = blocks.find((b) => !b.startsWith('#')) ?? '';
 const misIdx = blocks.findIndex((b) => /^##\s*Місія/i.test(b));
 const mission = misIdx >= 0 ? (blocks[misIdx + 1] ?? '') : '';
 
+// Four figures, matching Gravitas exactly (labels via the shared i18n keys).
 const stats = [
-  { n: '1918', uk: 'рік заснування', en: 'year founded' },
-  { n: String(divisionCount), uk: 'наукових відділень', en: 'research divisions' },
-  { n: '84', uk: 'наукових установ', en: 'research institutions' },
+  { n: '1918', k: 'home.factFounded' },
+  { n: String(divisionCount), k: 'home.factDivisions' },
+  { n: '84', k: 'home.factInstitutions' },
+  { n: '176', k: 'home.factOrganizations' },
 ];
 
 const resources = [
@@ -61,7 +63,7 @@ const resources = [
         {stats.map((s) => (
           <div class="hm-stat">
             <div class="hm-stat__n">{s.n}</div>
-            <div class="hm-stat__l mono"><span class="t-uk">{s.uk}</span><span class="t-en">{s.en}</span></div>
+            <div class="hm-stat__l mono"><T k={s.k} /></div>
           </div>
         ))}
       </div>
@@ -237,15 +239,22 @@ const resources = [
   .hm-hero__more { color: #fff; font-weight: 600; font-size: 14px; margin-left: 4px; }
 
   .hm-hero__stats { position: relative; border-top: 1px solid rgba(255,255,255,.16); background: rgba(8,14,11,.42); backdrop-filter: blur(3px); }
-  .hm-hero__statsgrid { display: grid; grid-template-columns: repeat(3, 1fr); }
-  .hm-stat { padding: 24px 28px; border-right: 1px solid rgba(255,255,255,.14); }
+  .hm-hero__statsgrid { display: grid; grid-template-columns: repeat(4, 1fr); }
+  .hm-stat { padding: 24px 22px; border-right: 1px solid rgba(255,255,255,.14); }
   .hm-stat:first-child { padding-left: 0; }
   .hm-stat:last-child { border-right: none; padding-right: 0; }
   .hm-stat__n { font-family: var(--fd); font-weight: 700; font-size: 38px; line-height: 1; color: #fff; }
   .hm-stat__l { margin-top: 6px; font-size: 10.5px; letter-spacing: .1em; text-transform: uppercase; color: rgba(255,255,255,.62); }
-  @media (max-width: 620px) {
+  @media (max-width: 720px) {
+    .hm-hero__statsgrid { grid-template-columns: repeat(2, 1fr); }
+    .hm-stat:nth-child(2n) { border-right: none; }
+    .hm-stat:nth-child(1), .hm-stat:nth-child(2) { border-bottom: 1px solid rgba(255,255,255,.14); }
+    .hm-stat:nth-child(3) { padding-left: 0; }
+  }
+  @media (max-width: 430px) {
     .hm-hero__statsgrid { grid-template-columns: 1fr; }
-    .hm-stat { padding: 16px 0; border-right: none; border-bottom: 1px solid rgba(255,255,255,.14); }
+    .hm-stat { padding: 14px 0; border-right: none; border-bottom: 1px solid rgba(255,255,255,.14); }
+    .hm-stat:nth-child(3) { padding-left: 0; }
     .hm-stat:last-child { border-bottom: none; }
   }
 
