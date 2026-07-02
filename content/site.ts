@@ -102,7 +102,7 @@ export const PARTNERS: { label: string; href: string }[] = [
   { label: 'Президент України', href: 'https://www.president.gov.ua/' },
   { label: 'Урядовий портал', href: 'https://www.kmu.gov.ua/' },
   { label: 'Верховна Рада України', href: 'https://www.rada.gov.ua/' },
-  { label: 'Міністерство аграрної політики', href: 'https://minagro.gov.ua/' },
+  { label: 'Міністерство аграрної політики та продовольства України', href: 'https://minagro.gov.ua/' },
 ];
 
 // Static search index (page/section titles) for the header search.
