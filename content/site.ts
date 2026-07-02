@@ -39,6 +39,9 @@ export const EXTERNAL = {
   // naas.gov.ua is HTTP-only (no valid TLS); these paths return 200 over http.
   eLib: 'http://naas.gov.ua/content/literatura/',
   agrolectures: 'http://naas.gov.ua/Agrolectures/',
+  // NAAS innovation catalogue 2019–2025 — verified live link
+  // (docs/source-of-truth-naas.md, § «Каталог інноваційних розробок», re-checked 2026-07-02).
+  catalog: 'https://drive.google.com/file/d/19noLIfpdJlW0mjxNkY21SQjxhWDYlp1A/view',
   statutePdf: '/docs/statut_naan_2021.pdf',
 } as const;
 
@@ -85,7 +88,7 @@ export const FOOTER = {
   resources: [
     { label: 'Е-Бібліотека', href: ROUTES.eLibrary, k: 'footer.r.elib' },
     { label: 'Відео', href: ROUTES.videoPage, k: 'footer.r.video' },
-    { label: 'AGROLECTURES', href: ROUTES.agrolectures, k: 'footer.r.agrolectures' },
+    { label: 'Агролекторій', href: ROUTES.agrolectures, k: 'footer.r.agrolectures' },
     { label: 'Рада молодих вчених', href: ROUTES.youngSci, k: 'footer.r.youngSci' },
     { label: 'Інтелектуальна власність', href: ROUTES.ip, k: 'footer.r.ip' },
   ],
@@ -129,7 +132,7 @@ export const SEARCH_INDEX: { title: string; href: string }[] = [
   { title: 'Інноваційна діяльність', href: ROUTES.innovation },
   { title: 'Е-Бібліотека', href: ROUTES.eLibrary },
   { title: 'Відео', href: ROUTES.videoPage },
-  { title: 'AGROLECTURES', href: ROUTES.agrolectures },
+  { title: 'Агролекторій', href: ROUTES.agrolectures },
 ];
 
 // Brand identity — academy display name, shared so every header/footer matches (single source).
