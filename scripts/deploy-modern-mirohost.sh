@@ -30,9 +30,17 @@ if [ -n "${new_orphans}" ]; then
   exit 1
 fi
 
+# Incremental upload in two passes. astro build regenerates dist/ with fresh mtimes
+# every run, so lftp's --only-newer (time-only, "turns off size comparison" per
+# lftp(1)) sees every file as newer and re-uploads all ~724 MB. Split instead:
+#   Pass 1 — mutable site shell (~7 MB: HTML, _astro, img), docs/ excluded. No size
+#     skip, so a same-size text edit (e.g. a footer label) always publishes.
+#   Pass 2 — static doc library (~717 MB PDFs). --ignore-time compares by SIZE only,
+#     so unchanged docs are skipped; only new or resized files upload.
 lftp -u "${FTP_USER},${FTP_PASS}" -p "${NAAS_FTP_PORT:-21}" "${NAAS_FTP_HOST}" -e "
 set ftp:ssl-allow true;
 set ssl:verify-certificate no;
-mirror -R --parallel=4 --only-newer --verbose dist/ ${NAAS_NEW_SITE_DEST};
+mirror -R --parallel=4 --verbose -x '^docs/' dist/ ${NAAS_NEW_SITE_DEST};
+mirror -R --parallel=4 --verbose --ignore-time dist/docs/ ${NAAS_NEW_SITE_DEST}/docs;
 bye"
 echo "OK: dist → ${NAAS_NEW_SITE_DEST}"

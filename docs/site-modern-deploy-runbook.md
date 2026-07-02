@@ -16,7 +16,12 @@ so the two targets are identical **by construction** when deployed from the same
 - `deploy:staging` = `astro build` + fact check + `wrangler pages deploy` (manual; no CI).
 - `deploy:prod` = `scripts/deploy-modern-mirohost.sh` = `astro build` + orphan-audit gate
   (`scripts/audit_dist.py` vs `scripts/audit_allowlist.txt`) + `lftp` mirror of `dist/` to
-  the subdomain docroot. Needs `~/.naas_hosting.env`.
+  the subdomain docroot. Needs `~/.naas_hosting.env`. The upload is **incremental** in two
+  passes: the ~7 MB mutable shell (HTML/`_astro`/img, `docs/` excluded) uploads fully every
+  time; the ~717 MB static doc library uploads with `--ignore-time` (size-only), so unchanged
+  PDFs are skipped. A content-only redeploy transfers ~7 MB, not ~724 MB. (Do **not** use
+  `--only-newer` — per `lftp(1)` it disables size comparison, and `astro build` resets every
+  mtime, so it would re-upload everything.)
 
 > **Legal:** gov.ua domains must be hosted in Ukraine. Cloudflare Pages is fine as a private
 > preview URL (`*.pages.dev`), but **never** as a `*.naas.gov.ua` origin. Prod = Mirohost only.
