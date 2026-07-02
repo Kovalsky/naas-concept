@@ -3,6 +3,7 @@ import { getCollection } from 'astro:content';
 import Base from '../../layouts/Base.astro';
 import { ROUTES } from '../../lib/site';
 import { formatDateUk } from '../../lib/format';
+import { webp } from '../../lib/img';
 
 export async function getStaticPaths() {
   const news = await getCollection('news');
@@ -11,6 +12,13 @@ export async function getStaticPaths() {
 const { n } = Astro.props;
 const d = n.data;
 const paragraphs = d.body.split(/\n{2,}/).filter(Boolean);
+// "Read also": same-category items first, then the freshest
+// (the stable sort keeps date order inside each group).
+const all = (await getCollection('news')).sort((a, b) => (a.data.date < b.data.date ? 1 : -1));
+const related = all
+  .filter((x) => x.data.slug !== d.slug)
+  .sort((a, b) => Number(b.data.tag === d.tag) - Number(a.data.tag === d.tag))
+  .slice(0, 3);
 ---
 <Base title={d.title} description={d.teaser}>
   <section class="hero">
@@ -18,7 +26,7 @@ const paragraphs = d.body.split(/\n{2,}/).filter(Boolean);
       <nav class="crumbs" aria-label="Хлібні крихти">
         <a href={ROUTES.home}>Головна</a><span class="sep">/</span>
         <a href={ROUTES.news}>Новини</a><span class="sep">/</span>
-        <span class="cur">{d.tag}</span>
+        <span class="cur">{d.title}</span>
       </nav>
       <div class="kicker" style="margin-bottom:14px;">{formatDateUk(d.date)} · {d.tag}</div>
       <h1 style="font-family:var(--serif); font-weight:600; font-size:clamp(26px,3.4vw,40px); line-height:1.14; letter-spacing:-0.018em; color:var(--ink); max-width:880px;">{d.title}</h1>
@@ -27,14 +35,76 @@ const paragraphs = d.body.split(/\n{2,}/).filter(Boolean);
 
   <section class="section section--white">
     <div class="wrap" style="max-width:880px;">
-      <img src={d.image} alt="" width="880" height="460" style="width:100%; height:auto; border-radius:12px; border:1px solid var(--line); margin-bottom:28px;" />
+      <img src={webp(d.image, 960)} srcset={`${webp(d.image, 480)} 480w, ${webp(d.image, 960)} 960w`} sizes="(max-width: 920px) 100vw, 880px" alt="" width="880" height="460" loading="eager" fetchpriority="high" style="width:100%; height:auto; border-radius:12px; border:1px solid var(--line); margin-bottom:28px;" />
       <p style="font-family:var(--serif); font-size:19px; line-height:1.5; color:var(--navy); font-weight:500; margin-bottom:22px;">{d.teaser}</p>
       <div class="prose">
         {paragraphs.map((p) => <p>{p}</p>)}
       </div>
-      <div style="margin-top:36px; padding-top:24px; border-top:1px solid var(--line);">
+      <div style="margin-top:36px; padding-top:24px; border-top:1px solid var(--line); display:flex; align-items:center; justify-content:space-between; gap:16px; flex-wrap:wrap;">
         <a class="link-underline" href={ROUTES.news}>← Усі новини</a>
+        <div id="share-box" class="share mono">
+          <span style="color:var(--ink3); font-size:11px;">Поділитись:</span>
+          <a class="share-a" data-share="fb" href="#" target="_blank" rel="noopener">Facebook</a>
+          <a class="share-a" data-share="tg" href="#" target="_blank" rel="noopener">Telegram</a>
+          <a class="share-a" data-share="x" href="#" target="_blank" rel="noopener">X</a>
+          <button class="share-a" id="share-copy" type="button">Копіювати лінк</button>
+        </div>
       </div>
+      <aside style="margin-top:26px;">
+        <div class="kicker kicker--muted" style="margin-bottom:14px;">Читайте також</div>
+        <ul class="rel-list">
+          {related.map((r) => (
+            <li>
+              <a class="rel-row" href={`${ROUTES.news}/${r.data.slug}`}>
+                <span class="mono rel-date">{formatDateUk(r.data.date)} · {r.data.tag}</span>
+                <span class="rel-title">{r.data.title}</span>
+              </a>
+            </li>
+          ))}
+        </ul>
+      </aside>
     </div>
   </section>
 </Base>
+<style>
+  .share { display: inline-flex; align-items: center; gap: 14px; flex-wrap: wrap; }
+  .share-a { font-size: 11.5px; letter-spacing: .03em; color: var(--green); border-bottom: 1px solid transparent; transition: border-color 140ms; }
+  .share-a:hover { border-bottom-color: var(--green); }
+
+  .rel-list { list-style: none; margin: 0; padding: 0; border: 1px solid var(--line); border-radius: 10px; background: var(--surface); overflow: hidden; }
+  .rel-row { display: block; padding: 14px 18px; border-bottom: 1px solid var(--line); transition: background 140ms; }
+  .rel-list li:last-child .rel-row { border-bottom: none; }
+  .rel-row:hover { background: var(--surface2); }
+  .rel-date { display: block; font-size: 10.5px; letter-spacing: .04em; color: var(--muted-ink); }
+  .rel-title { display: block; margin-top: 4px; font-size: 14.5px; font-weight: 600; line-height: 1.35; color: var(--ink); }
+  .rel-row:hover .rel-title { color: var(--green); }
+</style>
+<script is:inline>
+  (function () {
+    function initShare() {
+      var box = document.getElementById('share-box');
+      if (!box || box.__b) return;
+      box.__b = 1;
+      var u = encodeURIComponent(location.href.split('#')[0]);
+      var t = encodeURIComponent(document.title);
+      var map = {
+        fb: 'https://www.facebook.com/sharer/sharer.php?u=' + u,
+        tg: 'https://t.me/share/url?url=' + u + '&text=' + t,
+        x: 'https://twitter.com/intent/tweet?url=' + u + '&text=' + t,
+      };
+      Array.prototype.forEach.call(box.querySelectorAll('[data-share]'), function (a) {
+        a.href = map[a.getAttribute('data-share')] || '#';
+      });
+      var copy = document.getElementById('share-copy');
+      if (copy) copy.addEventListener('click', function () {
+        if (!navigator.clipboard) return;
+        navigator.clipboard.writeText(location.href.split('#')[0]).then(function () {
+          copy.textContent = 'Скопійовано ✓';
+          setTimeout(function () { copy.textContent = 'Копіювати лінк'; }, 1600);
+        });
+      });
+    }
+    document.addEventListener('astro:page-load', initShare); // re-init after view transitions
+    initShare();
+  })();
+</script>

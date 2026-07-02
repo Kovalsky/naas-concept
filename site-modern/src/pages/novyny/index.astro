@@ -4,19 +4,25 @@ import Base from '../../layouts/Base.astro';
 import Hero from '../../components/Hero.astro';
 import { ROUTES } from '../../lib/site';
 import { formatDateUk } from '../../lib/format';
+import { webp } from '../../lib/img';
 import { page } from '@content/pageContent';
 
 const news = (await getCollection('news')).sort((a, b) => (a.data.date < b.data.date ? 1 : -1));
+const tags = [...new Set(news.map((n) => n.data.tag))].sort((a, b) => a.localeCompare(b, 'uk'));
 const { meta, hero } = page('/novyny');
 ---
 <Base title={meta.title} description={meta.description}>
   <Hero kicker={hero!.kicker} title={hero!.title} lead={hero!.lead} />
   <section class="section section--white">
     <div class="wrap">
+      <div class="filter-chips mono" role="group" aria-label="Фільтр за категорією">
+        <button class="chip is-on" data-tag="" aria-pressed="true">Всі</button>
+        {tags.map((t) => <button class="chip" data-tag={t} aria-pressed="false">{t}</button>)}
+      </div>
       <div class="grid grid--auto">
         {news.map((n) => (
-          <a href={`${ROUTES.news}/${n.data.slug}`} style="display:flex; flex-direction:column; border:1px solid var(--line); border-radius:12px; overflow:hidden; background:var(--surface); transition:border-color 160ms, box-shadow 160ms;" class="news-card">
-            <img src={n.data.image} alt={n.data.title} width="400" height="200" loading="lazy" style="display:block; width:100%; height:200px; object-fit:cover; background:var(--muted);" />
+          <a href={`${ROUTES.news}/${n.data.slug}`} data-tag={n.data.tag} style="display:flex; flex-direction:column; border:1px solid var(--line); border-radius:12px; overflow:hidden; background:var(--surface); transition:border-color 160ms, box-shadow 160ms;" class="news-card">
+            <img src={webp(n.data.image, 480)} srcset={`${webp(n.data.image, 480)} 480w, ${webp(n.data.image, 960)} 960w`} sizes="(max-width: 700px) 100vw, 400px" alt={n.data.title} width="400" height="200" loading="lazy" style="display:block; width:100%; height:200px; object-fit:cover; background:var(--muted);" />
             <span style="display:flex; flex-direction:column; gap:8px; padding:20px;">
               <span class="mono" style="font-size:11px; letter-spacing:0.04em; color:var(--ink3);">{formatDateUk(n.data.date)} · {n.data.tag}</span>
               <span style="font-family:var(--serif); font-size:18px; font-weight:600; color:var(--ink); line-height:1.3;">{n.data.title}</span>
@@ -28,3 +34,37 @@ const { meta, hero } = page('/novyny');
     </div>
   </section>
 </Base>
+<style>
+  .filter-chips { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 26px; }
+  .chip {
+    border: 1px solid var(--line2); border-radius: 999px; padding: 8px 15px;
+    font-size: 11.5px; letter-spacing: .02em; color: var(--ink2); background: var(--surface);
+    transition: border-color 140ms, color 140ms;
+  }
+  .chip:hover { border-color: var(--green); color: var(--green); }
+  .chip.is-on { border-color: var(--green); color: var(--green); font-weight: 700; }
+  .news-card.is-hidden { display: none !important; }
+</style>
+<script is:inline>
+  (function () {
+    function initNewsFilter() {
+      var chips = Array.prototype.slice.call(document.querySelectorAll('.filter-chips .chip'));
+      if (!chips.length) return;
+      chips.forEach(function (chip) {
+        if (chip.__b) return; chip.__b = 1;
+        chip.addEventListener('click', function () {
+          chips.forEach(function (c) {
+            c.classList.toggle('is-on', c === chip);
+            c.setAttribute('aria-pressed', String(c === chip));
+          });
+          var tag = chip.getAttribute('data-tag') || '';
+          Array.prototype.forEach.call(document.querySelectorAll('.news-card'), function (card) {
+            card.classList.toggle('is-hidden', !!tag && card.getAttribute('data-tag') !== tag);
+          });
+        });
+      });
+    }
+    document.addEventListener('astro:page-load', initNewsFilter); // re-init after view transitions
+    initNewsFilter();
+  })();
+</script>
