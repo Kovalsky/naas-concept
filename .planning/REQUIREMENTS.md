@@ -74,13 +74,33 @@ Which phases cover which requirements. Updated during roadmap creation.
 
 | Requirement | Phase | Status |
 |-------------|-------|--------|
-| (populated by roadmap) | | |
+| SHOW-01 | Phase 1 | Pending |
+| SHOW-02 | Phase 1 | Pending |
+| SHOW-03 | Phase 1 | Pending |
+| SHOW-04 | Phase 1 | Pending |
+| MIGR-01 | Phase 2 | Pending |
+| MIGR-02 | Phase 2 | Pending |
+| MIGR-03 | Phase 2 | Pending |
+| PORT-01 | Phase 3 | Pending |
+| PORT-02 | Phase 3 | Pending |
+| PORT-03 | Phase 3 | Pending |
+| MIGR-04 | Phase 4 | Pending |
+| MIGR-05 | Phase 4 | Pending |
+| MIGR-06 | Phase 4 | Pending |
+| MIGR-07 | Phase 4 | Pending |
+| MIGR-08 | Phase 4 | Pending |
+| MIGR-09 | Phase 4 | Pending |
+| BACK-01 | Phase 5 | Pending |
+| BACK-02 | Phase 5 | Pending |
+| BACK-03 | Phase 5 | Pending |
+| BACK-04 | Phase 5 | Pending |
+| BACK-05 | Phase 5 | Pending |
 
 **Coverage:**
 - v1 requirements: 21 total
-- Mapped to phases: 0
-- Unmapped: 21 ⚠️
+- Mapped to phases: 21
+- Unmapped: 0 ✓
 
 ---
 *Requirements defined: 2026-07-02*
-*Last updated: 2026-07-02 after initial definition*
+*Last updated: 2026-07-02 after roadmap creation (traceability populated)*
