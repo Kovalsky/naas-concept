@@ -2,11 +2,11 @@
 import Base from '../layouts/Base.astro';
 import Hero from '../components/Hero.astro';
 import T from '../components/T.astro';
+import { ROUTES } from '../lib/site';
 import { contacts } from '../lib/data';
 import { page } from '@content/pageContent';
 const tel = (p: string) => 'tel:' + p.replace(/[^+\d]/g, '');
 const { meta, hero } = page('/kontakty');
-const TURNSTILE_SITEKEY = '1x00000000000000000000AA';
 ---
 <Base title={meta.title} description={meta.description}>
   <Hero kicker={hero!.kicker} title={hero!.title} lead={hero!.lead} />
@@ -34,12 +34,23 @@ const TURNSTILE_SITEKEY = '1x00000000000000000000AA';
             <a class="contact-link mono" href={`mailto:${contacts.press_email}`}>{contacts.press_email}</a>
           </div>
         </div>
+        <div style="border:1px solid var(--line); border-radius:12px; padding:26px; background:var(--surface);">
+          <div class="kicker kicker--muted" style="margin-bottom:10px;">Установи</div>
+          <p style="font-size:14.5px; line-height:1.6; color:var(--ink2);">Сайти, телефони та email наукових установ — за відділеннями на сторінці «Структура Академії».</p>
+          <a class="link-underline" href={ROUTES.structure} style="margin-top:12px;">Структура Академії →</a>
+        </div>
+      </div>
+      <div style="margin-top:26px; border:1px solid var(--line); border-radius:12px; overflow:hidden; background:var(--surface);">
+        <iframe title="Мапа: вул. Михайла Омеляновича-Павленка, 9, Київ" src="https://www.google.com/maps?q=vul.+Mykhaila+Omelianovycha-Pavlenka,+9,+Kyiv&hl=uk&z=16&output=embed" width="100%" height="340" style="border:0; display:block;" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+        <div style="padding:12px 18px; border-top:1px solid var(--line);">
+          <a class="mono" style="font-size:12.5px; color:var(--navy);" href="https://maps.google.com/?q=vul.+Mykhaila+Omelianovycha-Pavlenka,+9,+Kyiv" target="_blank" rel="noopener">Відкрити в Google Maps ↗</a>
+        </div>
       </div>
     </div>
   </section>
 
-  <!-- Inquiry form — Turnstile-guarded; opens a pre-filled email to the official
-       address (server-side verification + delivery is the backend phase). ТЗ requires it. -->
+  <!-- Inquiry form — builds a pre-filled email in the visitor's mail client (mailto).
+       Direct on-site delivery with real spam protection is the CMS/backend phase. ТЗ requires the form. -->
   <section class="section section--muted">
     <div class="wrap">
       <div class="kicker kicker--muted" style="margin-bottom:14px;">Звернення</div>
@@ -57,38 +68,40 @@ const TURNSTILE_SITEKEY = '1x00000000000000000000AA';
           <label for="f-msg">Повідомлення <span class="req" aria-hidden="true">*</span></label>
           <textarea id="f-msg" name="message" rows="5" required></textarea>
         </div>
-        <div class="k-field k-field--full">
-          <div class="cf-turnstile" data-sitekey={TURNSTILE_SITEKEY} data-theme="light"></div>
-        </div>
         <div class="k-field--full k-submit-row">
           <button type="submit" class="btn-navy">Надіслати звернення</button>
           <p id="f-status" class="k-status" role="status" aria-live="polite"></p>
         </div>
       </form>
-      <p class="k-note">Захист від спаму — Cloudflare Turnstile. Звернення відкриється у вашій поштовій програмі для надсилання на <a href={`mailto:${contacts.email}`}>{contacts.email}</a>.</p>
+      <p class="k-note">Звернення сформується як лист у вашій поштовій програмі та надсилається на офіційну адресу <a href={`mailto:${contacts.email}`}>{contacts.email}</a>. Надсилання безпосередньо з сайту зʼявиться на наступному етапі розвитку порталу.</p>
     </div>
   </section>
 </Base>
 
-<script is:inline src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
 <script is:inline define:vars={{ to: contacts.email }}>
   (function () {
-    var form = document.getElementById('inquiry');
-    var status = document.getElementById('f-status');
-    if (!form) return;
-    form.addEventListener('submit', function (e) {
-      e.preventDefault();
-      var name = form.name.value.trim();
-      var email = form.email.value.trim();
-      var msg = form.message.value.trim();
-      if (!name || !email || !msg) { status.textContent = 'Заповніть усі обовʼязкові поля.'; status.dataset.kind = 'err'; return; }
-      var token = (form.querySelector('[name="cf-turnstile-response"]') || {}).value;
-      if (!token) { status.textContent = 'Підтвердьте, що ви не робот.'; status.dataset.kind = 'err'; return; }
-      var subject = encodeURIComponent('Звернення з порталу НААН — ' + name);
-      var body = encodeURIComponent('Імʼя: ' + name + '\nЕл. пошта: ' + email + '\n\n' + msg);
-      status.textContent = 'Відкриваємо поштову програму…'; status.dataset.kind = 'ok';
-      window.location.href = 'mailto:' + to + '?subject=' + subject + '&body=' + body;
-    });
+    // ClientRouter dedups inline scripts, so the fresh form after a view
+    // transition would have no handler (and Astro would then submit it as a
+    // GET with the fields in the URL) — re-bind on astro:page-load instead.
+    function initInquiry() {
+      var form = document.getElementById('inquiry');
+      var status = document.getElementById('f-status');
+      if (!form || form.__b) return;
+      form.__b = 1;
+      form.addEventListener('submit', function (e) {
+        e.preventDefault();
+        var name = form.name.value.trim();
+        var email = form.email.value.trim();
+        var msg = form.message.value.trim();
+        if (!name || !email || !msg) { status.textContent = 'Заповніть усі обовʼязкові поля.'; status.dataset.kind = 'err'; return; }
+        var subject = encodeURIComponent('Звернення з порталу НААН — ' + name);
+        var body = encodeURIComponent('Імʼя: ' + name + '\nЕл. пошта: ' + email + '\n\n' + msg);
+        status.textContent = 'Відкриваємо поштову програму…'; status.dataset.kind = 'ok';
+        window.location.href = 'mailto:' + to + '?subject=' + subject + '&body=' + body;
+      });
+    }
+    document.addEventListener('astro:page-load', initInquiry); // re-init after view transitions
+    initInquiry();
   })();
 </script>
 <style>
