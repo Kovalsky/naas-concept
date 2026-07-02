@@ -297,19 +297,19 @@
         "external": false
       },
       {
-        "title": "Календарний план НААН на січень 2026",
-        "ext": "DOC",
-        "href": "/docs/pubinfo__planuvannya/kalendarnyi-plan-naan-na-sichen-2026.doc",
-        "year": 2026,
-        "sizeKB": 157,
-        "external": false
-      },
-      {
         "title": "Календарний план на квітень 2026",
         "ext": "DOCX",
         "href": "/docs/pubinfo__planuvannya/sait-kal-plan-kviten-2026-kopiia.docx",
         "year": 2026,
         "sizeKB": 68,
+        "external": false
+      },
+      {
+        "title": "Календарний план НААН на січень 2026",
+        "ext": "DOC",
+        "href": "/docs/pubinfo__planuvannya/kalendarnyi-plan-naan-na-sichen-2026.doc",
+        "year": 2026,
+        "sizeKB": 157,
         "external": false
       },
       {
@@ -466,19 +466,11 @@
     "count": 6,
     "items": [
       {
-        "title": "Зміни 2 до додатку до рп 2015",
+        "title": "Зміни № 2 до додатка до річного плану закупівель 2015 року",
         "ext": "PDF",
         "href": "/docs/pubinfo__tendery/zminy-2-do-dodatku-do-rp-2015.pdf",
         "year": 2015,
         "sizeKB": 139,
-        "external": false
-      },
-      {
-        "title": "План закупів. 2015",
-        "ext": "DOCX",
-        "href": "/docs/pubinfo__tendery/plan-zakupiv-2015.docx",
-        "year": 2015,
-        "sizeKB": 18,
         "external": false
       },
       {
@@ -498,11 +490,19 @@
         "external": false
       },
       {
-        "title": "Р чний план",
+        "title": "Річний план закупівель НААН на 2015 рік (проєкт)",
         "ext": "DOC",
         "href": "/docs/pubinfo__tendery/r-chnyi-plan.doc",
-        "year": 0,
+        "year": 2015,
         "sizeKB": 32,
+        "external": false
+      },
+      {
+        "title": "Річний план закупівель — ЗАТ «Інститут інноваційного провайдингу УААН», 2015",
+        "ext": "DOCX",
+        "href": "/docs/pubinfo__tendery/plan-zakupiv-2015.docx",
+        "year": 2015,
+        "sizeKB": 18,
         "external": false
       },
       {
@@ -772,7 +772,7 @@
     "count": 10,
     "items": [
       {
-        "title": "БЮДЖЕТНИЙ ЗАПИТ Форма БЗ 1 загальна . Уточнення 2026 01.01.2026",
+        "title": "Бюджетний запит — форма БЗ-1 (загальна), уточнення 2026",
         "ext": "PDF",
         "href": "/docs/pubinfo__budjetni_zapity/biudzhetnyi-zapyt-forma-bz-1-zahalna-utochnennia-2026-01-01-2026.pdf",
         "year": 2026,
@@ -780,7 +780,7 @@
         "external": false
       },
       {
-        "title": "Бюджетний запит, форма БЗ-2 (індивідуальна), уточнення 2026, 6591020, 01.01.2026",
+        "title": "Бюджетний запит — форма БЗ-2 (індивідуальна), КПКВК 6591020, уточнення 2026",
         "ext": "PDF",
         "href": "/docs/pubinfo__budjetni_zapity/biudzhetnyi-zapyt-forma-bz-2-indyvidualna-utochnennia-2026-6591020-01-.pdf",
         "year": 2026,
@@ -788,7 +788,7 @@
         "external": false
       },
       {
-        "title": "БЮДЖЕТНИЙ ЗАПИТ Форма БЗ 2 індивідуальна . Уточнення 2026 6591060 01.01.2026",
+        "title": "Бюджетний запит — форма БЗ-2 (індивідуальна), КПКВК 6591060, уточнення 2026",
         "ext": "PDF",
         "href": "/docs/pubinfo__budjetni_zapity/biudzhetnyi-zapyt-forma-bz-2-indyvidualna-utochnennia-2026-6591060-01-.pdf",
         "year": 2026,
@@ -796,7 +796,7 @@
         "external": false
       },
       {
-        "title": "БЮДЖЕТНИЙ ЗАПИТ Форма БЗ 2 індивідуальна . Уточнення 2026 6591100 01.01.2026",
+        "title": "Бюджетний запит — форма БЗ-2 (індивідуальна), КПКВК 6591100, уточнення 2026",
         "ext": "PDF",
         "href": "/docs/pubinfo__budjetni_zapity/biudzhetnyi-zapyt-forma-bz-2-indyvidualna-utochnennia-2026-6591100-01-.pdf",
         "year": 2026,
@@ -804,7 +804,7 @@
         "external": false
       },
       {
-        "title": "БЮДЖЕТНИЙ ЗАПИТ Форма БЗ 1 загальна . Уточнення 2025 01 01 2025",
+        "title": "Бюджетний запит — форма БЗ-1 (загальна), уточнення 2025",
         "ext": "PDF",
         "href": "/docs/pubinfo__budjetni_zapity/biudzhetnyi-zapyt-forma-bz-1-zahalna-utochnennia-2025-01-01-2025.pdf",
         "year": 2025,
@@ -812,7 +812,7 @@
         "external": false
       },
       {
-        "title": "БЮДЖЕТНИЙ ЗАПИТ Форма БЗ 2 індивідуальна . Уточнення 2025 6591020 01 01 2025",
+        "title": "Бюджетний запит — форма БЗ-2 (індивідуальна), КПКВК 6591020, уточнення 2025",
         "ext": "PDF",
         "href": "/docs/pubinfo__budjetni_zapity/biudzhetnyi-zapyt-forma-bz-2-indyvidualna-utochnennia-2025-6591020-01-.pdf",
         "year": 2025,
@@ -820,7 +820,7 @@
         "external": false
       },
       {
-        "title": "БЮДЖЕТНИЙ ЗАПИТ Форма БЗ 2 індивідуальна . Уточнення 2025 6591060 01 01 2025",
+        "title": "Бюджетний запит — форма БЗ-2 (індивідуальна), КПКВК 6591060, уточнення 2025",
         "ext": "PDF",
         "href": "/docs/pubinfo__budjetni_zapity/biudzhetnyi-zapyt-forma-bz-2-indyvidualna-utochnennia-2025-6591060-01-.pdf",
         "year": 2025,
@@ -828,7 +828,7 @@
         "external": false
       },
       {
-        "title": "БЮДЖЕТНИЙ ЗАПИТ Форма БЗ 2 індивідуальна . Уточнення 2025 6591100 01 01 2025",
+        "title": "Бюджетний запит — форма БЗ-2 (індивідуальна), КПКВК 6591100, уточнення 2025",
         "ext": "PDF",
         "href": "/docs/pubinfo__budjetni_zapity/biudzhetnyi-zapyt-forma-bz-2-indyvidualna-utochnennia-2025-6591100-01-.pdf",
         "year": 2025,
@@ -836,7 +836,7 @@
         "external": false
       },
       {
-        "title": "БЗ 2024 ф1",
+        "title": "Бюджетний запит — форма БЗ-1, 2024",
         "ext": "PDF",
         "href": "/docs/pubinfo__budjetni_zapity/bz-2024-f1.pdf",
         "year": 2024,
@@ -844,7 +844,7 @@
         "external": false
       },
       {
-        "title": "БЗ 2024 ф2",
+        "title": "Бюджетний запит — форма БЗ-2, 2024",
         "ext": "PDF",
         "href": "/docs/pubinfo__budjetni_zapity/bz-2024-f2.pdf",
         "year": 2024,
@@ -1295,7 +1295,7 @@
     "count": 8,
     "items": [
       {
-        "title": "оголошення на сайт 2025",
+        "title": "Обсяги прийому аспірантів та докторантів за державним замовленням, 2025",
         "ext": "DOCX",
         "href": "/docs/atestatsiya/oholoshennia-na-sait-2025.docx",
         "year": 2025,
@@ -1303,7 +1303,7 @@
         "external": false
       },
       {
-        "title": "оголошення на сайт 2024",
+        "title": "Обсяги прийому аспірантів та докторантів за державним замовленням, 2024",
         "ext": "DOCX",
         "href": "/docs/atestatsiya/oholoshennia-na-sait-2024.docx",
         "year": 2024,
@@ -1311,7 +1311,15 @@
         "external": false
       },
       {
-        "title": "Оголошення конкурс 2017",
+        "title": "Спеціалізовані вчені ради з присудження ступеня доктора наук (станом на 01.03.2024)",
+        "ext": "DOCX",
+        "href": "/docs/atestatsiya/spysok-spetsializovanykh-rad.docx",
+        "year": 2024,
+        "sizeKB": 25,
+        "external": false
+      },
+      {
+        "title": "Конкурс виконавців державного замовлення на підготовку наукових кадрів (аспірантура/докторантура), 2017",
         "ext": "DOCX",
         "href": "/docs/atestatsiya/oholoshennia-konkurs-2017.docx",
         "year": 2017,
@@ -1319,7 +1327,7 @@
         "external": false
       },
       {
-        "title": "Наказ МОН 758 від 14.07.2015 р.",
+        "title": "Наказ МОН від 14.07.2015 № 758 «Про оприлюднення дисертацій та відгуків офіційних опонентів»",
         "ext": "DOCX",
         "href": "/docs/atestatsiya/nakaz-mon-758-vid-14-07-2015-r.docx",
         "year": 2015,
@@ -1327,7 +1335,7 @@
         "external": false
       },
       {
-        "title": "оголошення на сайт результати конкурсу 20.08.2015",
+        "title": "Результати конкурсу з розподілу держзамовлення на підготовку наукових кадрів, 2015",
         "ext": "DOCX",
         "href": "/docs/atestatsiya/oholoshennia-na-sait-rezultaty-konkursu-20-08-2015.docx",
         "year": 2015,
@@ -1335,15 +1343,7 @@
         "external": false
       },
       {
-        "title": "Докторантура",
-        "ext": "DOC",
-        "href": "/docs/atestatsiya/doktorantura.doc",
-        "year": 0,
-        "sizeKB": 92,
-        "external": false
-      },
-      {
-        "title": "Перелік установ в яких здійснюється підготовка аспірантів",
+        "title": "Перелік установ НААН, яким видано ліцензію на підготовку аспірантів",
         "ext": "DOCX",
         "href": "/docs/atestatsiya/perelik-ustanov-v-iakykh-zdiisniuietsia-pidhotovka-aspirantiv.docx",
         "year": 0,
@@ -1351,11 +1351,11 @@
         "external": false
       },
       {
-        "title": "Список спеціалізованих рад",
-        "ext": "DOCX",
-        "href": "/docs/atestatsiya/spysok-spetsializovanykh-rad.docx",
+        "title": "Підготовка наукових кадрів через докторантуру в наукових установах НААН",
+        "ext": "DOC",
+        "href": "/docs/atestatsiya/doktorantura.doc",
         "year": 0,
-        "sizeKB": 25,
+        "sizeKB": 92,
         "external": false
       }
     ]
@@ -1368,18 +1368,18 @@
     "count": 2,
     "items": [
       {
-        "title": "Інформаційно-патентний пошук — ips.gov.ua",
+        "title": "Перелік зарубіжних баз даних об'єктів промислової власності з безоплатним доступом (2015)",
         "ext": "DOC",
         "href": "/docs/ip__normativno_pravova_dok/httpsips-gov-uauainfo-resurses-html.doc",
-        "year": 0,
+        "year": 2015,
         "sizeKB": 586,
         "external": false
       },
       {
-        "title": "Для інформаційно патентного пошуку",
+        "title": "Перелік науково-технічних баз даних і довідкових ресурсів з безоплатним доступом (ДП «УІПВ», 2015)",
         "ext": "DOC",
         "href": "/docs/ip__normativno_pravova_dok/dlia-informatsiino-patentnoho-poshuku.doc",
-        "year": 0,
+        "year": 2015,
         "sizeKB": 202,
         "external": false
       }
