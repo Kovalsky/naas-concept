@@ -56,35 +56,27 @@
     "count": 28,
     "items": [
       {
-        "title": "Оголошення конкурсу на виконання наукових досліджень на 2026–2030 рр.",
-        "ext": "DOC",
-        "href": "/docs/pubinfo__naukovi_rozrobky/oholoshennia-konkursu-pro-vykonannia-naukovykh-doslidzhen-na-2026-2030.doc",
-        "year": 2030,
-        "sizeKB": 380,
-        "external": false
-      },
-      {
-        "title": "Перелік програм і підпрограм наукових досліджень НААН на 2026 2030 роки",
-        "ext": "PDF",
-        "href": "/docs/pubinfo__naukovi_rozrobky/perelik-prohram-i-pidprohram-naukovykh-doslidzhen-naan-na-2026-2030-ro.pdf",
-        "year": 2030,
-        "sizeKB": 2118,
-        "external": false
-      },
-      {
-        "title": "Пріоритетні напрями наукових досліджень НААН на 2026 2030 роки",
-        "ext": "PDF",
-        "href": "/docs/pubinfo__naukovi_rozrobky/priorytetni-napriamy-naukovykh-doslidzhen-naan-na-2026-2030-roky.pdf",
-        "year": 2030,
-        "sizeKB": 1226,
-        "external": false
-      },
-      {
-        "title": "Графік проведення засідань координаційно методичних рад щодо заслуховування звітів за І півріччя 2026 року",
+        "title": "Графік проведення засідань КМР щодо заслуховування звітів за І півріччя 2026 року",
         "ext": "PDF",
         "href": "/docs/pubinfo__naukovi_rozrobky/hrafik-provedennia-zasidan-koordynatsiino-metodychnykh-rad-shchodo-zas.pdf",
         "year": 2026,
         "sizeKB": 112,
+        "external": false
+      },
+      {
+        "title": "Перелік програм і підпрограм наукових досліджень НААН на 2026–2030 роки",
+        "ext": "PDF",
+        "href": "/docs/pubinfo__naukovi_rozrobky/perelik-prohram-i-pidprohram-naukovykh-doslidzhen-naan-na-2026-2030-ro.pdf",
+        "year": 2026,
+        "sizeKB": 2118,
+        "external": false
+      },
+      {
+        "title": "Пріоритетні напрями наукових досліджень НААН на 2026–2030 роки",
+        "ext": "PDF",
+        "href": "/docs/pubinfo__naukovi_rozrobky/priorytetni-napriamy-naukovykh-doslidzhen-naan-na-2026-2030-roky.pdf",
+        "year": 2026,
+        "sizeKB": 1226,
         "external": false
       },
       {
@@ -96,7 +88,7 @@
         "external": false
       },
       {
-        "title": "Графік НААН короткі звіти 2025",
+        "title": "Графік заслуховування звітів про виконання програм наукових досліджень НААН за 2025 рік",
         "ext": "PDF",
         "href": "/docs/pubinfo__naukovi_rozrobky/hrafik-naan-korotki-zvity-2025.pdf",
         "year": 2025,
@@ -104,7 +96,7 @@
         "external": false
       },
       {
-        "title": "КМР І ПІВРІЧЧЯ 2025",
+        "title": "Графік проведення засідань КМР щодо заслуховування звітів за І півріччя 2025 року",
         "ext": "PDF",
         "href": "/docs/pubinfo__naukovi_rozrobky/kmr-i-pivrichchia-2025.pdf",
         "year": 2025,
@@ -112,7 +104,7 @@
         "external": false
       },
       {
-        "title": "Оголошення щодо конкурсу про виконання короткотермінових прикладних наукових досліджень на 2025 рік на замовлення НААН",
+        "title": "Оголошення конкурсу на виконання короткотермінових прикладних наукових досліджень на 2025 рік",
         "ext": "D",
         "href": "/docs/pubinfo__naukovi_rozrobky/oholoshennia-shchodo-konkursu-pro-vykonannia-korotkoterminovykh-prykla.d",
         "year": 2025,
@@ -128,7 +120,7 @@
         "external": false
       },
       {
-        "title": "Графік проведення засідань КМР щодо заслуховування звітів за I півріччя 2024 року",
+        "title": "Графік проведення засідань КМР щодо заслуховування звітів за І півріччя 2024 року",
         "ext": "PDF",
         "href": "/docs/pubinfo__naukovi_rozrobky/hrafik-provedennia-zasidan-kmr-shchodo-zaslukhovuvannia-zvitiv-za-i-pi.pdf",
         "year": 2024,
@@ -136,11 +128,19 @@
         "external": false
       },
       {
-        "title": "Конкурс про виконання ПНД на 2024 2025 роки та короткотермінових ПНД на 2024 рік на замовлення НААН",
+        "title": "Конкурс на виконання ПНД на 2024–2025 роки та короткотермінових ПНД на 2024 рік на замовлення НААН",
         "ext": "PDF",
         "href": "/docs/pubinfo__naukovi_rozrobky/konkurs-pro-vykonannia-pnd-na-2024-2025-roky-ta-korotkoterminovykh-pnd.pdf",
         "year": 2024,
         "sizeKB": 737,
+        "external": false
+      },
+      {
+        "title": "Оголошення конкурсу на виконання наукових досліджень на замовлення НААН на 2026–2030 роки",
+        "ext": "DOC",
+        "href": "/docs/pubinfo__naukovi_rozrobky/oholoshennia-konkursu-pro-vykonannia-naukovykh-doslidzhen-na-2026-2030.doc",
+        "year": 2024,
+        "sizeKB": 380,
         "external": false
       },
       {
@@ -152,7 +152,7 @@
         "external": false
       },
       {
-        "title": "Графік заслуховування звітів КМР за І півр. 2023 р.",
+        "title": "Графік заслуховування звітів КМР за І півріччя 2023 року",
         "ext": "PDF",
         "href": "/docs/pubinfo__naukovi_rozrobky/hrafik-zaslukhovuvannia-zvitiv-kmr-za-i-pivr-2023-r.pdf",
         "year": 2023,
@@ -168,7 +168,7 @@
         "external": false
       },
       {
-        "title": "Оголошення конкурсу на виконання короткотермінових прикладних досліджень у 2023 році",
+        "title": "Оголошення конкурсу на виконання короткотермінових прикладних наукових досліджень у 2023 році",
         "ext": "DOC",
         "href": "/docs/pubinfo__naukovi_rozrobky/oholoshennia-konkursu-na-vykonannia-korotkoterminovykh-prykladnykh-dos.doc",
         "year": 2023,
@@ -176,7 +176,7 @@
         "external": false
       },
       {
-        "title": "Про комісії з приймання завершених у 2023 році науково дослідних та дослідно конструкторських робіт",
+        "title": "Про комісії з приймання завершених у 2023 році науково-дослідних та дослідно-конструкторських робіт",
         "ext": "PDF",
         "href": "/docs/pubinfo__naukovi_rozrobky/pro-komisii-z-pryimannia-zavershenykh-u-2023-rotsi-naukovo-doslidnykh-.pdf",
         "year": 2023,
@@ -184,15 +184,15 @@
         "external": false
       },
       {
-        "title": "1 Графік НААН Короткі звіти за 2022 рік",
+        "title": "Ярослав Гадзало. Вітчизняне сільське господарство в сучасних умовах: виклики та шляхи їх подолання",
         "ext": "PDF",
-        "href": "/docs/pubinfo__naukovi_rozrobky/1-hrafik-naan-korotki-zvity-za-2022-rik.pdf",
-        "year": 2022,
-        "sizeKB": 6340,
+        "href": "/docs/pubinfo__naukovi_rozrobky/vitchyzniane-silske-hospodarstvo-v-suchasnykh-umovakh-vyklyky-ta-shlia.pdf",
+        "year": 2023,
+        "sizeKB": 3182,
         "external": false
       },
       {
-        "title": "Графік заслуховування звітів КМР за I півр 2022",
+        "title": "Графік заслуховування звітів КМР за І півріччя 2022 року",
         "ext": "PDF",
         "href": "/docs/pubinfo__naukovi_rozrobky/hrafik-zaslukhovuvannia-zvitiv-kmr-za-i-pivr-2022.pdf",
         "year": 2022,
@@ -200,7 +200,15 @@
         "external": false
       },
       {
-        "title": "графік заслуховування звітів КМР за 2021 рік",
+        "title": "Графік заслуховування звітів про виконання програм наукових досліджень НААН за 2022 рік",
+        "ext": "PDF",
+        "href": "/docs/pubinfo__naukovi_rozrobky/1-hrafik-naan-korotki-zvity-za-2022-rik.pdf",
+        "year": 2022,
+        "sizeKB": 6340,
+        "external": false
+      },
+      {
+        "title": "Графік заслуховування звітів КМР за 2021 рік",
         "ext": "PDF",
         "href": "/docs/pubinfo__naukovi_rozrobky/hrafik-zaslukhovuvannia-zvitiv-kmr-za-2021-rik.pdf",
         "year": 2021,
@@ -208,7 +216,7 @@
         "external": false
       },
       {
-        "title": "Графік заслуховування звітів про виконання ПНД НААН за 2021 р.",
+        "title": "Графік заслуховування звітів про виконання ПНД НААН за 2021 рік",
         "ext": "PDF",
         "href": "/docs/pubinfo__naukovi_rozrobky/hrafik-zaslukhovuvannia-zvitiv-pro-vykonannia-pnd-naan-za-2021-r.pdf",
         "year": 2021,
@@ -216,47 +224,7 @@
         "external": false
       },
       {
-        "title": "Katalog 2020 ToPress 1  p121 153",
-        "ext": "PDF",
-        "href": "http://naas.gov.ua/upload/iblock/8ad/Katalog-2020_ToPress(1)_p121-153.pdf",
-        "year": 2020,
-        "sizeKB": 31811,
-        "external": true
-      },
-      {
-        "title": "Katalog 2020 ToPress 1  p154 201",
-        "ext": "PDF",
-        "href": "/docs/pubinfo__naukovi_rozrobky/katalog-2020-topress-1-p154-201.pdf",
-        "year": 2020,
-        "sizeKB": 24730,
-        "external": false
-      },
-      {
-        "title": "Katalog 2020 ToPress 1  p202 216",
-        "ext": "PDF",
-        "href": "/docs/pubinfo__naukovi_rozrobky/katalog-2020-topress-1-p202-216.pdf",
-        "year": 2020,
-        "sizeKB": 5153,
-        "external": false
-      },
-      {
-        "title": "Katalog 2020 ToPress 1  p217 233",
-        "ext": "PDF",
-        "href": "/docs/pubinfo__naukovi_rozrobky/katalog-2020-topress-1-p217-233.pdf",
-        "year": 2020,
-        "sizeKB": 11300,
-        "external": false
-      },
-      {
-        "title": "Katalog 2020 ToPress 1  p234 266",
-        "ext": "PDF",
-        "href": "http://naas.gov.ua/upload/iblock/4bf/Katalog-2020_ToPress(1)_p234-266.pdf",
-        "year": 2020,
-        "sizeKB": 43632,
-        "external": true
-      },
-      {
-        "title": "Графік НААН Короткі звіти за 2020 р",
+        "title": "Графік заслуховування звітів про виконання програм наукових досліджень НААН за 2020 рік",
         "ext": "PDF",
         "href": "/docs/pubinfo__naukovi_rozrobky/hrafik-naan-korotki-zvity-za-2020-r.pdf",
         "year": 2020,
@@ -264,11 +232,43 @@
         "external": false
       },
       {
-        "title": "ВІТЧИЗНЯНЕ СІЛЬСЬКЕ ГОСПОДАРСТВО В СУЧАСНИХ УМОВАХ ВИКЛИКИ ТА ШЛЯХИ ЇХ ПОДОЛАННЯ ЯРОСЛАВ ГАДЗАЛО",
+        "title": "Каталог інноваційних розробок НААН 2020 (с. 121–153)",
         "ext": "PDF",
-        "href": "/docs/pubinfo__naukovi_rozrobky/vitchyzniane-silske-hospodarstvo-v-suchasnykh-umovakh-vyklyky-ta-shlia.pdf",
-        "year": 0,
-        "sizeKB": 3182,
+        "href": "http://naas.gov.ua/upload/iblock/8ad/Katalog-2020_ToPress(1)_p121-153.pdf",
+        "year": 2020,
+        "sizeKB": 31811,
+        "external": true
+      },
+      {
+        "title": "Каталог інноваційних розробок НААН 2020 (с. 234–266)",
+        "ext": "PDF",
+        "href": "http://naas.gov.ua/upload/iblock/4bf/Katalog-2020_ToPress(1)_p234-266.pdf",
+        "year": 2020,
+        "sizeKB": 43632,
+        "external": true
+      },
+      {
+        "title": "Каталог інноваційних розробок НААН 2020, розділ III «Тваринництво» (с. 154–201)",
+        "ext": "PDF",
+        "href": "/docs/pubinfo__naukovi_rozrobky/katalog-2020-topress-1-p154-201.pdf",
+        "year": 2020,
+        "sizeKB": 24730,
+        "external": false
+      },
+      {
+        "title": "Каталог інноваційних розробок НААН 2020, розділ IV «Ветеринарна медицина» (с. 202–216)",
+        "ext": "PDF",
+        "href": "/docs/pubinfo__naukovi_rozrobky/katalog-2020-topress-1-p202-216.pdf",
+        "year": 2020,
+        "sizeKB": 5153,
+        "external": false
+      },
+      {
+        "title": "Каталог інноваційних розробок НААН 2020, розділ V «Аграрна економіка і продовольство» (с. 217–233)",
+        "ext": "PDF",
+        "href": "/docs/pubinfo__naukovi_rozrobky/katalog-2020-topress-1-p217-233.pdf",
+        "year": 2020,
+        "sizeKB": 11300,
         "external": false
       },
       {
@@ -289,7 +289,7 @@
     "count": 21,
     "items": [
       {
-        "title": "Календар 2026",
+        "title": "Календар знаменних і пам’ятних дат в історії сільськогосподарської дослідної справи України на 2026 рік",
         "ext": "PDF",
         "href": "/docs/pubinfo__planuvannya/kalendar-2026.pdf",
         "year": 2026,
@@ -297,31 +297,7 @@
         "external": false
       },
       {
-        "title": "Календарний план на квітень 2026",
-        "ext": "DOCX",
-        "href": "/docs/pubinfo__planuvannya/sait-kal-plan-kviten-2026-kopiia.docx",
-        "year": 2026,
-        "sizeKB": 68,
-        "external": false
-      },
-      {
-        "title": "Календарний план НААН на січень 2026",
-        "ext": "DOC",
-        "href": "/docs/pubinfo__planuvannya/kalendarnyi-plan-naan-na-sichen-2026.doc",
-        "year": 2026,
-        "sizeKB": 157,
-        "external": false
-      },
-      {
-        "title": "САЙТ Календ. план НУ НААН на лютий 2026 копія",
-        "ext": "DOC",
-        "href": "/docs/pubinfo__planuvannya/sait-kalend-plan-nu-naan-na-liutyi-2026-kopiia.doc",
-        "year": 2026,
-        "sizeKB": 148,
-        "external": false
-      },
-      {
-        "title": "САЙТ КАЛЕНДАРНИЙ ПЛАН березень 2026",
+        "title": "Календарний план основних заходів НААН на березень 2026 року",
         "ext": "DOC",
         "href": "/docs/pubinfo__planuvannya/sait-kalendarnyi-plan-berezen-2026.doc",
         "year": 2026,
@@ -329,7 +305,39 @@
         "external": false
       },
       {
-        "title": "САЙТ Травень КАЛ.ПЛАН 2026 копія",
+        "title": "Календарний план основних заходів НААН на квітень 2026 року",
+        "ext": "DOCX",
+        "href": "/docs/pubinfo__planuvannya/sait-kal-plan-kviten-2026-kopiia.docx",
+        "year": 2026,
+        "sizeKB": 68,
+        "external": false
+      },
+      {
+        "title": "Календарний план основних заходів НААН на липень 2026 року",
+        "ext": "DOCX",
+        "href": "/docs/pubinfo__planuvannya/lypen-kal-plan-sait.docx",
+        "year": 2026,
+        "sizeKB": 72,
+        "external": false
+      },
+      {
+        "title": "Календарний план основних заходів НААН на лютий 2026 року",
+        "ext": "DOC",
+        "href": "/docs/pubinfo__planuvannya/sait-kalend-plan-nu-naan-na-liutyi-2026-kopiia.doc",
+        "year": 2026,
+        "sizeKB": 148,
+        "external": false
+      },
+      {
+        "title": "Календарний план основних заходів НААН на січень 2026 року",
+        "ext": "DOC",
+        "href": "/docs/pubinfo__planuvannya/kalendarnyi-plan-naan-na-sichen-2026.doc",
+        "year": 2026,
+        "sizeKB": 157,
+        "external": false
+      },
+      {
+        "title": "Календарний план основних заходів НААН на травень 2026 року",
         "ext": "DOCX",
         "href": "/docs/pubinfo__planuvannya/sait-traven-kal-plan-2026-kopiia.docx",
         "year": 2026,
@@ -337,7 +345,7 @@
         "external": false
       },
       {
-        "title": "Червень КАЛ.ПЛАН 2026",
+        "title": "Календарний план основних заходів НААН на червень 2026 року",
         "ext": "DOCX",
         "href": "/docs/pubinfo__planuvannya/cherven-kal-plan-2026.docx",
         "year": 2026,
@@ -345,7 +353,7 @@
         "external": false
       },
       {
-        "title": "графік підвищення кваліфікації у наукових установах НААН на 2025 рік",
+        "title": "Графік підвищення кваліфікації у наукових установах НААН на 2025 рік",
         "ext": "PDF",
         "href": "/docs/pubinfo__planuvannya/hrafik-pidvyshchennia-kvalifikatsii-u-naukovykh-ustanovakh-naan-na-202.pdf",
         "year": 2025,
@@ -353,7 +361,7 @@
         "external": false
       },
       {
-        "title": "Календарний план основних заходів Національної академії аграрних наук України на вересень 2025 року",
+        "title": "Календарний план основних заходів НААН на вересень 2025 року",
         "ext": "DOC",
         "href": "/docs/pubinfo__planuvannya/kalendarnyi-plan-osnovnykh-zakhodiv-natsionalnoi-akademii-ahrarnykh-na.doc",
         "year": 2025,
@@ -361,15 +369,15 @@
         "external": false
       },
       {
-        "title": "на сайт Кал.план на листопад 2025",
+        "title": "Календарний план основних заходів НААН на грудень 2025 року",
         "ext": "DOC",
-        "href": "/docs/pubinfo__planuvannya/na-sait-kal-plan-na-lystopad-2025.doc",
+        "href": "/docs/pubinfo__planuvannya/na-sait-huden.doc",
         "year": 2025,
-        "sizeKB": 178,
+        "sizeKB": 195,
         "external": false
       },
       {
-        "title": "ТВКалендарний план Жовтень 2025 1",
+        "title": "Календарний план основних заходів НААН на жовтень 2025 року",
         "ext": "DOC",
         "href": "/docs/pubinfo__planuvannya/tvkalendarnyi-plan-zhovten-2025-1.doc",
         "year": 2025,
@@ -377,7 +385,23 @@
         "external": false
       },
       {
-        "title": "на сайт Календ.план НААН на вересень 2024 року",
+        "title": "Календарний план основних заходів НААН на листопад 2025 року",
+        "ext": "DOC",
+        "href": "/docs/pubinfo__planuvannya/na-sait-kal-plan-na-lystopad-2025.doc",
+        "year": 2025,
+        "sizeKB": 178,
+        "external": false
+      },
+      {
+        "title": "Календарний план основних заходів НААН на січень 2025 року",
+        "ext": "DOC",
+        "href": "/docs/pubinfo__planuvannya/kal-plan-naan-na-sichen-sait.doc",
+        "year": 2025,
+        "sizeKB": 140,
+        "external": false
+      },
+      {
+        "title": "Календарний план основних заходів НААН на вересень 2024 року",
         "ext": "DOC",
         "href": "/docs/pubinfo__planuvannya/na-sait-kalend-plan-naan-na-veresen-2024-roku.doc",
         "year": 2024,
@@ -385,7 +409,23 @@
         "external": false
       },
       {
-        "title": "на сайт Календарний план НААН на липень 2024",
+        "title": "Календарний план основних заходів НААН на грудень 2024 року",
+        "ext": "DOC",
+        "href": "/docs/pubinfo__planuvannya/kal-plan-hrudenn-202sait.doc",
+        "year": 2024,
+        "sizeKB": 142,
+        "external": false
+      },
+      {
+        "title": "Календарний план основних заходів НААН на жовтень 2024 року",
+        "ext": "DOC",
+        "href": "/docs/pubinfo__planuvannya/kal-plan-zhovten-sait.doc",
+        "year": 2024,
+        "sizeKB": 203,
+        "external": false
+      },
+      {
+        "title": "Календарний план основних заходів НААН на липень 2024 року",
         "ext": "DOC",
         "href": "/docs/pubinfo__planuvannya/na-sait-kalendarnyi-plan-naan-na-lypen-2024.doc",
         "year": 2024,
@@ -393,7 +433,15 @@
         "external": false
       },
       {
-        "title": "на сайт Календарний план НААН на серпень 2024 року",
+        "title": "Календарний план основних заходів НААН на листопад 2024 року",
+        "ext": "DOC",
+        "href": "/docs/pubinfo__planuvannya/kal-plan-lystopad-sait.doc",
+        "year": 2024,
+        "sizeKB": 146,
+        "external": false
+      },
+      {
+        "title": "Календарний план основних заходів НААН на серпень 2024 року",
         "ext": "DOC",
         "href": "/docs/pubinfo__planuvannya/na-sait-kalendarnyi-plan-naan-na-serpen-2024-roku.doc",
         "year": 2024,
@@ -401,55 +449,7 @@
         "external": false
       },
       {
-        "title": "КАЛ.ПЛАН груденнь 202Сайт",
-        "ext": "DOC",
-        "href": "/docs/pubinfo__planuvannya/kal-plan-hrudenn-202sait.doc",
-        "year": 0,
-        "sizeKB": 142,
-        "external": false
-      },
-      {
-        "title": "КАЛ.ПЛАН жовтень сайт",
-        "ext": "DOC",
-        "href": "/docs/pubinfo__planuvannya/kal-plan-zhovten-sait.doc",
-        "year": 0,
-        "sizeKB": 203,
-        "external": false
-      },
-      {
-        "title": "кал.план листопад САЙТ",
-        "ext": "DOC",
-        "href": "/docs/pubinfo__planuvannya/kal-plan-lystopad-sait.doc",
-        "year": 0,
-        "sizeKB": 146,
-        "external": false
-      },
-      {
-        "title": "КАЛ.план НААН на січень сайт",
-        "ext": "DOC",
-        "href": "/docs/pubinfo__planuvannya/kal-plan-naan-na-sichen-sait.doc",
-        "year": 0,
-        "sizeKB": 140,
-        "external": false
-      },
-      {
-        "title": "ЛИПЕНЬ КАЛ.ПЛАН сайт",
-        "ext": "DOCX",
-        "href": "/docs/pubinfo__planuvannya/lypen-kal-plan-sait.docx",
-        "year": 0,
-        "sizeKB": 72,
-        "external": false
-      },
-      {
-        "title": "на сайт гудень",
-        "ext": "DOC",
-        "href": "/docs/pubinfo__planuvannya/na-sait-huden.doc",
-        "year": 0,
-        "sizeKB": 195,
-        "external": false
-      },
-      {
-        "title": "НААН Пропозиції ТСК ВРУ",
+        "title": "Порівняльна таблиця пропозицій НААН до проєкту Закону України про внесення змін до Закону України «Про наукову і науково-технічну діяльність»",
         "ext": "PDF",
         "href": "/docs/pubinfo__planuvannya/naan-propozytsii-tsk-vru.pdf",
         "year": 0,
@@ -523,6 +523,110 @@
     "count": 30,
     "items": [
       {
+        "title": "Лист очікувань ДП НПЦВ «Еліта» ІАРРР на 2025 рік",
+        "ext": "PDF",
+        "href": "/docs/pubinfo__rizne/lyst-ochikuvan-dp-nptsv-elita-iarrr.pdf",
+        "year": 2025,
+        "sizeKB": 4751,
+        "external": false
+      },
+      {
+        "title": "Лист очікувань ДПДГ «Андріївське» ІКОСГ на 2025 рік",
+        "ext": "PDF",
+        "href": "/docs/pubinfo__rizne/lyst-ochikuvan-dpdh-andriivske-ikosh.pdf",
+        "year": 2025,
+        "sizeKB": 5036,
+        "external": false
+      },
+      {
+        "title": "Лист очікувань ДПДГ «Білокриницьке» ІСГЗП на 2025 рік",
+        "ext": "PDF",
+        "href": "/docs/pubinfo__rizne/lyst-ochikuvan-dpdh-bilokrynytske-ishzr.pdf",
+        "year": 2025,
+        "sizeKB": 3674,
+        "external": false
+      },
+      {
+        "title": "Лист очікувань ДПДГ «Вирішальне» ІСГПС на 2025 рік",
+        "ext": "PDF",
+        "href": "/docs/pubinfo__rizne/lyst-ochikuvan-dpdh-vyrishalne-ishps.pdf",
+        "year": 2025,
+        "sizeKB": 4916,
+        "external": false
+      },
+      {
+        "title": "Лист очікувань ДПДГ «Елітне» ІСГС на 2025 рік",
+        "ext": "PDF",
+        "href": "/docs/pubinfo__rizne/lyt-ochikuvan-elitne-ishs.pdf",
+        "year": 2025,
+        "sizeKB": 4045,
+        "external": false
+      },
+      {
+        "title": "Лист очікувань ДПДГ «Зоря» ІСГЗП на 2025 рік",
+        "ext": "PDF",
+        "href": "/docs/pubinfo__rizne/lyst-ochikuvan-zoria-ishzp.pdf",
+        "year": 2025,
+        "sizeKB": 2566,
+        "external": false
+      },
+      {
+        "title": "Лист очікувань ДПДГ «Зоряне» ІС на 2025 рік",
+        "ext": "PDF",
+        "href": "/docs/pubinfo__rizne/lyst-ochikuvan-zoriane.pdf",
+        "year": 2025,
+        "sizeKB": 5811,
+        "external": false
+      },
+      {
+        "title": "Лист очікувань ДПДГ «Львівське» ІС на 2025 рік",
+        "ext": "PDF",
+        "href": "/docs/pubinfo__rizne/lyst-ochikuvan-dpdh-lvivske-is.pdf",
+        "year": 2025,
+        "sizeKB": 4061,
+        "external": false
+      },
+      {
+        "title": "Лист очікувань ДПДГ «Новатор» ІОК на 2025 рік",
+        "ext": "PDF",
+        "href": "/docs/pubinfo__rizne/lyst-ochikuvan-dpdh-novator-iok.pdf",
+        "year": 2025,
+        "sizeKB": 5572,
+        "external": false
+      },
+      {
+        "title": "Лист очікувань ДПДГ «Степне» ІСАПВ на 2025 рік",
+        "ext": "PDF",
+        "href": "/docs/pubinfo__rizne/lyst-ochikuvan-dpdh-stepne-isapv.pdf",
+        "year": 2025,
+        "sizeKB": 4576,
+        "external": false
+      },
+      {
+        "title": "Лист очікувань ДПДГ «Христинівське» ІРГТ ім. М.В. Зубця на 2025 рік",
+        "ext": "PDF",
+        "href": "/docs/pubinfo__rizne/lyst-ochikuvan-dpdh-khrystynivske-irht-im-m-v-zubtsia.pdf",
+        "year": 2025,
+        "sizeKB": 7165,
+        "external": false
+      },
+      {
+        "title": "Лист очікувань ДПДГ ім. Декабристів ІПР на 2025 рік",
+        "ext": "PDF",
+        "href": "/docs/pubinfo__rizne/lyst-ochikuvan-dpdh-im-dekabrystiv-ipr.pdf",
+        "year": 2025,
+        "sizeKB": 4798,
+        "external": false
+      },
+      {
+        "title": "Лист очікувань Уладово-Люлинецької ДСС ІБКіЦБ на 2025 рік",
+        "ext": "PDF",
+        "href": "/docs/pubinfo__rizne/lyst-ochikuvan-uladovo-liulynetska-dss-ibktsb.pdf",
+        "year": 2025,
+        "sizeKB": 5876,
+        "external": false
+      },
+      {
         "title": "ДГ Граківське ННЦ ІГА",
         "ext": "PDF",
         "href": "/docs/pubinfo__rizne/dh-hrakivske-nnts-iha.pdf",
@@ -531,31 +635,7 @@
         "external": false
       },
       {
-        "title": "Лист очікування ДПДГ Проскурівка МІП",
-        "ext": "PDF",
-        "href": "/docs/pubinfo__rizne/lyst-ochikuvannia-dpdh-proskurivka-mip.pdf",
-        "year": 0,
-        "sizeKB": 3547,
-        "external": false
-      },
-      {
-        "title": "Лист очікування ДПДГ Саливонківське ІБКІЦБ",
-        "ext": "PDF",
-        "href": "/docs/pubinfo__rizne/lyst-ochikuvannia-dpdh-salyvonkivske-ibkitsb.pdf",
-        "year": 0,
-        "sizeKB": 3588,
-        "external": false
-      },
-      {
-        "title": "Лист очікування ДПДГ Шевченківське ІБКіЦБ",
-        "ext": "PDF",
-        "href": "/docs/pubinfo__rizne/lyst-ochikuvannia-dpdh-shevchenkivske-ibkitsb.pdf",
-        "year": 0,
-        "sizeKB": 1712,
-        "external": false
-      },
-      {
-        "title": "Лист очікувань ДГ Еліта ДУ МДСДС ІКОСГ",
+        "title": "Лист очікувань ДГ «Еліта» ДУ МДСДС ІКОСГ",
         "ext": "PDF",
         "href": "/docs/pubinfo__rizne/lyst-ochikuvan-dh-elita-du-mdsds-ikosh.pdf",
         "year": 0,
@@ -563,7 +643,7 @@
         "external": false
       },
       {
-        "title": "Лист очікувань ДГ Жеребківське СГІ",
+        "title": "Лист очікувань ДГ «Жеребківське» СГІ",
         "ext": "PDF",
         "href": "/docs/pubinfo__rizne/lyst-ochikuvan-dh-zherebkivske-shi.pdf",
         "year": 0,
@@ -571,15 +651,7 @@
         "external": false
       },
       {
-        "title": "Лист очікувань ДГ Львівської ДС Інститтуту рибного",
-        "ext": "PDF",
-        "href": "/docs/pubinfo__rizne/lyst-ochikuvan-dh-lvivskoi-ds-instyttutu-rybnoho.pdf",
-        "year": 0,
-        "sizeKB": 7891,
-        "external": false
-      },
-      {
-        "title": "Лист очікувань ДГ НИВА ІРГТ",
+        "title": "Лист очікувань ДГ «Нива» ІРГТ",
         "ext": "PDF",
         "href": "/docs/pubinfo__rizne/lyst-ochikuvan-dh-nyva-irht.pdf",
         "year": 0,
@@ -587,7 +659,7 @@
         "external": false
       },
       {
-        "title": "Лист очікувань ДГ Нивка ІРГ",
+        "title": "Лист очікувань ДГ «Нивка» ІРГ",
         "ext": "PDF",
         "href": "/docs/pubinfo__rizne/lyst-ochikuvan-dh-nyvka-irh.pdf",
         "year": 0,
@@ -595,7 +667,7 @@
         "external": false
       },
       {
-        "title": "Лист очікувань ДГ Одеське ІКОСГ",
+        "title": "Лист очікувань ДГ «Одеське» ІКОСГ",
         "ext": "PDF",
         "href": "/docs/pubinfo__rizne/lyst-ochikuvan-dh-odeske-ikosh.pdf",
         "year": 0,
@@ -603,7 +675,7 @@
         "external": false
       },
       {
-        "title": "Лист очікувань ДГ Подільське ТДС ІСГКР",
+        "title": "Лист очікувань ДГ «Подільське» ТДС ІСГКР",
         "ext": "PDF",
         "href": "/docs/pubinfo__rizne/lyst-ochikuvan-dh-podilske-tds-ishkr.pdf",
         "year": 0,
@@ -611,11 +683,35 @@
         "external": false
       },
       {
-        "title": "Лист очікувань ДГ Правдинське МІП",
+        "title": "Лист очікувань ДГ «Правдинське» МІП",
         "ext": "PDF",
         "href": "/docs/pubinfo__rizne/lyst-ochikuvan-dh-pravdynske-mip.pdf",
         "year": 0,
         "sizeKB": 7160,
+        "external": false
+      },
+      {
+        "title": "Лист очікувань ДГ «Піонер» ІКОСГ",
+        "ext": "PDF",
+        "href": "/docs/pubinfo__rizne/lyst-ochikuvan-dh-pioner-ikosh.pdf",
+        "year": 0,
+        "sizeKB": 8136,
+        "external": false
+      },
+      {
+        "title": "Лист очікувань ДГ «Сквирське» ІАП",
+        "ext": "PDF",
+        "href": "/docs/pubinfo__rizne/lyst-ochikuvan-dh-skvyrske-iap.pdf",
+        "year": 0,
+        "sizeKB": 7965,
+        "external": false
+      },
+      {
+        "title": "Лист очікувань ДГ Львівської ДС Інституту рибного господарства",
+        "ext": "PDF",
+        "href": "/docs/pubinfo__rizne/lyst-ochikuvan-dh-lvivskoi-ds-instyttutu-rybnoho.pdf",
+        "year": 0,
+        "sizeKB": 7891,
         "external": false
       },
       {
@@ -627,22 +723,6 @@
         "external": false
       },
       {
-        "title": "Лист очікувань ДГ Піонер ІКОСГ",
-        "ext": "PDF",
-        "href": "/docs/pubinfo__rizne/lyst-ochikuvan-dh-pioner-ikosh.pdf",
-        "year": 0,
-        "sizeKB": 8136,
-        "external": false
-      },
-      {
-        "title": "Лист очікувань ДГ Сквирське ІАП",
-        "ext": "PDF",
-        "href": "/docs/pubinfo__rizne/lyst-ochikuvan-dh-skvyrske-iap.pdf",
-        "year": 0,
-        "sizeKB": 7965,
-        "external": false
-      },
-      {
         "title": "Лист очікувань ДДП ІПР",
         "ext": "PDF",
         "href": "/docs/pubinfo__rizne/lyst-ochikuvan-ddp-ipr.pdf",
@@ -651,55 +731,15 @@
         "external": false
       },
       {
-        "title": "Лист очікувань ДП НПЦВ Еліта ІАРРР",
+        "title": "Лист очікувань ДПДГ «Проскурівка» МІП",
         "ext": "PDF",
-        "href": "/docs/pubinfo__rizne/lyst-ochikuvan-dp-nptsv-elita-iarrr.pdf",
+        "href": "/docs/pubinfo__rizne/lyst-ochikuvannia-dpdh-proskurivka-mip.pdf",
         "year": 0,
-        "sizeKB": 4751,
+        "sizeKB": 3547,
         "external": false
       },
       {
-        "title": "Лист очікувань ДПДГ Андріївське ІКОСГ",
-        "ext": "PDF",
-        "href": "/docs/pubinfo__rizne/lyst-ochikuvan-dpdh-andriivske-ikosh.pdf",
-        "year": 0,
-        "sizeKB": 5036,
-        "external": false
-      },
-      {
-        "title": "Лист очікувань ДПДГ Білокриницьке ІСГЗР",
-        "ext": "PDF",
-        "href": "/docs/pubinfo__rizne/lyst-ochikuvan-dpdh-bilokrynytske-ishzr.pdf",
-        "year": 0,
-        "sizeKB": 3674,
-        "external": false
-      },
-      {
-        "title": "Лист очікувань ДПДГ Вирішальне ІСГПС",
-        "ext": "PDF",
-        "href": "/docs/pubinfo__rizne/lyst-ochikuvan-dpdh-vyrishalne-ishps.pdf",
-        "year": 0,
-        "sizeKB": 4916,
-        "external": false
-      },
-      {
-        "title": "Лист очікувань ДПДГ Львівське ІС",
-        "ext": "PDF",
-        "href": "/docs/pubinfo__rizne/lyst-ochikuvan-dpdh-lvivske-is.pdf",
-        "year": 0,
-        "sizeKB": 4061,
-        "external": false
-      },
-      {
-        "title": "Лист очікувань ДПДГ Новатор ІОК",
-        "ext": "PDF",
-        "href": "/docs/pubinfo__rizne/lyst-ochikuvan-dpdh-novator-iok.pdf",
-        "year": 0,
-        "sizeKB": 5572,
-        "external": false
-      },
-      {
-        "title": "Лист очікувань ДПДГ Радехівське ІСГКР",
+        "title": "Лист очікувань ДПДГ «Радехівське» ІСГКР",
         "ext": "PDF",
         "href": "/docs/pubinfo__rizne/lyst-ochikuvan-dpdh-radekhivske-ishkr.pdf",
         "year": 0,
@@ -707,59 +747,19 @@
         "external": false
       },
       {
-        "title": "Лист очікувань ДПДГ Степне ІСАПВ",
+        "title": "Лист очікувань ДПДГ «Саливонківське» ІБКіЦБ",
         "ext": "PDF",
-        "href": "/docs/pubinfo__rizne/lyst-ochikuvan-dpdh-stepne-isapv.pdf",
+        "href": "/docs/pubinfo__rizne/lyst-ochikuvannia-dpdh-salyvonkivske-ibkitsb.pdf",
         "year": 0,
-        "sizeKB": 4576,
+        "sizeKB": 3588,
         "external": false
       },
       {
-        "title": "Лист очікувань ДПДГ Христинівське ІРГТ ім. М.В.Зубця",
+        "title": "Лист очікувань ДПДГ «Шевченківське» ІБКіЦБ",
         "ext": "PDF",
-        "href": "/docs/pubinfo__rizne/lyst-ochikuvan-dpdh-khrystynivske-irht-im-m-v-zubtsia.pdf",
+        "href": "/docs/pubinfo__rizne/lyst-ochikuvannia-dpdh-shevchenkivske-ibkitsb.pdf",
         "year": 0,
-        "sizeKB": 7165,
-        "external": false
-      },
-      {
-        "title": "Лист очікувань ДПДГ ім. Декабристів ІПР",
-        "ext": "PDF",
-        "href": "/docs/pubinfo__rizne/lyst-ochikuvan-dpdh-im-dekabrystiv-ipr.pdf",
-        "year": 0,
-        "sizeKB": 4798,
-        "external": false
-      },
-      {
-        "title": "Лист очікувань Зоря ІСГЗП",
-        "ext": "PDF",
-        "href": "/docs/pubinfo__rizne/lyst-ochikuvan-zoria-ishzp.pdf",
-        "year": 0,
-        "sizeKB": 2566,
-        "external": false
-      },
-      {
-        "title": "Лист очікувань Зоряне",
-        "ext": "PDF",
-        "href": "/docs/pubinfo__rizne/lyst-ochikuvan-zoriane.pdf",
-        "year": 0,
-        "sizeKB": 5811,
-        "external": false
-      },
-      {
-        "title": "Лист очікувань Уладово Люлинецька ДСС ІБКЦБ",
-        "ext": "PDF",
-        "href": "/docs/pubinfo__rizne/lyst-ochikuvan-uladovo-liulynetska-dss-ibktsb.pdf",
-        "year": 0,
-        "sizeKB": 5876,
-        "external": false
-      },
-      {
-        "title": "Лит очікувань Елітне ІСГС",
-        "ext": "PDF",
-        "href": "/docs/pubinfo__rizne/lyt-ochikuvan-elitne-ishs.pdf",
-        "year": 0,
-        "sizeKB": 4045,
+        "sizeKB": 1712,
         "external": false
       }
     ]
@@ -861,7 +861,7 @@
     "count": 29,
     "items": [
       {
-        "title": "Звіт про виконання паспорту БП 6591020 на 1 січня 2017р",
+        "title": "Звіт про виконання паспорта бюджетної програми станом на 1 січня 2017 року за КПКВК 6591020",
         "ext": "PDF",
         "href": "/docs/pubinfo__pasport_budget/zvit-pro-vykonannia-pasportu-bp-6591020-na-1-sichnia-2017r.pdf",
         "year": 2017,
@@ -869,7 +869,7 @@
         "external": false
       },
       {
-        "title": "Звіт про виконання паспорту БП 6591060 на 1 січня 2017р 1",
+        "title": "Звіт про виконання паспорта бюджетної програми станом на 1 січня 2017 року за КПКВК 6591060",
         "ext": "PDF",
         "href": "/docs/pubinfo__pasport_budget/zvit-pro-vykonannia-pasportu-bp-6591060-na-1-sichnia-2017r-1.pdf",
         "year": 2017,
@@ -877,7 +877,7 @@
         "external": false
       },
       {
-        "title": "Звіт про виконання паспорту БП 6591080 на 1 січня 2017р",
+        "title": "Звіт про виконання паспорта бюджетної програми станом на 1 січня 2017 року за КПКВК 6591080",
         "ext": "PDF",
         "href": "/docs/pubinfo__pasport_budget/zvit-pro-vykonannia-pasportu-bp-6591080-na-1-sichnia-2017r.pdf",
         "year": 2017,
@@ -885,7 +885,7 @@
         "external": false
       },
       {
-        "title": "Звіт про виконання паспорту БП 6591100 на 1 січня 2017р",
+        "title": "Звіт про виконання паспорта бюджетної програми станом на 1 січня 2017 року за КПКВК 6591100",
         "ext": "PDF",
         "href": "/docs/pubinfo__pasport_budget/zvit-pro-vykonannia-pasportu-bp-6591100-na-1-sichnia-2017r.pdf",
         "year": 2017,
@@ -893,7 +893,7 @@
         "external": false
       },
       {
-        "title": "Паспорт БП 6591020 на 2017 р.",
+        "title": "Паспорт бюджетної програми на 2017 рік КПКВК 6591020",
         "ext": "PDF",
         "href": "/docs/pubinfo__pasport_budget/pasport-bp-6591020-na-2017-r.pdf",
         "year": 2017,
@@ -901,7 +901,7 @@
         "external": false
       },
       {
-        "title": "Паспорт БП 6591060 на 2017 р.",
+        "title": "Паспорт бюджетної програми на 2017 рік КПКВК 6591060",
         "ext": "PDF",
         "href": "/docs/pubinfo__pasport_budget/pasport-bp-6591060-na-2017-r.pdf",
         "year": 2017,
@@ -909,7 +909,7 @@
         "external": false
       },
       {
-        "title": "Паспорт БП 6591080 на 2017 р",
+        "title": "Паспорт бюджетної програми на 2017 рік КПКВК 6591080",
         "ext": "PDF",
         "href": "/docs/pubinfo__pasport_budget/pasport-bp-6591080-na-2017-r.pdf",
         "year": 2017,
@@ -917,7 +917,7 @@
         "external": false
       },
       {
-        "title": "Паспорт БП 6591100 на 2017 р",
+        "title": "Паспорт бюджетної програми на 2017 рік КПКВК 6591100",
         "ext": "PDF",
         "href": "/docs/pubinfo__pasport_budget/pasport-bp-6591100-na-2017-r.pdf",
         "year": 2017,
@@ -957,14 +957,6 @@
         "external": false
       },
       {
-        "title": "Паспорт бюджетно  програми на 2016 р к КПКВК 6591080",
-        "ext": "PDF",
-        "href": "/docs/pubinfo__pasport_budget/pasport-biudzhetno-prohramy-na-2016-r-k-kpkvk-6591080.pdf",
-        "year": 2016,
-        "sizeKB": 5338,
-        "external": false
-      },
-      {
         "title": "Паспорт бюджетної програми на 2016 рік КПКВК 6591020",
         "ext": "PDF",
         "href": "/docs/pubinfo__pasport_budget/pasport-biudzhetnoi-prohramy-na-2016-rik-kpkvk-6591020.pdf",
@@ -981,6 +973,14 @@
         "external": false
       },
       {
+        "title": "Паспорт бюджетної програми на 2016 рік КПКВК 6591080",
+        "ext": "PDF",
+        "href": "/docs/pubinfo__pasport_budget/pasport-biudzhetno-prohramy-na-2016-r-k-kpkvk-6591080.pdf",
+        "year": 2016,
+        "sizeKB": 5338,
+        "external": false
+      },
+      {
         "title": "Паспорт бюджетної програми на 2016 рік КПКВК 6591100",
         "ext": "PDF",
         "href": "/docs/pubinfo__pasport_budget/pasport-biudzhetnoi-prohramy-na-2016-rik-kpkvk-6591100.pdf",
@@ -989,7 +989,31 @@
         "external": false
       },
       {
-        "title": "Паспорт БП 1020 19.11.2015",
+        "title": "Про внесення змін до паспорта бюджетної програми на 2016 рік",
+        "ext": "PDF",
+        "href": "/docs/pubinfo__pasport_budget/file.pdf",
+        "year": 2016,
+        "sizeKB": 3275,
+        "external": false
+      },
+      {
+        "title": "Про внесення змін до паспорта бюджетної програми на 2016 рік за КПКВК 6591020",
+        "ext": "PDF",
+        "href": "/docs/pubinfo__pasport_budget/6591020.pdf",
+        "year": 2016,
+        "sizeKB": 3617,
+        "external": false
+      },
+      {
+        "title": "Про внесення змін до паспорта бюджетної програми на 2016 рік за КПКВК 6591100",
+        "ext": "PDF",
+        "href": "/docs/pubinfo__pasport_budget/6591100.pdf",
+        "year": 2016,
+        "sizeKB": 2305,
+        "external": false
+      },
+      {
+        "title": "Паспорт бюджетної програми 1020 від 19.11.2015",
         "ext": "PDF",
         "href": "/docs/pubinfo__pasport_budget/pasport-bp-1020-19-11-2015.pdf",
         "year": 2015,
@@ -997,7 +1021,7 @@
         "external": false
       },
       {
-        "title": "Паспорт БП 1100 23.10.2015",
+        "title": "Паспорт бюджетної програми 1100 від 23.10.2015",
         "ext": "PDF",
         "href": "/docs/pubinfo__pasport_budget/pasport-bp-1100-23-10-2015.pdf",
         "year": 2015,
@@ -1005,7 +1029,7 @@
         "external": false
       },
       {
-        "title": "1020 1",
+        "title": "Документ до паспорта бюджетної програми 1020",
         "ext": "PDF",
         "href": "/docs/pubinfo__pasport_budget/1020-1.pdf",
         "year": 0,
@@ -1013,15 +1037,7 @@
         "external": false
       },
       {
-        "title": "6591020",
-        "ext": "PDF",
-        "href": "/docs/pubinfo__pasport_budget/6591020.pdf",
-        "year": 0,
-        "sizeKB": 3617,
-        "external": false
-      },
-      {
-        "title": "6591060",
+        "title": "Документ до паспорта бюджетної програми КПКВК 6591060",
         "ext": "PDF",
         "href": "/docs/pubinfo__pasport_budget/6591060.pdf",
         "year": 0,
@@ -1029,31 +1045,7 @@
         "external": false
       },
       {
-        "title": "6591100",
-        "ext": "PDF",
-        "href": "/docs/pubinfo__pasport_budget/6591100.pdf",
-        "year": 0,
-        "sizeKB": 2305,
-        "external": false
-      },
-      {
-        "title": "File",
-        "ext": "PDF",
-        "href": "/docs/pubinfo__pasport_budget/file.pdf",
-        "year": 0,
-        "sizeKB": 3275,
-        "external": false
-      },
-      {
-        "title": "Паспорт 6591060",
-        "ext": "PDF",
-        "href": "/docs/pubinfo__pasport_budget/pasport-6591060.pdf",
-        "year": 0,
-        "sizeKB": 1657,
-        "external": false
-      },
-      {
-        "title": "Паспорт БП 1060 11",
+        "title": "Паспорт бюджетної програми 1060",
         "ext": "PDF",
         "href": "/docs/pubinfo__pasport_budget/pasport-bp-1060-11.pdf",
         "year": 0,
@@ -1061,7 +1053,7 @@
         "external": false
       },
       {
-        "title": "Паспорт БП 1080 11",
+        "title": "Паспорт бюджетної програми 1080",
         "ext": "PDF",
         "href": "/docs/pubinfo__pasport_budget/pasport-bp-1080-11.pdf",
         "year": 0,
@@ -1069,7 +1061,7 @@
         "external": false
       },
       {
-        "title": "Паспорт БП 6591020",
+        "title": "Паспорт бюджетної програми КПКВК 6591020",
         "ext": "PDF",
         "href": "/docs/pubinfo__pasport_budget/pasport-bp-6591020.pdf",
         "year": 0,
@@ -1077,7 +1069,15 @@
         "external": false
       },
       {
-        "title": "Паспорт БП 6591080",
+        "title": "Паспорт бюджетної програми КПКВК 6591060",
+        "ext": "PDF",
+        "href": "/docs/pubinfo__pasport_budget/pasport-6591060.pdf",
+        "year": 0,
+        "sizeKB": 1657,
+        "external": false
+      },
+      {
+        "title": "Паспорт бюджетної програми КПКВК 6591080",
         "ext": "PDF",
         "href": "/docs/pubinfo__pasport_budget/pasport-bp-6591080.pdf",
         "year": 0,
@@ -1085,7 +1085,7 @@
         "external": false
       },
       {
-        "title": "Паспорт БП 6591100",
+        "title": "Паспорт бюджетної програми КПКВК 6591100",
         "ext": "PDF",
         "href": "/docs/pubinfo__pasport_budget/pasport-bp-6591100.pdf",
         "year": 0,
@@ -1118,7 +1118,7 @@
         "external": false
       },
       {
-        "title": "Звіт 2025 Апарат Президії",
+        "title": "Звіт апарату Президії НААН за 2025 рік",
         "ext": "PDF",
         "href": "/docs/pubinfo__vikoristannya_koshtiv/zvit-2025-aparat-prezydii.pdf",
         "year": 2025,
@@ -1134,7 +1134,7 @@
         "external": false
       },
       {
-        "title": "звіт за І квартал 2025 року",
+        "title": "Звіт за І квартал 2025 року",
         "ext": "PDF",
         "href": "/docs/pubinfo__vikoristannya_koshtiv/zvit-za-i-kvartal-2025-roku.pdf",
         "year": 2025,
@@ -1150,19 +1150,27 @@
         "external": false
       },
       {
-        "title": "Звіт за 1 квартал 2023 року",
+        "title": "Зведений звіт про фінансові результати (форма № 2-дс) станом на 01.04.2024",
         "ext": "PDF",
-        "href": "/docs/pubinfo__vikoristannya_koshtiv/zvit-za-1-kvartal-2023-roku.pdf",
-        "year": 2023,
-        "sizeKB": 22451,
+        "href": "/docs/pubinfo__vikoristannya_koshtiv/form-2dc-merged-merged.pdf",
+        "year": 2024,
+        "sizeKB": 21732,
         "external": false
       },
       {
-        "title": "Звіт за 1 півріччя 2023 року",
+        "title": "Зведений звіт про фінансові результати (форма № 2-дс) станом на 01.10.2024",
         "ext": "PDF",
-        "href": "/docs/pubinfo__vikoristannya_koshtiv/zvit-za-1-pivrichchia-2023-roku.pdf",
-        "year": 2023,
-        "sizeKB": 23043,
+        "href": "/docs/pubinfo__vikoristannya_koshtiv/form-2dc-merged.pdf",
+        "year": 2024,
+        "sizeKB": 21629,
+        "external": false
+      },
+      {
+        "title": "Зведений звіт про фінансові результати (форма № 2-дс) станом на 01.10.2024",
+        "ext": "PDF",
+        "href": "/docs/pubinfo__vikoristannya_koshtiv/form-2dc-merged-1.pdf",
+        "year": 2024,
+        "sizeKB": 21629,
         "external": false
       },
       {
@@ -1174,19 +1182,27 @@
         "external": false
       },
       {
-        "title": "Звіт за 1 квартал 2022 року",
+        "title": "Звіт за І квартал 2023 року",
         "ext": "PDF",
-        "href": "/docs/pubinfo__vikoristannya_koshtiv/zvit-za-1-kvartal-2022-roku.pdf",
-        "year": 2022,
+        "href": "/docs/pubinfo__vikoristannya_koshtiv/zvit-za-1-kvartal-2023-roku.pdf",
+        "year": 2023,
         "sizeKB": 22451,
         "external": false
       },
       {
-        "title": "Звіт за 1 півріччя 2022 року",
+        "title": "Звіт за І півріччя 2023 року",
         "ext": "PDF",
-        "href": "/docs/pubinfo__vikoristannya_koshtiv/zvit-za-1-pivrichchia-2022-roku.pdf",
-        "year": 2022,
-        "sizeKB": 22605,
+        "href": "/docs/pubinfo__vikoristannya_koshtiv/zvit-za-1-pivrichchia-2023-roku.pdf",
+        "year": 2023,
+        "sizeKB": 23043,
+        "external": false
+      },
+      {
+        "title": "Звіт про огляд витрат державного бюджету у сфері наукової і науково-технічної діяльності наукових установ НААН за 2020–2022 роки",
+        "ext": "PDF",
+        "href": "/docs/pubinfo__vikoristannya_koshtiv/zvit-naan-z-ohliadu-vytrat-za-2020-2022-rr-z-pidpysamy-1.pdf",
+        "year": 2023,
+        "sizeKB": 2616,
         "external": false
       },
       {
@@ -1198,15 +1214,31 @@
         "external": false
       },
       {
-        "title": "Звіт НААН з огляду витрат за 2020 2022 рр. з підписами 1",
+        "title": "Звіт за І квартал 2022 року",
         "ext": "PDF",
-        "href": "/docs/pubinfo__vikoristannya_koshtiv/zvit-naan-z-ohliadu-vytrat-za-2020-2022-rr-z-pidpysamy-1.pdf",
+        "href": "/docs/pubinfo__vikoristannya_koshtiv/zvit-za-1-kvartal-2022-roku.pdf",
         "year": 2022,
-        "sizeKB": 2616,
+        "sizeKB": 22451,
         "external": false
       },
       {
-        "title": "Доповідь Гладія М.В. на зборах підсумки за 2021р.",
+        "title": "Звіт за І півріччя 2022 року",
+        "ext": "PDF",
+        "href": "/docs/pubinfo__vikoristannya_koshtiv/zvit-za-1-pivrichchia-2022-roku.pdf",
+        "year": 2022,
+        "sizeKB": 22605,
+        "external": false
+      },
+      {
+        "title": "Звіт про результати діяльності підрозділу внутрішнього аудиту НААН за 2022 рік",
+        "ext": "DOCX",
+        "href": "/docs/pubinfo__vikoristannya_koshtiv/zvit-naan-ta-poiasniuvalna-zapyska.docx",
+        "year": 2022,
+        "sizeKB": 44,
+        "external": false
+      },
+      {
+        "title": "Доповідь М. В. Гладія про фінансове забезпечення та використання коштів НААН у 2021 році",
         "ext": "DOCX",
         "href": "/docs/pubinfo__vikoristannya_koshtiv/dopovid-hladiia-m-v-na-zborakh-pidsumky-za-2021r.docx",
         "year": 2021,
@@ -1214,7 +1246,7 @@
         "external": false
       },
       {
-        "title": "звіт за 1 півріччя 2021 р.",
+        "title": "Звіт за І півріччя 2021 року",
         "ext": "PDF",
         "href": "/docs/pubinfo__vikoristannya_koshtiv/zvit-za-1-pivrichchia-2021-r.pdf",
         "year": 2021,
@@ -1222,7 +1254,7 @@
         "external": false
       },
       {
-        "title": "Інформація звіт 2020р",
+        "title": "Інформація НААН про виконання Державного бюджету України за 2020 рік",
         "ext": "DOCX",
         "href": "/docs/pubinfo__vikoristannya_koshtiv/informatsiia-zvit-2020r.docx",
         "year": 2020,
@@ -1230,35 +1262,11 @@
         "external": false
       },
       {
-        "title": "Form 2dc merged",
+        "title": "Зведений фінансовий звіт НААН",
         "ext": "PDF",
-        "href": "/docs/pubinfo__vikoristannya_koshtiv/form-2dc-merged.pdf",
+        "href": "/docs/pubinfo__vikoristannya_koshtiv/ytoh2.pdf",
         "year": 0,
-        "sizeKB": 21629,
-        "external": false
-      },
-      {
-        "title": "Form 2dc merged",
-        "ext": "PDF",
-        "href": "/docs/pubinfo__vikoristannya_koshtiv/form-2dc-merged-1.pdf",
-        "year": 0,
-        "sizeKB": 21629,
-        "external": false
-      },
-      {
-        "title": "Form 2dc merged merged",
-        "ext": "PDF",
-        "href": "/docs/pubinfo__vikoristannya_koshtiv/form-2dc-merged-merged.pdf",
-        "year": 0,
-        "sizeKB": 21732,
-        "external": false
-      },
-      {
-        "title": "Звіт НААН та пояснювальна записка",
-        "ext": "DOCX",
-        "href": "/docs/pubinfo__vikoristannya_koshtiv/zvit-naan-ta-poiasniuvalna-zapyska.docx",
-        "year": 0,
-        "sizeKB": 44,
+        "sizeKB": 2190,
         "external": false
       },
       {
@@ -1270,15 +1278,7 @@
         "external": false
       },
       {
-        "title": "Итог2",
-        "ext": "PDF",
-        "href": "/docs/pubinfo__vikoristannya_koshtiv/ytoh2.pdf",
-        "year": 0,
-        "sizeKB": 2190,
-        "external": false
-      },
-      {
-        "title": "Опер план",
+        "title": "Оперативний план",
         "ext": "PDF",
         "href": "/docs/pubinfo__vikoristannya_koshtiv/oper-plan.pdf",
         "year": 0,
