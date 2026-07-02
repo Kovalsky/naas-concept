@@ -31,6 +31,11 @@ const isHome = (Astro.url.pathname.replace(/\/$/, '') || '/') === '/';
         var l = localStorage.getItem('naas-lang');
         if (l === 'en') document.documentElement.setAttribute('data-lang', 'en');
       } catch (e) {}
+      try {
+        var fs = localStorage.getItem('naas-fs');
+        if (fs === '112' || fs === '125') document.documentElement.setAttribute('data-fs', fs);
+        if (localStorage.getItem('naas-hc') === 'true') document.documentElement.setAttribute('data-hc', 'true');
+      } catch (e) {}
     </script>
     <title>{fullTitle}</title>
     <meta name="description" content={description} />

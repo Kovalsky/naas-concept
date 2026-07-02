@@ -193,7 +193,7 @@ img { max-width: 100%; }
 .rows a:last-child, .rows .row:last-child { border-bottom: none; }
 .rows a:hover { background: var(--surface2); }
 .row-title { font-size: 15px; font-weight: 600; color: var(--ink); }
-.row-desc { font-size: 13px; color: var(--muted-ink); margin-top: 3px; }
+.row-desc { display: block; font-size: 13px; color: var(--muted-ink); margin-top: 3px; }
 .row-url { font-family: var(--mono); font-size: 12px; color: var(--green); white-space: nowrap; }
 
 /* placeholder block for ТЗ sections without source content */
@@ -228,7 +228,21 @@ img { max-width: 100%; }
   .only-mobile { display: flex; }
 }
 
-html[data-hc="true"] { filter: saturate(0) contrast(1.22); }
+/* Accessibility (audit item 15): true high contrast instead of a grayscale filter.
+   The [data-theme] selector overrides the dark theme; this block sits below its declaration. */
+:root[data-hc="true"],
+:root[data-hc="true"][data-theme="dark"] {
+  --bg:#ffffff; --bg2:#ffffff; --surface:#ffffff; --surface2:#f2f2f2;
+  --ink:#000000; --ink2:#000000; --muted-ink:#1f1f1f; --faint:#3d3d3d;
+  --line:#6e6e6e; --line2:#4d4d4d;
+  --green:#0a5233; --green-d:#063a24; --green-soft:#0a5233; --accent:#0a5233;
+  --gold-soft:#e8e8e8; --gold-ink:#063a24; --navy-deep:#000000;
+}
+:root[data-hc="true"] a { text-decoration: underline; }
+
+/* Font scale: the site is set in px, hence zoom (Chrome/Edge/Safari/FF 126+). */
+:root[data-fs="112"] body { zoom: 1.125; }
+:root[data-fs="125"] body { zoom: 1.25; }
 
 /* ---------- homepage hero variant switcher (legacy; single hero on modern) ---------- */
 .hero-variant { display: none; }

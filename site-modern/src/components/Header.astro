@@ -25,7 +25,7 @@ const searchPh = STRINGS['ui.search.ph'];
 <!-- UTILITY BAR -->
 <div style="background:var(--bg2); border-bottom:1px solid var(--line);">
   <div class="wrap" style="height:38px; display:flex; align-items:center; justify-content:space-between; font-family:var(--mono); font-size:11px; letter-spacing:.02em; color:var(--muted-ink);">
-    <button id="hc-toggle" class="uline" aria-pressed="false" aria-label="Контрастна версія для людей з вадами зору" style="display:inline-flex; align-items:center; gap:8px; color:var(--muted-ink);">
+    <button id="a11y-toggle" class="uline" aria-expanded="false" aria-controls="a11y-panel" aria-label="Налаштування доступності / Accessibility settings" style="display:inline-flex; align-items:center; gap:8px; color:var(--muted-ink);">
       <span style="width:6px; height:6px; background:var(--green); display:inline-block;"></span>
       <span class="util-label"><T k="ui.a11y" /></span>
     </button>
@@ -42,6 +42,23 @@ const searchPh = STRINGS['ui.search.ph'];
         <span class="util-label"><span class="t-uk">Тема</span><span class="t-en">Theme</span></span>
       </button>
     </div>
+  </div>
+</div>
+
+<!-- A11Y PANEL (font size / contrast) — audit item 15 -->
+<div id="a11y-panel" hidden style="background:var(--bg2); border-bottom:1px solid var(--line);">
+  <div class="wrap" style="min-height:46px; display:flex; align-items:center; gap:22px; flex-wrap:wrap; padding-top:8px; padding-bottom:8px; font-family:var(--mono); font-size:11px; color:var(--muted-ink);">
+    <span role="group" aria-label="Розмір шрифту / Font size" style="display:inline-flex; align-items:center; gap:6px;">
+      <span style="margin-right:4px;"><T k="ui.a11y.fontsize" /></span>
+      <button class="a11y-fs" data-fs="100" aria-pressed="true" style="min-width:34px; min-height:30px; border:1px solid var(--line2); border-radius:5px; font-size:11px;">A</button>
+      <button class="a11y-fs" data-fs="112" aria-pressed="false" style="min-width:34px; min-height:30px; border:1px solid var(--line2); border-radius:5px; font-size:13px;">A</button>
+      <button class="a11y-fs" data-fs="125" aria-pressed="false" style="min-width:34px; min-height:30px; border:1px solid var(--line2); border-radius:5px; font-size:15px;">A</button>
+    </span>
+    <button id="hc-toggle" aria-pressed="false" style="display:inline-flex; align-items:center; gap:8px; min-height:30px;">
+      <span class="a11y-dot" style="width:12px; height:12px; border:1px solid var(--ink2); border-radius:3px; display:inline-block;"></span>
+      <T k="ui.a11y.contrast" />
+    </button>
+    <button id="a11y-reset" class="uline" style="min-height:30px; color:var(--muted-ink);"><T k="ui.a11y.reset" /></button>
   </div>
 </div>
 
@@ -143,7 +160,10 @@ const searchPh = STRINGS['ui.search.ph'];
   }
 
   .hdr-link:hover { color: var(--green) !important; }
-  #hc-toggle:hover, #theme-toggle:hover { color: var(--ink) !important; }
+  #a11y-toggle:hover, #theme-toggle:hover { color: var(--ink) !important; }
+  .a11y-fs[aria-pressed="true"] { border-color: var(--green) !important; color: var(--green) !important; font-weight: 700; }
+  :global(html[data-hc="true"]) .a11y-dot { background: var(--green); }
+  #hc-toggle:hover, #a11y-reset:hover, .a11y-fs:hover { color: var(--ink) !important; }
   #search-open { transition: border-color 140ms, color 140ms, background 140ms; }
   #search-open:hover { border-color: var(--green); color: var(--green); }
   #mnav-open:hover { border-color: var(--green); color: var(--green); }
@@ -238,10 +258,48 @@ const searchPh = STRINGS['ui.search.ph'];
 
     // (Re-)initialise on initial load and after every view transition.
     function setup() {
+      // A11y panel: font scale + high contrast (audit item 15). State lives in
+      // memory so the controls keep working when localStorage is unavailable
+      // (blocked cookies); storage is only the persistence layer.
+      var FK = 'naas-fs', HK = 'naas-hc';
+      var A = window.__naasA11y || (window.__naasA11y = { fs: null, hc: null });
+      function applyA11y() {
+        try {
+          if (A.fs === null) A.fs = localStorage.getItem(FK) || '100';
+          if (A.hc === null) A.hc = localStorage.getItem(HK) === 'true';
+        } catch (e) {}
+        var fs = A.fs || '100', hc = !!A.hc;
+        if (fs === '100') root.removeAttribute('data-fs'); else root.setAttribute('data-fs', fs);
+        if (hc) root.setAttribute('data-hc', 'true'); else root.removeAttribute('data-hc');
+        var hcBtn = document.getElementById('hc-toggle');
+        if (hcBtn) hcBtn.setAttribute('aria-pressed', String(hc));
+        Array.prototype.forEach.call(document.querySelectorAll('.a11y-fs'), function (b) {
+          b.setAttribute('aria-pressed', String((b.getAttribute('data-fs') || '100') === fs));
+        });
+      }
+      applyA11y();
+      bind(document.getElementById('a11y-toggle'), 'click', function () {
+        var p = document.getElementById('a11y-panel');
+        if (!p) return;
+        p.hidden = !p.hidden;
+        this.setAttribute('aria-expanded', String(!p.hidden));
+      });
+      Array.prototype.forEach.call(document.querySelectorAll('.a11y-fs'), function (b) {
+        bind(b, 'click', function () {
+          A.fs = b.getAttribute('data-fs') || '100';
+          try { localStorage.setItem(FK, A.fs); } catch (e) {}
+          applyA11y();
+        });
+      });
       bind(document.getElementById('hc-toggle'), 'click', function () {
-        var on = root.getAttribute('data-hc') !== 'true';
-        root.setAttribute('data-hc', on ? 'true' : 'false');
-        this.setAttribute('aria-pressed', String(on));
+        A.hc = root.getAttribute('data-hc') !== 'true';
+        try { localStorage.setItem(HK, String(A.hc)); } catch (e) {}
+        applyA11y();
+      });
+      bind(document.getElementById('a11y-reset'), 'click', function () {
+        A.fs = '100'; A.hc = false;
+        try { localStorage.removeItem(FK); localStorage.removeItem(HK); } catch (e) {}
+        applyA11y();
       });
 
       applyTheme(savedTheme());
