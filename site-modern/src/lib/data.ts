@@ -37,6 +37,7 @@ export interface Anons {
   teaser: string;
   image: string;
   url: string;
+  kind?: 'event' | 'publication';
 }
 
 export interface Contacts {
