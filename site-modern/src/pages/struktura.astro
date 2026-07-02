@@ -16,6 +16,11 @@ const divDesc: Record<string, string> = {
   'Відділення наукового забезпечення інноваційного розвитку': 'Впровадження інновацій, регіональний розвиток, наукова інформація та трансфер технологій.',
 };
 
+const anchorId = (i: number) => `viddilennia-${i + 1}`;
+// Colour coding for the 6 divisions: restrained mid-dark tones (white monogram
+// stays readable); order = order of divisions (institutes.json).
+const DIV_COLORS = ['#4d6b33', '#1c7a4c', '#8a6d1f', '#2a6f75', '#3f5f8a', '#6b4a7a'];
+
 const normalizeWeb = (w: string) => (w.startsWith('http') ? w : `http://${w}`);
 // Display the host only (drop path/query) so long URLs can't overflow the card;
 // the full URL is preserved in href via normalizeWeb().
@@ -53,9 +58,15 @@ const plural = (n: number, one: string, few: string, many: string) => {
     <div class="wrap">
       <h2 style="font-family:var(--serif); font-size:clamp(22px,2.6vw,30px); font-weight:600; color:var(--ink); margin-bottom:6px;">Наукові установи НААН</h2>
       <p style="font-size:15px; color:var(--ink2); margin-bottom:40px; max-width:720px;">{divisionCount} наукових відділень та {instituteCount} підпорядкованих їм установ, підприємств і організацій. Оберіть установу, щоб перейти на її офіційний сайт.</p>
-      {divisions.map((d) => (
-        <div class="div-block">
+      <nav class="div-nav mono" aria-label="Перейти до відділення">
+        {divisions.map((d, i) => (
+          <a href={`#${anchorId(i)}`}>{String(i + 1).padStart(2, '0')} {d.viddilennia.replace('Відділення ', '')}</a>
+        ))}
+      </nav>
+      {divisions.map((d, i) => (
+        <div class="div-block" id={anchorId(i)} style={`--div-c:${DIV_COLORS[i % DIV_COLORS.length]}`}>
           <div class="div-head">
+            <span class="div-mark" aria-hidden="true"></span>
             <h3 class="div-name">{d.viddilennia}</h3>
             <span class="div-count mono">{d.ustanovy.length} {plural(d.ustanovy.length, 'установа', 'установи', 'установ')}</span>
           </div>
@@ -105,6 +116,18 @@ const plural = (n: number, one: string, few: string, many: string) => {
     display: flex; align-items: baseline; gap: 14px;
     border-top: 3px solid var(--navy); padding-top: 14px; margin-bottom: 16px;
   }
+  .div-nav { display: flex; flex-wrap: wrap; gap: 8px; margin: -22px 0 36px; }
+  .div-nav a {
+    border: 1px solid var(--line2); border-radius: 999px; padding: 7px 14px;
+    font-size: 11.5px; letter-spacing: .02em; color: var(--ink2); background: var(--surface);
+    transition: border-color 140ms, color 140ms;
+  }
+  .div-nav a:hover { border-color: var(--green); color: var(--green); }
+  .div-block { scroll-margin-top: 96px; }
+  .div-mark {
+    flex-shrink: 0; width: 12px; height: 12px; border-radius: 3px;
+    background: var(--div-c, var(--navy)); position: relative; top: 1px;
+  }
   .div-name {
     font-family: var(--serif); font-weight: 600; color: var(--ink);
     font-size: clamp(19px, 2.2vw, 24px); line-height: 1.2;
@@ -135,7 +158,7 @@ const plural = (n: number, one: string, few: string, many: string) => {
   .inst__top { display: flex; align-items: flex-start; gap: 13px; }
   .inst__mono {
     flex-shrink: 0; width: 42px; height: 42px; border-radius: 9px;
-    background: var(--navy); color: #fff;
+    background: var(--div-c, var(--navy)); color: #fff;
     display: flex; align-items: center; justify-content: center;
     font-family: var(--serif); font-size: 14px; font-weight: 600;
   }
