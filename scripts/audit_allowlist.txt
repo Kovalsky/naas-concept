@@ -1,0 +1,5 @@
+img/hero/banner-wide-mobile.webp
+img/hero/banner-wide.jpg
+img/hero/banner-wide.webp
+img/hero/emblem-navy.jpg
+img/news/art8965.png

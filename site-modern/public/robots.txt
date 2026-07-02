@@ -1,0 +1,4 @@
+# Test mode of the new NAAS site: indexing is disabled to avoid duplicating
+# the old naas.gov.ua. Remove the Disallow once the subdomain becomes primary.
+User-agent: *
+Disallow: /
