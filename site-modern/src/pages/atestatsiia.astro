@@ -1,11 +1,50 @@
 ---
 import Base from '../layouts/Base.astro';
 import RegistryList from '../components/RegistryList.astro';
-import Placeholder from '../components/Placeholder.astro';
 import T from '../components/T.astro';
 import { ROUTES } from '../lib/site';
-import { byRoute, LEADS } from '../lib/registries';
+import { byRoute } from '../lib/registries';
+import type { Registry, RegItem } from '../lib/registries';
+
 const registry = byRoute('/atestatsiia');
+const items: RegItem[] = registry?.items ?? [];
+
+// ТЗ structure for the section — 4 sub-blocks; documents grouped by href.
+// MON order 758 = "Про оприлюднення дисертацій…" → specialized-councils block
+// (verified against the document text itself).
+const H = (s: string): RegItem[] => items.filter((it) => it.href.includes(s));
+interface Group { id: string; title: string; desc: string; items: RegItem[]; link?: { href: string; label: string }; pending?: boolean }
+const groups: Group[] = [
+  {
+    id: 'aspirantura',
+    title: 'Аспірантура та докторантура',
+    desc: 'Підготовка наукових кадрів: ліцензовані установи, обсяги державного замовлення та конкурси.',
+    items: [...H('doktorantura'), ...H('perelik-ustanov'), ...H('oholoshennia-na-sait-2025'), ...H('oholoshennia-na-sait-2024'), ...H('oholoshennia-konkurs-2017'), ...H('rezultaty-konkursu')],
+  },
+  {
+    id: 'spetsrady',
+    title: 'Спеціалізовані вчені ради',
+    desc: 'Ради з присудження наукових ступенів при установах НААН та вимоги МОН щодо атестації.',
+    items: [...H('spysok-spetsializovanykh-rad'), ...H('nakaz-mon-758')],
+  },
+  {
+    id: 'vydannia',
+    title: 'Наукові видання НААН',
+    desc: 'Фахові видання Академії та державне видавництво «Аграрна наука».',
+    items: [],
+    link: { href: ROUTES.publishing, label: 'Перейти до розділу «Видавнича діяльність»' },
+  },
+  {
+    id: 'derzhatestatsiia',
+    title: 'Державна атестація наукових установ',
+    desc: 'Результати проходження установами НААН державної атестації.',
+    items: [],
+    pending: true,
+  },
+];
+const assigned = new Set(groups.flatMap((g) => g.items.map((i) => i.href)));
+const rest = items.filter((it) => !assigned.has(it.href));
+const pseudo = (g: Group): Registry => ({ key: g.id, title: g.title, route: '/atestatsiia', source_url: '', count: g.items.length, items: g.items });
 ---
 <Base title="Атестація та підготовка кадрів">
   <section class="hero">
@@ -22,7 +61,45 @@ const registry = byRoute('/atestatsiia');
   </section>
   <section class="section section--white">
     <div class="wrap">
-      {registry ? <RegistryList registry={registry} lead={LEADS[registry.route]} /> : <Placeholder />}
+      {groups.map((g) => (
+        <div class="atest-group" id={g.id}>
+          <h2 class="atest-group__title">{g.title}</h2>
+          <p class="atest-group__desc">{g.desc}</p>
+          {g.items.length > 0 && <RegistryList registry={pseudo(g)} />}
+          {g.link && (
+            <div class="rows">
+              <a href={g.link.href}>
+                <span class="row-title" style="flex:1; min-width:0;">{g.link.label}</span>
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--navy)" stroke-width="1.9" style="flex-shrink:0;"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+              </a>
+            </div>
+          )}
+          {g.pending && (
+            <div class="rows">
+              <div class="row">
+                <span style="flex:1; min-width:0;"><span class="row-title" style="color:var(--ink2);">Результати державної атестації</span></span>
+                <span class="mono" style="font-size:11px; color:var(--ink3); white-space:nowrap;">матеріал готується</span>
+              </div>
+            </div>
+          )}
+        </div>
+      ))}
+      {rest.length > 0 && (
+        <div class="atest-group">
+          <h2 class="atest-group__title">Інші документи</h2>
+          <RegistryList registry={{ key: 'atest-rest', title: 'Інші документи', route: '/atestatsiia', source_url: '', count: rest.length, items: rest }} />
+        </div>
+      )}
     </div>
   </section>
 </Base>
+<style>
+  .atest-group { margin-bottom: 44px; }
+  .atest-group:last-child { margin-bottom: 0; }
+  .atest-group__title {
+    font-family: var(--serif); font-weight: 600; color: var(--ink);
+    font-size: clamp(19px, 2.2vw, 24px); line-height: 1.2;
+    border-top: 3px solid var(--navy); padding-top: 14px; margin: 0 0 8px;
+  }
+  .atest-group__desc { font-size: 14.5px; line-height: 1.6; color: var(--ink2); margin: 0 0 18px; max-width: 780px; }
+</style>

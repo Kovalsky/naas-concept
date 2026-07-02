@@ -3,10 +3,12 @@ import Base from '../layouts/Base.astro';
 import Hero from '../components/Hero.astro';
 import raw from '@content/pages/publichna-informatsiia.md?raw';
 import { page } from '@content/pageContent';
+import { byRoute } from '../lib/registries';
+import { pluralUk } from '../lib/format';
 
 // Parse the bundle's directory list (markdown bullets) into rows. Linked where a
 // route exists; «матеріал готується» where flagged. No invented entries.
-interface Row { label: string; href?: string; note?: string }
+interface Row { label: string; href?: string; note?: string; count?: number }
 const rows: Row[] = [];
 for (const line of raw.split('\n')) {
   const m = line.match(/^\s*-\s+(.*)$/);
@@ -33,6 +35,8 @@ for (const line of raw.split('\n')) {
   if (pending) href = undefined;
   rows.push({ label, href, note });
 }
+// Document counters for rows that lead to registries.
+for (const r of rows) if (r.href) r.count = byRoute(r.href)?.count;
 const lead = raw.split('\n').find((l) => l && !l.startsWith('#') && !l.startsWith('-'))?.trim();
 const { meta, hero } = page('/publichna-informatsiia');
 ---
@@ -45,6 +49,7 @@ const { meta, hero } = page('/publichna-informatsiia');
           it.href ? (
             <a href={it.href}>
               <span style="flex:1; min-width:0;"><span class="row-title">{it.label}</span>{it.note && <span class="row-desc">{it.note}</span>}</span>
+              {it.count && <span class="mono" style="font-size:11px; color:var(--ink3); white-space:nowrap;">{it.count} {pluralUk(it.count, 'документ', 'документи', 'документів')}</span>}
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--navy)" stroke-width="1.9" style="flex-shrink:0;"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
             </a>
           ) : (
