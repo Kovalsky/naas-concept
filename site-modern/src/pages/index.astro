@@ -5,10 +5,13 @@ import { getCollection } from 'astro:content';
 import { ROUTES, EXTERNAL, SHOWCASE, PARTNERS, HOME_HERO } from '../lib/site';
 import { anonsy, divisionCount } from '../lib/data';
 import { formatDateUk } from '../lib/format';
+import { webp } from '../lib/img';
+const HERO_IMG = '/img/news/art8965.png';
 
 // News feed (real @content) — featured lead + short list.
 const newsItems = (await getCollection('news')).sort((a, b) => (a.data.date < b.data.date ? 1 : -1));
 const featured = newsItems[0];
+const latest = newsItems.slice(1, 5);
 const anons = anonsy.slice(0, 3);
 
 // About intro + mission — pulled verbatim from the shared markdown (naan-sohodni.md).
@@ -27,16 +30,17 @@ const stats = [
   { n: '176', k: 'home.factOrganizations' },
 ];
 
-const resources = [
+const resources: { href: string; ext?: boolean; tagUk: string; tagEn: string; titleUk: string; titleEn: string; descUk: string; descEn: string }[] = [
   { href: ROUTES.eLibrary, tagUk: 'Відкритий доступ', tagEn: 'Open access', titleUk: 'Е-Бібліотека', titleEn: 'E-Library', descUk: 'Наукові періодичні видання установ академії — журнали, бюлетені та збірники у відкритому доступі.', descEn: "Scientific periodicals of the Academy's institutions — journals, bulletins and proceedings in open access." },
   { href: ROUTES.videoPage, tagUk: 'Відеоканал', tagEn: 'Video channel', titleUk: 'Відео', titleEn: 'Video', descUk: 'Лекції, репортажі з полів, записи наукових заходів і захистів дисертацій НААН.', descEn: 'Lectures, field reports and recordings of scientific events and dissertation defences of NAAS.' },
-  { href: ROUTES.agrolectures, tagUk: 'Відеолекції', tagEn: 'Video lectures', titleUk: 'AGROLECTURES', titleEn: 'AGROLECTURES', descUk: 'Цикл відеолекцій про українську аграрну науку та продовольчу безпеку.', descEn: 'A series of video lectures on Ukrainian agrarian science and food security.' },
+  { href: ROUTES.agrolectures, tagUk: 'Відеолекції', tagEn: 'Video lectures', titleUk: 'Агролекторій', titleEn: 'AgroLectures', descUk: 'Цикл відеолекцій про українську аграрну науку та продовольчу безпеку.', descEn: 'A series of video lectures on Ukrainian agrarian science and food security.' },
+  { href: EXTERNAL.catalog, ext: true, tagUk: 'Каталог PDF', tagEn: 'PDF catalogue', titleUk: 'Розробки — виробництву', titleEn: 'R&D for Producers', descUk: 'Каталог інноваційних розробок НААН 2019–2025. Контакти установ за напрямами — у розділі «Структура».', descEn: 'NAAS innovation catalogue 2019–2025. Institution contacts — in the Structure section.' },
 ];
 ---
 <Base title="НААН" description="Національна академія аграрних наук України — державна самоврядна наукова організація, науково-методичний і координаційний центр з наукових проблем розвитку АПК.">
   <!-- HERO -->
   <section class="hm-hero">
-    <img class="hm-hero__bg" src="/img/news/art8965.png" alt="" aria-hidden="true" loading="eager" />
+    <img class="hm-hero__bg" src={webp(HERO_IMG, 960)} srcset={`${webp(HERO_IMG, 960)} 960w, ${webp(HERO_IMG, 1600)} 1600w`} sizes="100vw" alt="" aria-hidden="true" loading="eager" fetchpriority="high" />
     <div class="hm-hero__scrim"></div>
     <div class="wrap hm-hero__inner">
       <div class="hm-hero__eyebrow">
@@ -122,7 +126,7 @@ const resources = [
         <div>
           {featured && (
             <a class="hm-feat lift" href={`${ROUTES.news}/${featured.data.slug}`}>
-              <img class="hm-feat__img" src={featured.data.image} alt="" width="720" height="405" loading="lazy" />
+              <img class="hm-feat__img" src={webp(featured.data.image, 960)} srcset={`${webp(featured.data.image, 480)} 480w, ${webp(featured.data.image, 960)} 960w`} sizes="(max-width: 860px) 100vw, 640px" alt="" width="720" height="405" loading="lazy" />
               <div class="hm-feat__meta mono">
                 <span>{formatDateUk(featured.data.date)}</span>
                 <span class="hm-tag">{featured.data.tag}</span>
@@ -134,6 +138,19 @@ const resources = [
         </div>
         <div>
           <div class="hm-railhead">
+            <h3 class="hm-railtitle mono"><span class="t-uk">Останні новини</span><span class="t-en">Latest news</span></h3>
+          </div>
+          <ul class="hm-newslist">
+            {latest.map((n) => (
+              <li>
+                <a class="hm-newsrow lift" href={`${ROUTES.news}/${n.data.slug}`}>
+                  <span class="hm-newsrow__date mono">{formatDateUk(n.data.date)} · {n.data.tag}</span>
+                  <span class="hm-newsrow__title">{n.data.title}</span>
+                </a>
+              </li>
+            ))}
+          </ul>
+          <div class="hm-railhead" style="margin-top:26px;">
             <h3 class="hm-railtitle mono"><span class="t-uk">Анонси</span><span class="t-en">Announcements</span></h3>
             <a class="uline hm-allink mono" href={ROUTES.anonsy}><span class="t-uk">Усі</span><span class="t-en">All</span> →</a>
           </div>
@@ -141,7 +158,7 @@ const resources = [
             {anons.map((a) => (
               <li>
                 <a class="hm-anon lift" href={ROUTES.anonsy}>
-                  <img class="hm-anon__img" src={a.image} alt="" width="54" height="72" loading="lazy" />
+                  <img class="hm-anon__img" src={webp(a.image, 160)} alt="" width="54" height="72" loading="lazy" />
                   <div>
                     <div class="hm-anon__date mono">{a.date}</div>
                     <h4 class="hm-anon__title">{a.title}</h4>
@@ -162,10 +179,10 @@ const resources = [
       <h2 class="h2-serif hm-h2"><span class="t-uk">Бібліотека, відео та видання</span><span class="t-en">Library, Video &amp; Publications</span></h2>
       <div class="hm-res">
         {resources.map((r) => (
-          <a class="hm-rescard lift" href={r.href}>
+          <a class="hm-rescard lift" href={r.href} {...(r.ext ? { target: '_blank', rel: 'noopener' } : {})}>
             <div class="hm-rescard__top">
               <span class="mono hm-rescard__tag"><span class="t-uk">{r.tagUk}</span><span class="t-en">{r.tagEn}</span></span>
-              <span class="mono hm-rescard__arrow">→</span>
+              <span class="mono hm-rescard__arrow">{r.ext ? '↗' : '→'}</span>
             </div>
             <h3 class="hm-rescard__title"><span class="t-uk">{r.titleUk}</span><span class="t-en">{r.titleEn}</span></h3>
             <p class="hm-rescard__desc"><span class="t-uk">{r.descUk}</span><span class="t-en">{r.descEn}</span></p>
@@ -310,9 +327,15 @@ const resources = [
   .hm-anon__img { width: 54px; height: 72px; flex: none; object-fit: cover; border-radius: 3px; background: var(--surface2); }
   .hm-anon__date { font-size: 10px; color: var(--muted-ink); }
   .hm-anon__title { margin-top: 5px; font-size: 13.5px; font-weight: 600; line-height: 1.35; color: var(--ink); }
+  .hm-newslist { list-style: none; margin: 0; padding: 0; }
+  .hm-newsrow { display: block; padding: 13px 0; border-bottom: 1px solid var(--line); }
+  .hm-newslist li:last-child .hm-newsrow { border-bottom: none; }
+  .hm-newsrow__date { display: block; font-size: 10px; letter-spacing: .04em; color: var(--muted-ink); }
+  .hm-newsrow__title { display: block; margin-top: 5px; font-size: 14px; font-weight: 600; line-height: 1.35; color: var(--ink); }
+  .hm-newsrow:hover .hm-newsrow__title { color: var(--green); }
 
   /* ---------- [05] RESOURCES ---------- */
-  .hm-res { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; margin-top: 34px; }
+  .hm-res { display: grid; grid-template-columns: repeat(2, 1fr); gap: 18px; margin-top: 34px; }
   .hm-rescard { display: flex; flex-direction: column; background: var(--surface); border: 1px solid var(--line); border-radius: 6px; padding: 26px; min-height: 206px; }
   .hm-rescard:hover { border-color: var(--green); transform: translateY(-3px); }
   .hm-rescard__top { display: flex; align-items: center; justify-content: space-between; }
