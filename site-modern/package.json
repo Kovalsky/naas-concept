@@ -10,7 +10,9 @@
     "check": "node ../scripts/check-facts.mjs",
     "check:design": "node scripts/check-design.mjs",
     "img": "node scripts/optimize-images.mjs",
-    "deploy": "npm run build && npm run check && wrangler pages deploy dist --project-name naas-portal-modern"
+    "deploy": "npm run deploy:staging",
+    "deploy:staging": "npm run build && npm run check && wrangler pages deploy dist --project-name naas-portal-modern",
+    "deploy:prod": "bash ../scripts/deploy-modern-mirohost.sh"
   },
   "dependencies": {
     "astro": "^5.6.1"
