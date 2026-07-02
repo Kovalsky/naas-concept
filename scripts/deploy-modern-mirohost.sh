@@ -12,6 +12,11 @@ set -euo pipefail
 source "$HOME/.naas_hosting.env"
 : "${NAAS_NEW_SITE_DEST:?Add NAAS_NEW_SITE_DEST to ~/.naas_hosting.env (see Task 4 of the plan)}"
 
+# Mirohost FTP (fvh56) accepts the hosting-account credentials; the dedicated
+# NAAS_FTP_USER/PASS lines are unfilled in ~/.naas_hosting.env, so fall back.
+FTP_USER="${NAAS_FTP_USER:-${NAAS_SSH_USER:?}}"
+FTP_PASS="${NAAS_FTP_PASS:-${NAAS_SSH_PASS:?}}"
+
 SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
 cd "$SCRIPT_DIR/../site-modern"
 npm run build
@@ -25,7 +30,7 @@ if [ -n "${new_orphans}" ]; then
   exit 1
 fi
 
-lftp -u "${NAAS_FTP_USER},${NAAS_FTP_PASS}" -p "${NAAS_FTP_PORT:-21}" "${NAAS_FTP_HOST}" -e "
+lftp -u "${FTP_USER},${FTP_PASS}" -p "${NAAS_FTP_PORT:-21}" "${NAAS_FTP_HOST}" -e "
 set ftp:ssl-allow true;
 set ssl:verify-certificate no;
 mirror -R --parallel=4 --only-newer --verbose dist/ ${NAAS_NEW_SITE_DEST};
