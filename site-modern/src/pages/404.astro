@@ -11,6 +11,11 @@ const { meta } = page('/404');
       <h1 style="font-family:var(--serif); font-size:clamp(28px,4vw,42px); font-weight:600; color:var(--ink); margin-bottom:14px;">Сторінку не знайдено</h1>
       <p style="font-size:16px; color:var(--ink2); margin-bottom:28px;">Можливо, сторінку переміщено або вона ще наповнюється.</p>
       <a class="btn-navy" href={ROUTES.home}>На головну</a>
+      <div class="mono" style="margin-top:34px; display:flex; gap:20px; justify-content:center; flex-wrap:wrap; font-size:12.5px;">
+        <a class="uline" style="color:var(--green);" href={ROUTES.news}>Новини</a>
+        <a class="uline" style="color:var(--green);" href={ROUTES.structure}>Структура Академії</a>
+        <a class="uline" style="color:var(--green);" href={ROUTES.contacts}>Контакти</a>
+      </div>
     </div>
   </section>
 </Base>

@@ -15,10 +15,11 @@ const { meta, hero } = page('/statut');
   <Hero kicker={hero!.kicker} title={hero!.title} crumbs={hero!.crumbs} lead={hero!.lead} />
   <section class="section section--white">
     <div class="wrap">
-      <a class="btn-navy" href={EXTERNAL.statutePdf} target="_blank" rel="noopener" style="margin-bottom:28px;">
+      <a class="btn-navy" href={EXTERNAL.statutePdf} target="_blank" rel="noopener" style="margin-bottom:10px;">
         <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3"/></svg>
         <T k="btn.downloadStatute" />
       </a>
+      <p class="mono" style="font-size:12px; color:var(--ink3); margin:0 0 28px;">Чинна редакція — 2021 рік · PDF, ≈13,7 МБ</p>
       <div class="prose">{Content && <Content />}</div>
     </div>
   </section>

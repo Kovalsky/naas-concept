@@ -1,12 +1,51 @@
 ---
 import Base from '../../layouts/Base.astro';
 import Hero from '../../components/Hero.astro';
-import Placeholder from '../../components/Placeholder.astro';
 import { ROUTES } from '../../lib/site';
+import { contacts } from '../../lib/data';
 import { page } from '@content/pageContent';
 const { meta, hero } = page('/prozorist/dostup');
+
+// Skeleton per ТЗ (audit item 8): section structure — request forms, procedure,
+// appeals. The materials themselves are expected from the client, so the rows
+// carry the "готується" status.
+const pending = [
+  'Порядок подання інформаційних запитів',
+  'Форми запитів на інформацію',
+  'Оскарження рішень, дій чи бездіяльності розпорядника',
+];
 ---
 <Base title={meta.title} description={meta.description}>
   <Hero kicker={hero!.kicker} title={hero!.title} crumbs={hero!.crumbs} lead={hero!.lead} />
-  <Placeholder note="Категорії та набори даних публічної інформації зібрано в окремому розділі." href={ROUTES.publicInfo} cta="Перейти до публічної інформації" />
+  <section class="section section--white">
+    <div class="wrap">
+      <div class="kicker kicker--muted" style="margin-bottom:16px;">Порядок та форми</div>
+      <div class="rows" style="margin-bottom:34px;">
+        {pending.map((label) => (
+          <div class="row">
+            <span style="flex:1; min-width:0;"><span class="row-title" style="color:var(--ink2);">{label}</span></span>
+            <span class="mono" style="font-size:11px; color:var(--ink3); white-space:nowrap;">матеріал готується</span>
+          </div>
+        ))}
+      </div>
+
+      <div class="grid grid--auto">
+        <div style="border:1px solid var(--line); border-radius:12px; padding:26px; background:var(--surface);">
+          <div class="kicker kicker--muted" style="margin-bottom:14px;">Контакти розпорядника інформації</div>
+          <p style="font-size:14.5px; line-height:1.6; color:var(--ink);">{contacts.address}</p>
+          <div style="display:flex; flex-direction:column; gap:6px; margin-top:12px;">
+            <a class="mono" style="font-size:13px; color:var(--navy);" href={`tel:${contacts.phone.replace(/[^+\d]/g, '')}`}>{contacts.phone}</a>
+            <a class="mono" style="font-size:13px; color:var(--navy);" href={`mailto:${contacts.email}`}>{contacts.email}</a>
+          </div>
+        </div>
+        <div style="border:1px solid var(--line); border-radius:12px; padding:26px; background:var(--surface);">
+          <div class="kicker kicker--muted" style="margin-bottom:14px;">Категорії інформації</div>
+          <p style="font-size:14.5px; line-height:1.6; color:var(--ink2);">Категорії публічної інформації та набори даних розпорядника зібрано в окремому розділі.</p>
+          <a class="link-underline" href={ROUTES.publicInfo} style="margin-top:14px;">Публічна інформація
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
 </Base>

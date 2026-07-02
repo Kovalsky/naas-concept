@@ -3,7 +3,7 @@ import Base from '../../layouts/Base.astro';
 import Hero from '../../components/Hero.astro';
 import RegistryList from '../../components/RegistryList.astro';
 import { registries, LEADS } from '../../lib/registries';
-import { ROUTES } from '../../lib/site';
+import { ROUTES, EXTERNAL } from '../../lib/site';
 
 export async function getStaticPaths() {
   return registries
@@ -11,11 +11,19 @@ export async function getStaticPaths() {
     .map((r) => ({ params: { slug: r.route.split('/').pop()! }, props: { registry: r } }));
 }
 const { registry } = Astro.props;
+// Honest archival note + a bridge to the current catalogue (audit item 22).
+const isVystavka = registry.key === 'ip__virtualna_vistavka';
 ---
 <Base title={registry.title}>
   <Hero kicker="Інтелектуальна власність" title={registry.title} crumbs={[{ label: 'Інтелектуальна власність', href: ROUTES.ip }]} />
   <section class="section section--white">
     <div class="wrap">
+      {isVystavka && (
+        <div style="border:1px solid var(--line); border-left:4px solid var(--gold); border-radius:10px; background:var(--surface2); padding:18px 22px; margin-bottom:22px;">
+          <p style="font-size:14px; line-height:1.6; color:var(--ink2);">Наявні матеріали виставки — архівні (2014 рік). Актуальний каталог інноваційних розробок НААН 2019–2025 доступний у форматі PDF.</p>
+          <a class="link-underline" href={EXTERNAL.catalog} target="_blank" rel="noopener" style="margin-top:12px;">Каталог розробок 2019–2025 ↗</a>
+        </div>
+      )}
       <RegistryList registry={registry} lead={LEADS[registry.route]} />
     </div>
   </section>

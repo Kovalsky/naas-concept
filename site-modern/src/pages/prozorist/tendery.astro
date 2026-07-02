@@ -4,7 +4,7 @@ import Hero from '../../components/Hero.astro';
 import RegistryList from '../../components/RegistryList.astro';
 import Placeholder from '../../components/Placeholder.astro';
 import { byRoute, LEADS } from '../../lib/registries';
-import { ROUTES } from '../../lib/site';
+import { ROUTES, EXTERNAL } from '../../lib/site';
 import { page } from '@content/pageContent';
 const registry = byRoute('/prozorist/tendery');
 const { meta, hero } = page('/prozorist/tendery');
@@ -13,6 +13,10 @@ const { meta, hero } = page('/prozorist/tendery');
   <Hero kicker={hero!.kicker} title={hero!.title} crumbs={hero!.crumbs} lead={hero!.lead} />
   <section class="section section--white">
     <div class="wrap">
+      <a class="btn-navy" href={EXTERNAL.prozorro} target="_blank" rel="noopener" style="margin-bottom:26px;">
+        Поточні закупівлі — у Prozorro
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M7 17 17 7M7 7h10v10"/></svg>
+      </a>
       {registry ? <RegistryList registry={registry} lead={LEADS[registry.route]} /> : <Placeholder />}
     </div>
   </section>

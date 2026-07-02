@@ -16,6 +16,14 @@ const featured = leadership.find((p) => p.featured);
 const deputies = leadership.filter((p) => !p.featured);
 const members = persons.filter((p) => p.group === 'members');
 const monogram = (name: string) => name.split(/\s+/)[0]?.[0] ?? 'Н';
+// Milestones — verbatim facts from the history paragraph of
+// content/pages/naan-sohodni.md (the source stays unchanged).
+const MILESTONES = [
+  { year: '1918', title: 'Вчений комітет', desc: 'Наказом Міністерства земельних справ (№162) утворено перший осередок організованої аграрної науки в Україні.' },
+  { year: '1931', title: 'ВУАСГН', desc: 'Постала Всеукраїнська академія сільськогосподарських наук.' },
+  { year: '1990', title: 'УААН', desc: 'Установу реорганізовано в Українську академію аграрних наук.' },
+  { year: '2010', title: 'Національний статус', desc: 'Указом Президента України №8/2010 Академії надано статус національної.' },
+];
 const { meta, hero } = page('/naan-sohodni');
 ---
 <Base title={meta.title} description={meta.description}>
@@ -36,6 +44,22 @@ const { meta, hero } = page('/naan-sohodni');
   <section class="section section--white" style="padding:56px 0;">
     <div class="wrap">
       <div class="prose">{Content && <Content />}</div>
+    </div>
+  </section>
+
+  <!-- MILESTONES: visual history timeline (audit: «історію 1918→2010 можна таймлайном») -->
+  <section class="section section--white" style="padding:0 0 56px;">
+    <div class="wrap">
+      <div class="kicker" style="margin-bottom:18px;">Віхи історії</div>
+      <ol class="milestones">
+        {MILESTONES.map((m) => (
+          <li class="ms">
+            <span class="ms-year mono">{m.year}</span>
+            <span class="ms-title">{m.title}</span>
+            <span class="ms-desc">{m.desc}</span>
+          </li>
+        ))}
+      </ol>
     </div>
   </section>
 
@@ -105,7 +129,7 @@ const { meta, hero } = page('/naan-sohodni');
               <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3"/></svg>
               <T k="btn.downloadPdf" />
             </a>
-            <a class="link-underline" href={ROUTES.statute}><T k="btn.fullText" /></a>
+            <a class="link-underline" href={ROUTES.statute}><T k="btn.more" /></a>
           </div>
         </article>
 
@@ -143,4 +167,15 @@ const { meta, hero } = page('/naan-sohodni');
     .pres-card { flex-direction: column; }
     .pres-card-img { width: 100% !important; height: 220px; }
   }
+
+  .milestones {
+    list-style: none; margin: 0; padding: 0;
+    display: grid; grid-template-columns: repeat(4, 1fr); gap: 18px;
+  }
+  .ms { border-top: 3px solid var(--green); padding-top: 14px; display: flex; flex-direction: column; gap: 6px; }
+  .ms-year { font-size: 26px; font-weight: 700; color: var(--green); letter-spacing: -0.01em; }
+  .ms-title { font-family: var(--serif); font-size: 16px; font-weight: 600; color: var(--ink); }
+  .ms-desc { font-size: 13px; line-height: 1.55; color: var(--ink2); }
+  @media (max-width: 900px) { .milestones { grid-template-columns: repeat(2, 1fr); } }
+  @media (max-width: 480px) { .milestones { grid-template-columns: 1fr; } }
 </style>
