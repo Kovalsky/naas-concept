@@ -21,6 +21,9 @@ export const STRINGS: Record<string, { uk: string; en: string }> = {
   'ui.search.ph': { uk: 'Пошук розділів, новин…', en: 'Search sections, news…' },
   'ui.search.empty': { uk: 'Нічого не знайдено.', en: 'Nothing found.' },
   'ui.crumb.home': { uk: 'Головна', en: 'Home' },
+  'ui.a11y.fontsize': { uk: 'Розмір шрифту', en: 'Font size' },
+  'ui.a11y.contrast': { uk: 'Висока контрастність', en: 'High contrast' },
+  'ui.a11y.reset': { uk: 'Скинути', en: 'Reset' },
 
   // homepage hero variant switcher
   'hero.classic': { uk: 'Класична', en: 'Classic' },
@@ -94,7 +97,7 @@ export const STRINGS: Record<string, { uk: string; en: string }> = {
   'footer.d.anticorr': { uk: 'Запобігання корупції', en: 'Anti-corruption' },
   'footer.r.elib': { uk: 'Е-Бібліотека', en: 'E-Library' },
   'footer.r.video': { uk: 'Відео', en: 'Video' },
-  'footer.r.agrolectures': { uk: 'AGROLECTURES', en: 'AGROLECTURES' },
+  'footer.r.agrolectures': { uk: 'Агролекторій', en: 'AgroLectures' },
   'footer.r.youngSci': { uk: 'Рада молодих вчених', en: 'Young Scientists Council' },
   'footer.r.ip': { uk: 'Інтелектуальна власність', en: 'Intellectual Property' },
 
