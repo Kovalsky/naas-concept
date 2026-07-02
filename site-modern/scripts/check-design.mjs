@@ -222,6 +222,31 @@ check('T23: хаб публічної інформації — лічильни�
   for (const c of ['28 документів', '10 документів', '21 документ<'])
     assert(html.includes(c), 'нема лічильника: ' + c);
 });
+check('T27: новини — auto-fill грід (відфільтрована картка не розтягується)', () => {
+  // Page styles may be inlined into the HTML or bundled — search both.
+  const css = (read('novyny/index.html') + readCss()).replace(/\s+/g, '');
+  assert(css.includes('news-grid'), 'нема класу news-grid');
+  assert(/news-grid[^{}]*\{[^}]*auto-fill/.test(css), 'news-grid без auto-fill');
+});
+check('T28: залишкові реєстри — без файлових артефактів у назвах', () => {
+  const pages = [
+    'publichna-informatsiia/planuvannya/index.html',
+    'publichna-informatsiia/rizne/index.html',
+    'publichna-informatsiia/naukovi-rozrobky/index.html',
+    'publichna-informatsiia/pasport-byudzhetnoyi-programy/index.html',
+    'publichna-informatsiia/vykorystannya-koshtiv/index.html',
+  ];
+  const bad = ['САЙТ ', ' копія', 'КАЛ.ПЛАН', 'Итог', 'Інститтуту', 'Лит очікувань', 'Form 2dc', '202Сайт', 'ToPress'];
+  for (const p of pages) {
+    // Visible text only: old-site URLs in href attributes legitimately keep
+    // original file names (e.g. Katalog-2020_ToPress…).
+    const text = read(p).replace(/<[^>]+>/g, ' ');
+    for (const b of bad) assert(!text.includes(b), `«${b}» досі на ${p}`);
+  }
+  assert(read('publichna-informatsiia/naukovi-rozrobky/index.html').includes('Каталог інноваційних розробок НААН 2020'), 'нових назв каталогу нема');
+  assert(read('publichna-informatsiia/planuvannya/index.html').includes('Календарний план основних заходів НААН на грудень 2025 року'), 'нових назв планування нема');
+  assert(read('publichna-informatsiia/pasport-byudzhetnoyi-programy/index.html').includes('Про внесення змін до паспорта бюджетної програми'), 'декодованих назв паспортів нема');
+});
 // ==== END TASK CHECKS ====
 
 console.log(failed ? `\n${failed} checks FAILED` : '\nall checks passed');
